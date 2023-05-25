@@ -11,13 +11,25 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
+    "./reset.css": {
+      "types": "./dist/reset.css.d.ts",
+      "import": "./dist/reset.css.mjs",
+      "require": "./dist/reset.css.cjs"
+    },
+    "./themes/momotaro": {
+      "types": "./dist/themes/momotaro.d.ts",
+      "import": "./dist/themes/momotaro.mjs",
+      "require": "./dist/themes/momotaro.cjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "reset.css",
+    "themes/momotaro"
   ],
   "scripts": {
     "build": "crackle package",

@@ -11,11 +11,11 @@ npm install @blockle/blocks
 ## Setup
 
 ```jsx
-import React from "react";
+import React from 'react';
 
-import "@blockle/blocks/reset.css";
-import { ThemeProvider } from "@blockle/blocks";
-import { theme } from "@blockle/blocks/themes/momotaro";
+import '@blockle/blocks/reset.css';
+import { ThemeProvider } from '@blockle/blocks';
+import { theme } from '@blockle/blocks/themes/momotaro';
 
 // const Link = makeLinkComponent(...)
 
@@ -29,8 +29,8 @@ const App = () => (
 ## Usage
 
 ```jsx
-import React from "react";
-import { Button } from "@blockle/blocks";
+import React from 'react';
+import { Button } from '@blockle/blocks';
 
 const App = () => <Button>Click me</Button>;
 ```
