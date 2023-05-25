@@ -1,0 +1,9 @@
+{
+  "name": "@blockle/blocks",
+  "version": "0.0.0",
+  "description": "Blocks design system",
+  "main": "index.js",
+  "repository": "git@github.com:Blockle/blocks.git",
+  "author": "Niek Saarberg <n.saarberg@gmail.com>",
+  "license": "MIT"
+}
