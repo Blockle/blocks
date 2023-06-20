@@ -5,6 +5,7 @@ type BorderRadius = 'small' | 'medium' | 'large' | 'xlarge';
 type BorderWidth = 'small' | 'medium' | 'large';
 type BoxShadow = 'small' | 'medium' | 'large';
 type FontSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
+type LineHeight = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 // TODO Review color naming
 type Color =
   | 'white'
@@ -30,6 +31,7 @@ export type BlocksTokens = {
     };
     fontSize: Record<FontSize, number | string>;
     fontWeight: Record<FontWeight, 400 | 500 | 600 | 700 | 800>;
+    lineHeight: Record<LineHeight, number | string>;
   };
   space: Record<Space, number | string>;
   transition: Record<Transition, string>;

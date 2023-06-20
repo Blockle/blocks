@@ -6,8 +6,9 @@ globalStyle(':where(*, *::before, *::after)', {
 });
 
 globalStyle(':where(html)', {
-  lineHeight: 1.15,
+  lineHeight: 1.5,
   boxSizing: 'border-box',
+  WebkitFontSmoothing: 'antialiased',
 });
 
 globalStyle(':where(body)', {

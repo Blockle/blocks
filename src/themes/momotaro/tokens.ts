@@ -51,8 +51,8 @@ export const tokens: BlocksTokens = {
   },
   typography: {
     fontFamily: {
-      standard: 'Noto Sans JP',
-      secondary: 'Noto Sans JP',
+      standard: '"Rubik", sans-serif',
+      secondary: '"Rubik", sans-serif',
     },
     fontSize: {
       xsmall: '12px',
@@ -65,6 +65,13 @@ export const tokens: BlocksTokens = {
       regular: 400,
       medium: 500,
       strong: 700,
+    },
+    lineHeight: {
+      xsmall: '1rem',
+      small: '1.25rem',
+      medium: '1.5rem',
+      large: '1.75rem',
+      xlarge: '2rem',
     },
   },
 };

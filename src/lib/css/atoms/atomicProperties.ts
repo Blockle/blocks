@@ -12,6 +12,7 @@ export const unresponsiveProperties = {
   fontWeight: vars.fontWeight,
   height: { auto: 'auto', full: '100%' },
   left: [0],
+  lineHeight: vars.lineHeight,
   maxHeight: { full: '100%' },
   maxWidth: { full: '100%' },
   opacity: [0, 1],
@@ -23,12 +24,12 @@ export const unresponsiveProperties = {
   textDecoration: ['overline', 'line-through', 'underline', 'none'],
   textTransform: ['lowercase', 'uppercase', 'capitalize'],
   top: [0],
+  transition: vars.transition,
   userSelect: ['none'],
   whiteSpace: ['nowrap', 'pre', 'pre-line', 'pre-wrap'],
   width: { auto: 'auto', full: '100%', 'fit-content': 'fit-content' },
   wordBreak: ['break-word'],
   wordWrap: ['break-word'],
-  transition: vars.transition,
 } as const;
 
 export type UnresponsiveProperties = keyof typeof unresponsiveProperties;

@@ -18,6 +18,13 @@ export const tokens: BlocksTokens = {
       medium: 500,
       strong: 700,
     },
+    lineHeight: {
+      xsmall: '1rem',
+      small: '1.25rem',
+      medium: '1.5rem',
+      large: '1.75rem',
+      xlarge: '2rem',
+    },
   },
   space: {
     none: 0,

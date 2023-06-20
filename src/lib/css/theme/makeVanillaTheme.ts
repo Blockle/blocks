@@ -15,6 +15,10 @@ export const makeVanillaTheme = (tokens: BlocksTokens) => {
       keyof typeof tokens.typography.fontWeight,
       string
     >,
+    lineHeight: tokens.typography.lineHeight as Record<
+      keyof typeof tokens.typography.lineHeight,
+      string
+    >,
     transition: tokens.transition as Record<keyof typeof tokens.transition, string>,
     shadow: tokens.shadow as Record<keyof typeof tokens.shadow, string>,
   };
