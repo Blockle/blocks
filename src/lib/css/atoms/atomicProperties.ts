@@ -23,6 +23,7 @@ export const unresponsiveProperties = {
   right: [0],
   textDecoration: ['overline', 'line-through', 'underline', 'none'],
   textTransform: ['lowercase', 'uppercase', 'capitalize'],
+  textWrap: ['balance', 'wrap'],
   top: [0],
   transition: vars.transition,
   userSelect: ['none'],

@@ -9,6 +9,10 @@ export type StackProps = {
   gap: Atoms['gap'];
   display?: ResponsiveDisplayFlex;
   className?: string;
+  /**
+   * Start prop is only valid when as="ol"
+   */
+  start?: number;
 } & MarginAndPaddingAtoms;
 
 export const Stack: React.FC<StackProps> = ({
@@ -19,6 +23,10 @@ export const Stack: React.FC<StackProps> = ({
   alignX,
   ...restProps
 }) => {
+  if (process.env.NODE_ENV === 'development' && restProps.start !== undefined && as !== 'ol') {
+    console.warn('Stack: start prop is only valid when as="ol"');
+  }
+
   return (
     <Box
       as={as}

@@ -1,10 +1,8 @@
 import { forwardRef, ReactNode } from 'react';
-import { Atoms } from '../../css/sprinkles.css';
-import { HTMLProps } from '../../types/utils';
-import { classnames } from '../../utils/classnames';
-import { useComponentStyles } from '../BlocksProvider/useComponentStyles';
-import { Box } from '../Box/Box';
-import { Spinner } from '../Spinner';
+import { Atoms } from '../../lib/css/atoms';
+import { classnames } from '../../lib/utils/classnames';
+import { HTMLElementProps } from '../../lib/utils/utils';
+import { Box } from '../Box';
 import * as styles from './Button.css';
 
 // TODO Add support for href?
@@ -19,7 +17,7 @@ export type ButtonProps = {
   startSlot?: ReactNode;
   endSlot?: ReactNode;
   disabled?: boolean;
-} & Omit<HTMLProps<HTMLButtonElement>, 'size'>;
+} & Omit<HTMLElementProps<HTMLButtonElement>, 'size'>;
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
@@ -63,7 +61,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       {...restProps}
     >
       {startSlot && <Box paddingRight="medium">{startSlot}</Box>}
-      {loading && <Spinner size={size} marginRight="medium" />}
+      {loading && /* <Spinner size={size} marginRight="medium" /> */ <div>spinner</div>}
       {children}
       {endSlot && <Box paddingLeft="medium">{endSlot}</Box>}
     </Box>
