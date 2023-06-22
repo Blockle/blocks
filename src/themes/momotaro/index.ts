@@ -1,1 +1,1 @@
-export { theme } from './momotaroTheme.css';
+export { momotaro } from './momotaro.css';
