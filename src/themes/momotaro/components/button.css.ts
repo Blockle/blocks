@@ -1,5 +1,5 @@
-import { makeComponentTheme } from '../../lib/css/theme/makeComponentTheme';
-import { vars } from '../../lib/css/theme/vars.css';
+import { makeComponentTheme } from '../../../lib/css/theme/makeComponentTheme';
+import { vars } from '../../../lib/css/theme/vars.css';
 
 export const button = makeComponentTheme({
   type: 'button',

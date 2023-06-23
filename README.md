@@ -15,7 +15,7 @@ import React from 'react';
 
 import '@blockle/blocks/reset.css';
 import { ThemeProvider } from '@blockle/blocks';
-import { theme } from '@blockle/blocks/themes/momotaro';
+import { momotaro } from '@blockle/blocks/themes/momotaro';
 
 // const Link = makeLinkComponent(...)
 
