@@ -5,6 +5,10 @@
   "repository": "git@github.com:Blockle/blocks.git",
   "license": "MIT",
   "author": "Niek Saarberg <n.saarberg@gmail.com>",
+  "sideEffects": [
+    "./src/lib/theme/globalTheme.ts",
+    "dist/side-effects/**"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -33,10 +37,13 @@
   ],
   "scripts": {
     "build": "crackle package",
+    "build-storybook": "storybook build",
+    "coverage": "vitest run --coverage",
     "fix": "crackle fix",
-    "ts": "tsc --noemit --project ./tsconfig.json",
+    "lint": "eslint . --resolve-plugins-relative-to /Users/niek/Projects/blockle/blocks/",
     "storybook": "storybook dev -p 6006 --no-open",
-    "build-storybook": "storybook build"
+    "test": "vitest",
+    "ts": "tsc --noemit --project ./tsconfig.json"
   },
   "dependencies": {
     "@radix-ui/react-polymorphic": "^0.0.14",
@@ -47,8 +54,8 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@crackle/cli": "^0.12.0",
-    "@crackle/core": "^0.25.0",
+    "@crackle/cli": "^0.12.2",
+    "@crackle/core": "^0.27.0",
     "@storybook/addon-a11y": "^7.0.23",
     "@storybook/addon-coverage": "^0.0.8",
     "@storybook/addon-essentials": "^7.0.23",
@@ -58,13 +65,13 @@
     "@storybook/jest": "^0.1.0",
     "@storybook/react": "^7.0.23",
     "@storybook/react-vite": "^7.0.23",
-    "@storybook/testing-library": "^0.0.14-next.2",
+    "@storybook/testing-library": "^0.2.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
-    "@types/react": "^18.2.13",
+    "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
-    "@typescript-eslint/eslint-plugin": "^5.60.0",
-    "@typescript-eslint/parser": "^5.60.0",
+    "@typescript-eslint/eslint-plugin": "^5.60.1",
+    "@typescript-eslint/parser": "^5.60.1",
     "@vanilla-extract/vite-plugin": "^3.8.2",
     "cross-env": "^7.0.3",
     "eslint": "^8.43.0",
@@ -75,6 +82,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-storybook": "^0.6.12",
     "eslint-plugin-unicorn": "^47.0.0",
+    "jsdom": "^22.1.0",
     "prettier": "^2.8.8",
     "prop-types": "^15.8.1",
     "storybook": "^7.0.23",

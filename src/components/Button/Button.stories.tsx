@@ -47,7 +47,7 @@ export const Play: StoryObj<ButtonProps> = {
     return <Button {...props} />;
   },
 
-  play: async ({ args, canvasElement, step }) => {
+  play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
 
     userEvent.click(canvas.getByRole('button'));
