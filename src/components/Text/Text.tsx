@@ -1,4 +1,5 @@
 import { Atoms, MarginAndPaddingAtoms } from '../../lib/css/atoms';
+import { HTMLElementProps } from '../../lib/utils/utils';
 import { Box } from '../Box/Box';
 
 export type TextProps = {
@@ -15,8 +16,8 @@ export type TextProps = {
   whiteSpace?: Atoms['whiteSpace'];
   wordWrap?: Atoms['wordWrap'];
   wordBreak?: Atoms['wordBreak'];
-} & MarginAndPaddingAtoms;
-//  &  HTMLProps<HTMLSpanElement>;
+} & MarginAndPaddingAtoms &
+  HTMLElementProps<HTMLSpanElement>;
 
 export const Text: React.FC<TextProps> = ({
   as = 'span',
