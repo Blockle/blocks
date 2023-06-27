@@ -37,14 +37,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   ref,
 ) {
   const isLinkVariant = variant === 'link';
-  const buttonClassName = useComponentStyles('button', {
+  const buttonClassName = ''; /*useComponentStyles('button', {
     base: true,
     variant: isLinkVariant ? 'solid' : variant,
     intent,
     size,
-  });
+  });*/
   // Use link styles when variant is "link"
-  const linkClassName = useComponentStyles('link', { base: true, variant: 'primary' });
+  const linkClassName = ''; // useComponentStyles('link', { base: true, variant: 'primary' });
 
   return (
     <Box

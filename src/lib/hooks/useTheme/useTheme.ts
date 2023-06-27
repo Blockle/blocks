@@ -6,6 +6,8 @@ export const useTheme = () => {
     return 'global theme, set by setGlobalTheme()';
   }
 
+  return '';
+
   // if (process.env.NODE_ENV === 'development') {
   //   return {
   //     button: {
