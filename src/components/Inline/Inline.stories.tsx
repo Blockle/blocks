@@ -1,7 +1,7 @@
 import { expect } from '@storybook/jest';
 import { Meta, StoryFn, StoryObj } from '@storybook/react';
 import { within } from '@storybook/testing-library';
-import { vars } from '../../css/theme.css';
+import { vars } from '../../lib/css/theme/vars.css';
 import { Inline, InlineProps } from './Inline';
 
 export default {
@@ -14,10 +14,8 @@ export default {
     gap: {
       name: 'gap',
       type: 'string',
-      control: {
-        type: 'select',
-        options: Object.keys(vars.space),
-      },
+      control: 'select',
+      options: Object.keys(vars.space),
     },
     children: {
       control: {

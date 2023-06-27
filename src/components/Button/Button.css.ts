@@ -1,6 +1,11 @@
-import { zeroSpecificityStyle } from '../../utils/zeroSpecificityStyle.css';
+import { style } from '@vanilla-extract/css';
+import { blocksLayer } from '../../lib/css/layers/layers.css';
 
-export const buttonReset = zeroSpecificityStyle({
-  all: 'unset',
-  cursor: 'pointer',
+export const buttonReset = style({
+  '@layer': {
+    [blocksLayer]: {
+      all: 'unset',
+      cursor: 'pointer',
+    },
+  },
 });

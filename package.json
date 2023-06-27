@@ -34,7 +34,9 @@
   "scripts": {
     "build": "crackle package",
     "fix": "crackle fix",
-    "ts": "tsc --noemit --project ./tsconfig.json"
+    "ts": "tsc --noemit --project ./tsconfig.json",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@radix-ui/react-polymorphic": "^0.0.14",
@@ -47,10 +49,21 @@
   "devDependencies": {
     "@crackle/cli": "^0.12.0",
     "@crackle/core": "^0.25.0",
+    "@storybook/addon-a11y": "^7.0.23",
+    "@storybook/addon-coverage": "^0.0.8",
+    "@storybook/addon-essentials": "^7.0.23",
+    "@storybook/addon-interactions": "^7.0.23",
+    "@storybook/addon-links": "^7.0.23",
+    "@storybook/blocks": "^7.0.23",
+    "@storybook/jest": "^0.1.0",
+    "@storybook/react": "^7.0.23",
+    "@storybook/react-vite": "^7.0.23",
+    "@storybook/testing-library": "^0.0.14-next.2",
     "@types/react": "^18.2.13",
     "@types/react-dom": "^18.2.6",
     "@typescript-eslint/eslint-plugin": "^5.60.0",
     "@typescript-eslint/parser": "^5.60.0",
+    "@vanilla-extract/vite-plugin": "^3.8.2",
     "cross-env": "^7.0.3",
     "eslint": "^8.43.0",
     "eslint-config-prettier": "^8.8.0",
@@ -61,6 +74,8 @@
     "eslint-plugin-storybook": "^0.6.12",
     "eslint-plugin-unicorn": "^47.0.0",
     "prettier": "^2.8.8",
+    "prop-types": "^15.8.1",
+    "storybook": "^7.0.23",
     "typescript": "^5.1.3",
     "vitest": "^0.32.2"
   },

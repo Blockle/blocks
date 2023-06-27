@@ -1,8 +1,7 @@
 import { expect, jest } from '@storybook/jest';
 import { Meta, StoryObj } from '@storybook/react';
 import { userEvent, within } from '@storybook/testing-library';
-import { Icon } from '../Icon';
-import { Stack } from '../Stack';
+// import { Icon } from '../Icon';
 import { Button, ButtonProps } from './Button';
 
 export default {
@@ -24,24 +23,24 @@ export const Default: StoryObj<ButtonProps> = {
   },
 };
 
-export const WithIcon: StoryObj<ButtonProps> = {
-  render: (props) => {
-    return (
-      <Stack gap="medium">
-        <Button startSlot={<Icon icon="star" />} {...props} />
-        <Button endSlot={<Icon icon="star" />} {...props} />
-        <Button startSlot={<Icon icon="star" />} endSlot={<Icon icon="star" />} {...props} />
-      </Stack>
-    );
-  },
+// export const WithIcon: StoryObj<ButtonProps> = {
+//   render: (props) => {
+//     return (
+//       <Stack gap="medium">
+//         <Button startSlot={<Icon icon="star" />} {...props} />
+//         <Button endSlot={<Icon icon="star" />} {...props} />
+//         <Button startSlot={<Icon icon="star" />} endSlot={<Icon icon="star" />} {...props} />
+//       </Stack>
+//     );
+//   },
 
-  args: {
-    children: 'Button',
-    onClick: jest.fn(() => {
-      console.log('Button clicked');
-    }),
-  },
-};
+//   args: {
+//     children: 'Button',
+//     onClick: jest.fn(() => {
+//       console.log('Button clicked');
+//     }),
+//   },
+// };
 
 export const Play: StoryObj<ButtonProps> = {
   render: (props) => {
