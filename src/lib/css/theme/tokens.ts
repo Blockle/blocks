@@ -26,7 +26,7 @@ export const tokens: BlocksTokens = {
       xlarge: '2rem',
     },
   },
-  space: {
+  spacing: {
     none: 0,
     gutter: '1rem',
     xsmall: '0.25rem',

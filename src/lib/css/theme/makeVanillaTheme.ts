@@ -2,7 +2,7 @@ import { BlocksTokens } from './tokenType';
 
 export const makeVanillaTheme = (tokens: BlocksTokens) => {
   return {
-    space: tokens.space as Record<keyof typeof tokens.space, string>,
+    space: tokens.spacing as Record<keyof typeof tokens.spacing, string>,
     borderRadius: tokens.border.radius as Record<keyof typeof tokens.border.radius, string>,
     color: tokens.color as Record<keyof typeof tokens.color, string>,
     borderWidth: tokens.border.width as Record<keyof typeof tokens.border.width, string>,

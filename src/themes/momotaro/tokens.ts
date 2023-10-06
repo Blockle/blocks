@@ -38,7 +38,7 @@ export const tokens: BlocksTokens = {
   focus: {
     boxShadow: '0 0 4px 2px #AF8EFF',
   },
-  space: {
+  spacing: {
     none: '0px',
     gutter: '28px',
     xsmall: '4px',
