@@ -21,5 +21,8 @@ export const makeVanillaTheme = (tokens: BlocksTokens) => {
     >,
     transition: tokens.transition as Record<keyof typeof tokens.transition, string>,
     shadow: tokens.shadow as Record<keyof typeof tokens.shadow, string>,
+    focus: {
+      boxShadow: tokens.focus.boxShadow,
+    },
   };
 };

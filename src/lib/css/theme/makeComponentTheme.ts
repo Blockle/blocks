@@ -1,133 +1,38 @@
-import { ComplexStyleRule } from '@vanilla-extract/css';
+import { ComponentThemes } from './componentThemes';
 
 type Theme = {
   type: string;
   variants?: Record<string, string | boolean>;
 };
 
-type ComponentTheme<Options extends Theme> = {
-  type: Options['type'];
-  base?: ComplexStyleRule;
+export type CreateComponentTheme<T extends Theme> = {
+  type: T['type'];
+  base?: string;
   variants?: {
-    [VariantGroup in keyof Options['variants']]?: Options['variants'][VariantGroup] extends string
+    [VariantGroup in keyof T['variants']]?: T['variants'][VariantGroup] extends string
       ? {
-          [Variant in Options['variants'][VariantGroup]]?: ComplexStyleRule;
+          [Variant in T['variants'][VariantGroup]]?: string;
         }
-      : ComplexStyleRule;
+      : string;
   };
   compoundVariants?: Array<{
-    style: ComplexStyleRule;
+    style: string;
     variants: {
-      [VariantGroup in keyof Options['variants']]?: Options['variants'][VariantGroup];
+      [VariantGroup in keyof T['variants']]?: T['variants'][VariantGroup];
     };
   }>;
   defaultVariants?: {
-    [VariantGroup in keyof Options['variants']]?: Options['variants'][VariantGroup] extends string
-      ? Options['variants'][VariantGroup]
+    [VariantGroup in keyof T['variants']]?: T['variants'][VariantGroup] extends string
+      ? T['variants'][VariantGroup]
       : boolean;
   };
 };
 
-// Define button theme
-type ButtonTheme = ComponentTheme<{
-  type: 'button';
-  variants: {
-    variant: 'solid' | 'outline' | 'ghost' | 'link';
-    size: 'small' | 'medium' | 'large';
-  };
-}>;
-
-// Define link theme
-type LinkTheme = ComponentTheme<{
-  type: 'link';
-  variants: {
-    variant: 'inherit' | 'primary' | 'secondary';
-    underline: boolean;
-  };
-}>;
-
-// All themes
-type Themes = ButtonTheme | LinkTheme;
-
-// Example
-export const y: LinkTheme = {
-  type: 'link',
-  base: {},
-  variants: {
-    variant: {
-      inherit: {},
-      primary: {},
-      secondary: {},
-    },
-    underline: {
-      textDecoration: 'underline',
-    },
-  },
-  defaultVariants: {
-    variant: 'inherit',
-    underline: false,
-  },
+export type CreateThemeProps<T extends Theme> = {
+  [K in keyof T['variants']]?: T['variants'][K] extends string ? T['variants'][K] : boolean;
+} & {
+  type: T['type'];
+  base?: boolean;
 };
 
-// export const x: ButtonTheme = {
-//   type: 'button',
-//   variants: {
-//     variant: {
-//       solid: {},
-//       outline: {},
-//     },
-//     size: {
-//       small: {},
-//       medium: {},
-//     },
-//   },
-//   compoundVariants: [
-//     {
-//       variants: {
-//         variant: 'solid',
-//         size: 'small',
-//       },
-//       style: {
-//         color: 'asd',
-//       },
-//     },
-//   ],
-//   defaultVariants: {
-//     variant: 'solid',
-//     size: 'small',
-//   },
-// };
-
-// type ButtonTheme = {
-//   type: 'button';
-//   base?: RecipeStyleRule;
-//   variants?: {
-//     variant: {
-//       solid: RecipeStyleRule;
-//       outline: RecipeStyleRule;
-//       ghost: RecipeStyleRule;
-//       link: RecipeStyleRule;
-//     };
-//     size: {
-//       small: RecipeStyleRule;
-//       medium: RecipeStyleRule;
-//       large: RecipeStyleRule;
-//     };
-//   };
-//   compoundVariants?: Array<{
-//     variants: {
-//       variant: 'solid';
-//     };
-//     style: RecipeStyleRule;
-//   }>;
-//   defaultVariants?: {
-//     variant: 'solid';
-//     size: 'medium';
-//   };
-// };
-
-// export const makeComponentTheme = <Variants extends VariantGroups>(
-//   options: PatternOptions<Variants>,
-// ) => options;
-
-export const makeComponentTheme = (options: Themes) => options;
+export const makeComponentTheme = <T extends ComponentThemes>(options: T) => options;

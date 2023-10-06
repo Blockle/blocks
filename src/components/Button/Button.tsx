@@ -4,14 +4,16 @@ import { classnames } from '../../lib/utils/classnames';
 import { HTMLElementProps } from '../../lib/utils/utils';
 import { Box } from '../Box';
 import * as styles from './Button.css';
+import { ButtonTheme } from '../../lib/css/theme/componentThemes';
+import { useComponentStyles } from '../../hooks/useComponentStyles/useComponentStyles';
 
 // TODO Add support for href?
 export type ButtonProps = {
   children: ReactNode;
   type?: 'button' | 'submit' | 'reset';
-  variant?: 'solid' | 'outline' | 'ghost' | 'link';
-  intent?: 'default' | 'warning';
-  size?: 'small' | 'medium' | 'large';
+  variant?: ButtonTheme['variants']['variant'];
+  intent?: ButtonTheme['variants']['intent'];
+  size?: ButtonTheme['variants']['size'];
   width?: Atoms['width'];
   loading?: boolean;
   startSlot?: ReactNode;
@@ -24,9 +26,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     children,
     className,
     type = 'button',
-    variant = 'solid',
-    intent = 'default',
-    size = 'medium',
+    variant,
+    intent,
+    size,
     width,
     startSlot,
     endSlot,
@@ -37,14 +39,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   ref,
 ) {
   const isLinkVariant = variant === 'link';
-  const buttonClassName = ''; /*useComponentStyles('button', {
+  const buttonClassName = useComponentStyles('button', {
     base: true,
     variant: isLinkVariant ? 'solid' : variant,
     intent,
     size,
-  });*/
+  });
   // Use link styles when variant is "link"
-  const linkClassName = ''; // useComponentStyles('link', { base: true, variant: 'primary' });
+  const linkClassName = useComponentStyles('link', { base: true, variant: 'primary' });
 
   return (
     <Box

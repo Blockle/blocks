@@ -58,6 +58,9 @@ export const tokens: BlocksTokens = {
     medium: '0 2px 4px 0 rgba(0, 0, 0, 0.05)',
     large: '0 4px 8px 0 rgba(0, 0, 0, 0.05)',
   },
+  focus: {
+    boxShadow: '0 0 0 2px #AF8EFF',
+  },
   color: {
     black: '#000000',
     white: '#ffffff',
@@ -71,7 +74,7 @@ export const tokens: BlocksTokens = {
     text: '#000000',
     textLight: '#ffffff',
     textDark: '#aeaeae',
-    caution: '#ff0000',
+    danger: '#ff0000',
     link: '#0000ff',
   },
 };

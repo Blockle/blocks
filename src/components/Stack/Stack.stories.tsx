@@ -41,13 +41,13 @@ export const Default: StoryObj<StackProps> = {
     gap: ['small', 'medium', 'large'],
     children: (
       <>
-        <Box backgroundColor="caution" padding="small">
+        <Box backgroundColor="danger" padding="small">
           1
         </Box>
-        <Box backgroundColor="caution" padding="small">
+        <Box backgroundColor="danger" padding="small">
           2
         </Box>
-        <Box backgroundColor="caution" padding="small">
+        <Box backgroundColor="danger" padding="small">
           3
         </Box>
       </>

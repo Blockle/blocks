@@ -20,7 +20,7 @@ type Color =
   | 'text'
   | 'textLight'
   | 'textDark'
-  | 'caution'
+  | 'danger'
   | 'link';
 
 export type BlocksTokens = {
@@ -41,6 +41,9 @@ export type BlocksTokens = {
     // border color should match BlocksTokens['color']
   };
   shadow: Record<BoxShadow, string>;
+  focus: {
+    boxShadow: string;
+  };
   // focusRingSize: number | string; ??
   color: Record<Color, string>;
 };
