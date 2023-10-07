@@ -1,6 +1,9 @@
 export { BlocksProvider, type BlocksProviderProps } from './BlocksProvider';
 export { Box, type BoxProps } from './Box';
+export { Button, type ButtonProps } from './Button';
 export { Heading, type HeadingProps } from './Heading';
 export { Inline, type InlineProps } from './Inline';
 export { Stack, type StackProps } from './Stack';
 export { Text, type TextProps } from './Text';
+export { Link, type LinkProps } from './Link';
+export { Spinner, type SpinnerProps } from './Spinner';

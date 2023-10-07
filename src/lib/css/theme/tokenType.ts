@@ -20,7 +20,7 @@ type Color =
   | 'text'
   | 'textLight'
   | 'textDark'
-  | 'caution'
+  | 'danger'
   | 'link';
 
 export type BlocksTokens = {
@@ -33,7 +33,7 @@ export type BlocksTokens = {
     fontWeight: Record<FontWeight, 400 | 500 | 600 | 700 | 800>;
     lineHeight: Record<LineHeight, number | string>;
   };
-  space: Record<Space, number | string>;
+  spacing: Record<Space, number | string>;
   transition: Record<Transition, string>;
   border: {
     radius: Record<BorderRadius, number | string>;
@@ -41,6 +41,9 @@ export type BlocksTokens = {
     // border color should match BlocksTokens['color']
   };
   shadow: Record<BoxShadow, string>;
+  focus: {
+    boxShadow: string;
+  };
   // focusRingSize: number | string; ??
   color: Record<Color, string>;
 };

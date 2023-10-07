@@ -4,14 +4,17 @@ import { classnames } from '../../lib/utils/classnames';
 import { HTMLElementProps } from '../../lib/utils/utils';
 import { Box } from '../Box';
 import * as styles from './Button.css';
+import { ButtonTheme } from '../../lib/css/theme/componentThemes';
+import { useComponentStyles } from '../../hooks/useComponentStyles/useComponentStyles';
+import { Spinner } from '../Spinner';
 
 // TODO Add support for href?
 export type ButtonProps = {
   children: ReactNode;
   type?: 'button' | 'submit' | 'reset';
-  variant?: 'solid' | 'outline' | 'ghost' | 'link';
-  intent?: 'default' | 'warning';
-  size?: 'small' | 'medium' | 'large';
+  variant?: ButtonTheme['variants']['variant'];
+  intent?: ButtonTheme['variants']['intent'];
+  size?: ButtonTheme['variants']['size'];
   width?: Atoms['width'];
   loading?: boolean;
   startSlot?: ReactNode;
@@ -24,9 +27,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     children,
     className,
     type = 'button',
-    variant = 'solid',
-    intent = 'default',
-    size = 'medium',
+    variant,
+    intent,
+    size,
     width,
     startSlot,
     endSlot,
@@ -60,8 +63,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       disabled={disabled || loading}
       {...restProps}
     >
+      {/* TODO PaddingRight values should not be hardcoded, could wrap children in a div and use gap? */}
       {startSlot && <Box paddingRight="medium">{startSlot}</Box>}
-      {loading && /* <Spinner size={size} marginRight="medium" /> */ <div>spinner</div>}
+      {loading && <Spinner size={size} marginRight="medium" />}
       {children}
       {endSlot && <Box paddingLeft="medium">{endSlot}</Box>}
     </Box>

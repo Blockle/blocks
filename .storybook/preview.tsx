@@ -1,0 +1,15 @@
+import { Decorator } from '@storybook/react';
+import React from 'react';
+import { BlocksProvider } from '../src';
+import '../src/lib/css/reset/reset.css';
+import { momotaro } from '../src/themes/momotaro';
+
+// import spriteUrl from '../assets/icons.svg';
+// TODO <BlocksProvider spriteUrl={spriteUrl}
+const withProviders: Decorator = (Story, context) => (
+  <BlocksProvider theme={momotaro}>
+    <Story {...context} />
+  </BlocksProvider>
+);
+
+export const decorators = [withProviders];

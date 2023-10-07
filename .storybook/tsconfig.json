@@ -1,0 +1,11 @@
+{
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  },
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react-jsx"
+  }
+}

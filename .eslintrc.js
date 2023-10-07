@@ -1,7 +1,7 @@
 /* eslint-env node */
 module.exports = {
   parser: '@typescript-eslint/parser',
-  ignorePatterns: ['node_modules', 'dist', 'coverage'],
+  ignorePatterns: ['node_modules', 'dist', 'coverage', '/reset.css', '/themes'],
   // Specifies the ESLint parser
   extends: [
     'eslint:recommended',
@@ -43,6 +43,9 @@ module.exports = {
   settings: {
     react: {
       version: 'detect',
+    },
+    jest: {
+      version: 29,
     },
   },
   overrides: [

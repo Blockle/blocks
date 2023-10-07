@@ -1,7 +1,7 @@
 import { expect } from '@storybook/jest';
 import { Meta, StoryFn, StoryObj } from '@storybook/react';
 import { within } from '@storybook/testing-library';
-import { responsiveProperties } from '../../css/sprinkles.css';
+import { responsiveProperties } from '../../lib/css/atoms/atomicProperties';
 import { Stack } from '../Stack';
 import { Heading, HeadingProps } from './Heading';
 
@@ -11,14 +11,14 @@ export default {
   argTypes: {
     fontSize: {
       type: 'string',
-      options: Object.keys(responsiveProperties.styles.fontSize.values),
+      options: Object.keys(responsiveProperties.fontSize),
       control: {
         type: 'select',
       },
     },
     align: {
       type: 'string',
-      options: Object.keys(responsiveProperties.styles.textAlign.values),
+      options: Object.keys(responsiveProperties.textAlign),
       control: {
         type: 'select',
       },
@@ -39,7 +39,7 @@ export const Default: StoryObj<HeadingProps> = {
 
   args: {
     children: 'Lorem Ipsum is simply dummy Heading of the printing and typesetting industry.',
-    fontFamily: 'body',
+    fontFamily: 'standard',
     level: 1,
   },
 };

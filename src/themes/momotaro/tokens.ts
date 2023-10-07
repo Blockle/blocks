@@ -27,7 +27,7 @@ export const tokens: BlocksTokens = {
     text: '#2D3142',
     textLight: '#9C9EB9',
     textDark: '#4C5980',
-    caution: '#FF9B90',
+    danger: '#FF9B90',
     link: '#7265E3',
   },
   shadow: {
@@ -35,7 +35,10 @@ export const tokens: BlocksTokens = {
     medium: '0px 8px 16px rgba(0, 0, 0, 0.08)',
     large: '0px 16px 24px rgba(0, 0, 0, 0.08)',
   },
-  space: {
+  focus: {
+    boxShadow: '0 0 4px 2px #AF8EFF',
+  },
+  spacing: {
     none: '0px',
     gutter: '28px',
     xsmall: '4px',

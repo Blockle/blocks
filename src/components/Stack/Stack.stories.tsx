@@ -1,7 +1,7 @@
 import { expect } from '@storybook/jest';
 import { Meta, StoryFn, StoryObj } from '@storybook/react';
 import { within } from '@storybook/testing-library';
-import { vars } from '../../css/theme.css';
+import { vars } from '../../lib/css/theme/vars.css';
 import { Box } from '../Box';
 import { Stack, StackProps } from './Stack';
 
@@ -15,10 +15,8 @@ export default {
     gap: {
       name: 'gap',
       type: 'string',
-      control: {
-        type: 'radio',
-        options: Object.keys(vars.space),
-      },
+      control: 'select',
+      options: Object.keys(vars.space),
     },
     children: {
       control: {
@@ -43,13 +41,13 @@ export const Default: StoryObj<StackProps> = {
     gap: ['small', 'medium', 'large'],
     children: (
       <>
-        <Box backgroundColor="caution" padding="small">
+        <Box backgroundColor="danger" padding="small">
           1
         </Box>
-        <Box backgroundColor="caution" padding="small">
+        <Box backgroundColor="danger" padding="small">
           2
         </Box>
-        <Box backgroundColor="caution" padding="small">
+        <Box backgroundColor="danger" padding="small">
           3
         </Box>
       </>
