@@ -54,7 +54,7 @@ export const tokens: BlocksTokens = {
   },
   typography: {
     fontFamily: {
-      standard: '"Rubik", sans-serif',
+      primary: '"Rubik", sans-serif',
       secondary: '"Rubik", sans-serif',
     },
     fontSize: {

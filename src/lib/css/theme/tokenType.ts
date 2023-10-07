@@ -26,8 +26,9 @@ type Color =
 export type BlocksTokens = {
   typography: {
     fontFamily: {
-      standard: string;
-      secondary?: string; // Review naming
+      // Review naming
+      primary?: string;
+      secondary?: string;
     };
     fontSize: Record<FontSize, number | string>;
     fontWeight: Record<FontWeight, 400 | 500 | 600 | 700 | 800>;
@@ -38,12 +39,11 @@ export type BlocksTokens = {
   border: {
     radius: Record<BorderRadius, number | string>;
     width: Record<BorderWidth, number | string>;
-    // border color should match BlocksTokens['color']
   };
   shadow: Record<BoxShadow, string>;
   focus: {
     boxShadow: string;
+    // ringSize: number | string; ??
   };
-  // focusRingSize: number | string; ??
   color: Record<Color, string>;
 };

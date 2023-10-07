@@ -46,7 +46,7 @@ export const Default: StoryObj<TextProps> = {
 
   args: {
     children: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-    fontFamily: 'standard',
+    fontFamily: 'primary',
     as: 'span',
   },
 };

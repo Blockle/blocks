@@ -3,7 +3,7 @@ import { BlocksTokens } from './tokenType';
 export const tokens: BlocksTokens = {
   typography: {
     fontFamily: {
-      standard: 'Roboto, sans-serif',
+      primary: 'Roboto, sans-serif',
       secondary: 'Roboto, sans-serif',
     },
     fontSize: {

@@ -2,6 +2,7 @@ import { vars } from '../theme/vars.css';
 
 export const unresponsiveProperties = {
   backgroundColor: vars.color,
+  borderColor: vars.color,
   borderRadius: vars.borderRadius,
   bottom: [0],
   boxShadow: vars.shadow,

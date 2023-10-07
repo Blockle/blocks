@@ -12,7 +12,7 @@ export type BlocksProviderProps = {
 export const BlocksProvider: React.FC<BlocksProviderProps> = ({ children, theme }) => {
   return (
     <BlocksProviderContext.Provider value={theme}>
-      <div className={classnames(theme.vars, atoms({ fontFamily: 'standard' }))}>{children}</div>
+      <div className={classnames(theme.vars, atoms({ fontFamily: 'primary' }))}>{children}</div>
     </BlocksProviderContext.Provider>
   );
 };
