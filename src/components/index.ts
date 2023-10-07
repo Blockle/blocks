@@ -5,3 +5,4 @@ export { Heading, type HeadingProps } from './Heading';
 export { Inline, type InlineProps } from './Inline';
 export { Stack, type StackProps } from './Stack';
 export { Text, type TextProps } from './Text';
+export { Link, type LinkProps } from './Link';

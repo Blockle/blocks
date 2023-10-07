@@ -30,6 +30,6 @@ export type ComponentThemeProps = OfUnion<ButtonThemeProps | LinkThemeProps>;
 export type ComponentThemes = ButtonThemeComponent | LinkThemeComponent;
 export type ComponentThemesMap = OfUnion<ComponentThemes>;
 
-export type OfUnion<T extends { type: string }> = {
+type OfUnion<T extends { type: string }> = {
   [P in T['type']]: Omit<Extract<T, { type: P }>, 'type'>;
 };

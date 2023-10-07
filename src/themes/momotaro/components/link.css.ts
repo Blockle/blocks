@@ -15,12 +15,14 @@ export const link = makeComponentTheme({
     ':focus-visible': {
       textDecoration: 'underline',
     },
+    cursor: 'pointer',
   }),
   variants: {
-    // ...
-    // styleVariants could be used to but lacks correct typings atm
     variant: {
-      // inherit
+      inherit: style({
+        color: 'inherit',
+        fontWeight: 'inherit',
+      }),
       primary: atoms({
         color: 'primary',
         fontWeight: 'medium',
@@ -30,8 +32,12 @@ export const link = makeComponentTheme({
         fontWeight: 'medium',
       }),
     },
+    underline: style({
+      textDecoration: 'underline',
+    }),
   },
   defaultVariants: {
     variant: 'primary',
+    underline: true,
   },
 });
