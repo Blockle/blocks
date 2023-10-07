@@ -1,3 +1,4 @@
+import { Atoms } from '../atoms';
 import { CreateComponentTheme, CreateThemeProps } from './makeComponentTheme';
 
 // Define button theme
@@ -25,11 +26,26 @@ export type LinkTheme = {
 export type LinkThemeProps = CreateThemeProps<LinkTheme>;
 type LinkThemeComponent = CreateComponentTheme<LinkTheme>;
 
-// Export component themes union
-export type ComponentThemeProps = OfUnion<ButtonThemeProps | LinkThemeProps>;
-export type ComponentThemes = ButtonThemeComponent | LinkThemeComponent;
-export type ComponentThemesMap = OfUnion<ComponentThemes>;
+// Define spinner theme
+export type SpinnerTheme = {
+  type: 'spinner';
+  variants: {
+    size: 'small' | 'medium' | 'large';
+    color: Exclude<Atoms['color'], undefined>;
+  };
+};
 
-type OfUnion<T extends { type: string }> = {
+export type SpinnerThemeProps = CreateThemeProps<SpinnerTheme>;
+type SpinnerThemeComponent = CreateComponentTheme<SpinnerTheme>;
+
+// Export component themes union
+export type ComponentThemeProps = UnionThemesToRecord<
+  ButtonThemeProps | LinkThemeProps | SpinnerThemeProps
+>;
+export type ComponentThemes = ButtonThemeComponent | LinkThemeComponent | SpinnerThemeComponent;
+export type ComponentThemesMap = UnionThemesToRecord<ComponentThemes>;
+
+// TODO Rename me
+type UnionThemesToRecord<T extends { type: string }> = {
   [P in T['type']]: Omit<Extract<T, { type: P }>, 'type'>;
 };

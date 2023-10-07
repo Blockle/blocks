@@ -6,6 +6,7 @@ import { Box } from '../Box';
 import * as styles from './Button.css';
 import { ButtonTheme } from '../../lib/css/theme/componentThemes';
 import { useComponentStyles } from '../../hooks/useComponentStyles/useComponentStyles';
+import { Spinner } from '../Spinner';
 
 // TODO Add support for href?
 export type ButtonProps = {
@@ -62,8 +63,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       disabled={disabled || loading}
       {...restProps}
     >
+      {/* TODO PaddingRight values should not be hardcoded, could wrap children in a div and use gap? */}
       {startSlot && <Box paddingRight="medium">{startSlot}</Box>}
-      {loading && /* <Spinner size={size} marginRight="medium" /> */ <div>spinner</div>}
+      {loading && <Spinner size={size} marginRight="medium" />}
       {children}
       {endSlot && <Box paddingLeft="medium">{endSlot}</Box>}
     </Box>

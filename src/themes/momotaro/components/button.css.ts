@@ -103,7 +103,7 @@ export const button = makeComponentTheme({
     //   style: style({
     //     color: vars.color.danger,
     //     fontSize: vars.fontSize.small,
-    //     background: 'green',
+    //     background: 'red',
     //   }),
     // },
   ],
