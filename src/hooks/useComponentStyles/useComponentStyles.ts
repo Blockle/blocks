@@ -1,6 +1,8 @@
 import { ComponentThemeProps } from '../../lib/css/theme/componentThemes';
 import { useTheme } from '../useTheme/useTheme';
 
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
 export function useComponentStyles<T extends keyof ComponentThemeProps>(
   name: T,
   props: ComponentThemeProps[T],
@@ -15,29 +17,52 @@ export function useComponentStyles<T extends keyof ComponentThemeProps>(
   }
 
   const classNames: string[] = [];
+  const propsWithDefaults = { ...props };
 
-  // TODO Default value for base
-  if (props.base && component.base) {
+  // Apply default variants
+  if (component.defaultVariants) {
+    const keys = Object.keys(component.defaultVariants) as (keyof ComponentThemeProps[T])[];
+
+    for (const key of keys) {
+      if (propsWithDefaults[key] === undefined) {
+        propsWithDefaults[key] = component.defaultVariants[key];
+      }
+    }
+  }
+
+  // Apply base styles
+  if (propsWithDefaults.base && component.base) {
     classNames.push(component.base);
   }
 
-  const keys = Object.keys(props) as (keyof ComponentThemeProps[T])[];
+  // No variants for component, return base styles
+  if (!component.variants) {
+    return classNames.join(' ');
+  }
+
+  const keys = Object.keys(propsWithDefaults) as (keyof ComponentThemeProps[T])[];
 
   for (const key of keys) {
-    let value = props[key];
+    const value = propsWithDefaults[key];
 
-    if (value === undefined && component.defaultVariants && component.defaultVariants[key]) {
-      value = component.defaultVariants[key];
-    }
-
-    if (value === undefined) {
+    if (key === 'base' || value === undefined) {
       continue;
     }
 
-    if (!component.variants?.hasOwnProperty(key)) {
+    // Skip unknown variants
+    if (!hasOwnProperty.call(component.variants, key)) {
       continue;
     }
 
+    // Boolean variants
+    if (typeof value === 'boolean') {
+      if (value) {
+        classNames.push(component.variants[key]);
+      }
+      continue;
+    }
+
+    // String union variants
     const variant = component.variants[key][value];
 
     if (variant) {
@@ -50,20 +75,15 @@ export function useComponentStyles<T extends keyof ComponentThemeProps>(
     for (const compoundVariant of component.compoundVariants) {
       const keys = Object.keys(compoundVariant.variants) as (keyof ComponentThemeProps[T])[];
 
-      let matches = true;
-
-      for (const key of keys) {
-        const value = props[key];
+      const matches = keys.every((key) => {
+        const value = propsWithDefaults[key];
 
         if (value === undefined) {
-          continue;
+          return false;
         }
 
-        if (value !== compoundVariant.variants[key]) {
-          matches = false;
-          break;
-        }
-      }
+        return value === compoundVariant.variants[key];
+      });
 
       if (matches) {
         classNames.push(compoundVariant.style);
