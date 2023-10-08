@@ -1,12 +1,14 @@
 import { vars } from '../theme/vars.css';
 
+const colorWithCurrentColor = { ...vars.color, currentColor: 'currentColor' };
+
 export const unresponsiveProperties = {
-  backgroundColor: vars.color,
-  borderColor: vars.color,
+  backgroundColor: colorWithCurrentColor,
+  borderColor: colorWithCurrentColor,
   borderRadius: vars.borderRadius,
   bottom: [0],
   boxShadow: vars.shadow,
-  color: { ...vars.color, currentColor: 'currentColor' },
+  color: colorWithCurrentColor,
   cursor: ['auto', 'pointer'],
   fontFamily: vars.fontFamily,
   fontStyle: ['normal', 'italic', 'oblique'],
