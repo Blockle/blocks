@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.3.9
+
+### Patch Changes
+
+- 53143ad: Test release 2
+
 ## 0.3.8
 
 ### Patch Changes
