@@ -96,7 +96,7 @@ export function useComponentStyles<T extends keyof ComponentThemeProps>(
 
 export const useComponentStyleDefaultProps = <T extends keyof ComponentThemeProps>(
   name: T,
-): Extract<ComponentThemeProps, { type: T }> => {
+): ComponentThemeProps[T] => {
   const { components } = useTheme();
   const component = components[name];
 
