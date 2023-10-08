@@ -1,5 +1,7 @@
 # @blockle/blocks
 
+TODO: Fix ts and add fix script: "release": "yarn ts && yarn test && yarn build && changeset publish"
+
 Blocks design system
 
 ## Installation
