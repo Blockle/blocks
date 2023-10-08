@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.4.0
+
+### Minor Changes
+
+- 5c48647: Added Dialog
+
 ## 0.3.9
 
 ### Patch Changes
