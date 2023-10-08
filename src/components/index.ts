@@ -7,3 +7,4 @@ export { Stack, type StackProps } from './Stack';
 export { Text, type TextProps } from './Text';
 export { Link, type LinkProps } from './Link';
 export { Spinner, type SpinnerProps } from './Spinner';
+export { Divider, type DividerProps } from './Divider';
