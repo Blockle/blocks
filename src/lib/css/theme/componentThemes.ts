@@ -38,11 +38,26 @@ export type SpinnerTheme = {
 export type SpinnerThemeProps = CreateThemeProps<SpinnerTheme>;
 type SpinnerThemeComponent = CreateComponentTheme<SpinnerTheme>;
 
+// Define divider theme
+export type DividerTheme = {
+  type: 'divider';
+  variants: {
+    color: Exclude<Atoms['color'], undefined>;
+  };
+};
+
+export type DividerThemeProps = CreateThemeProps<DividerTheme>;
+type DividerThemeComponent = CreateComponentTheme<DividerTheme>;
+
 // Export component themes union
 export type ComponentThemeProps = UnionThemesToRecord<
-  ButtonThemeProps | LinkThemeProps | SpinnerThemeProps
+  ButtonThemeProps | LinkThemeProps | SpinnerThemeProps | DividerThemeProps
 >;
-export type ComponentThemes = ButtonThemeComponent | LinkThemeComponent | SpinnerThemeComponent;
+export type ComponentThemes =
+  | ButtonThemeComponent
+  | LinkThemeComponent
+  | SpinnerThemeComponent
+  | DividerThemeComponent;
 export type ComponentThemesMap = UnionThemesToRecord<ComponentThemes>;
 
 // TODO Rename me
