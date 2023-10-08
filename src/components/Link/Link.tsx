@@ -10,7 +10,7 @@ import { Box } from '../Box';
 const defaultElement = 'a';
 
 export type LinkProps = {
-  variant: LinkTheme['variants']['variant'];
+  variant?: LinkTheme['variants']['variant'];
   underline?: LinkTheme['variants']['underline'];
   children?: ReactNode;
   className?: string;
