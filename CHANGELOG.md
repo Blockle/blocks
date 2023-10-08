@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.4.1
+
+### Patch Changes
+
+- cdc99bd: Variant prop of Link component is now optional
+
 ## 0.4.0
 
 ### Minor Changes
