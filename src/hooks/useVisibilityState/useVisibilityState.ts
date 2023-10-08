@@ -1,9 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-type UseVisibilityState = {
-  visible: boolean;
-  hide: () => void;
-};
+type UseVisibilityState = [visible: boolean, hide: () => void];
 
 // Helper hook to know if DOM should be hidden or not
 // Useful for dialogs and other components that need to be hidden after animation ends
@@ -19,8 +16,5 @@ export const useVisibilityState = (open: boolean): UseVisibilityState => {
     }
   }, [open]);
 
-  return {
-    visible,
-    hide,
-  };
+  return [visible, hide];
 };
