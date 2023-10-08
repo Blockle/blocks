@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { SpinnerTheme } from '../../lib/css/theme/componentThemes';
 import { MarginAtoms } from '../../lib/css/atoms';
-import { useComponentStyles } from '../../hooks/useComponentStyles/useComponentStyles';
+import { useComponentStyles } from '../../hooks/useComponentStyles';
 import { Box } from '../Box';
 import { classnames } from '../../lib/utils/classnames';
 

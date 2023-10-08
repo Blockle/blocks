@@ -2,10 +2,7 @@ import { FC } from 'react';
 import { Box } from '../Box';
 import { Atoms } from '../../lib/css/atoms';
 import { classnames } from '../../lib/utils/classnames';
-import {
-  useComponentStyleDefaultProps,
-  useComponentStyles,
-} from '../../hooks/useComponentStyles/useComponentStyles';
+import { useComponentStyleDefaultProps, useComponentStyles } from '../../hooks/useComponentStyles';
 import * as styles from './divider.css';
 
 export type DividerProps = {

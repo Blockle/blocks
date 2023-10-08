@@ -5,7 +5,7 @@ import { HTMLElementProps } from '../../lib/utils/utils';
 import { Box } from '../Box';
 import * as styles from './Button.css';
 import { ButtonTheme } from '../../lib/css/theme/componentThemes';
-import { useComponentStyles } from '../../hooks/useComponentStyles/useComponentStyles';
+import { useComponentStyles } from '../../hooks/useComponentStyles';
 import { Spinner } from '../Spinner';
 
 // TODO Add support for href?

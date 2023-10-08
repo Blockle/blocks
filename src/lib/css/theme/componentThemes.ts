@@ -49,18 +49,29 @@ export type DividerTheme = {
 export type DividerThemeProps = CreateThemeProps<DividerTheme>;
 type DividerThemeComponent = CreateComponentTheme<DividerTheme>;
 
+// Define dialog theme
+export type DialogTheme = {
+  type: 'dialog';
+  variants: {
+    backdrop: boolean;
+  };
+};
+
+export type DialogThemeProps = CreateThemeProps<DialogTheme>;
+type DialogThemeComponent = CreateComponentTheme<DialogTheme>;
+
 // Export component themes union
 export type ComponentThemeProps = UnionThemesToRecord<
-  ButtonThemeProps | LinkThemeProps | SpinnerThemeProps | DividerThemeProps
+  ButtonThemeProps | LinkThemeProps | SpinnerThemeProps | DividerThemeProps | DialogThemeProps
 >;
 export type ComponentThemes =
   | ButtonThemeComponent
   | LinkThemeComponent
   | SpinnerThemeComponent
-  | DividerThemeComponent;
+  | DividerThemeComponent
+  | DialogThemeComponent;
 export type ComponentThemesMap = UnionThemesToRecord<ComponentThemes>;
 
-// TODO Rename me
 type UnionThemesToRecord<T extends { type: string }> = {
   [P in T['type']]: Omit<Extract<T, { type: P }>, 'type'>;
 };

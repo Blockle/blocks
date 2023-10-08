@@ -1,6 +1,6 @@
 import { ForwardRefComponent } from '@radix-ui/react-polymorphic';
 import { ReactNode, forwardRef } from 'react';
-import { useComponentStyles } from '../../hooks/useComponentStyles/useComponentStyles';
+import { useComponentStyles } from '../../hooks/useComponentStyles';
 import { Atoms } from '../../lib/css/atoms';
 import { LinkTheme } from '../../lib/css/theme/componentThemes';
 import { classnames } from '../../lib/utils/classnames';

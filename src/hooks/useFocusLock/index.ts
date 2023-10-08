@@ -1,0 +1,1 @@
+export { useFocusLock } from './useFocusLock';

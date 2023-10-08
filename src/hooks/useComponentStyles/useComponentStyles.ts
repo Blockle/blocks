@@ -93,12 +93,3 @@ export function useComponentStyles<T extends keyof ComponentThemeProps>(
 
   return classNames.join(' ');
 }
-
-export const useComponentStyleDefaultProps = <T extends keyof ComponentThemeProps>(
-  name: T,
-): ComponentThemeProps[T] => {
-  const { components } = useTheme();
-  const component = components[name];
-
-  return component?.defaultVariants ?? {};
-};
