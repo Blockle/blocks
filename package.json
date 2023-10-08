@@ -1,6 +1,6 @@
 {
   "name": "@blockle/blocks",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "description": "Blocks design system",
   "repository": "git@github.com:Blockle/blocks.git",
   "license": "MIT",
@@ -49,6 +49,7 @@
     "string-width": "^4.2.2"
   },
   "dependencies": {
+    "@changesets/cli": "^2.26.2",
     "@radix-ui/react-polymorphic": "^0.0.14",
     "@vanilla-extract/css": "^1.13.0",
     "@vanilla-extract/css-utils": "^0.1.3",
