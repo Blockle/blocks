@@ -1,4 +1,4 @@
-import { ComponentThemes } from './componentThemes';
+import { ComponentThemesMap } from './componentThemes';
 
 type Theme = {
   type: string;
@@ -18,7 +18,9 @@ export type CreateComponentTheme<T extends Theme> = {
   compoundVariants?: Array<{
     style: string;
     variants: {
-      [VariantGroup in keyof T['variants']]?: T['variants'][VariantGroup];
+      [VariantGroup in keyof T['variants']]?: T['variants'][VariantGroup] extends string
+        ? T['variants'][VariantGroup]
+        : boolean;
     };
   }>;
   defaultVariants?: {
@@ -35,4 +37,10 @@ export type CreateThemeProps<T extends Theme> = {
   base?: boolean;
 };
 
-export const makeComponentTheme = <T extends ComponentThemes>(options: T) => options;
+export const makeComponentTheme = <
+  T extends keyof ComponentThemesMap,
+  const O extends ComponentThemesMap[T],
+>(
+  name: T,
+  options: O,
+) => options;

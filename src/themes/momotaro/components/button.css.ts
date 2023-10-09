@@ -6,8 +6,7 @@ import { focusable } from './helpers.css';
 
 const primaryColor = createVar();
 
-export const button = makeComponentTheme({
-  type: 'button',
+export const button = makeComponentTheme('button', {
   base: style([
     atoms({
       display: 'inline-flex',
@@ -19,8 +18,6 @@ export const button = makeComponentTheme({
     focusable,
   ]),
   variants: {
-    // ...
-    // styleVariants could be used to but lacks correct typings atm
     variant: {
       solid: style({
         color: vars.color.white,

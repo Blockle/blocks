@@ -10,8 +10,7 @@ const spinAnimation = keyframes({
   },
 });
 
-export const spinner = makeComponentTheme({
-  type: 'spinner',
+export const spinner = makeComponentTheme('spinner', {
   base: style({
     aspectRatio: '1 / 1',
     overflow: 'hidden',
