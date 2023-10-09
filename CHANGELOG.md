@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.5.1
+
+### Patch Changes
+
+- 5012822: Added alignContent and alignSelf to sprinkles config
+
 ## 0.5.0
 
 ### Minor Changes
