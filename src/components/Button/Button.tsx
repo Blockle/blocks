@@ -45,6 +45,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     variant: isLinkVariant ? 'solid' : variant,
     intent,
     size,
+    disabled,
+    loading,
   });
   // Use link styles when variant is "link"
   const linkClassName = useComponentStyles('link', { base: true, variant: 'primary' });
