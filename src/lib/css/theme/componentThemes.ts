@@ -4,10 +4,13 @@ import { CreateComponentTheme, CreateThemeProps } from './makeComponentTheme';
 // Define button theme
 export type ButtonTheme = {
   type: 'button';
+  base: boolean;
   variants: {
     variant: 'solid' | 'outline' | 'ghost' | 'link';
     intent: 'neutral' | 'danger';
     size: 'small' | 'medium' | 'large';
+    loading: boolean;
+    disabled: boolean;
   };
 };
 

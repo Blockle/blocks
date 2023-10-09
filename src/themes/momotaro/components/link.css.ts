@@ -2,8 +2,7 @@ import { style } from '@vanilla-extract/css';
 import { atoms } from '../../../lib/css/atoms';
 import { makeComponentTheme } from '../../../lib/css/theme/makeComponentTheme';
 
-export const link = makeComponentTheme({
-  type: 'link',
+export const link = makeComponentTheme('link', {
   base: style({
     outline: 'none',
     border: 'none',
