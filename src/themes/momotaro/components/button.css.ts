@@ -90,20 +90,20 @@ export const button = makeComponentTheme('button', {
       }),
     },
   },
-  compoundVariants: [
-    // Example of compound variants
-    // {
-    //   variants: {
-    //     intent: 'danger',
-    //     variant: 'ghost',
-    //   },
-    //   style: style({
-    //     color: vars.color.danger,
-    //     fontSize: vars.fontSize.small,
-    //     background: 'red',
-    //   }),
-    // },
-  ],
+  // compoundVariants: [
+  //   {
+  //     variants: {
+  //       intent: 'danger',
+  //       variant: 'ghost',
+  //       loading: true,
+  //     },
+  //     style: style({
+  //       color: vars.color.danger,
+  //       fontSize: vars.fontSize.small,
+  //       background: 'red',
+  //     }),
+  //   },
+  // ],
   defaultVariants: {
     size: 'small',
     variant: 'ghost',
