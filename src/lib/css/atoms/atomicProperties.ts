@@ -42,7 +42,9 @@ export type UnresponsiveProperties = keyof typeof unresponsiveProperties;
 const marginSpace = { auto: 'auto', ...vars.space };
 
 export const responsiveProperties = {
+  alignContent: ['stretch', 'center', 'flex-start', 'flex-end'],
   alignItems: ['stretch', 'center', 'flex-start', 'flex-end'],
+  alignSelf: ['stretch', 'center', 'flex-start', 'flex-end'],
   columnGap: vars.space,
   display: [
     'none',

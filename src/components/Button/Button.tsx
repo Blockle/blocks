@@ -16,6 +16,7 @@ export type ButtonProps = {
   intent?: ButtonTheme['variants']['intent'];
   size?: ButtonTheme['variants']['size'];
   width?: Atoms['width'];
+  alignSelf?: Atoms['alignSelf'];
   loading?: boolean;
   startSlot?: ReactNode;
   endSlot?: ReactNode;

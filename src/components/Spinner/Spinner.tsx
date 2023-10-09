@@ -7,8 +7,9 @@ import { classnames } from '../../lib/utils/classnames';
 
 export type SpinnerProps = {
   className?: string;
-  size?: SpinnerTheme['variants']['size'];
   color?: SpinnerTheme['variants']['color'];
+  size?: SpinnerTheme['variants']['size'];
+  style?: React.CSSProperties;
 } & MarginAtoms;
 
 export const Spinner: FC<SpinnerProps> = ({ className, size, color, ...restProps }) => {

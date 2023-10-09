@@ -3,12 +3,13 @@ import { AlignItemsMap, alignItemsMap } from '../../lib/css/flexbox/flexbox';
 import { Box } from '../Box/Box';
 
 export type StackProps = {
+  alignX?: keyof AlignItemsMap;
   as?: 'div' | 'section' | 'ul' | 'ol';
   children: React.ReactNode;
-  alignX?: keyof AlignItemsMap;
-  gap: Atoms['gap'];
-  display?: ResponsiveDisplayFlex;
   className?: string;
+  display?: ResponsiveDisplayFlex;
+  gap: Atoms['gap'];
+  style?: React.CSSProperties;
   /**
    * Start prop is only valid when as="ol"
    */
