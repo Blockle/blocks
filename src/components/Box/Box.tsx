@@ -9,6 +9,7 @@ const defaultElement = 'div';
 export type BoxProps = {
   children?: React.ReactNode;
   className?: string;
+  style?: React.CSSProperties;
 } & Atoms;
 
 type PolymorphicBox = ForwardRefComponent<'div', BoxProps>;

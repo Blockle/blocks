@@ -37,6 +37,5 @@ export const link = makeComponentTheme('link', {
   },
   defaultVariants: {
     variant: 'primary',
-    underline: true,
   },
 });

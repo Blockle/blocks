@@ -3,13 +3,13 @@ import { HTMLElementProps } from '../../lib/utils/utils';
 import { Box } from '../Box';
 
 export type HeadingProps = {
-  className?: string;
-  level: 1 | 2 | 3 | 4 | 5 | 6;
-  children: React.ReactNode;
   align?: Atoms['textAlign'];
+  children: React.ReactNode;
+  className?: string;
+  fontFamily?: Atoms['fontFamily'];
   fontSize?: Atoms['fontSize'];
   fontWeight?: Atoms['fontWeight'];
-  fontFamily?: Atoms['fontFamily'];
+  level: 1 | 2 | 3 | 4 | 5 | 6;
 } & MarginAndPaddingAtoms &
   HTMLElementProps<HTMLHeadingElement>;
 

@@ -8,9 +8,10 @@ import * as styles from './divider.css';
 export type DividerProps = {
   className?: string;
   color?: Atoms['backgroundColor'];
+  style?: React.CSSProperties;
 };
 
-export const Divider: FC<DividerProps> = ({ className, color }) => {
+export const Divider: FC<DividerProps> = ({ className, color, ...restProps }) => {
   const dividerClass = useComponentStyles('divider', { base: true });
   const dividerDefaults = useComponentStyleDefaultProps('divider');
 
@@ -20,6 +21,7 @@ export const Divider: FC<DividerProps> = ({ className, color }) => {
       width="full"
       backgroundColor={color ?? dividerDefaults.color}
       className={classnames(className, dividerClass, styles.divider)}
+      {...restProps}
     />
   );
 };

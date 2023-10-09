@@ -8,12 +8,14 @@ import {
 import { Box } from '../Box/Box';
 
 export type InlineProps = {
-  as?: 'div' | 'ul' | 'ol' | 'nav';
-  children: React.ReactNode;
   alignX?: keyof JustifyContentMap;
   alignY?: keyof AlignItemsMap;
-  gap: Atoms['gap'];
+  as?: 'div' | 'ul' | 'ol' | 'nav';
+  children: React.ReactNode;
+  className?: string;
   display?: ResponsiveDisplayFlex;
+  gap: Atoms['gap'];
+  style?: React.CSSProperties;
 } & MarginAndPaddingAtoms;
 
 export const Inline: React.FC<InlineProps> = ({
