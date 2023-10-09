@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.5.0
+
+### Minor Changes
+
+- 9d3f158: makeComponentTheme api changed from `makeComponentTheme({ type: 'button' })` to `makeComponentTheme('button', {})`
+
 ## 0.4.1
 
 ### Patch Changes
