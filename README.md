@@ -46,9 +46,18 @@ import { makeTokens, makeComponentTheme, makeTheme } from "@blockle/blocks";
 
 const tokens = makeTokens({ ... });
 
-const button = makeComponentTheme({
-  type: 'button',
-  ...
+const button = makeComponentTheme('button', {
+  base: style({
+    ...
+  }),
+  variants: {
+    primary: style({
+      ...
+    }),
+    secondary: style({
+      ...
+    })
+  },
 });
 
 const theme = makeTheme({
