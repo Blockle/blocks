@@ -23,7 +23,10 @@ export const Link = forwardRef(function Link(
   ref,
 ) {
   const Component = as || defaultElement;
-  const linkClassName = useComponentStyles('link', { base: true, variant, underline });
+  const linkClassName = useComponentStyles('link', {
+    base: true,
+    variants: { variant, underline },
+  });
 
   return (
     <Box ref={ref} as={Component} className={classnames(className, linkClassName)} {...restProps} />

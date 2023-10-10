@@ -13,7 +13,7 @@ export type SpinnerProps = {
 } & MarginAtoms;
 
 export const Spinner: FC<SpinnerProps> = ({ className, size, color, ...restProps }) => {
-  const spinnerClassName = useComponentStyles('spinner', { base: true, size, color });
+  const spinnerClassName = useComponentStyles('spinner', { base: true, variants: { size, color } });
 
   return <Box color={color} className={classnames(spinnerClassName, className)} {...restProps} />;
 };
