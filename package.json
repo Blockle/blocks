@@ -44,7 +44,7 @@
     "storybook": "storybook dev -p 6006 --no-open",
     "test": "vitest",
     "ts": "tsc --noemit --project ./tsconfig.json",
-    "release": "yarn test && yarn build && changeset publish"
+    "release": "yarn ts && yarn test && yarn build && changeset publish"
   },
   "resolutions": {
     "string-width": "^4.2.2"

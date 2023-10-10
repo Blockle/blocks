@@ -22,5 +22,8 @@ jobs:
       - name: Install Dependencies
         run: yarn
 
+      - name: TypeScript
+        run: yarn ts
+
       - name: Run tests
         run: yarn test
