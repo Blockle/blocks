@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.6.0
+
+### Minor Changes
+
+- 6ced546: Theming refactor (breaking)
+
 ## 0.5.1
 
 ### Patch Changes
