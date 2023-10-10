@@ -15,7 +15,10 @@ export const useLayer = () => {
 
   return () => {
     if (!layerRef.current) {
-      layerRef.current = document.createElement('div');
+      const div = document.createElement('div');
+      div.dataset.layer = 'blocks';
+
+      layerRef.current = div;
       document.body.append(layerRef.current);
     }
 
