@@ -19,7 +19,7 @@ import { useComponentStyles } from '../../hooks/useComponentStyles';
 import { Portal } from '../Portal';
 import { Box } from '../Box';
 import { classnames } from '../../lib/utils/classnames';
-import { DialogTheme } from '../../lib/theme/themeComponents';
+import { DialogTheme } from '../../lib/theme/componentThemes';
 
 export type DialogProps = {
   children?: ReactNode;

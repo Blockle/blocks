@@ -51,8 +51,7 @@ export type InputTheme = {
   };
 };
 
-// ComponentThemes?
-export type ThemeComponents = {
+export type ComponentThemes = {
   button: ButtonTheme;
   link: LinkTheme;
   spinner: SpinnerTheme;
@@ -61,14 +60,14 @@ export type ThemeComponents = {
   input: InputTheme;
 };
 
-export type ThemeComponentsProps = {
-  [K in keyof ThemeComponents]: ThemeComponentProps<ThemeComponents[K]>;
+export type ComponentThemesProps = {
+  [K in keyof ComponentThemes]: ComponentThemeProps<ComponentThemes[K]>;
 };
 
 // Change type to be used as argument of useComponentStyles
-export type ThemeComponentProps<T extends RecordLike> = {
+export type ComponentThemeProps<T extends RecordLike> = {
   [K in keyof T]?: T[K] extends RecordLike
-    ? ThemeComponentProps<T[K]>
+    ? ComponentThemeProps<T[K]>
     : IsUnion<T[K]> extends true
     ? T[K]
     : T[K] extends string
