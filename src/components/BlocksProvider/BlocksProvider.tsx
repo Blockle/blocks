@@ -1,18 +1,29 @@
 import { atoms } from '../../lib/css/atoms/sprinkles.css';
+import { Theme } from '../../lib/theme/makeTheme';
 import { classnames } from '../../lib/utils/classnames';
-import { BlocksProviderContext, BlocksProviderContextData } from './context';
+import { BlocksProviderContext } from './context';
 
 export type BlocksProviderProps = {
   children: React.ReactNode;
-  theme: BlocksProviderContextData;
+  theme: Theme;
+  className?: string;
+  style?: React.CSSProperties;
 };
 
-// Perhaps expose a utility function to apply the theme to the root of the app?
-// <body className={} />...</body>
-export const BlocksProvider: React.FC<BlocksProviderProps> = ({ children, theme }) => {
+export const BlocksProvider: React.FC<BlocksProviderProps> = ({
+  children,
+  theme,
+  className,
+  ...restProps
+}) => {
   return (
     <BlocksProviderContext.Provider value={theme}>
-      <div className={classnames(theme.vars, atoms({ fontFamily: 'primary' }))}>{children}</div>
+      <div
+        className={classnames(theme.vars, atoms({ fontFamily: 'primary' }), className)}
+        {...restProps}
+      >
+        {children}
+      </div>
     </BlocksProviderContext.Provider>
   );
 };

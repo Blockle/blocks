@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { vars } from '../../../lib/css/theme/vars.css';
+import { vars } from '../../../lib/theme/vars.css';
 
 export const focusable = style({
   ':focus-visible': {
@@ -13,10 +13,15 @@ export const focusable = style({
     opacity: 0.5,
     cursor: 'auto',
   },
-  // TODO This is for buttons?
-  selectors: {
-    '&:active:not(:disabled)': {
-      transform: 'scale(0.9)',
+});
+
+export const clickable = style([
+  focusable,
+  {
+    selectors: {
+      '&:active:not(:disabled)': {
+        transform: 'scale(0.9)',
+      },
     },
   },
-});
+]);

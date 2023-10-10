@@ -1,6 +1,6 @@
-import { BlocksTokens } from 'lib/css/theme/tokenType';
+import { ThemeTokens } from '../../lib/theme/tokensType';
 
-export const tokens: BlocksTokens = {
+export const tokens: ThemeTokens = {
   border: {
     radius: {
       small: '4px',
@@ -36,7 +36,7 @@ export const tokens: BlocksTokens = {
     large: '0px 16px 24px rgba(0, 0, 0, 0.08)',
   },
   focus: {
-    boxShadow: '0 0 4px 2px #AF8EFF',
+    boxShadow: '0 0 1px 2px #AF8EFF',
   },
   spacing: {
     none: '0px',
@@ -48,9 +48,9 @@ export const tokens: BlocksTokens = {
     xlarge: '24px',
   },
   transition: {
-    slow: '0.5s',
-    normal: '0.3s',
-    fast: '0.1s',
+    slow: '240ms',
+    normal: '120ms',
+    fast: '80ms',
   },
   typography: {
     fontFamily: {

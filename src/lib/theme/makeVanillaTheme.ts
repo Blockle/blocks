@@ -1,6 +1,6 @@
-import { BlocksTokens } from './tokenType';
+import { ThemeTokens } from './tokensType';
 
-export const makeVanillaTheme = (tokens: BlocksTokens) => {
+export const makeVanillaTheme = (tokens: ThemeTokens) => {
   return {
     space: tokens.spacing as Record<keyof typeof tokens.spacing, string>,
     borderRadius: tokens.border.radius as Record<keyof typeof tokens.border.radius, string>,

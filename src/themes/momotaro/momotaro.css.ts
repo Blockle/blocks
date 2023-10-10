@@ -1,4 +1,4 @@
-import { makeTheme } from '../../lib/css/theme/makeTheme';
+import { makeTheme } from '../../lib/theme/makeTheme';
 import { components } from './components';
 import { tokens } from './tokens.css';
 

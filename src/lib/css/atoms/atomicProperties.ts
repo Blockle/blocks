@@ -1,4 +1,4 @@
-import { vars } from '../theme/vars.css';
+import { vars } from '../../theme/vars.css';
 
 const colorWithCurrentColor = { ...vars.color, currentColor: 'currentColor' };
 

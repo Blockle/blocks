@@ -1,8 +1,8 @@
 import { expect } from '@storybook/jest';
 import { Meta, StoryFn, StoryObj } from '@storybook/react';
 import { within } from '@storybook/testing-library';
-import { vars } from '../../lib/css/theme/vars.css';
 import { Inline, InlineProps } from './Inline';
+import { vars } from '../../lib/theme/vars.css';
 
 export default {
   title: 'Layout/Inline',

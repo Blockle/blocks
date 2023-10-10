@@ -1,6 +1,6 @@
-import { BlocksTokens } from './tokenType';
+import { ThemeTokens } from './tokensType';
 
-export const tokens: BlocksTokens = {
+export const tokens: ThemeTokens = {
   typography: {
     fontFamily: {
       primary: 'Roboto, sans-serif',

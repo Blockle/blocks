@@ -23,10 +23,11 @@ type Color =
   | 'danger'
   | 'link';
 
-export type BlocksTokens = {
+export type ThemeTokens = {
   typography: {
     fontFamily: {
       // Review naming
+      body?: string;
       primary?: string;
       secondary?: string;
     };
@@ -43,7 +44,6 @@ export type BlocksTokens = {
   shadow: Record<BoxShadow, string>;
   focus: {
     boxShadow: string;
-    // ringSize: number | string; ??
   };
   color: Record<Color, string>;
 };
