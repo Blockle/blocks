@@ -19,6 +19,7 @@ export const input = makeComponentTheme('input', {
       '::placeholder': {
         color: vars.color.textLight,
       },
+      ':disabled': {},
     },
   ]),
   container: style([
@@ -38,6 +39,5 @@ export const input = makeComponentTheme('input', {
       boxShadow: 'medium',
       gap: 'large',
     }),
-    focusable,
   ]),
 });

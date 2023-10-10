@@ -4,7 +4,7 @@ import { IsUnion, RecordLike } from '../utils/helpers';
 export type ButtonTheme = {
   base: string;
   variants: {
-    variant: 'solid' | 'outline' | 'ghost' | 'link';
+    variant: 'solid' | 'outline' | 'ghost';
     intent: 'neutral' | 'danger';
     size: 'small' | 'medium' | 'large';
     loading: boolean;
@@ -48,7 +48,18 @@ export type InputTheme = {
   input: string;
   variants: {
     disabled: boolean;
+    variant: 'solid' | 'outline'; // TODO Review naming
   };
+};
+
+export type CheckboxTheme = {
+  base: string;
+  icon: string;
+};
+
+export type RadioTheme = {
+  base: string;
+  icon: string;
 };
 
 export type ComponentThemes = {
@@ -58,6 +69,8 @@ export type ComponentThemes = {
   divider: DividerTheme;
   dialog: DialogTheme;
   input: InputTheme;
+  checkbox: CheckboxTheme;
+  radio: RadioTheme;
 };
 
 export type ComponentThemesProps = {

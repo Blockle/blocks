@@ -5,6 +5,8 @@ import { divider } from './divider.css';
 import { input } from './input.css';
 import { link } from './link.css';
 import { spinner } from './spinner.css';
+import { checkbox } from './checkbox.css';
+import { radio } from './radio.css';
 
 export const components: ThemeComponentsStyles = {
   button,
@@ -13,4 +15,6 @@ export const components: ThemeComponentsStyles = {
   divider,
   dialog,
   input,
+  checkbox,
+  radio,
 };

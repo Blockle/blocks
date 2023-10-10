@@ -1,10 +1,10 @@
 import { expect } from '@storybook/jest';
-import { Meta, StoryFn, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import { within } from '@storybook/testing-library';
 import { Input, InputProps } from './Input';
 
 export default {
-  title: 'Components/Input',
+  title: 'DataEntry/Input',
   component: Input,
 } as Meta<typeof Input>;
 
@@ -23,10 +23,4 @@ export const Default: StoryObj<InputProps> = {
     label: 'Label',
     placeholder: 'Placeholder',
   },
-};
-
-const TemplateAllInputs: StoryFn<typeof Input> = (args) => <Input {...args} />;
-
-export const All = {
-  render: TemplateAllInputs,
 };
