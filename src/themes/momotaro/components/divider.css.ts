@@ -1,4 +1,4 @@
-import { makeComponentTheme } from '../../../lib/css/theme/makeComponentTheme';
+import { makeComponentTheme } from '../../../lib/theme/makeComponentTheme';
 
 export const divider = makeComponentTheme('divider', {
   defaultVariants: {

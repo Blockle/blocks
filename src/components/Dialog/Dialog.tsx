@@ -19,15 +19,17 @@ import { useComponentStyles } from '../../hooks/useComponentStyles';
 import { Portal } from '../Portal';
 import { Box } from '../Box';
 import { classnames } from '../../lib/utils/classnames';
+import { DialogTheme } from '../../lib/theme/themeComponents';
 
 export type DialogProps = {
   children?: ReactNode;
   open: boolean;
   onRequestClose: () => void;
   className?: string;
+  size?: DialogTheme['variants']['size'];
 };
 
-export const Dialog: FC<DialogProps> = ({ children, open, className, onRequestClose }) => {
+export const Dialog: FC<DialogProps> = ({ children, open, className, onRequestClose, size }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const layer = useLayer();
   const [visible, hide] = useVisibilityState(open);
@@ -82,8 +84,8 @@ export const Dialog: FC<DialogProps> = ({ children, open, className, onRequestCl
     };
   }, [open, enabled]);
 
-  const backdropClassName = useComponentStyles('dialog', { backdrop: true });
-  const dialogClassName = useComponentStyles('dialog', { base: true });
+  const backdropClassName = useComponentStyles('dialog', { backdrop: true }, false);
+  const dialogClassName = useComponentStyles('dialog', { base: true, variants: { size } });
 
   if (!visible) {
     return null;

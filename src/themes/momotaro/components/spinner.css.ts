@@ -1,5 +1,5 @@
 import { keyframes, style } from '@vanilla-extract/css';
-import { makeComponentTheme } from '../../../lib/css/theme/makeComponentTheme';
+import { makeComponentTheme } from '../../../lib/theme/makeComponentTheme';
 
 const spinAnimation = keyframes({
   '0%': {

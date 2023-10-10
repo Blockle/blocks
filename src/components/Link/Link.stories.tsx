@@ -24,6 +24,7 @@ export const Default: StoryObj<LinkProps> = {
 
   args: {
     children: 'Link',
+    href: 'https://example.com',
     onClick: jest.fn(() => {
       console.log('Link clicked');
     }),
@@ -45,6 +46,7 @@ export const Play: StoryObj<LinkProps> = {
 
   args: {
     children: 'Link',
+    href: 'https://example.com',
     onClick: jest.fn(() => {
       console.log('Link clicked');
     }),

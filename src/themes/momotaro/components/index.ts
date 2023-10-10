@@ -1,14 +1,16 @@
-import { ComponentThemesMap } from '../../../lib/css/theme/componentThemes';
+import { ThemeComponentsStyles } from '../../../lib/theme/makeComponentTheme';
 import { button } from './button.css';
+import { dialog } from './dialog.css';
+import { divider } from './divider.css';
+import { input } from './input.css';
 import { link } from './link.css';
 import { spinner } from './spinner.css';
-import { divider } from './divider.css';
-import { dialog } from './dialog.css';
 
-export const components: ComponentThemesMap = {
+export const components: ThemeComponentsStyles = {
   button,
   link,
   spinner,
   divider,
   dialog,
+  input,
 };

@@ -4,9 +4,9 @@ import { classnames } from '../../lib/utils/classnames';
 import { HTMLElementProps } from '../../lib/utils/utils';
 import { Box } from '../Box';
 import * as styles from './Button.css';
-import { ButtonTheme } from '../../lib/css/theme/componentThemes';
 import { useComponentStyles } from '../../hooks/useComponentStyles';
 import { Spinner } from '../Spinner';
+import { ButtonTheme } from '../../lib/theme/themeComponents';
 
 // TODO Add support for href?
 export type ButtonProps = {
@@ -43,14 +43,19 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   const isLinkVariant = variant === 'link';
   const buttonClassName = useComponentStyles('button', {
     base: true,
-    variant: isLinkVariant ? 'solid' : variant,
-    intent,
-    size,
-    disabled,
-    loading,
+    variants: {
+      variant: isLinkVariant ? 'solid' : variant,
+      intent,
+      size,
+      disabled,
+      loading,
+    },
   });
   // Use link styles when variant is "link"
-  const linkClassName = useComponentStyles('link', { base: true, variant: 'primary' });
+  const linkClassName = useComponentStyles('link', {
+    base: true,
+    variants: { variant: 'primary' },
+  });
 
   return (
     <Box

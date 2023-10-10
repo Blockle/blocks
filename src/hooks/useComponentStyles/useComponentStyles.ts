@@ -1,38 +1,31 @@
-import { ComponentThemeProps } from '../../lib/css/theme/componentThemes';
+import { ThemeComponents, ThemeComponentsProps } from '../../lib/theme/themeComponents';
 import { useTheme } from '../useTheme/useTheme';
 
-const hasOwnProperty = Object.prototype.hasOwnProperty;
-
-export function useComponentStyles<T extends keyof ComponentThemeProps>(
+export function useComponentStyles<T extends keyof ThemeComponentsProps>(
   name: T,
-  props: ComponentThemeProps[T],
+  props: ThemeComponentsProps[T],
+  useDefaultVariants = true,
 ): string {
   const { components } = useTheme();
   const component = components[name];
 
   if (!component) {
-    // TODO Dev only
-    console.info(`Component ${name} is not defined in the theme`);
+    console.warn(`Component ${name} is not defined in the theme`);
+
     return '';
   }
 
   const classNames: string[] = [];
-  const propsWithDefaults = { ...props };
+  const variants = props.variants ?? {};
+  const variantsWithDefaults = { ...variants };
 
-  // Apply default variants
-  if (component.defaultVariants) {
-    const keys = Object.keys(component.defaultVariants) as (keyof ComponentThemeProps[T])[];
+  // Apply root styles, root styles props are always boolean values
+  for (const key in props) {
+    const value = props[key];
 
-    for (const key of keys) {
-      if (propsWithDefaults[key] === undefined) {
-        propsWithDefaults[key] = component.defaultVariants[key];
-      }
+    if (typeof value === 'boolean' && value) {
+      classNames.push(component[key]);
     }
-  }
-
-  // Apply base styles
-  if (propsWithDefaults.base && component.base) {
-    classNames.push(component.base);
   }
 
   // No variants for component, return base styles
@@ -40,23 +33,29 @@ export function useComponentStyles<T extends keyof ComponentThemeProps>(
     return classNames.join(' ');
   }
 
-  const keys = Object.keys(propsWithDefaults) as (keyof ComponentThemeProps[T])[];
+  // Apply default variants
+  if (useDefaultVariants && component.defaultVariants) {
+    const keys = Object.keys(component.defaultVariants) as (keyof ThemeComponents[T])[];
+
+    for (const key of keys) {
+      if (variantsWithDefaults[key] === undefined) {
+        variantsWithDefaults[key] = component.defaultVariants[key];
+      }
+    }
+  }
+
+  // Apply variant styles
+  const keys = Object.keys(variantsWithDefaults) as (keyof ThemeComponents[T])[];
 
   for (const key of keys) {
-    const value = propsWithDefaults[key];
+    const value = variantsWithDefaults[key];
 
-    if (key === 'base' || value === undefined) {
+    if (value === undefined) {
       continue;
     }
 
-    // Skip unknown variants
-    if (!hasOwnProperty.call(component.variants, key)) {
-      continue;
-    }
-
-    // Boolean variants
     if (typeof value === 'boolean') {
-      if (value) {
+      if (value && component.variants[key]) {
         classNames.push(component.variants[key]);
       }
       continue;
@@ -70,13 +69,13 @@ export function useComponentStyles<T extends keyof ComponentThemeProps>(
     }
   }
 
-  // Compound variants
+  // Apply compound variants
   if (component.compoundVariants) {
     for (const compoundVariant of component.compoundVariants) {
-      const keys = Object.keys(compoundVariant.variants) as (keyof ComponentThemeProps[T])[];
+      const keys = Object.keys(compoundVariant.variants) as (keyof ThemeComponents[T])[];
 
       const matches = keys.every((key) => {
-        const value = propsWithDefaults[key];
+        const value = variantsWithDefaults[key];
 
         if (value === undefined) {
           return false;

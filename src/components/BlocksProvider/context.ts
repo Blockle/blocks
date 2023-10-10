@@ -1,9 +1,4 @@
 import { createContext } from 'react';
-import { ComponentThemesMap } from '../../lib/css/theme/componentThemes';
+import { Theme } from '../../lib/theme/makeTheme';
 
-export type BlocksProviderContextData = {
-  vars: string;
-  components: ComponentThemesMap;
-};
-
-export const BlocksProviderContext = createContext<BlocksProviderContextData | null>(null);
+export const BlocksProviderContext = createContext<Theme | null>(null);
