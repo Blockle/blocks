@@ -1,9 +1,11 @@
-import { ThemeComponents, ThemeComponentsProps } from '../../lib/theme/themeComponents';
+import { ComponentThemes, ComponentThemesProps } from '../../lib/theme/componentThemes';
 import { useTheme } from '../useTheme/useTheme';
 
-export function useComponentStyles<T extends keyof ThemeComponentsProps>(
+type VariantValue = string | boolean | number;
+
+export function useComponentStyles<T extends keyof ComponentThemesProps>(
   name: T,
-  props: ThemeComponentsProps[T],
+  props: ComponentThemesProps[T],
   useDefaultVariants = true,
 ): string {
   const { components } = useTheme();
@@ -17,14 +19,14 @@ export function useComponentStyles<T extends keyof ThemeComponentsProps>(
 
   const classNames: string[] = [];
   const variants = props.variants ?? {};
-  const variantsWithDefaults = { ...variants };
+  const variantsWithDefaults = { ...variants } as Record<string, VariantValue>;
 
   // Apply root styles, root styles props are always boolean values
   for (const key in props) {
     const value = props[key];
 
     if (typeof value === 'boolean' && value) {
-      classNames.push(component[key]);
+      classNames.push(component[key] as string);
     }
   }
 
@@ -34,35 +36,38 @@ export function useComponentStyles<T extends keyof ThemeComponentsProps>(
   }
 
   // Apply default variants
-  if (useDefaultVariants && component.defaultVariants) {
-    const keys = Object.keys(component.defaultVariants) as (keyof ThemeComponents[T])[];
+  const { defaultVariants } = component;
+
+  if (useDefaultVariants && defaultVariants) {
+    const keys = Object.keys(defaultVariants) as string[];
 
     for (const key of keys) {
-      if (variantsWithDefaults[key] === undefined) {
-        variantsWithDefaults[key] = component.defaultVariants[key];
+      if (variantsWithDefaults[key] === undefined && defaultVariants[key]) {
+        variantsWithDefaults[key] = defaultVariants[key] as VariantValue;
       }
     }
   }
 
   // Apply variant styles
-  const keys = Object.keys(variantsWithDefaults) as (keyof ThemeComponents[T])[];
+  const keys = Object.keys(variantsWithDefaults) as string[];
+  const componentVariants = component.variants as Record<string, string>;
 
   for (const key of keys) {
-    const value = variantsWithDefaults[key];
+    const value = variantsWithDefaults[key as string];
 
     if (value === undefined) {
       continue;
     }
 
     if (typeof value === 'boolean') {
-      if (value && component.variants[key]) {
-        classNames.push(component.variants[key]);
+      if (value && componentVariants[key]) {
+        classNames.push(componentVariants[key]);
       }
       continue;
     }
 
     // String union variants
-    const variant = component.variants[key][value];
+    const variant = (componentVariants[key] as unknown as Record<string, string>)[value];
 
     if (variant) {
       classNames.push(variant);
@@ -70,18 +75,20 @@ export function useComponentStyles<T extends keyof ThemeComponentsProps>(
   }
 
   // Apply compound variants
-  if (component.compoundVariants) {
-    for (const compoundVariant of component.compoundVariants) {
-      const keys = Object.keys(compoundVariant.variants) as (keyof ThemeComponents[T])[];
+  const { compoundVariants } = component;
+
+  if (compoundVariants) {
+    for (const compoundVariant of compoundVariants) {
+      const keys = Object.keys(compoundVariant.variants) as (keyof ComponentThemes[T])[];
 
       const matches = keys.every((key) => {
-        const value = variantsWithDefaults[key];
+        const value = variantsWithDefaults[key as string];
 
         if (value === undefined) {
           return false;
         }
 
-        return value === compoundVariant.variants[key];
+        return value === compoundVariant.variants[key as string];
       });
 
       if (matches) {

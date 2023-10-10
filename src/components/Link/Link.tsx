@@ -5,7 +5,7 @@ import { Atoms } from '../../lib/css/atoms';
 import { classnames } from '../../lib/utils/classnames';
 import { HTMLElementProps } from '../../lib/utils/utils';
 import { Box } from '../Box';
-import { LinkTheme } from '../../lib/theme/themeComponents';
+import { LinkTheme } from '../../lib/theme/componentThemes';
 
 const defaultElement = 'a';
 

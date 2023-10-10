@@ -3,7 +3,7 @@ import { MarginAtoms } from '../../lib/css/atoms';
 import { useComponentStyles } from '../../hooks/useComponentStyles';
 import { Box } from '../Box';
 import { classnames } from '../../lib/utils/classnames';
-import { SpinnerTheme } from '../../lib/theme/themeComponents';
+import { SpinnerTheme } from '../../lib/theme/componentThemes';
 
 export type SpinnerProps = {
   className?: string;

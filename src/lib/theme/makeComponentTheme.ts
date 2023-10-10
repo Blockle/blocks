@@ -1,5 +1,5 @@
 import { RecordLike, IsUnion } from '../utils/helpers';
-import { ThemeComponents } from './themeComponents';
+import { ComponentThemes } from './componentThemes';
 
 /**
  * Helper generic to convert a component theme to a styles object
@@ -53,7 +53,7 @@ export type ComponentTheme<T extends RecordLike> = ComponentThemeToStyles<T> & {
 };
 
 export type ThemeComponentsStyles = {
-  [K in keyof ThemeComponents]?: ComponentTheme<ThemeComponents[K]>;
+  [K in keyof ComponentThemes]?: ComponentTheme<ComponentThemes[K]>;
 };
 
 export function makeComponentTheme<T extends keyof ThemeComponentsStyles>(

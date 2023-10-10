@@ -6,7 +6,7 @@ import { Box } from '../Box';
 import * as styles from './Button.css';
 import { useComponentStyles } from '../../hooks/useComponentStyles';
 import { Spinner } from '../Spinner';
-import { ButtonTheme } from '../../lib/theme/themeComponents';
+import { ButtonTheme } from '../../lib/theme/componentThemes';
 
 // TODO Add support for href?
 export type ButtonProps = {
