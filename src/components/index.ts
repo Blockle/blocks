@@ -9,3 +9,4 @@ export { Link, type LinkProps } from './Link';
 export { Spinner, type SpinnerProps } from './Spinner';
 export { Divider, type DividerProps } from './Divider';
 export { Dialog, type DialogProps } from './Dialog';
+export { Input, type InputProps } from './Input';
