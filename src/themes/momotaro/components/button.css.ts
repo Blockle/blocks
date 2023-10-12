@@ -1,8 +1,8 @@
 import { createVar, style } from '@vanilla-extract/css';
 import { atoms } from '../../../lib/css/atoms';
 import { makeComponentTheme } from '../../../lib/theme/makeComponentTheme';
-import { clickable } from './helpers.css';
 import { vars } from '../../../lib/theme/vars.css';
+import { clickable } from './helpers.css';
 
 const primaryColor = createVar();
 

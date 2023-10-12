@@ -13,7 +13,7 @@ type ThemeInput = {
 export type Theme = {
   name: string;
   vars: string;
-  components: Partial<ThemeComponentsStyles>;
+  components: ThemeComponentsStyles;
 };
 
 export function makeTheme(theme: ThemeInput): Theme {

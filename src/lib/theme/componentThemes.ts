@@ -1,5 +1,5 @@
 import { Atoms } from '../css/atoms';
-import { IsUnion, RecordLike } from '../utils/helpers';
+import { RecordLike } from '../utils/helpers';
 
 export type ButtonTheme = {
   base: string;
@@ -29,7 +29,7 @@ export type SpinnerTheme = {
 };
 
 export type DividerTheme = {
-  base: string;
+  base?: string;
   variants: {
     color: Exclude<Atoms['color'], undefined>;
   };
@@ -73,17 +73,18 @@ export type ComponentThemes = {
   radio: RadioTheme;
 };
 
-export type ComponentThemesProps = {
-  [K in keyof ComponentThemes]: ComponentThemeProps<ComponentThemes[K]>;
+/**
+ * ComponentThemeProps is a helper type to define the props passed to useComponentStyles.
+ */
+export type ComponentThemeProps<T extends RecordLike> = Omit<
+  {
+    [K in keyof T]?: Exclude<T[K], undefined> extends string ? boolean : never;
+  },
+  'variants'
+> & {
+  variants?: T['variants'] extends RecordLike ? Partial<T['variants']> : never;
 };
 
-// Change type to be used as argument of useComponentStyles
-export type ComponentThemeProps<T extends RecordLike> = {
-  [K in keyof T]?: T[K] extends RecordLike
-    ? ComponentThemeProps<T[K]>
-    : IsUnion<T[K]> extends true
-    ? T[K]
-    : T[K] extends string
-    ? boolean
-    : T[K];
+export type ComponentThemesProps = {
+  [K in keyof ComponentThemes]: ComponentThemeProps<ComponentThemes[K]>;
 };
