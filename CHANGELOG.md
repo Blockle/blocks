@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.7.0
+
+### Minor Changes
+
+- ce1dbaa: Added Label, Checkbox and Radio.
+
 ## 0.6.0
 
 ### Minor Changes
