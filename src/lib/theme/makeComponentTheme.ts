@@ -1,4 +1,4 @@
-import { RecordLike, IsUnion } from '../utils/helpers';
+import { RecordLike } from '../utils/helpers';
 import { ComponentThemes } from './componentThemes';
 
 /**
@@ -22,14 +22,21 @@ import { ComponentThemes } from './componentThemes';
  * };
  */
 
-type ComponentThemeToStyles<T extends RecordLike> = {
-  [K in keyof T]?: T[K] extends RecordLike
-    ? ComponentThemeToStyles<T[K]>
-    : IsUnion<Exclude<T[K], undefined>> extends true
-    ? Exclude<T[K], undefined> extends string | number
-      ? ComponentThemeToStyles<Record<Exclude<T[K], undefined>, string>>
-      : never
-    : string;
+// string | number is used to define objects
+// boolean is used to define a single style
+type VariantsToStyle<T extends RecordLike> = {
+  [K in keyof T]?: T[K] extends string | number
+    ? Partial<Record<T[K], string>>
+    : T[K] extends boolean
+    ? string
+    : never;
+};
+
+/**
+ * ComponentThemeToStyles is a helper type to define the props passed to useComponentStyles.
+ */
+export type ComponentThemeToStyles<T extends RecordLike> = Omit<T, 'variants'> & {
+  variants?: T['variants'] extends RecordLike ? VariantsToStyle<T['variants']> : never;
 };
 
 export type ComponentThemeCompoundVariants<T extends RecordLike> = T['variants'] extends RecordLike
@@ -53,7 +60,7 @@ export type ComponentTheme<T extends RecordLike> = ComponentThemeToStyles<T> & {
 };
 
 export type ThemeComponentsStyles = {
-  [K in keyof ComponentThemes]?: ComponentTheme<ComponentThemes[K]>;
+  [K in keyof ComponentThemes]: ComponentTheme<ComponentThemes[K]>;
 };
 
 export function makeComponentTheme<T extends keyof ThemeComponentsStyles>(

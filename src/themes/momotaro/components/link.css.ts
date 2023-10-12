@@ -10,6 +10,7 @@ export const link = makeComponentTheme('link', {
       border: 'none',
       textDecoration: 'none',
       background: 'transparent',
+      borderRadius: 1,
       ':hover': {
         textDecoration: 'underline',
       },

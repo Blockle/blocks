@@ -7,13 +7,13 @@ import { vars } from './vars.css';
 type ThemeInput = {
   name: string;
   tokens: ThemeTokens;
-  components: Partial<ThemeComponentsStyles>;
+  components: ThemeComponentsStyles;
 };
 
 export type Theme = {
   name: string;
   vars: string;
-  components: Partial<ThemeComponentsStyles>;
+  components: ThemeComponentsStyles;
 };
 
 export function makeTheme(theme: ThemeInput): Theme {

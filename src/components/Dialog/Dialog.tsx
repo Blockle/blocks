@@ -27,9 +27,19 @@ export type DialogProps = {
   onRequestClose: () => void;
   className?: string;
   size?: DialogTheme['variants']['size'];
+  'aria-label'?: string;
 };
 
-export const Dialog: FC<DialogProps> = ({ children, open, className, onRequestClose, size }) => {
+// TODO Can we use inert attribute? For example set it on the root element of the page
+// https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert
+export const Dialog: FC<DialogProps> = ({
+  children,
+  open,
+  className,
+  onRequestClose,
+  size,
+  ...restProps
+}) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const layer = useLayer();
   const [visible, hide] = useVisibilityState(open);
@@ -104,6 +114,8 @@ export const Dialog: FC<DialogProps> = ({ children, open, className, onRequestCl
           <Box
             ref={dialogRef}
             as="dialog"
+            // By default users can not interact with the page when a dialog is open
+            aria-modal="true"
             open
             className={classnames(
               styles.dialog,
@@ -111,6 +123,7 @@ export const Dialog: FC<DialogProps> = ({ children, open, className, onRequestCl
               dialogClassName,
               className,
             )}
+            {...restProps}
           >
             {children}
           </Box>

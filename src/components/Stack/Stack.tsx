@@ -10,6 +10,7 @@ export type StackProps = {
   display?: ResponsiveDisplayFlex;
   gap: Atoms['gap'];
   style?: React.CSSProperties;
+  role?: React.AriaRole;
   /**
    * Start prop is only valid when as="ol"
    */

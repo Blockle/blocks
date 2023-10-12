@@ -1,6 +1,5 @@
 import { style } from '@vanilla-extract/css';
 import { atoms } from '../../../lib/css/atoms';
-import { focusable } from './helpers.css';
 import { makeComponentTheme } from '../../../lib/theme/makeComponentTheme';
 import { vars } from '../../../lib/theme/vars.css';
 
@@ -19,6 +18,7 @@ export const input = makeComponentTheme('input', {
       '::placeholder': {
         color: vars.color.textLight,
       },
+      ':disabled': {},
     },
   ]),
   container: style([
@@ -38,6 +38,5 @@ export const input = makeComponentTheme('input', {
       boxShadow: 'medium',
       gap: 'large',
     }),
-    focusable,
   ]),
 });

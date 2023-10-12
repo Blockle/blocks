@@ -1,4 +1,5 @@
 import { ComponentThemes, ComponentThemesProps } from '../../lib/theme/componentThemes';
+import { ComponentTheme } from '../../lib/theme/makeComponentTheme';
 import { useTheme } from '../useTheme/useTheme';
 
 type VariantValue = string | boolean | number;
@@ -26,7 +27,8 @@ export function useComponentStyles<T extends keyof ComponentThemesProps>(
     const value = props[key];
 
     if (typeof value === 'boolean' && value) {
-      classNames.push(component[key] as string);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      classNames.push((component as unknown as ComponentTheme<any>)[key] as string);
     }
   }
 

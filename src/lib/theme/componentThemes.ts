@@ -1,10 +1,10 @@
 import { Atoms } from '../css/atoms';
-import { IsUnion, RecordLike } from '../utils/helpers';
+import { RecordLike } from '../utils/helpers';
 
 export type ButtonTheme = {
   base: string;
   variants: {
-    variant: 'solid' | 'outline' | 'ghost' | 'link';
+    variant: 'solid' | 'outline' | 'ghost';
     intent: 'neutral' | 'danger';
     size: 'small' | 'medium' | 'large';
     loading: boolean;
@@ -29,7 +29,7 @@ export type SpinnerTheme = {
 };
 
 export type DividerTheme = {
-  base: string;
+  base?: string;
   variants: {
     color: Exclude<Atoms['color'], undefined>;
   };
@@ -47,7 +47,32 @@ export type InputTheme = {
   container: string;
   input: string;
   variants: {
+    variant: 'solid' | 'outline'; // TODO Review naming
     disabled: boolean;
+    required: boolean;
+  };
+};
+
+export type CheckboxTheme = {
+  base: string;
+  icon: string;
+  label: string;
+  variants: {
+    required: boolean;
+  };
+};
+
+export type RadioTheme = {
+  base: string;
+  icon: string;
+  label: string;
+};
+
+export type LabelTheme = {
+  base: string;
+  variants: {
+    size: 'small' | 'medium' | 'large';
+    required: boolean;
   };
 };
 
@@ -58,19 +83,23 @@ export type ComponentThemes = {
   divider: DividerTheme;
   dialog: DialogTheme;
   input: InputTheme;
+  checkbox: CheckboxTheme;
+  radio: RadioTheme;
+  label: LabelTheme;
+};
+
+/**
+ * ComponentThemeProps is a helper type to define the props passed to useComponentStyles.
+ */
+export type ComponentThemeProps<T extends RecordLike> = Omit<
+  {
+    [K in keyof T]?: Exclude<T[K], undefined> extends string ? boolean : never;
+  },
+  'variants'
+> & {
+  variants?: T['variants'] extends RecordLike ? Partial<T['variants']> : never;
 };
 
 export type ComponentThemesProps = {
   [K in keyof ComponentThemes]: ComponentThemeProps<ComponentThemes[K]>;
-};
-
-// Change type to be used as argument of useComponentStyles
-export type ComponentThemeProps<T extends RecordLike> = {
-  [K in keyof T]?: T[K] extends RecordLike
-    ? ComponentThemeProps<T[K]>
-    : IsUnion<T[K]> extends true
-    ? T[K]
-    : T[K] extends string
-    ? boolean
-    : T[K];
 };

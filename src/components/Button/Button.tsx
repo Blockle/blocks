@@ -1,14 +1,15 @@
 import { forwardRef, ReactNode } from 'react';
+import { useComponentStyles } from '../../hooks/useComponentStyles';
 import { Atoms } from '../../lib/css/atoms';
+import { ButtonTheme } from '../../lib/theme/componentThemes';
 import { classnames } from '../../lib/utils/classnames';
 import { HTMLElementProps } from '../../lib/utils/utils';
 import { Box } from '../Box';
-import * as styles from './Button.css';
-import { useComponentStyles } from '../../hooks/useComponentStyles';
 import { Spinner } from '../Spinner';
-import { ButtonTheme } from '../../lib/theme/componentThemes';
+import * as styles from './Button.css';
 
-// TODO Add support for href?
+// TODO How could we render a link variant of the button?
+// Note, it should also work with Link component (next/link, ...)
 export type ButtonProps = {
   children: ReactNode;
   type?: 'button' | 'submit' | 'reset';
@@ -40,32 +41,22 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   },
   ref,
 ) {
-  const isLinkVariant = variant === 'link';
   const buttonClassName = useComponentStyles('button', {
     base: true,
     variants: {
-      variant: isLinkVariant ? 'solid' : variant,
+      variant,
       intent,
       size,
       disabled,
       loading,
     },
   });
-  // Use link styles when variant is "link"
-  const linkClassName = useComponentStyles('link', {
-    base: true,
-    variants: { variant: 'primary' },
-  });
 
   return (
     <Box
       ref={ref}
       as="button"
-      className={classnames(
-        styles.buttonReset,
-        isLinkVariant ? linkClassName : buttonClassName,
-        className,
-      )}
+      className={classnames(styles.buttonReset, buttonClassName, className)}
       width={width}
       type={type}
       disabled={disabled || loading}
