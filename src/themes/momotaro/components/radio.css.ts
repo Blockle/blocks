@@ -1,9 +1,9 @@
 import { style } from '@vanilla-extract/css';
-import { makeComponentTheme } from '../../../lib/theme/makeComponentTheme';
-import { focusable } from './helpers.css';
 import { atoms } from '../../../lib/css/atoms';
-import { bounceOut } from './transitions';
+import { makeComponentTheme } from '../../../lib/theme/makeComponentTheme';
 import { vars } from '../../../lib/theme/vars.css';
+import { focusable } from './helpers.css';
+import { bounceOut } from './transitions';
 
 export const radio = makeComponentTheme('radio', {
   base: style([
@@ -42,5 +42,12 @@ export const radio = makeComponentTheme('radio', {
         transform: 'scale(1)',
       },
     },
+  }),
+  label: atoms({
+    display: 'flex',
+    flexDirection: 'row',
+    padding: 'xsmall',
+    gap: 'medium',
+    cursor: 'pointer',
   }),
 });

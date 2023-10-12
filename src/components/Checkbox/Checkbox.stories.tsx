@@ -8,13 +8,11 @@ export default {
 
 export const Default: StoryObj<CheckboxProps> = {
   render: (props) => {
-    return (
-      <>
-        <label>
-          <Checkbox {...props} />
-          <span>Checkbox</span>
-        </label>
-      </>
-    );
+    return <Checkbox {...props} />;
+  },
+  args: {
+    name: 'checkbox',
+    label: 'Checkbox label',
+    required: false,
   },
 };

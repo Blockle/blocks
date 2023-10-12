@@ -47,19 +47,33 @@ export type InputTheme = {
   container: string;
   input: string;
   variants: {
-    disabled: boolean;
     variant: 'solid' | 'outline'; // TODO Review naming
+    disabled: boolean;
+    required: boolean;
   };
 };
 
 export type CheckboxTheme = {
   base: string;
   icon: string;
+  label: string;
+  variants: {
+    required: boolean;
+  };
 };
 
 export type RadioTheme = {
   base: string;
   icon: string;
+  label: string;
+};
+
+export type LabelTheme = {
+  base: string;
+  variants: {
+    size: 'small' | 'medium' | 'large';
+    required: boolean;
+  };
 };
 
 export type ComponentThemes = {
@@ -71,6 +85,7 @@ export type ComponentThemes = {
   input: InputTheme;
   checkbox: CheckboxTheme;
   radio: RadioTheme;
+  label: LabelTheme;
 };
 
 /**
