@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.7.1
+
+### Patch Changes
+
+- 5df368b: Named exports
+
 ## 0.7.0
 
 ### Minor Changes
