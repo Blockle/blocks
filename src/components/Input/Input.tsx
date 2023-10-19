@@ -1,17 +1,17 @@
-import { ReactNode, forwardRef, useId } from 'react';
-import { OptionalLiteral } from '../../lib/utils/helpers';
-import * as styles from './input.css';
-import { HTMLElementProps } from '../../lib/utils/utils';
+import { forwardRef, useId } from 'react';
 import { useComponentStyles } from '../../hooks/useComponentStyles';
-import { Box } from '../Box';
 import { classnames } from '../../lib/utils/classnames';
+import { OptionalLiteral } from '../../lib/utils/helpers';
+import { HTMLElementProps } from '../../lib/utils/utils';
+import { Box } from '../Box';
+import * as styles from './input.css';
 
 export type InputProps = {
   className?: string;
   name: string;
   type?: OptionalLiteral<'email' | 'number' | 'password' | 'tel' | 'text' | 'url'>;
-  startSlot?: ReactNode;
-  endSlot?: ReactNode;
+  startSlot?: React.ReactNode;
+  endSlot?: React.ReactNode;
   label: string;
 } & Omit<HTMLElementProps<HTMLInputElement>, 'type'>;
 

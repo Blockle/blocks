@@ -1,6 +1,6 @@
 import { jest } from '@storybook/jest';
 import { Meta, StoryObj } from '@storybook/react';
-import { FC, ReactNode, useState } from 'react';
+import { useState } from 'react';
 import { Button } from '../Button';
 import { Heading } from '../Heading';
 import { Stack } from '../Stack';
@@ -27,7 +27,7 @@ const DialogTemplate: StoryObj<DialogProps>['render'] = (props) => {
   );
 };
 
-const NestedDialog: FC<{ children?: ReactNode }> = ({ children }) => {
+const NestedDialog: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   const [open, setOpen] = useState(false);
 
   return (

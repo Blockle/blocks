@@ -1,28 +1,19 @@
-import {
-  AnimationEvent,
-  FC,
-  MouseEvent,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-import { useLayer } from '../../hooks/useLayer';
-import * as styles from './dialog.css';
-import { useVisibilityState } from '../../hooks/useVisibilityState';
-import { useFocusLock } from '../../hooks/useFocusLock';
-import { useRestoreFocus } from '../../hooks/useRestoreFocus';
-import { DialogContext, useNestedDialog } from './dialogHelper';
-import { usePreventBodyScroll } from '../../hooks/usePreventBodyScroll';
+import { AnimationEvent, MouseEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useComponentStyles } from '../../hooks/useComponentStyles';
-import { Portal } from '../Portal';
-import { Box } from '../Box';
-import { classnames } from '../../lib/utils/classnames';
+import { useFocusLock } from '../../hooks/useFocusLock';
+import { useLayer } from '../../hooks/useLayer';
+import { usePreventBodyScroll } from '../../hooks/usePreventBodyScroll';
+import { useRestoreFocus } from '../../hooks/useRestoreFocus';
+import { useVisibilityState } from '../../hooks/useVisibilityState';
 import { DialogTheme } from '../../lib/theme/componentThemes';
+import { classnames } from '../../lib/utils/classnames';
+import { Box } from '../Box';
+import { Portal } from '../Portal';
+import * as styles from './dialog.css';
+import { DialogContext, useNestedDialog } from './dialogHelper';
 
 export type DialogProps = {
-  children?: ReactNode;
+  children?: React.ReactNode;
   open: boolean;
   onRequestClose: () => void;
   className?: string;
@@ -32,7 +23,7 @@ export type DialogProps = {
 
 // TODO Can we use inert attribute? For example set it on the root element of the page
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert
-export const Dialog: FC<DialogProps> = ({
+export const Dialog: React.FC<DialogProps> = ({
   children,
   open,
   className,

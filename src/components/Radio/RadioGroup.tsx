@@ -1,6 +1,5 @@
-import { FC } from 'react';
-import { Stack } from '../Stack';
 import { Atoms } from '../../lib/css/atoms';
+import { Stack } from '../Stack';
 
 export type RadioGroupProps = {
   'aria-labelledby'?: string;
@@ -8,7 +7,11 @@ export type RadioGroupProps = {
   gap?: Atoms['gap'];
 };
 
-export const RadioGroup: FC<RadioGroupProps> = ({ children, gap = 'medium', ...restProps }) => {
+export const RadioGroup: React.FC<RadioGroupProps> = ({
+  children,
+  gap = 'medium',
+  ...restProps
+}) => {
   return (
     <Stack as="div" role="radiogroup" gap={gap} {...restProps}>
       {children}
