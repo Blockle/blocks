@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { useComponentStyleDefaultProps, useComponentStyles } from '../../hooks/useComponentStyles';
 import { Atoms } from '../../lib/css/atoms';
 import { classnames } from '../../lib/utils/classnames';
@@ -11,7 +10,7 @@ export type DividerProps = {
   style?: React.CSSProperties;
 };
 
-export const Divider: FC<DividerProps> = ({ className, color, ...restProps }) => {
+export const Divider: React.FC<DividerProps> = ({ className, color, ...restProps }) => {
   const dividerClass = useComponentStyles('divider', { base: true });
   const dividerDefaults = useComponentStyleDefaultProps('divider');
 

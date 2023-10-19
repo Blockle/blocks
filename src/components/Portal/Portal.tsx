@@ -1,14 +1,13 @@
-import { FC, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
-import { BlocksProvider } from '../BlocksProvider/BlocksProvider';
 import { useTheme } from '../../hooks/useTheme';
+import { BlocksProvider } from '../BlocksProvider/BlocksProvider';
 
 export type PortalProps = {
-  children: ReactNode;
+  children: React.ReactNode;
   container?: HTMLElement;
 };
 
-export const Portal: FC<PortalProps> = ({ children, container }) => {
+export const Portal: React.FC<PortalProps> = ({ children, container }) => {
   const context = useTheme();
 
   return createPortal(

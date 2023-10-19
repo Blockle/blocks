@@ -1,4 +1,4 @@
-import { forwardRef, ReactNode } from 'react';
+import { forwardRef } from 'react';
 import { useComponentStyles } from '../../hooks/useComponentStyles';
 import { Atoms } from '../../lib/css/atoms';
 import { ButtonTheme } from '../../lib/theme/componentThemes';
@@ -11,7 +11,7 @@ import * as styles from './Button.css';
 // TODO How could we render a link variant of the button?
 // Note, it should also work with Link component (next/link, ...)
 export type ButtonProps = {
-  children: ReactNode;
+  children: React.ReactNode;
   type?: 'button' | 'submit' | 'reset';
   variant?: ButtonTheme['variants']['variant'];
   intent?: ButtonTheme['variants']['intent'];
@@ -19,8 +19,8 @@ export type ButtonProps = {
   width?: Atoms['width'];
   alignSelf?: Atoms['alignSelf'];
   loading?: boolean;
-  startSlot?: ReactNode;
-  endSlot?: ReactNode;
+  startSlot?: React.ReactNode;
+  endSlot?: React.ReactNode;
   disabled?: boolean;
 } & Omit<HTMLElementProps<HTMLButtonElement>, 'size'>;
 

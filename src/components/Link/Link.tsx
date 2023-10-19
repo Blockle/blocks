@@ -1,16 +1,16 @@
 import { ForwardRefComponent } from '@radix-ui/react-polymorphic';
-import { ReactNode, forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { useComponentStyles } from '../../hooks/useComponentStyles';
 import { Atoms } from '../../lib/css/atoms';
+import { LinkTheme } from '../../lib/theme/componentThemes';
 import { classnames } from '../../lib/utils/classnames';
 import { HTMLElementProps } from '../../lib/utils/utils';
 import { Box } from '../Box';
-import { LinkTheme } from '../../lib/theme/componentThemes';
 
 const defaultElement = 'a';
 
 export type LinkProps = {
-  children?: ReactNode;
+  children?: React.ReactNode;
   underline?: LinkTheme['variants']['underline'];
   variant?: LinkTheme['variants']['variant'];
 } & Atoms &

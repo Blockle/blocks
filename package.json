@@ -40,7 +40,7 @@
     "build-storybook": "storybook build",
     "coverage": "vitest run --coverage",
     "fix": "crackle fix",
-    "lint": "eslint . --resolve-plugins-relative-to /Users/niek/Projects/blockle/blocks/",
+    "lint": "eslint .",
     "storybook": "storybook dev -p 6006 --no-open",
     "test": "vitest",
     "ts": "tsc --noemit --project ./tsconfig.json",
