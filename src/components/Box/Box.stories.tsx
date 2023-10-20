@@ -33,6 +33,6 @@ export const Default: StoryObj<BoxProps> = {
     expect(canvas.getByText('Box')).toBeInTheDocument();
   },
   args: {
-    children: 'Box',
+    children: <a href="#">SOEP</a>,
   },
 };

@@ -1,33 +1,31 @@
-import type { ForwardRefComponent } from '@radix-ui/react-polymorphic';
 import { forwardRef } from 'react';
-import { Atoms } from '../../lib/css/atoms';
-import { atoms } from '../../lib/css/atoms/sprinkles.css';
+import { atoms } from '../../lib/css/atoms';
+import { Atoms } from '../../lib/css/atoms/atomTypes';
+import { getAtomsAndProps } from '../../lib/utils/atom-props';
 import { classnames } from '../../lib/utils/classnames';
-
-const defaultElement = 'div';
+import { createSlot } from '../Slot/Slot';
 
 export type BoxProps = {
   children?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
+  asChild?: boolean;
 } & Atoms;
 
-type PolymorphicBox = ForwardRefComponent<'div', BoxProps>;
+const Slot = createSlot('div');
 
-export const Box = forwardRef(function Box({ className, as, ...restProps }, ref) {
-  const Component = as || defaultElement;
-  const atomProps: Record<string, unknown> = {};
-  const otherProps: Record<string, unknown> = {};
-
-  for (const [name, value] of Object.entries(restProps)) {
-    if ((atoms.properties as Set<string>).has(name)) {
-      atomProps[name] = value;
-    } else {
-      otherProps[name] = value;
-    }
-  }
+export const Box = forwardRef<any, BoxProps>(function Box(
+  { asChild, className, ...restProps },
+  ref,
+) {
+  const [atomsProps, otherProps] = getAtomsAndProps(restProps);
 
   return (
-    <Component ref={ref} className={classnames(className, atoms(atomProps))} {...otherProps} />
+    <Slot
+      ref={ref}
+      asChild={asChild}
+      className={classnames(className, atoms(atomsProps))}
+      {...otherProps}
+    />
   );
-}) as PolymorphicBox;
+});

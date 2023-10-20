@@ -5,8 +5,11 @@ import { ButtonTheme } from '../../lib/theme/componentThemes';
 import { classnames } from '../../lib/utils/classnames';
 import { HTMLElementProps } from '../../lib/utils/utils';
 import { Box } from '../Box';
+import { createSlot } from '../Slot/Slot';
 import { Spinner } from '../Spinner';
 import * as styles from './Button.css';
+
+const Slot = createSlot('button');
 
 // TODO How could we render a link variant of the button?
 // Note, it should also work with Link component (next/link, ...)
@@ -22,6 +25,7 @@ export type ButtonProps = {
   startSlot?: React.ReactNode;
   endSlot?: React.ReactNode;
   disabled?: boolean;
+  asChild?: boolean;
 } & Omit<HTMLElementProps<HTMLButtonElement>, 'size'>;
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
@@ -37,6 +41,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     endSlot,
     loading,
     disabled,
+    asChild,
     ...restProps
   },
   ref,
@@ -55,18 +60,19 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   return (
     <Box
       ref={ref}
-      as="button"
+      asChild
+      // as="button"
       className={classnames(styles.buttonReset, buttonClassName, className)}
       width={width}
-      type={type}
-      disabled={disabled || loading}
       {...restProps}
     >
-      {/* TODO PaddingRight values should not be hardcoded, could wrap children in a div and use gap? */}
-      {startSlot && <Box paddingRight="medium">{startSlot}</Box>}
-      {loading && <Spinner size={size} marginRight="medium" />}
-      {children}
-      {endSlot && <Box paddingLeft="medium">{endSlot}</Box>}
+      <Slot asChild={asChild} type={type} disabled={disabled || loading}>
+        {/* TODO PaddingRight values should not be hardcoded, could wrap children in a div and use gap? */}
+        {startSlot && <Box paddingRight="medium">{startSlot}</Box>}
+        {loading && <Spinner size={size} marginRight="medium" />}
+        {children}
+        {endSlot && <Box paddingLeft="medium">{endSlot}</Box>}
+      </Slot>
     </Box>
   );
 });

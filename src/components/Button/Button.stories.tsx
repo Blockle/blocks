@@ -16,7 +16,8 @@ export const Default: StoryObj<ButtonProps> = {
   },
 
   args: {
-    children: 'Button',
+    // children: 'Button',
+    children: <a href="/">Link</a>,
     onClick: jest.fn(() => {
       console.log('Button clicked');
     }),
