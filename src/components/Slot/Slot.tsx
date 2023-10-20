@@ -1,21 +1,53 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { Children, cloneElement, forwardRef, isValidElement, useRef } from 'react';
+import React, { Children, cloneElement, forwardRef, isValidElement } from 'react';
 
-type HTMLElementTags = 'div' | 'span' | 'button';
-
+type HTMLElementTags = 'a' | 'button' | 'div';
 type UknownRecord = Record<string, unknown>;
+
+function mergeProps(slotProps: UknownRecord, childProps: UknownRecord) {
+  const overrideProps: UknownRecord = {};
+
+  for (const propName in childProps) {
+    const slotPropValue = slotProps[propName];
+    const childPropValue = childProps[propName];
+
+    if (childPropValue === undefined) {
+      continue;
+    }
+
+    if (slotPropValue === undefined) {
+      overrideProps[propName] = childPropValue;
+      continue;
+    }
+
+    if (typeof slotPropValue === 'function' && typeof childPropValue === 'function') {
+      overrideProps[propName] = (...args: any[]) => {
+        childPropValue(...args);
+        slotPropValue(...args);
+      };
+    } else if (propName === 'style') {
+      overrideProps[propName] = { ...slotPropValue, ...childPropValue };
+    } else if (propName === 'className') {
+      overrideProps[propName] = [slotPropValue, childPropValue].filter(Boolean).join(' ');
+    } else {
+      overrideProps[propName] = childPropValue;
+    }
+  }
+
+  return { ...slotProps, ...overrideProps };
+}
 
 export function createSlot<const E extends HTMLElementTags>(defaultElement: E) {
   type SlotProps = { asChild?: boolean } & React.HTMLProps<React.ElementRef<E>>;
 
   function Slot(props: SlotProps, ref?: React.ForwardedRef<any>): React.ReactElement | null {
-    const { asChild, children, ...restProps } = props;
+    const { asChild, children, ...slotProps } = props;
     const Component = defaultElement as HTMLElementTags;
 
     // Return default element
     if (!asChild) {
       return (
-        <Component ref={ref} {...(restProps as UknownRecord)}>
+        <Component ref={ref} {...(slotProps as UknownRecord)}>
           {children}
         </Component>
       );
@@ -36,25 +68,9 @@ export function createSlot<const E extends HTMLElementTags>(defaultElement: E) {
       throw new Error('Provide a valid react element');
     }
 
-    const { children: subChildren, ...restProps2 } = firstChild.props;
+    const { children: childChildren, ...childProps } = firstChild.props;
 
-    // Merge refs
-    // Merge props
-    // - Special cases: classNames, functions
-
-    console.log({
-      ...restProps,
-      ...restProps2,
-    });
-
-    return cloneElement(
-      firstChild,
-      {
-        ...restProps,
-        ...restProps2,
-      },
-      subChildren,
-    );
+    return cloneElement(firstChild, mergeProps(slotProps, childProps), childChildren);
   }
 
   return forwardRef<any, SlotProps>(Slot) as (
@@ -62,24 +78,3 @@ export function createSlot<const E extends HTMLElementTags>(defaultElement: E) {
     ref: React.ForwardedRef<any>,
   ) => ReturnType<typeof Slot>;
 }
-
-// Example
-
-const MySlot = createSlot('div');
-
-export const XX2: React.FC = () => {
-  const ref = useRef<HTMLDivElement>(null);
-
-  return (
-    <MySlot
-      asChild
-      ref={ref}
-      onClick={(event) => {
-        event.preventDefault();
-        console.log(event);
-      }}
-    >
-      <a href="/">Link yooo 1</a>
-    </MySlot>
-  );
-};

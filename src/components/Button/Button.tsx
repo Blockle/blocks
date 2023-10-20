@@ -1,7 +1,8 @@
 import { forwardRef } from 'react';
 import { useComponentStyles } from '../../hooks/useComponentStyles';
-import { Atoms } from '../../lib/css/atoms';
+import { Atoms, atoms } from '../../lib/css/atoms';
 import { ButtonTheme } from '../../lib/theme/componentThemes';
+import { getAtomsAndProps } from '../../lib/utils/atom-props';
 import { classnames } from '../../lib/utils/classnames';
 import { HTMLElementProps } from '../../lib/utils/utils';
 import { Box } from '../Box';
@@ -32,11 +33,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   {
     children,
     className,
-    type = 'button',
+    // type = 'button',
     variant,
     intent,
     size,
-    width,
+    // width,
     startSlot,
     endSlot,
     loading,
@@ -57,22 +58,21 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     },
   });
 
+  const [atomsProps, otherProps] = getAtomsAndProps(restProps);
+
   return (
-    <Box
+    <Slot
       ref={ref}
-      asChild
-      // as="button"
-      className={classnames(styles.buttonReset, buttonClassName, className)}
-      width={width}
-      {...restProps}
+      asChild={asChild}
+      disabled={disabled || loading}
+      className={classnames(styles.buttonReset, buttonClassName, atoms(atomsProps), className)}
+      {...otherProps}
     >
-      <Slot asChild={asChild} type={type} disabled={disabled || loading}>
-        {/* TODO PaddingRight values should not be hardcoded, could wrap children in a div and use gap? */}
-        {startSlot && <Box paddingRight="medium">{startSlot}</Box>}
-        {loading && <Spinner size={size} marginRight="medium" />}
-        {children}
-        {endSlot && <Box paddingLeft="medium">{endSlot}</Box>}
-      </Slot>
-    </Box>
+      {/* TODO PaddingRight values should not be hardcoded, could wrap children in a div and use gap? */}
+      {startSlot && <Box paddingRight="medium">{startSlot}</Box>}
+      {loading && <Spinner size={size} marginRight="medium" />}
+      {children}
+      {endSlot && <Box paddingLeft="medium">{endSlot}</Box>}
+    </Slot>
   );
 });
