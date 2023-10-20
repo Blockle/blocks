@@ -1,8 +1,8 @@
-import { RefObject, useEffect } from 'react';
+import { useEffect } from 'react';
 import { focusFirstElement } from '../../lib/utils/dom-focus';
 
 type UseFocusLock = {
-  ref: RefObject<HTMLElement>;
+  ref: React.RefObject<HTMLElement>;
   active: boolean;
 };
 
