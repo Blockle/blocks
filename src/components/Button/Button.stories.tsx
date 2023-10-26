@@ -29,11 +29,15 @@ export const LinkButton: StoryObj<ButtonProps> = {
   },
 
   args: {
-    children: <a href="https://google.com">Link text</a>,
+    children: (
+      <a href="https://google.com" target="_blank" rel="noreferrer">
+        Link text
+      </a>
+    ),
     asChild: true,
     onClick: jest.fn((event) => {
       event.preventDefault();
-      console.log('Link clicked');
+      console.log('Link clicked and default prevented');
     }),
   },
 };

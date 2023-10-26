@@ -6,14 +6,12 @@ import { getAtomsAndProps } from '../../lib/utils/atom-props';
 import { classnames } from '../../lib/utils/classnames';
 import { HTMLElementProps } from '../../lib/utils/utils';
 import { Box } from '../Box';
-import { createSlot } from '../Slot/Slot';
+import { SlotChildren, createSlot } from '../Slot/Slot';
 import { Spinner } from '../Spinner';
 import * as styles from './Button.css';
 
 const Slot = createSlot('button');
 
-// TODO How could we render a link variant of the button?
-// Note, it should also work with Link component (next/link, ...)
 export type ButtonProps = {
   children: React.ReactNode;
   type?: 'button' | 'submit' | 'reset';
@@ -33,11 +31,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   {
     children,
     className,
-    // type = 'button',
     variant,
     intent,
     size,
-    // width,
     startSlot,
     endSlot,
     loading,
@@ -71,7 +67,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       {/* TODO PaddingRight values should not be hardcoded, could wrap children in a div and use gap? */}
       {startSlot && <Box paddingRight="medium">{startSlot}</Box>}
       {loading && <Spinner size={size} marginRight="medium" />}
-      {children}
+      <SlotChildren>{children}</SlotChildren>
       {endSlot && <Box paddingLeft="medium">{endSlot}</Box>}
     </Slot>
   );

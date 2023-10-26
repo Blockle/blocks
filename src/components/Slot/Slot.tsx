@@ -54,23 +54,48 @@ export function createSlot<const E extends HTMLElementTags>(defaultElement: E) {
     }
 
     const childrenArray = Children.toArray(children);
-    const firstChild = childrenArray[0];
 
-    if (childrenArray.length === 0) {
-      throw new Error('Expect one child');
+    const slotChildIndex = childrenArray.findIndex((child) => {
+      if (!isValidElement(child)) {
+        return false;
+      }
+
+      return child.type === SlotChildren;
+    });
+
+    if (slotChildIndex === -1) {
+      throw new Error('Expect <SlotChildren />');
     }
 
-    if (childrenArray.length > 1) {
-      throw new Error('Expect one element with prop `asChild`');
-    }
+    const slotTarget = childrenArray[slotChildIndex];
 
-    if (!isValidElement(firstChild)) {
+    if (!isValidElement(slotTarget)) {
       throw new Error('Provide a valid react element');
     }
 
-    const { children: childChildren, ...childProps } = firstChild.props;
+    const { children: childChildren } = slotTarget.props;
 
-    return cloneElement(firstChild, mergeProps(slotProps, childProps), childChildren);
+    if (!isValidElement(childChildren) && typeof childChildren !== 'function') {
+      throw new Error('Provide a valid react element when using asChild prop');
+    }
+
+    return cloneElement(
+      childChildren,
+      mergeProps(slotProps, childChildren.props),
+      // Replace SlotChildren with original children
+      childrenArray.map((child) => {
+        if (!isValidElement(child)) {
+          return child;
+        }
+
+        // Replace SlotChildren with children of SlotChildren
+        if (child.type === SlotChildren) {
+          return childChildren.props.children;
+        }
+
+        return child;
+      }),
+    );
   }
 
   return forwardRef<any, SlotProps>(Slot) as (
@@ -78,3 +103,9 @@ export function createSlot<const E extends HTMLElementTags>(defaultElement: E) {
     ref: React.ForwardedRef<any>,
   ) => ReturnType<typeof Slot>;
 }
+
+type SlottableProps = {
+  children: React.ReactNode;
+};
+
+export const SlotChildren: React.FC<SlottableProps> = ({ children }) => children;
