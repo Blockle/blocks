@@ -34,5 +34,6 @@ export const Default: StoryObj<BoxProps> = {
   },
   args: {
     children: <a href="#">SOEP</a>,
+    asChild: true,
   },
 };

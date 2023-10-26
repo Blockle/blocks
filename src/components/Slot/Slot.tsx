@@ -37,10 +37,31 @@ function mergeProps(slotProps: UknownRecord, childProps: UknownRecord) {
   return { ...slotProps, ...overrideProps };
 }
 
-export function createSlot<const E extends HTMLElementTags>(defaultElement: E) {
-  type SlotProps = { asChild?: boolean } & React.HTMLProps<React.ElementRef<E>>;
+// Cases 1: No SlotChildren, direct descendant
+// const Slot = createSlot('div');
+// <Slot>{children}</Slot>
 
-  function Slot(props: SlotProps, ref?: React.ForwardedRef<any>): React.ReactElement | null {
+// Cases 2: Slotted with SlotChildren
+// const Slot = createSlot('div');
+// <Slot>
+//   <div>...</div>
+//   <SlotChildren>{children}</SlotChildren>
+// </Slot> -> Children of SlotChildren
+
+/**
+ * Notes:
+ * - <Slot> can only have one child
+ * - <Slot> can only be used once
+ * - <Slot> can only be used as a direct descendant of <Slottable>
+ */
+
+export function createSlottable<E extends HTMLElementTags>(defaultElement: E) {
+  type SlottableProps = { asChild?: boolean } & React.HTMLProps<React.ElementRef<any>>;
+
+  function Slottable(
+    props: SlottableProps,
+    ref?: React.ForwardedRef<any>,
+  ): React.ReactElement | null {
     const { asChild, children, ...slotProps } = props;
     const Component = defaultElement as HTMLElementTags;
 
@@ -55,57 +76,64 @@ export function createSlot<const E extends HTMLElementTags>(defaultElement: E) {
 
     const childrenArray = Children.toArray(children);
 
-    const slotChildIndex = childrenArray.findIndex((child) => {
+    // Find Slot element
+    const slot = childrenArray.find((child) => {
       if (!isValidElement(child)) {
         return false;
       }
 
-      return child.type === SlotChildren;
+      return child.type === Slot;
     });
 
-    if (slotChildIndex === -1) {
-      throw new Error('Expect <SlotChildren />');
+    // No Slot provided, render Slottable with first child
+    if (!slot) {
+      const Slot = childrenArray[0];
+
+      if (!isValidElement(Slot)) {
+        return null;
+      }
+
+      return cloneElement(
+        Slot,
+        {
+          ...mergeProps(slotProps, Slot.props),
+          ref,
+        },
+        Slot.props.children,
+      );
     }
 
-    const slotTarget = childrenArray[slotChildIndex];
-
-    if (!isValidElement(slotTarget)) {
-      throw new Error('Provide a valid react element');
+    if (!isValidElement(slot) || !isValidElement(slot.props.children)) {
+      return null;
     }
 
-    const { children: childChildren } = slotTarget.props;
+    const newChildren = childrenArray.map((child) => {
+      if (!isValidElement(child)) {
+        return child;
+      }
 
-    if (!isValidElement(childChildren) && typeof childChildren !== 'function') {
-      throw new Error('Provide a valid react element when using asChild prop');
-    }
+      if (child.type === Slot) {
+        return slot.props.children.props.children;
+      }
+
+      return child;
+    });
 
     return cloneElement(
-      childChildren,
-      mergeProps(slotProps, childChildren.props),
-      // Replace SlotChildren with original children
-      childrenArray.map((child) => {
-        if (!isValidElement(child)) {
-          return child;
-        }
-
-        // Replace SlotChildren with children of SlotChildren
-        if (child.type === SlotChildren) {
-          return childChildren.props.children;
-        }
-
-        return child;
-      }),
+      slot.props.children,
+      { ...mergeProps(slotProps, slot.props), ref },
+      newChildren,
     );
   }
 
-  return forwardRef<any, SlotProps>(Slot) as (
-    props: SlotProps,
+  return forwardRef<any, SlottableProps>(Slottable) as (
+    props: SlottableProps,
     ref: React.ForwardedRef<any>,
-  ) => ReturnType<typeof Slot>;
+  ) => ReturnType<typeof Slottable>;
 }
 
-type SlottableProps = {
+type SlotProps = {
   children: React.ReactNode;
 };
 
-export const SlotChildren: React.FC<SlottableProps> = ({ children }) => children;
+export const Slot: React.FC<SlotProps> = ({ children }) => children;

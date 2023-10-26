@@ -5,11 +5,11 @@ import { ButtonTheme } from '../../lib/theme/componentThemes';
 import { getAtomsAndProps } from '../../lib/utils/atom-props';
 import { classnames } from '../../lib/utils/classnames';
 import { HTMLElementProps } from '../../lib/utils/utils';
-import { SlotChildren, createSlot } from '../Slot/Slot';
+import { Slot, createSlottable } from '../Slot/Slot';
 import { Spinner } from '../Spinner';
 import * as styles from './Button.css';
 
-const Slot = createSlot('button');
+const Slottable = createSlottable('button');
 
 export type ButtonProps = {
   children: React.ReactNode;
@@ -57,7 +57,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   const [atomsProps, otherProps] = getAtomsAndProps(restProps);
 
   return (
-    <Slot
+    <Slottable
       ref={ref}
       asChild={asChild}
       disabled={disabled || loading}
@@ -66,8 +66,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     >
       {startSlot && <div>{startSlot}</div>}
       {loading && <Spinner size={size} />}
-      <SlotChildren>{children}</SlotChildren>
+      <Slot>{children}</Slot>
       {endSlot && <div>{endSlot}</div>}
-    </Slot>
+    </Slottable>
   );
 });

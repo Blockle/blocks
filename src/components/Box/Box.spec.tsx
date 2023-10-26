@@ -8,13 +8,16 @@ describe('Box', () => {
     expect(getByText('Box content')).toBeInTheDocument();
   });
 
-  it('should render Anchor', () => {
+  it('should render Anchor when asChild prop is provided', () => {
     const { getByText } = render(
-      <Box as="a" href="/foo" padding={['small', 'medium', 'large']}>
-        Box content
+      <Box asChild>
+        <a href="/foo">Box content</a>
       </Box>,
     );
 
-    expect(getByText('Box content')).toHaveAttribute('href', '/foo');
+    const target = getByText('Box content');
+
+    expect(target.tagName).toEqual('A');
+    expect(target).toHaveAttribute('href', '/foo');
   });
 });
