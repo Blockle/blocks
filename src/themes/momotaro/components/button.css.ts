@@ -14,6 +14,8 @@ export const button = makeComponentTheme('button', {
       fontSize: 'medium',
       borderRadius: 'medium',
       fontWeight: 'medium',
+      // Space between icon and text
+      gap: 'small',
     }),
     clickable,
   ]),
