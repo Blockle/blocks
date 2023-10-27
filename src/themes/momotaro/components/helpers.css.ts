@@ -9,11 +9,12 @@ export const focusable = style({
     transitionDuration: vars.transition.fast,
     transitionProperty: 'box-shadow',
   },
-  ':disabled': {
-    opacity: 0.5,
-    cursor: 'auto',
-  },
   selectors: {
+    '&:disabled, &[disabled]': {
+      opacity: 0.5,
+      cursor: 'auto',
+      pointerEvents: 'none',
+    },
     '&:has(input:focus-visible)': {
       outline: '2px solid transparent',
       outlineOffset: '2px',
