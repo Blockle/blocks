@@ -3,6 +3,7 @@ import { ThemeTokens } from './tokensType';
 export const tokens: ThemeTokens = {
   typography: {
     fontFamily: {
+      body: 'Roboto, sans-serif',
       primary: 'Roboto, sans-serif',
       secondary: 'Roboto, sans-serif',
     },
