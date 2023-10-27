@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.7.2
+
+### Patch Changes
+
+- 14eafa0: Using react namespace for types
+
 ## 0.7.1
 
 ### Patch Changes
