@@ -29,16 +29,18 @@ export const Stack: React.FC<StackProps> = ({
     console.warn('Stack: start prop is only valid when as="ol"');
   }
 
+  const Tag = as;
+
   return (
     <Box
-      as={as}
+      asChild
       display={display}
       gap={gap}
       flexDirection="column"
       alignItems={alignX ? alignItemsMap[alignX] : undefined}
       {...restProps}
     >
-      {children}
+      <Tag>{children}</Tag>
     </Box>
   );
 };

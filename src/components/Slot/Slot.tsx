@@ -3,7 +3,7 @@ import React, { Children, cloneElement, forwardRef, isValidElement } from 'react
 import { composeRefs } from '../../lib/react/react';
 import { UknownRecord, mergeProps } from './mergeProps';
 
-type HTMLElementTags = 'a' | 'button' | 'div';
+type HTMLElementTags = 'a' | 'button' | 'div' | 'span';
 
 // Cases 1: No SlotChildren, direct descendant
 // const Slot = createSlot('div');

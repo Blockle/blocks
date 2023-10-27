@@ -27,9 +27,11 @@ export const Inline: React.FC<InlineProps> = ({
   gap,
   ...props
 }) => {
+  const Tag = as;
+
   return (
     <Box
-      as={as}
+      asChild
       display={display}
       gap={gap}
       flexDirection="row"
@@ -38,7 +40,7 @@ export const Inline: React.FC<InlineProps> = ({
       flexWrap="wrap"
       {...props}
     >
-      {children}
+      <Tag>{children}</Tag>
     </Box>
   );
 };
