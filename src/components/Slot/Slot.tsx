@@ -57,6 +57,14 @@ export function createSlottable<E extends HTMLElementTags>(defaultElement: E) {
     if (!slot) {
       const Slot = childrenArray[0] as React.FunctionComponentElement<any>;
 
+      if (!isValidElement(childrenArray[0])) {
+        if (process.env.NODE_ENV === 'development') {
+          console.warn('Slottable: First child is not a valid React element');
+        }
+
+        return null;
+      }
+
       if (!isValidElement(Slot)) {
         return null;
       }
