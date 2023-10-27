@@ -57,7 +57,7 @@ export function useComponentStyles<T extends keyof ComponentThemesProps>(
   for (const key of keys) {
     const value = variantsWithDefaults[key as string];
 
-    if (value === undefined) {
+    if (value === undefined || componentVariants[key] === undefined) {
       continue;
     }
 
