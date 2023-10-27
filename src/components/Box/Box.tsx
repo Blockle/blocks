@@ -16,7 +16,7 @@ export type BoxProps = {
 
 const Slottable = createSlottable('div');
 
-export const Box = forwardRef<any, BoxProps>(function Box(
+export const Box = forwardRef<HTMLDivElement, BoxProps>(function Box(
   { asChild, className, children, ...restProps },
   ref,
 ) {

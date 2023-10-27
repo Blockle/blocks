@@ -1,41 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Children, cloneElement, forwardRef, isValidElement } from 'react';
+import { composeRefs } from '../../lib/react/react';
+import { UknownRecord, mergeProps } from './mergeProps';
 
 type HTMLElementTags = 'a' | 'button' | 'div';
-type UknownRecord = Record<string, unknown>;
-
-function mergeProps(slotProps: UknownRecord, childProps: UknownRecord) {
-  const overrideProps: UknownRecord = {};
-
-  for (const propName in childProps) {
-    const slotPropValue = slotProps[propName];
-    const childPropValue = childProps[propName];
-
-    if (childPropValue === undefined) {
-      continue;
-    }
-
-    if (slotPropValue === undefined) {
-      overrideProps[propName] = childPropValue;
-      continue;
-    }
-
-    if (typeof slotPropValue === 'function' && typeof childPropValue === 'function') {
-      overrideProps[propName] = (...args: any[]) => {
-        childPropValue(...args);
-        slotPropValue(...args);
-      };
-    } else if (propName === 'style') {
-      overrideProps[propName] = { ...slotPropValue, ...childPropValue };
-    } else if (propName === 'className') {
-      overrideProps[propName] = [slotPropValue, childPropValue].filter(Boolean).join(' ');
-    } else {
-      overrideProps[propName] = childPropValue;
-    }
-  }
-
-  return { ...slotProps, ...overrideProps };
-}
 
 // Cases 1: No SlotChildren, direct descendant
 // const Slot = createSlot('div');
@@ -85,9 +53,9 @@ export function createSlottable<E extends HTMLElementTags>(defaultElement: E) {
       return child.type === Slot;
     });
 
-    // No Slot provided, render Slottable with first child
+    // No Slot provided, render Slottable with first child and ignore the rest of the children
     if (!slot) {
-      const Slot = childrenArray[0];
+      const Slot = childrenArray[0] as React.FunctionComponentElement<any>;
 
       if (!isValidElement(Slot)) {
         return null;
@@ -97,7 +65,7 @@ export function createSlottable<E extends HTMLElementTags>(defaultElement: E) {
         Slot,
         {
           ...mergeProps(slotProps, Slot.props),
-          ref,
+          ref: composeRefs(ref, Slot.ref),
         },
         Slot.props.children,
       );
@@ -121,7 +89,10 @@ export function createSlottable<E extends HTMLElementTags>(defaultElement: E) {
 
     return cloneElement(
       slot.props.children,
-      { ...mergeProps(slotProps, slot.props), ref },
+      {
+        ...mergeProps(slotProps, slot.props),
+        ref: composeRefs(ref, slot.props.children.ref),
+      },
       newChildren,
     );
   }

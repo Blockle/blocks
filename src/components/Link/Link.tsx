@@ -1,34 +1,38 @@
-import { ForwardRefComponent } from '@radix-ui/react-polymorphic';
 import { forwardRef } from 'react';
 import { useComponentStyles } from '../../hooks/useComponentStyles';
 import { Atoms } from '../../lib/css/atoms';
 import { LinkTheme } from '../../lib/theme/componentThemes';
 import { classnames } from '../../lib/utils/classnames';
 import { HTMLElementProps } from '../../lib/utils/utils';
-import { Box } from '../Box';
-
-const defaultElement = 'a';
+import { createSlottable } from '../Slot/Slot';
 
 export type LinkProps = {
+  asChild?: boolean;
   children?: React.ReactNode;
   underline?: LinkTheme['variants']['underline'];
   variant?: LinkTheme['variants']['variant'];
 } & Atoms &
   HTMLElementProps<HTMLAnchorElement>;
 
-type PolymorphicLink = ForwardRefComponent<'a', LinkProps>;
+const Slottable = createSlottable('a');
 
-export const Link = forwardRef(function Link(
-  { as, className, variant, underline, ...restProps },
+export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
+  { asChild, className, children, variant, underline, ...restProps },
   ref,
 ) {
-  const Component = as || defaultElement;
   const linkClassName = useComponentStyles('link', {
     base: true,
     variants: { variant, underline },
   });
 
   return (
-    <Box ref={ref} as={Component} className={classnames(className, linkClassName)} {...restProps} />
+    <Slottable
+      asChild={asChild}
+      ref={ref}
+      className={classnames(className, linkClassName)}
+      {...restProps}
+    >
+      {children}
+    </Slottable>
   );
-}) as PolymorphicLink;
+});
