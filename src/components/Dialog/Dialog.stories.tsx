@@ -48,7 +48,7 @@ export const Default: StoryObj<DialogProps> = {
       <>
         <Stack gap="medium">
           <Heading level={2}>Hello world!</Heading>
-          <Text as="p" fontSize="small">
+          <Text tag="p" fontSize="small">
             This is a dialog.
           </Text>
           <NestedDialog>

@@ -2,8 +2,8 @@ import { expect } from '@storybook/jest';
 import { Meta, StoryObj } from '@storybook/react';
 import { within } from '@storybook/testing-library';
 import { responsiveProperties, unresponsiveProperties } from '../../lib/css/atoms/atomicProperties';
-import { Text, TextProps } from './Text';
 import { vars } from '../../lib/theme/vars.css';
+import { Text, TextProps } from './Text';
 
 export default {
   title: 'Typography/Text',
@@ -47,6 +47,6 @@ export const Default: StoryObj<TextProps> = {
   args: {
     children: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     fontFamily: 'primary',
-    as: 'span',
+    tag: 'span',
   },
 };

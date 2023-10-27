@@ -4,7 +4,7 @@ import { Box } from '../Box/Box';
 
 export type StackProps = {
   alignX?: keyof AlignItemsMap;
-  as?: 'div' | 'section' | 'ul' | 'ol';
+  tag?: 'div' | 'section' | 'ul' | 'ol';
   children: React.ReactNode;
   className?: string;
   display?: ResponsiveDisplayFlex;
@@ -12,24 +12,22 @@ export type StackProps = {
   style?: React.CSSProperties;
   role?: React.AriaRole;
   /**
-   * Start prop is only valid when as="ol"
+   * Start prop is only valid when tag="ol"
    */
   start?: number;
 } & MarginAndPaddingAtoms;
 
 export const Stack: React.FC<StackProps> = ({
-  as = 'div',
+  tag: Tag = 'div',
   display = 'flex',
   children,
   gap,
   alignX,
   ...restProps
 }) => {
-  if (process.env.NODE_ENV === 'development' && restProps.start !== undefined && as !== 'ol') {
-    console.warn('Stack: start prop is only valid when as="ol"');
+  if (process.env.NODE_ENV === 'development' && restProps.start !== undefined && Tag !== 'ol') {
+    console.warn('Stack: start prop is only valid when tag="ol"');
   }
-
-  const Tag = as;
 
   return (
     <Box

@@ -7,7 +7,7 @@ import * as styles from './text.css';
 
 export type TextProps = {
   children: React.ReactNode;
-  as?: 'span' | 'p' | 'strong' | 'em' | 'small' | 's' | 'del' | 'ins' | 'sub' | 'sup';
+  tag?: 'span' | 'p' | 'strong' | 'em' | 'small' | 's' | 'del' | 'ins' | 'sub' | 'sup';
   asChild?: boolean;
   color?: Atoms['color'];
   fontSize?: Atoms['fontSize'];
@@ -25,7 +25,7 @@ export type TextProps = {
 
 export const Text: React.FC<TextProps> = forwardRef<HTMLSpanElement, TextProps>(function Text(
   {
-    as = 'span',
+    tag: Tag = 'span',
     asChild,
     children,
     color,
@@ -38,8 +38,6 @@ export const Text: React.FC<TextProps> = forwardRef<HTMLSpanElement, TextProps>(
   },
   ref,
 ) {
-  const Tag = as;
-
   return (
     <Box
       ref={ref}

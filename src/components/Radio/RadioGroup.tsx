@@ -13,7 +13,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
   ...restProps
 }) => {
   return (
-    <Stack as="div" role="radiogroup" gap={gap} {...restProps}>
+    <Stack tag="div" role="radiogroup" gap={gap} {...restProps}>
       {children}
     </Stack>
   );
