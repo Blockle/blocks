@@ -69,7 +69,7 @@ export const Play: StoryObj<ButtonProps> = {
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
 
-    userEvent.click(canvas.getByRole('button'));
+    await userEvent.click(canvas.getByRole('button'));
 
     expect(args.onClick).toHaveBeenCalled();
   },
