@@ -24,6 +24,9 @@ export { Spinner, type SpinnerProps } from './components/Spinner';
 export { Stack, type StackProps } from './components/Stack';
 export { Text, type TextProps } from './components/Text';
 
+// Slot
+export { Slot, createSlottable } from './components/Slot';
+
 // Hooks
 export { useComponentStyleDefaultProps, useComponentStyles } from './hooks/useComponentStyles';
 
