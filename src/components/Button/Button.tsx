@@ -9,8 +9,6 @@ import { Slot, createSlottable } from '../Slot/Slot';
 import { Spinner } from '../Spinner';
 import * as styles from './Button.css';
 
-const Slottable = createSlottable('button');
-
 export type ButtonProps = {
   children: React.ReactNode;
   type?: 'button' | 'submit' | 'reset';
@@ -26,6 +24,8 @@ export type ButtonProps = {
   asChild?: boolean;
 } & Omit<HTMLElementProps<HTMLButtonElement>, 'size'> &
   MarginAtoms;
+
+const Slottable = createSlottable('button');
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
