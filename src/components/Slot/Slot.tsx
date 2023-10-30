@@ -3,7 +3,8 @@ import React, { Children, cloneElement, forwardRef, isValidElement } from 'react
 import { composeRefs } from '../../lib/react/react';
 import { UknownRecord, mergeProps } from './mergeProps';
 
-type HTMLElementTags = 'a' | 'button' | 'div' | 'span';
+// Subset of HTML element tags that can be used as a default element
+type HTMLElementTags = 'a' | 'article' | 'button' | 'div' | 'p' | 'section' | 'span' | 'strong';
 
 // Cases 1: No SlotChildren, direct descendant
 // const Slot = createSlot('div');
