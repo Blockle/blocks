@@ -23,6 +23,25 @@ export const Default: StoryObj<ButtonProps> = {
   },
 };
 
+export const LinkButton: StoryObj<ButtonProps> = {
+  render: (props) => {
+    return <Button {...props} />;
+  },
+
+  args: {
+    children: (
+      <a href="https://google.com" target="_blank" rel="noreferrer">
+        Link text
+      </a>
+    ),
+    asChild: true,
+    onClick: jest.fn((event) => {
+      event.preventDefault();
+      console.log('Link clicked and default prevented');
+    }),
+  },
+};
+
 // export const WithIcon: StoryObj<ButtonProps> = {
 //   render: (props) => {
 //     return (
@@ -50,7 +69,7 @@ export const Play: StoryObj<ButtonProps> = {
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
 
-    userEvent.click(canvas.getByRole('button'));
+    await userEvent.click(canvas.getByRole('button'));
 
     expect(args.onClick).toHaveBeenCalled();
   },

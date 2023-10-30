@@ -1,8 +1,8 @@
 import { expect } from '@storybook/jest';
 import { Meta, StoryFn, StoryObj } from '@storybook/react';
 import { within } from '@storybook/testing-library';
-import { Inline, InlineProps } from './Inline';
 import { vars } from '../../lib/theme/vars.css';
+import { Inline, InlineProps } from './Inline';
 
 export default {
   title: 'Layout/Inline',
@@ -75,6 +75,6 @@ export const List: StoryObj<InlineProps> = {
         <li style={{ border: '1px red solid', width: '60px', height: '60px' }}>3</li>
       </>
     ),
-    as: 'ol',
+    tag: 'ol',
   },
 };

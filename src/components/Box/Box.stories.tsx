@@ -24,15 +24,46 @@ export default {
 } as Meta;
 
 export const Default: StoryObj<BoxProps> = {
-  render: (props) => {
+  render(props) {
     return <Box {...props} />;
   },
-  play: async ({ canvasElement }) => {
+  async play({ canvasElement }) {
     const canvas = within(canvasElement);
 
-    expect(canvas.getByText('Box')).toBeInTheDocument();
+    expect(canvas.getByText('Box contents')).toBeInTheDocument();
   },
   args: {
-    children: 'Box',
+    children: 'Box contents',
+  },
+};
+
+export const AsChild: StoryObj<BoxProps> = {
+  render(props) {
+    return <Box {...props} />;
+  },
+  async play({ canvasElement }) {
+    const canvas = within(canvasElement);
+    const link = canvas.getByText('Link text');
+
+    expect(link).toBeInTheDocument();
+    expect(link).toHaveAttribute('href', 'https://google.com');
+    expect(link.tagName).toEqual('A');
+  },
+  args: {
+    asChild: true,
+    color: 'primary',
+    children: (
+      <a
+        href="https://google.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={(event) => {
+          event.preventDefault();
+          console.log('Link clicked');
+        }}
+      >
+        Link text
+      </a>
+    ),
   },
 };

@@ -1,5 +1,6 @@
-import { jest } from '@storybook/jest';
+import { expect, jest } from '@storybook/jest';
 import { Meta, StoryObj } from '@storybook/react';
+import { fireEvent, getByRole, userEvent, within } from '@storybook/testing-library';
 import { useState } from 'react';
 import { Button } from '../Button';
 import { Heading } from '../Heading';
@@ -48,7 +49,7 @@ export const Default: StoryObj<DialogProps> = {
       <>
         <Stack gap="medium">
           <Heading level={2}>Hello world!</Heading>
-          <Text as="p" fontSize="small">
+          <Text tag="p" fontSize="small">
             This is a dialog.
           </Text>
           <NestedDialog>
@@ -71,21 +72,37 @@ export const Default: StoryObj<DialogProps> = {
   },
 };
 
-// export const Play: StoryObj<DialogProps> = {
-//   render: DialogTemplate,
+export const Play: StoryObj<DialogProps> = {
+  render: DialogTemplate,
 
-//   play: async ({ args, canvasElement }) => {
-//     const canvas = within(canvasElement);
+  async play({ canvasElement }) {
+    const canvas = within(canvasElement);
 
-//     userEvent.click(canvas.getByRole('Dialog'));
+    // Open dialog
+    await userEvent.click(canvas.getByRole('button', { name: 'Open Dialog' }));
 
-//     expect(args.onClick).toHaveBeenCalled();
-//   },
+    const dialog = getByRole(document.body, 'dialog');
 
-//   args: {
-//     children: 'Dialog',
-//     onClick: jest.fn(() => {
-//       console.log('Dialog clicked');
-//     }),
-//   },
-// };
+    expect(dialog).toBeInTheDocument();
+
+    fireEvent.keyDown(dialog, { key: 'Escape' });
+
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    expect(dialog).not.toBeInTheDocument();
+  },
+
+  args: {
+    children: (
+      <>
+        <Stack gap="medium">
+          <Heading level={2}>Hello world</Heading>
+          <Button type="submit">Close Dialog</Button>
+        </Stack>
+      </>
+    ),
+    onRequestClose: jest.fn(() => {
+      console.log('Dialog clicked');
+    }),
+  },
+};

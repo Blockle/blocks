@@ -1,15 +1,14 @@
 import { forwardRef } from 'react';
 import { useComponentStyles } from '../../hooks/useComponentStyles';
-import { Atoms } from '../../lib/css/atoms';
+import { Atoms, MarginAtoms, atoms } from '../../lib/css/atoms';
 import { ButtonTheme } from '../../lib/theme/componentThemes';
+import { getAtomsAndProps } from '../../lib/utils/atom-props';
 import { classnames } from '../../lib/utils/classnames';
 import { HTMLElementProps } from '../../lib/utils/utils';
-import { Box } from '../Box';
+import { Slot, createSlottable } from '../Slot/Slot';
 import { Spinner } from '../Spinner';
 import * as styles from './Button.css';
 
-// TODO How could we render a link variant of the button?
-// Note, it should also work with Link component (next/link, ...)
 export type ButtonProps = {
   children: React.ReactNode;
   type?: 'button' | 'submit' | 'reset';
@@ -22,21 +21,24 @@ export type ButtonProps = {
   startSlot?: React.ReactNode;
   endSlot?: React.ReactNode;
   disabled?: boolean;
-} & Omit<HTMLElementProps<HTMLButtonElement>, 'size'>;
+  asChild?: boolean;
+} & Omit<HTMLElementProps<HTMLButtonElement>, 'size'> &
+  MarginAtoms;
+
+const Slottable = createSlottable('button');
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
     children,
     className,
-    type = 'button',
     variant,
     intent,
     size,
-    width,
     startSlot,
     endSlot,
     loading,
     disabled,
+    asChild,
     ...restProps
   },
   ref,
@@ -52,21 +54,20 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     },
   });
 
+  const [atomsProps, otherProps] = getAtomsAndProps(restProps);
+
   return (
-    <Box
+    <Slottable
       ref={ref}
-      as="button"
-      className={classnames(styles.buttonReset, buttonClassName, className)}
-      width={width}
-      type={type}
+      asChild={asChild}
       disabled={disabled || loading}
-      {...restProps}
+      className={classnames(styles.buttonReset, buttonClassName, atoms(atomsProps), className)}
+      {...otherProps}
     >
-      {/* TODO PaddingRight values should not be hardcoded, could wrap children in a div and use gap? */}
-      {startSlot && <Box paddingRight="medium">{startSlot}</Box>}
-      {loading && <Spinner size={size} marginRight="medium" />}
-      {children}
-      {endSlot && <Box paddingLeft="medium">{endSlot}</Box>}
-    </Box>
+      {startSlot && <div>{startSlot}</div>}
+      {loading && <Spinner size={size} />}
+      <Slot>{children}</Slot>
+      {endSlot && <div>{endSlot}</div>}
+    </Slottable>
   );
 });

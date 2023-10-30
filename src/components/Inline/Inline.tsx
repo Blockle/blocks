@@ -10,7 +10,7 @@ import { Box } from '../Box/Box';
 export type InlineProps = {
   alignX?: keyof JustifyContentMap;
   alignY?: keyof AlignItemsMap;
-  as?: 'div' | 'ul' | 'ol' | 'nav';
+  tag?: 'div' | 'ul' | 'ol' | 'nav';
   children: React.ReactNode;
   className?: string;
   display?: ResponsiveDisplayFlex;
@@ -21,7 +21,7 @@ export type InlineProps = {
 export const Inline: React.FC<InlineProps> = ({
   alignX,
   alignY,
-  as = 'div',
+  tag: Tag = 'div',
   children,
   display = 'flex',
   gap,
@@ -29,7 +29,7 @@ export const Inline: React.FC<InlineProps> = ({
 }) => {
   return (
     <Box
-      as={as}
+      asChild
       display={display}
       gap={gap}
       flexDirection="row"
@@ -38,7 +38,7 @@ export const Inline: React.FC<InlineProps> = ({
       flexWrap="wrap"
       {...props}
     >
-      {children}
+      <Tag>{children}</Tag>
     </Box>
   );
 };

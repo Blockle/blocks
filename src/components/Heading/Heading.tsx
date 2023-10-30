@@ -1,6 +1,8 @@
 import { Atoms, MarginAndPaddingAtoms } from '../../lib/css/atoms';
+import { classnames } from '../../lib/utils/classnames';
 import { HTMLElementProps } from '../../lib/utils/utils';
 import { Box } from '../Box';
+import * as styles from './heading.css';
 
 export type HeadingProps = {
   align?: Atoms['textAlign'];
@@ -23,21 +25,19 @@ export const Heading: React.FC<HeadingProps> = ({
   fontFamily,
   ...restProps
 }) => {
-  const as = `h${level}` as const;
+  const Tag = `h${level}` as const;
 
   return (
     <Box
-      as={as}
-      className={className}
+      asChild
+      className={classnames(styles.heading, className)}
       fontFamily={fontFamily}
       fontWeight={fontWeight}
       fontSize={fontSize}
       textAlign={align}
-      padding="none"
-      margin="none"
       {...restProps}
     >
-      {children}
+      <Tag>{children}</Tag>
     </Box>
   );
 };

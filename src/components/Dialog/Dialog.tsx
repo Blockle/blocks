@@ -102,10 +102,8 @@ export const Dialog: React.FC<DialogProps> = ({
           onClick={onBackdropClick}
           onAnimationEnd={onAnimationEnd}
         >
-          <Box
+          <dialog
             ref={dialogRef}
-            as="dialog"
-            // By default users can not interact with the page when a dialog is open
             aria-modal="true"
             open
             className={classnames(
@@ -117,7 +115,7 @@ export const Dialog: React.FC<DialogProps> = ({
             {...restProps}
           >
             {children}
-          </Box>
+          </dialog>
         </Box>
       </DialogContext.Provider>
     </Portal>

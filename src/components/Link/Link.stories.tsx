@@ -25,6 +25,7 @@ export const Default: StoryObj<LinkProps> = {
   args: {
     children: 'Link',
     href: 'https://example.com',
+    underline: true,
     onClick: jest.fn(() => {
       console.log('Link clicked');
     }),
@@ -39,7 +40,7 @@ export const Play: StoryObj<LinkProps> = {
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
 
-    userEvent.click(canvas.getByRole('Link'));
+    await userEvent.click(canvas.getByRole('link'));
 
     expect(args.onClick).toHaveBeenCalled();
   },
@@ -47,7 +48,10 @@ export const Play: StoryObj<LinkProps> = {
   args: {
     children: 'Link',
     href: 'https://example.com',
-    onClick: jest.fn(() => {
+    underline: true,
+    onClick: jest.fn((event) => {
+      event.preventDefault();
+
       console.log('Link clicked');
     }),
   },
