@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.8.0
+
+### Minor Changes
+
+- a6c5730: Breaking change: removed polymorphic component renderer and replaced with asChild (inspired by radix ui)
+
 ## 0.7.2
 
 ### Patch Changes
