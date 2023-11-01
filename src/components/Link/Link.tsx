@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import { useComponentStyles } from '../../hooks/useComponentStyles';
-import { Atoms } from '../../lib/css/atoms';
+import { MarginAtoms } from '../../lib/css/atoms';
 import { LinkTheme } from '../../lib/theme/componentThemes';
 import { classnames } from '../../lib/utils/classnames';
 import { HTMLElementProps } from '../../lib/utils/utils';
@@ -11,7 +11,7 @@ export type LinkProps = {
   children?: React.ReactNode;
   underline?: LinkTheme['variants']['underline'];
   variant?: LinkTheme['variants']['variant'];
-} & Atoms &
+} & MarginAtoms &
   HTMLElementProps<HTMLAnchorElement>;
 
 const Slottable = createSlottable('a');
