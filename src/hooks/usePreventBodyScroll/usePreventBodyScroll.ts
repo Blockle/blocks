@@ -24,7 +24,7 @@ export const usePreventBodyScroll = (enabled = true) => {
       document.body.style.overflow = 'hidden';
     }
 
-    // Revert back to previous overflow state when unmounting
+    // Revert back to previous styles when unmounting
     // or when enabled is set to false
     return () => {
       document.body.style.position = '';
