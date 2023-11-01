@@ -1,5 +1,12 @@
 # @blockle/blocks
 
+## 0.8.1
+
+### Patch Changes
+
+- 3f0a4f0: Fixed usePreventBodyScroll for nested dialogs and show a scrollbar when there scrollbar is already visible
+- 13b962b: Heading and Text atoms alignment
+
 ## 0.8.0
 
 ### Minor Changes
