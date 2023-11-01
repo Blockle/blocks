@@ -1,4 +1,4 @@
-import { Atoms, MarginAndPaddingAtoms, ResponsiveDisplayFlex } from '../../lib/css/atoms';
+import { Atoms, MarginAtoms, PaddingAtoms, ResponsiveDisplayFlex } from '../../lib/css/atoms';
 import { AlignItemsMap, alignItemsMap } from '../../lib/css/flexbox/flexbox';
 import { Box } from '../Box/Box';
 
@@ -15,7 +15,8 @@ export type StackProps = {
    * Start prop is only valid when tag="ol"
    */
   start?: number;
-} & MarginAndPaddingAtoms;
+} & MarginAtoms &
+  PaddingAtoms;
 
 export const Stack: React.FC<StackProps> = ({
   tag: Tag = 'div',

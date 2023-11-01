@@ -26,4 +26,18 @@ export type PaddingAtoms = {
   paddingY?: Atoms['paddingY'];
 };
 
-export type MarginAndPaddingAtoms = MarginAtoms & PaddingAtoms;
+export type TextAtoms = {
+  color?: Atoms['color'];
+  fontFamily?: Atoms['fontFamily'];
+  fontSize?: Atoms['fontSize'];
+  fontStyle?: Atoms['fontStyle'];
+  fontWeight?: Atoms['fontWeight'];
+  lineHeight?: Atoms['lineHeight'];
+  textAlign?: Atoms['textAlign'];
+  textDecoration?: Atoms['textDecoration'];
+  textTransform?: Atoms['textTransform'];
+  textWrap?: Atoms['textWrap'];
+  whiteSpace?: Atoms['whiteSpace'];
+  wordBreak?: Atoms['wordBreak'];
+  wordWrap?: Atoms['wordWrap'];
+};
