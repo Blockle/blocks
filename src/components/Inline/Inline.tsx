@@ -1,4 +1,4 @@
-import { Atoms, MarginAndPaddingAtoms, ResponsiveDisplayFlex } from '../../lib/css/atoms';
+import { Atoms, MarginAtoms, PaddingAtoms, ResponsiveDisplayFlex } from '../../lib/css/atoms';
 import {
   AlignItemsMap,
   JustifyContentMap,
@@ -16,7 +16,8 @@ export type InlineProps = {
   display?: ResponsiveDisplayFlex;
   gap: Atoms['gap'];
   style?: React.CSSProperties;
-} & MarginAndPaddingAtoms;
+} & MarginAtoms &
+  PaddingAtoms;
 
 export const Inline: React.FC<InlineProps> = ({
   alignX,

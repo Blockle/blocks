@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { Atoms, MarginAndPaddingAtoms } from '../../lib/css/atoms';
+import { MarginAtoms, PaddingAtoms, TextAtoms } from '../../lib/css/atoms';
 import { classnames } from '../../lib/utils/classnames';
 import { HTMLElementProps } from '../../lib/utils/utils';
 import { Box } from '../Box/Box';
@@ -9,47 +9,17 @@ export type TextProps = {
   children: React.ReactNode;
   tag?: 'span' | 'p' | 'strong' | 'em' | 'small' | 's' | 'del' | 'ins' | 'sub' | 'sup';
   asChild?: boolean;
-  color?: Atoms['color'];
-  fontSize?: Atoms['fontSize'];
-  fontWeight?: Atoms['fontWeight'];
-  fontFamily?: Atoms['fontFamily'];
-  textAlign?: Atoms['textAlign'];
-  fontStyle?: Atoms['fontStyle'];
-  textDecoration?: Atoms['textDecoration'];
-  lineHeight?: Atoms['lineHeight'];
-  whiteSpace?: Atoms['whiteSpace'];
-  wordWrap?: Atoms['wordWrap'];
-  wordBreak?: Atoms['wordBreak'];
-} & MarginAndPaddingAtoms &
+} & TextAtoms &
+  MarginAtoms &
+  PaddingAtoms &
   HTMLElementProps<HTMLSpanElement>;
 
 export const Text: React.FC<TextProps> = forwardRef<HTMLSpanElement, TextProps>(function Text(
-  {
-    tag: Tag = 'span',
-    asChild,
-    children,
-    color,
-    fontSize,
-    fontWeight,
-    fontFamily,
-    textAlign,
-    className,
-    ...restProps
-  },
+  { tag: Tag = 'span', asChild, children, className, ...restProps },
   ref,
 ) {
   return (
-    <Box
-      ref={ref}
-      asChild
-      color={color}
-      fontSize={fontSize}
-      fontWeight={fontWeight}
-      fontFamily={fontFamily}
-      textAlign={textAlign}
-      className={classnames(styles.text, className)}
-      {...restProps}
-    >
+    <Box ref={ref} asChild className={classnames(styles.text, className)} {...restProps}>
       {asChild ? children : <Tag>{children}</Tag>}
     </Box>
   );
