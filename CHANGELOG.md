@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.8.2
+
+### Patch Changes
+
+- 0d526a3: fix: Moved @changesets/cli to dev dependencies
+
 ## 0.8.1
 
 ### Patch Changes
