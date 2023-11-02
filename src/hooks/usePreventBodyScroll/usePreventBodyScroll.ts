@@ -31,6 +31,7 @@ export const usePreventBodyScroll = (enabled = true) => {
       document.body.style.overflow = prevOverflow;
       document.body.style.overflowY = '';
       document.body.style.width = '';
+      document.body.style.top = '';
       document.documentElement.scrollTop = prevScrollTop;
     };
   }, [enabled]);
