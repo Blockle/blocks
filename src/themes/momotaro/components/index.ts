@@ -6,17 +6,19 @@ import { divider } from './divider.css';
 import { input } from './input.css';
 import { label } from './label.css';
 import { link } from './link.css';
+import { progress } from './progress.css';
 import { radio } from './radio.css';
 import { spinner } from './spinner.css';
 
 export const components: ThemeComponentsStyles = {
   button,
-  link,
-  spinner,
-  divider,
-  dialog,
-  input,
   checkbox,
-  radio,
+  dialog,
+  divider,
+  input,
   label,
+  link,
+  progress,
+  radio,
+  spinner,
 };

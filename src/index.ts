@@ -19,6 +19,7 @@ export { Input, type InputProps } from './components/Input';
 export { Label, type LabelProps } from './components/Label';
 export { Link, type LinkProps } from './components/Link';
 export { Portal, type PortalProps } from './components/Portal';
+export { Progress, type ProgressProps } from './components/Progress';
 export { Radio, type RadioProps } from './components/Radio';
 export { Spinner, type SpinnerProps } from './components/Spinner';
 export { Stack, type StackProps } from './components/Stack';
