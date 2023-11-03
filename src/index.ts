@@ -30,6 +30,9 @@ export { Slot, createSlottable } from './components/Slot';
 
 // Hooks
 export { useComponentStyleDefaultProps, useComponentStyles } from './hooks/useComponentStyles';
+export { useIsomorphicLayoutEffect } from './hooks/useIsomorphicLayoutEffect';
+export { useKeyboard } from './hooks/useKeyboard';
+export { usePreventBodyScroll } from './hooks/usePreventBodyScroll';
 
 // Utils
 export { classnames } from './lib/utils/classnames';
