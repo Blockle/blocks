@@ -3,7 +3,7 @@ import { atoms } from '../../../lib/css/atoms';
 import { makeComponentTheme } from '../../../lib/theme/makeComponentTheme';
 
 export const dialog = makeComponentTheme('dialog', {
-  base: style([
+  dialog: style([
     atoms({
       display: 'flex',
       flexDirection: 'column',
@@ -15,10 +15,34 @@ export const dialog = makeComponentTheme('dialog', {
     }),
     {
       minWidth: '300px',
+      selectors: {
+        '&[data-open]': {
+          transform: 'scale(1)',
+        },
+      },
+      // Apply the animation only if the user has not requested reduced motion
+      '@media': {
+        '(prefers-reduced-motion: no-preference)': {
+          transform: 'scale(0.9)',
+          transition: 'transform 160ms',
+        },
+      },
     },
   ]),
   backdrop: style({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    selectors: {
+      '&[data-open]': {
+        opacity: 1,
+      },
+    },
+    // Apply the animation only if the user has not requested reduced motion
+    '@media': {
+      '(prefers-reduced-motion: no-preference)': {
+        opacity: 0,
+        transition: 'opacity 160ms',
+      },
+    },
   }),
   variants: {
     size: {
