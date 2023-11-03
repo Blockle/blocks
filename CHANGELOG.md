@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.8.5
+
+### Patch Changes
+
+- 7eb0416: It's now optional to provide custom component styles
+
 ## 0.8.4
 
 ### Patch Changes
