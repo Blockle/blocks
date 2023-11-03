@@ -76,6 +76,14 @@ export type LabelTheme = {
   };
 };
 
+export type ProgressTheme = {
+  container: string;
+  bar: string;
+  variants: {
+    indeterminate: boolean;
+  };
+};
+
 export type ComponentThemes = {
   button: ButtonTheme;
   link: LinkTheme;
@@ -86,6 +94,7 @@ export type ComponentThemes = {
   checkbox: CheckboxTheme;
   radio: RadioTheme;
   label: LabelTheme;
+  progress: ProgressTheme;
 };
 
 /**
