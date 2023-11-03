@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.8.3
+
+### Patch Changes
+
+- a053c70: Dialog support for "prefers-reduced-motion"
+
 ## 0.8.2
 
 ### Patch Changes
