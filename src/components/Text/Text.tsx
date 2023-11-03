@@ -7,7 +7,7 @@ import * as styles from './text.css';
 
 export type TextProps = {
   children: React.ReactNode;
-  tag?: 'span' | 'p' | 'strong' | 'em' | 'small' | 's' | 'del' | 'ins' | 'sub' | 'sup';
+  tag?: 'span' | 'p' | 'strong' | 'em' | 'small' | 's' | 'del' | 'ins' | 'sub' | 'sup' | 'label';
   asChild?: boolean;
 } & TextAtoms &
   MarginAtoms &

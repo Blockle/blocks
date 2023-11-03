@@ -36,7 +36,6 @@ export const input = makeComponentTheme('input', {
       backgroundColor: 'white',
       borderRadius: 'medium',
       boxShadow: 'medium',
-      gap: 'large',
     }),
   ]),
 });
