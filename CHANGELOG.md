@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.8.4
+
+### Patch Changes
+
+- 72cae4e: Fixed issue in useRestoreFocus hook that always focussed the first element the user interacted with
+
 ## 0.8.3
 
 ### Patch Changes
