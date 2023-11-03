@@ -32,10 +32,8 @@ export const focusable = style({
 export const clickable = style([
   focusable,
   {
-    selectors: {
-      '&:active:not(:disabled)': {
-        transform: 'scale(0.9)',
-      },
+    ':active': {
+      transform: 'scale(0.98)',
     },
   },
 ]);
