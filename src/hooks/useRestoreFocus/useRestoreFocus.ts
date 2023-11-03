@@ -1,21 +1,24 @@
-import { useEffect, useState } from 'react';
-import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect';
+import { useEffect, useRef } from 'react';
+
+const isBrowser = typeof window !== 'undefined';
 
 /**
  * Restores focus to the previously focused element
  */
 export const useRestoreFocus = (active: boolean) => {
-  const [target, setTarget] = useState<HTMLElement | null>(null);
+  const target = useRef<HTMLElement | null>(null);
 
-  useIsomorphicLayoutEffect(() => {
-    if (active && !target) {
-      setTarget(document.activeElement as HTMLElement);
-    }
-  }, [active]);
+  if (isBrowser && active && !target.current) {
+    target.current = document.activeElement as HTMLElement;
+  }
 
   useEffect(() => {
-    if (!active && target instanceof HTMLElement) {
-      target.focus();
+    if (target.current && !active && target.current instanceof HTMLElement) {
+      target.current.focus();
+    }
+
+    if (!active) {
+      target.current = null;
     }
   }, [active]);
 };
