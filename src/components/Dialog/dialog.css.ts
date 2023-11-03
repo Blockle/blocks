@@ -21,7 +21,7 @@ export const backdropLeaveAnimation = keyframes({
 
 export const dialogEnterAnimation = keyframes({
   '0%': {
-    transform: 'translateY(-34px)',
+    transform: 'translateY(-20px)',
   },
   '100%': {
     transform: 'translateY(0)',
@@ -33,7 +33,7 @@ export const dialogLeaveAnimation = keyframes({
     transform: 'translateY(0)',
   },
   '100%': {
-    transform: 'translateY(-34px)',
+    transform: 'translateY(-20px)',
   },
 });
 
@@ -49,8 +49,14 @@ export const backdrop = style({
       overflow: 'hidden',
       opacity: '0',
       animationName: backdropEnterAnimation,
-      animationDuration: '100ms',
+      // Js listens to animation event, so by default it the animation is 1ms
+      animationDuration: '1ms',
       animationFillMode: 'both',
+      '@media': {
+        '(prefers-reduced-motion: no-preference)': {
+          animationDuration: '100ms',
+        },
+      },
     },
   },
 });
@@ -67,8 +73,13 @@ export const dialog = style({
   '@layer': {
     [blocksLayer]: {
       animationName: dialogEnterAnimation,
-      animationDuration: '160ms',
-      animationFillMode: 'both',
+      animationDuration: '1ms',
+      animationFillMode: 'forwards',
+      '@media': {
+        '(prefers-reduced-motion: no-preference)': {
+          animationDuration: '160ms',
+        },
+      },
     },
   },
 });
