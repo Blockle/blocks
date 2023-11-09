@@ -1,5 +1,12 @@
 # @blockle/blocks
 
+## 0.8.6
+
+### Patch Changes
+
+- 37beeb9: Removed "align" prop in Heading. Use "textAlign" instead
+- 29ba4c0: Custom style api, combines atoms and raw css in a single object with the same api as style. So it could be used as a drop-in replacement for vanilla-extract style function.
+
 ## 0.8.5
 
 ### Patch Changes
