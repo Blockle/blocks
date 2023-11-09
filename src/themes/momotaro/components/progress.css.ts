@@ -1,6 +1,7 @@
 import { keyframes, style } from '@vanilla-extract/css';
 import { atoms } from '../../../lib/css/atoms';
 import { makeComponentTheme } from '../../../lib/theme/makeComponentTheme';
+import { vars } from '../../../lib/theme/vars.css';
 
 const indeterminateAnimation = keyframes({
   '0%': {
@@ -14,7 +15,7 @@ const indeterminateAnimation = keyframes({
 export const progress = makeComponentTheme('progress', {
   container: style([
     {
-      height: 6,
+      height: 8,
     },
     atoms({
       width: 'full',
@@ -34,10 +35,19 @@ export const progress = makeComponentTheme('progress', {
   }),
   variants: {
     indeterminate: style({
-      animation: `${indeterminateAnimation} 10s ease-in-out infinite`,
       '@media': {
+        // For reduce motion we show a striped pattern instead of animating
+        '(prefers-reduced-motion: reduce)': {
+          backgroundImage: `repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 20px,
+            ${vars.color.primaryDark} 20px,
+            ${vars.color.primaryDark} 40px
+          )`,
+        },
         '(prefers-reduced-motion: no-preference)': {
-          animationDuration: '3s',
+          animation: `${indeterminateAnimation} 3s ease-in-out infinite`,
         },
       },
     }),
