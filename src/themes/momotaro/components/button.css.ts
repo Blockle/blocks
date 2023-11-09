@@ -1,5 +1,4 @@
 import { createVar } from '@vanilla-extract/css';
-import { atoms } from '../../../lib/css/atoms';
 import { style } from '../../../lib/css/style/style';
 import { makeComponentTheme } from '../../../lib/theme/makeComponentTheme';
 import { vars } from '../../../lib/theme/vars.css';
@@ -55,30 +54,18 @@ export const button = makeComponentTheme('button', {
       }),
     },
     size: {
-      small: style([
-        atoms({
-          paddingX: 'large',
-        }),
-        {
-          height: 40,
-        },
-      ]),
-      medium: style([
-        atoms({
-          paddingX: 'xlarge',
-        }),
-        {
-          height: 56,
-        },
-      ]),
-      large: style([
-        atoms({
-          paddingX: 'xlarge',
-        }),
-        {
-          height: 72,
-        },
-      ]),
+      small: style({
+        paddingX: 'large',
+        height: 40,
+      }),
+      medium: style({
+        paddingX: 'xlarge',
+        height: 56,
+      }),
+      large: style({
+        paddingX: 'xlarge',
+        height: 72,
+      }),
     },
     intent: {
       neutral: style({
