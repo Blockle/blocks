@@ -24,6 +24,7 @@ export { Progress, type ProgressProps } from './components/Progress';
 export { Radio, type RadioProps } from './components/Radio';
 export { Spinner, type SpinnerProps } from './components/Spinner';
 export { Stack, type StackProps } from './components/Stack';
+export { Switch, type SwitchProps } from './components/Switch';
 export { Text, type TextProps } from './components/Text';
 
 // Slot
