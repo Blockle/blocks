@@ -33,7 +33,7 @@ export const button = makeComponentTheme('button', {
       }),
       outline: style({
         color: primaryColor,
-        borderWidth: vars.borderWidth.small,
+        borderWidth: 'small',
         borderStyle: 'solid',
         borderColor: primaryColor,
         background: 'transparent',

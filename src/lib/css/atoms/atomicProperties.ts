@@ -6,6 +6,7 @@ export const unresponsiveProperties = {
   backgroundColor: colorWithCurrentColor,
   borderColor: colorWithCurrentColor,
   borderRadius: vars.borderRadius,
+  borderWidth: vars.borderWidth,
   border: ['none'],
   bottom: [0],
   boxShadow: vars.shadow,
