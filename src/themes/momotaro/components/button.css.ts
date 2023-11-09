@@ -1,5 +1,6 @@
-import { createVar, style } from '@vanilla-extract/css';
+import { createVar } from '@vanilla-extract/css';
 import { atoms } from '../../../lib/css/atoms';
+import { style } from '../../../lib/css/style/style';
 import { makeComponentTheme } from '../../../lib/theme/makeComponentTheme';
 import { vars } from '../../../lib/theme/vars.css';
 import { clickable } from './helpers.css';
@@ -8,15 +9,15 @@ const primaryColor = createVar();
 
 export const button = makeComponentTheme('button', {
   base: style([
-    atoms({
+    {
       display: 'inline-flex',
       placeItems: 'center',
       fontSize: 'medium',
       borderRadius: 'medium',
       fontWeight: 'medium',
-      // Space between `startSlot | text | endSlot`
+      // Space between `startSlot | children | endSlot`
       gap: 'small',
-    }),
+    },
     clickable,
   ]),
   variants: {
