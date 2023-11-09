@@ -1,5 +1,5 @@
-import { createVar, style } from '@vanilla-extract/css';
-import { atoms } from '../../../lib/css/atoms';
+import { createVar } from '@vanilla-extract/css';
+import { style } from '../../../lib/css/style/style';
 import { makeComponentTheme } from '../../../lib/theme/makeComponentTheme';
 import { vars } from '../../../lib/theme/vars.css';
 import { clickable } from './helpers.css';
@@ -8,15 +8,15 @@ const primaryColor = createVar();
 
 export const button = makeComponentTheme('button', {
   base: style([
-    atoms({
+    {
       display: 'inline-flex',
       placeItems: 'center',
       fontSize: 'medium',
       borderRadius: 'medium',
       fontWeight: 'medium',
-      // Space between `startSlot | text | endSlot`
+      // Space between `startSlot | children | endSlot`
       gap: 'small',
-    }),
+    },
     clickable,
   ]),
   variants: {
@@ -54,30 +54,18 @@ export const button = makeComponentTheme('button', {
       }),
     },
     size: {
-      small: style([
-        atoms({
-          paddingX: 'large',
-        }),
-        {
-          height: 40,
-        },
-      ]),
-      medium: style([
-        atoms({
-          paddingX: 'xlarge',
-        }),
-        {
-          height: 56,
-        },
-      ]),
-      large: style([
-        atoms({
-          paddingX: 'xlarge',
-        }),
-        {
-          height: 72,
-        },
-      ]),
+      small: style({
+        paddingX: 'large',
+        height: 40,
+      }),
+      medium: style({
+        paddingX: 'xlarge',
+        height: 56,
+      }),
+      large: style({
+        paddingX: 'xlarge',
+        height: 72,
+      }),
     },
     intent: {
       neutral: style({

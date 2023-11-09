@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
+export type AnyString = string & {};
+
 /**
  * Suggest a type for a string literal but also allow any string.
  */
-export type OptionalLiteral<T extends string> = T | (string & {});
+export type OptionalLiteral<T extends string> = T | AnyString;
 
 export type RecordLike = Record<string | number, unknown>;
 
