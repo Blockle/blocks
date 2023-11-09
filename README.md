@@ -1,13 +1,11 @@
-# @blockle/blocks
+# @blockle/blocks design system
 
-TODO: Fix ts and add fix script: "release": "yarn ts && yarn test && yarn build && changeset publish"
-
-Blocks design system
+Design system for react with vanilla-extract.
 
 ## Installation
 
 ```bash
-npm install @blockle/blocks
+yarn add @blockle/blocks
 ```
 
 ## Setup
@@ -16,15 +14,13 @@ npm install @blockle/blocks
 import React from 'react';
 
 import '@blockle/blocks/reset.css';
-import { ThemeProvider } from '@blockle/blocks';
+import { BlocksProvider } from '@blockle/blocks';
 import { momotaro } from '@blockle/blocks/themes/momotaro';
 
-// const Link = makeLinkComponent(...)
-
 const App = () => (
-  <ThemeProvider theme={theme} spritePath="/public/" linkComponent={Link}>
-    ...
-  </ThemeProvider>
+  <BlocksProvider theme={momotaro}>
+    <div>Your app here</div>
+  </BlocksProvider>
 );
 ```
 
@@ -34,7 +30,7 @@ const App = () => (
 import React from 'react';
 import { Button } from '@blockle/blocks';
 
-const App = () => <Button>Click me</Button>;
+const App = () => <Button variant="ghost">Click me</Button>;
 ```
 
 ## Theming
@@ -42,9 +38,11 @@ const App = () => <Button>Click me</Button>;
 yourTheme.css.ts
 
 ```jsx
-import { makeTokens, makeComponentTheme, makeTheme } from "@blockle/blocks";
+import { ThemeTokens, makeComponentTheme, makeTheme, style } from "@blockle/blocks";
 
-const tokens = makeTokens({ ... });
+const tokens: ThemeTokens = {
+  // ...
+};
 
 const button = makeComponentTheme('button', {
   base: style({
@@ -58,12 +56,15 @@ const button = makeComponentTheme('button', {
       ...
     })
   },
+  compoundVariants: [],
+  defaultVariants: {
+    variant: 'primary',
+  },
 });
 
-const theme = makeTheme({
+export const theme = makeTheme({
+  name: 'Theme name',
   tokens,
-  components: {
-    button
-  }
+  components,
 });
 ```
