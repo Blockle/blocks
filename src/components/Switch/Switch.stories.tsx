@@ -8,7 +8,6 @@ export default {
 } as Meta;
 
 export const Default: StoryObj<SwitchProps> = {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   render: ({ ...props }) => {
     return (
       <Box display="flex" gap="medium" alignItems="center">
@@ -16,5 +15,8 @@ export const Default: StoryObj<SwitchProps> = {
         <Switch id="switch" {...props} />
       </Box>
     );
+  },
+  args: {
+    onChange: (value) => console.log('onChange', value),
   },
 };

@@ -9,6 +9,7 @@ import { link } from './link.css';
 import { progress } from './progress.css';
 import { radio } from './radio.css';
 import { spinner } from './spinner.css';
+import { switchTheme } from './switch.css';
 
 export const components: ThemeComponentsStyles = {
   button,
@@ -21,4 +22,5 @@ export const components: ThemeComponentsStyles = {
   progress,
   radio,
   spinner,
+  switch: switchTheme,
 };
