@@ -1,5 +1,12 @@
 # @blockle/blocks
 
+## 0.8.7
+
+### Patch Changes
+
+- 4d0c563: Switch component
+- 8577699: Momotaro button styling improvements
+
 ## 0.8.6
 
 ### Patch Changes
