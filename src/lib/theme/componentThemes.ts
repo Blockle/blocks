@@ -77,24 +77,30 @@ export type LabelTheme = {
 };
 
 export type ProgressTheme = {
-  container: string;
+  base: string;
   bar: string;
   variants: {
     indeterminate: boolean;
   };
 };
 
+export type SwitchTheme = {
+  base: string;
+  slider: string;
+};
+
 export type ComponentThemes = {
   button: ButtonTheme;
-  link: LinkTheme;
-  spinner: SpinnerTheme;
-  divider: DividerTheme;
-  dialog: DialogTheme;
-  input: InputTheme;
   checkbox: CheckboxTheme;
-  radio: RadioTheme;
+  dialog: DialogTheme;
+  divider: DividerTheme;
+  input: InputTheme;
   label: LabelTheme;
+  link: LinkTheme;
   progress: ProgressTheme;
+  radio: RadioTheme;
+  spinner: SpinnerTheme;
+  switch: SwitchTheme;
 };
 
 /**

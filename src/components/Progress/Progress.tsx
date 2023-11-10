@@ -22,7 +22,7 @@ export const Progress = forwardRef<HTMLProgressElement, ProgressProps>(function 
   const containerClassName = useComponentStyles(
     'progress',
     {
-      container: true,
+      base: true,
     },
     false,
   );
