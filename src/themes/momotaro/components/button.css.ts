@@ -2,9 +2,11 @@ import { createVar } from '@vanilla-extract/css';
 import { style } from '../../../lib/css/style/style';
 import { makeComponentTheme } from '../../../lib/theme/makeComponentTheme';
 import { vars } from '../../../lib/theme/vars.css';
-import { clickable } from './helpers.css';
+import { clickable, focusRingColor } from './helpers.css';
 
-const primaryColor = createVar();
+// Use css vars to share colors between variants
+const intentColor = createVar();
+const hoverBackgroundColor = createVar();
 
 export const button = makeComponentTheme('button', {
   base: style([
@@ -16,6 +18,11 @@ export const button = makeComponentTheme('button', {
       fontWeight: 'medium',
       // Space between `startSlot | children | endSlot`
       gap: 'small',
+      selectors: {
+        '&:hover:not(:disabled)': {
+          backgroundColor: hoverBackgroundColor,
+        },
+      },
     },
     clickable,
   ]),
@@ -23,34 +30,19 @@ export const button = makeComponentTheme('button', {
     variant: {
       solid: style({
         color: vars.color.white,
-        backgroundColor: primaryColor,
+        backgroundColor: intentColor,
         border: 'none',
-        selectors: {
-          '&:hover:not(:disabled)': {
-            backgroundColor: vars.color.primaryDark,
-          },
-        },
       }),
       outline: style({
-        color: primaryColor,
+        color: intentColor,
         borderWidth: 'small',
         borderStyle: 'solid',
-        borderColor: primaryColor,
+        borderColor: intentColor,
         background: 'transparent',
-        selectors: {
-          '&:hover:not(:disabled)': {
-            backgroundColor: vars.color.primaryLight,
-          },
-        },
       }),
       ghost: style({
-        color: primaryColor,
+        color: intentColor,
         background: 'transparent',
-        selectors: {
-          '&:hover:not(:disabled)': {
-            backgroundColor: vars.color.primaryLight,
-          },
-        },
       }),
     },
     size: {
@@ -70,39 +62,43 @@ export const button = makeComponentTheme('button', {
     intent: {
       neutral: style({
         vars: {
-          [primaryColor]: vars.color.primary,
+          [intentColor]: vars.color.primary,
+          [hoverBackgroundColor]: vars.color.primaryLight,
         },
       }),
       danger: style({
         vars: {
-          [primaryColor]: vars.color.danger,
+          [intentColor]: vars.color.danger,
+          [hoverBackgroundColor]: '#fff8f7',
+          [focusRingColor]: vars.color.danger,
         },
       }),
     },
   },
-  // compoundVariants: [
-  //   {
-  //     variants: {
-  //       intent: 'danger',
-  //       variant: 'ghost',
-  //       loading: true,
-  //     },
-  //     style: style({
-  //       color: vars.color.danger,
-  //       fontSize: vars.fontSize.small,
-  //       background: 'red',
-  //     }),
-  //   },
-  //   {
-  //     variants: {
-  //       variant: 'solid',
-  //       size: 'large',
-  //     },
-  //     style: style({
-  //       transform: 'scale(2)',
-  //     }),
-  //   },
-  // ],
+  compoundVariants: [
+    {
+      variants: {
+        variant: 'solid',
+        intent: 'neutral',
+      },
+      style: style({
+        vars: {
+          [hoverBackgroundColor]: vars.color.primaryDark,
+        },
+      }),
+    },
+    {
+      variants: {
+        variant: 'solid',
+        intent: 'danger',
+      },
+      style: style({
+        vars: {
+          [hoverBackgroundColor]: '#f9b1a9',
+        },
+      }),
+    },
+  ],
   defaultVariants: {
     size: 'small',
     variant: 'solid',
