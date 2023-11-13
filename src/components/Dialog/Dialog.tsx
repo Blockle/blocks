@@ -112,7 +112,7 @@ export const Dialog: React.FC<DialogProps> = ({
     if (!hasAnimationDuration(dialogRef.current)) {
       hide();
     }
-  }, [open]);
+  }, [hide, open]);
 
   if (!visible) {
     return null;

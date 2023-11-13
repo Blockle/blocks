@@ -13,6 +13,7 @@ export const backdrop = style({
       left: 0,
       top: 0,
       overflow: 'hidden',
+      zIndex: 1000,
     },
   },
 });
