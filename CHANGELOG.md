@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.8.8
+
+### Patch Changes
+
+- 58aa4ce: Added z-index: 1000 to dialog
+
 ## 0.8.7
 
 ### Patch Changes
