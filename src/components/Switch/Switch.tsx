@@ -14,7 +14,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
 ) {
   const [isChecked, setIsChecked] = useState<boolean>(defaultChecked || checked || false);
   const baseClassName = useComponentStyles('switch', { base: true });
-  const sliderClassName = useComponentStyles('switch', { slider: true });
+  const sliderClassName = useComponentStyles('switch', { slider: true }, false);
 
   useEffect(() => {
     if (checked !== undefined) {
@@ -52,8 +52,8 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
         className={classnames(className, styles.container, baseClassName)}
         data-checked={isChecked}
         onClick={(event) => {
-          // Keyboard input on input element causes click event,
-          // but we don't want to toggle twice
+          // Pressing spacebar on input element causes click event,
+          // but we don't want to toggle the switch in that case.
           if ((event.target as HTMLElement).tagName === 'INPUT') {
             return;
           }

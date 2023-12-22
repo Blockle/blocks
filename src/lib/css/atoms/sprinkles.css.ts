@@ -36,8 +36,4 @@ const responsiveAtomicProperties = defineProperties({
   },
 });
 
-export const atoms = createSprinkles(
-  unresponsiveAtomicProperties,
-  responsiveAtomicProperties,
-  // colorAtomicProperties,
-);
+export const atoms = createSprinkles(unresponsiveAtomicProperties, responsiveAtomicProperties);
