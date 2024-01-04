@@ -3,6 +3,7 @@ import { globalStyle } from '@vanilla-extract/css';
 // Must be placed before HTML so we wont override the box-sizing of the root element
 globalStyle(':where(*, *::before, *::after)', {
   boxSizing: 'inherit',
+  WebkitTapHighlightColor: 'transparent',
 });
 
 globalStyle(':where(html)', {
