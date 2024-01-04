@@ -13,7 +13,7 @@ export default {
 export const Default: StoryObj<DropdownProps> = {
   render: (props) => {
     const buttonRef = useRef<HTMLButtonElement>(null);
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(props.open ?? false);
     // Potentially useful for later
     // const dropdown = useDropdownState({
     //   align: 'bottom',
@@ -27,7 +27,13 @@ export const Default: StoryObj<DropdownProps> = {
           <Button ref={buttonRef} onClick={() => setOpen((open) => !open)}>
             Toggle
           </Button>
-          <Dropdown anchorElement={buttonRef} open={open} align={props.align}>
+          <Dropdown
+            {...props}
+            anchorElement={buttonRef}
+            open={open}
+            // align={props.align}
+            // repositionOnScroll={props.repositionOnScroll}
+          >
             {props.children}
           </Dropdown>
         </Box>

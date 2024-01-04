@@ -1,5 +1,11 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useComponentStyles } from '../../hooks/useComponentStyles';
+import { useIsomorphicLayoutEffect } from '../../hooks/useIsomorphicLayoutEffect';
 import { useLayer } from '../../hooks/useLayer';
+import { useVisibilityState } from '../../hooks/useVisibilityState';
+import { DropdownTheme } from '../../lib/theme/componentThemes';
+import { classnames } from '../../lib/utils/classnames';
+import { hasAnimationDuration } from '../../lib/utils/dom';
 import { Box } from '../Box';
 import { Portal } from '../Portal';
 
@@ -46,27 +52,16 @@ function getDropdownPosition(
         : [anchorLeft, anchorTop - dropdownRect.height - marginY];
     }
     case 'top': {
-      // const aboveX = anchorRect.top - (dropdownRect.height + marginTop);
-      // const top = anchorRect.top - (dropdownRect.height + marginTop);
-
       return topPosition > 0
         ? [anchorLeft, anchorTop - dropdownRect.height - marginY]
         : [anchorLeft, anchorTop + anchorRect.height];
     }
     case 'left': {
-      // const left = anchorLeft - dropdownRect.width;
-      // const right = anchorLeft + anchorRect.width + dropdownRect.width;
-
-      console.log(leftPosition, rightPosition);
-
       return leftPosition > docWidth || leftPosition > 0
         ? [anchorLeft - dropdownRect.width - marginX, anchorTop]
         : [anchorLeft + anchorRect.width, anchorTop];
     }
     case 'right': {
-      // const right = anchorLeft + anchorRect.width + dropdownRect.width;
-      // const left = anchorLeft - dropdownRect.width;
-
       return rightPosition < docWidth || leftPosition < 0
         ? [anchorLeft + anchorRect.width, anchorTop]
         : [anchorLeft - dropdownRect.width - marginX, anchorTop];
@@ -79,40 +74,52 @@ export type DropdownProps = {
   children: React.ReactNode;
   open: boolean;
   anchorElement: React.RefObject<HTMLElement>; // HTMLElements or CSS selectors
+  repositionOnScroll?: boolean;
+  className?: string;
+  style?: React.CSSProperties;
+  variant?: DropdownTheme['variants']['variant'];
 };
 
 export const Dropdown: React.FC<DropdownProps> = ({
   align = 'bottom',
-  children,
-  open,
   anchorElement,
+  children,
+  className,
+  open,
+  repositionOnScroll,
+  style,
+  variant,
 }) => {
   const layer = useLayer();
+  const [visible, hide] = useVisibilityState(open);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const containerClassName = useComponentStyles(
+    'dropdown',
+    { base: true, variants: { variant } },
+    false,
+  );
 
   useLayoutEffect(() => {
-    if (!open) {
+    if (!visible) {
       return;
     }
 
     const position = getDropdownPosition(align, anchorElement, dropdownRef);
 
     setPosition({ x: position[0], y: position[1] });
-  }, [align, anchorElement, open]);
-
-  // Events that should reposition the dropdown: scroll, resize
+  }, [align, anchorElement, visible]);
 
   useEffect(() => {
-    if (!open) {
+    if (!open || !repositionOnScroll) {
       return;
     }
 
-    const handleResize = () => {
+    function handleResize() {
       const position = getDropdownPosition(align, anchorElement, dropdownRef);
 
       setPosition({ x: position[0], y: position[1] });
-    };
+    }
 
     window.addEventListener('resize', handleResize);
     window.addEventListener('scroll', handleResize);
@@ -121,26 +128,71 @@ export const Dropdown: React.FC<DropdownProps> = ({
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('scroll', handleResize);
     };
-  });
+  }, [align, anchorElement, open, repositionOnScroll]);
 
-  if (!open) {
+  // "workaround" so transition works on first render
+  useIsomorphicLayoutEffect(() => {
+    if (!open) {
+      dropdownRef.current?.removeAttribute('data-open');
+      return;
+    }
+
+    let timer = requestAnimationFrame(() => {
+      timer = requestAnimationFrame(() => {
+        dropdownRef.current?.setAttribute('data-open', '');
+      });
+    });
+
+    return () => {
+      cancelAnimationFrame(timer);
+    };
+  }, [open, visible]);
+
+  // Hide the dialog when the animation ends
+  const onAnimationEnd = useCallback(() => {
+    if (!open) {
+      hide();
+    }
+  }, [hide, open]);
+
+  // Hide the dialog immediately when the open prop changes to false
+  // and no animation is used
+  useEffect(() => {
+    if (open) {
+      return;
+    }
+
+    // If the dialog has no transition, hide it immediately
+    if (!hasAnimationDuration(dropdownRef.current)) {
+      hide();
+    }
+  }, [hide, open]);
+
+  // On Escape key press, close the dialog
+  // useKeyboard('Escape', onRequestClose, { enabled: open && enabled });
+
+  if (!visible) {
     return null;
   }
+
+  // SSR: If the dialog is open on the server, we need to render it with the open attribute
+  const dataOpen = typeof window === 'undefined' && open ? '' : undefined;
 
   return (
     <Portal container={layer()}>
       <Box
         ref={dropdownRef}
+        data-open={dataOpen}
+        onAnimationEnd={onAnimationEnd}
+        onTransitionEnd={onAnimationEnd}
+        className={classnames(containerClassName, className)}
         position="absolute"
-        backgroundColor="white"
-        borderRadius="small"
-        boxShadow="medium"
-        padding="medium"
         style={{
-          margin: align === 'bottom' || align === 'top' ? '0.5rem 0' : '0 0.5rem',
+          ...style,
+          margin: align === 'bottom' || align === 'top' ? 'var(--spacing) 0' : '0 var(--spacing)',
           top: position.y,
           left: position.x,
-          width: 200,
+          // width: 200,
         }}
       >
         {children}
