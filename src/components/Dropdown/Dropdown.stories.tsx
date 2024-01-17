@@ -31,6 +31,7 @@ export const Default: StoryObj<DropdownProps> = {
             {...props}
             anchorElement={buttonRef}
             open={open}
+            onRequestClose={() => setOpen(false)}
             // align={props.align}
             // repositionOnScroll={props.repositionOnScroll}
           >

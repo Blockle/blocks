@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useClickOutside } from '../../hooks/useClickOutside/useClickOutside';
 import { useComponentStyles } from '../../hooks/useComponentStyles';
 import { useIsomorphicLayoutEffect } from '../../hooks/useIsomorphicLayoutEffect';
+import { useKeyboard } from '../../hooks/useKeyboard';
 import { useLayer } from '../../hooks/useLayer';
 import { useVisibilityState } from '../../hooks/useVisibilityState';
 import { DropdownTheme } from '../../lib/theme/componentThemes';
@@ -71,20 +73,23 @@ function getDropdownPosition(
 
 export type DropdownProps = {
   align?: 'top' | 'bottom' | 'left' | 'right'; // Preferred alignment of the dropdown, will mirror if there is not enough space
-  children: React.ReactNode;
-  open: boolean;
   anchorElement: React.RefObject<HTMLElement>; // HTMLElements or CSS selectors
-  repositionOnScroll?: boolean;
+  children: React.ReactNode;
   className?: string;
+  onRequestClose: () => void;
+  open: boolean;
+  repositionOnScroll?: boolean;
   style?: React.CSSProperties;
   variant?: DropdownTheme['variants']['variant'];
 };
 
+// TODO Close on outside click
 export const Dropdown: React.FC<DropdownProps> = ({
   align = 'bottom',
   anchorElement,
   children,
   className,
+  onRequestClose,
   open,
   repositionOnScroll,
   style,
@@ -148,34 +153,37 @@ export const Dropdown: React.FC<DropdownProps> = ({
     };
   }, [open, visible]);
 
-  // Hide the dialog when the animation ends
+  // Hide the dropdown when the animation ends
   const onAnimationEnd = useCallback(() => {
     if (!open) {
       hide();
     }
   }, [hide, open]);
 
-  // Hide the dialog immediately when the open prop changes to false
+  // Hide the dropdown immediately when the open prop changes to false
   // and no animation is used
   useEffect(() => {
     if (open) {
       return;
     }
 
-    // If the dialog has no transition, hide it immediately
+    // If the dropdown has no transition, hide it immediately
     if (!hasAnimationDuration(dropdownRef.current)) {
       hide();
     }
   }, [hide, open]);
 
-  // On Escape key press, close the dialog
-  // useKeyboard('Escape', onRequestClose, { enabled: open && enabled });
+  // On Escape key press, close the dropdown
+  useKeyboard('Escape', onRequestClose, { enabled: visible });
+
+  // Close the dropdown when clicking outside of it
+  useClickOutside(dropdownRef, onRequestClose, { enabled: visible });
 
   if (!visible) {
     return null;
   }
 
-  // SSR: If the dialog is open on the server, we need to render it with the open attribute
+  // SSR: If the dropdown is open on the server, we need to render it with the open attribute
   const dataOpen = typeof window === 'undefined' && open ? '' : undefined;
 
   return (
@@ -189,10 +197,11 @@ export const Dropdown: React.FC<DropdownProps> = ({
         position="absolute"
         style={{
           ...style,
+          // TODO Think about how to handle this, perhaps we could add a custom class to the dropdown
+          // "horizontal" ? "vertical"
           margin: align === 'bottom' || align === 'top' ? 'var(--spacing) 0' : '0 var(--spacing)',
           top: position.y,
           left: position.x,
-          // width: 200,
         }}
       >
         {children}

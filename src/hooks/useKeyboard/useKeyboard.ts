@@ -6,7 +6,7 @@ type UseKeyboardOptions = {
 };
 
 export const useKeyboard = (
-  key: string,
+  key: KeyboardEvent['key'],
   callback: () => void,
   { enabled = true, type = 'keydown' }: UseKeyboardOptions = {},
 ) => {
