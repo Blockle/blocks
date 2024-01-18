@@ -10,6 +10,7 @@ globalStyle(':where(html)', {
   lineHeight: 1.5,
   boxSizing: 'border-box',
   WebkitFontSmoothing: 'antialiased',
+  colorScheme: 'light dark',
 });
 
 globalStyle(':where(body)', {
@@ -35,6 +36,7 @@ globalStyle(':where(h1, h2, h3, h4, h5, h6)', {
   margin: 0,
   padding: 0,
   fontSize: 'inherit',
+  textWrap: 'balance',
 });
 
 globalStyle(':where(pre)', {
