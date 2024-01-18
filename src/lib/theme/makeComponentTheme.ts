@@ -28,8 +28,8 @@ type VariantsToStyle<T extends RecordLike> = {
   [K in keyof T]?: T[K] extends string | number
     ? Partial<Record<T[K], string>>
     : T[K] extends boolean
-    ? string
-    : never;
+      ? string
+      : never;
 };
 
 /**

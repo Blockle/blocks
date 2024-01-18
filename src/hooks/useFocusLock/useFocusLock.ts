@@ -27,5 +27,5 @@ export const useFocusLock = ({ ref, active }: UseFocusLock) => {
     return () => {
       document.removeEventListener('focusin', handleFocus);
     };
-  }, [active]);
+  }, [active, ref]);
 };
