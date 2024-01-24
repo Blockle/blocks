@@ -11,17 +11,26 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": {
+        "import": "./dist/index.d.mts",
+        "require": "./dist/index.d.ts"
+      },
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
     "./reset.css": {
-      "types": "./dist/reset.css.d.ts",
+      "types": {
+        "import": "./dist/reset.css.d.mts",
+        "require": "./dist/reset.css.d.ts"
+      },
       "import": "./dist/reset.css.mjs",
       "require": "./dist/reset.css.cjs"
     },
     "./themes/momotaro": {
-      "types": "./dist/themes/momotaro.d.ts",
+      "types": {
+        "import": "./dist/themes/momotaro.d.mts",
+        "require": "./dist/themes/momotaro.d.ts"
+      },
       "import": "./dist/themes/momotaro.mjs",
       "require": "./dist/themes/momotaro.cjs"
     },
@@ -41,10 +50,10 @@
     "coverage": "vitest run --coverage",
     "fix": "crackle fix",
     "lint": "eslint .",
+    "release": "yarn ts && yarn test && yarn build && changeset publish",
     "storybook": "storybook dev -p 6006 --no-open",
     "test": "vitest",
-    "ts": "tsc --noemit --project ./tsconfig.json",
-    "release": "yarn ts && yarn test && yarn build && changeset publish"
+    "ts": "tsc --noemit --project ./tsconfig.json"
   },
   "resolutions": {
     "string-width": "^4.2.2"
