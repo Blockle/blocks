@@ -89,6 +89,13 @@ export type SwitchTheme = {
   slider: string;
 };
 
+export type DropdownTheme = {
+  base: string;
+  variants: {
+    variant: 'solid' | 'outline';
+  };
+};
+
 export type ComponentThemes = {
   button: ButtonTheme;
   checkbox: CheckboxTheme;
@@ -101,6 +108,7 @@ export type ComponentThemes = {
   radio: RadioTheme;
   spinner: SpinnerTheme;
   switch: SwitchTheme;
+  dropdown: DropdownTheme;
 };
 
 /**

@@ -8,6 +8,7 @@ export const useLayer = () => {
     () => () => {
       if (layerRef.current) {
         layerRef.current.remove();
+        layerRef.current = undefined;
       }
     },
     [],
