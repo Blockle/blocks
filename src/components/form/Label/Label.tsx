@@ -5,7 +5,13 @@ import { classnames } from '../../../lib/utils/classnames';
 import { HTMLElementProps } from '../../../lib/utils/utils';
 
 export type LabelProps = {
-  visualOnly?: boolean;
+  /**
+   * If true, the label will be rendered as a span element
+   * but will still have the same styles as a label.
+   * Useful for when you want to use a label element but
+   * can't because of the parent element's structure.
+   */
+  asSpan?: boolean;
   htmlFor?: string;
   children?: React.ReactNode;
   required?: boolean;
@@ -14,7 +20,7 @@ export type LabelProps = {
 } & HTMLElementProps<HTMLLabelElement>;
 
 export const Label: React.FC<LabelProps> = ({
-  visualOnly,
+  asSpan,
   children,
   className,
   required,
@@ -22,7 +28,7 @@ export const Label: React.FC<LabelProps> = ({
   cursor,
   ...restProps
 }) => {
-  const Component = visualOnly ? 'span' : 'label';
+  const Component = asSpan ? 'span' : 'label';
   const containerClassName = useComponentStyles('label', {
     base: true,
     variants: { required, size },

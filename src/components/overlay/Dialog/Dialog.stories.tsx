@@ -47,7 +47,7 @@ export const Default: StoryObj<DialogProps> = {
   args: {
     children: (
       <>
-        <Stack gap="medium">
+        <Stack spacing="medium">
           <Heading level={2}>Hello world!</Heading>
           <Text tag="p" fontSize="small">
             This is a dialog.
@@ -57,7 +57,7 @@ export const Default: StoryObj<DialogProps> = {
             <NestedDialog>Two</NestedDialog>
           </NestedDialog>
           <form onSubmit={(event) => event.preventDefault()}>
-            <Stack gap="small" alignX="center">
+            <Stack spacing="small" alignX="center">
               {/* <Input name="firstName" label="First name" autoFocus /> */}
               <Button type="submit">Submit</Button>
             </Stack>
@@ -95,7 +95,7 @@ export const Play: StoryObj<DialogProps> = {
   args: {
     children: (
       <>
-        <Stack gap="medium">
+        <Stack spacing="medium">
           <Heading level={2}>Hello world</Heading>
           <Button type="submit">Close Dialog</Button>
         </Stack>
