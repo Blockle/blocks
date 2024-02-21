@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.8.10
+
+### Patch Changes
+
+- c8b7d4e: Renamed prop `gap` to `spacing` for Inline
+
 ## 0.8.9
 
 ### Patch Changes
