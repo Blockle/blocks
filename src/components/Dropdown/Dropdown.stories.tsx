@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+import { useRef, useState } from '@storybook/addons';
 import { Meta, StoryObj } from '@storybook/react';
-import { useRef, useState } from 'react';
 import { Box } from '../Box';
 import { Button } from '../Button';
 import { Dropdown, DropdownProps } from './Dropdown';
@@ -12,7 +13,7 @@ export default {
 
 export const Default: StoryObj<DropdownProps> = {
   render: (props) => {
-    const buttonRef = useRef<HTMLButtonElement>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null!);
     const [open, setOpen] = useState(props.open ?? false);
     // Potentially useful for later
     // const dropdown = useDropdownState({
@@ -32,8 +33,6 @@ export const Default: StoryObj<DropdownProps> = {
             anchorElement={buttonRef}
             open={open}
             onRequestClose={() => setOpen(false)}
-            // align={props.align}
-            // repositionOnScroll={props.repositionOnScroll}
           >
             {props.children}
           </Dropdown>
@@ -45,7 +44,6 @@ export const Default: StoryObj<DropdownProps> = {
   args: {
     children: (
       <div>
-        {/* TODO Fix list styling */}
         <ul style={{ paddingLeft: 12 }}>
           <li>Los barros el wacka</li>
           <li>Los barros el wacka</li>
