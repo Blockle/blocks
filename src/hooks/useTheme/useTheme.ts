@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { BlocksProviderContext } from '../../components/BlocksProvider/context';
+import { BlocksProviderContext } from '../../components/other/BlocksProvider/context';
 
 export const useTheme = () => {
   const theme = useContext(BlocksProviderContext);

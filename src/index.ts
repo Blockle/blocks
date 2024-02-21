@@ -8,27 +8,27 @@ export { type ThemeTokens } from './lib/theme/tokensType';
 export { vars } from './lib/theme/vars.css';
 
 // Components
-export { BlocksProvider, type BlocksProviderProps } from './components/BlocksProvider';
-export { Box, type BoxProps } from './components/Box';
-export { Button, type ButtonProps } from './components/Button';
-export { Checkbox, type CheckboxProps } from './components/Checkbox';
-export { Dialog, type DialogProps } from './components/Dialog';
-export { Divider, type DividerProps } from './components/Divider';
-export { Heading, type HeadingProps } from './components/Heading';
-export { Inline, type InlineProps } from './components/Inline';
-export { Input, type InputProps } from './components/Input';
-export { Label, type LabelProps } from './components/Label';
-export { Link, type LinkProps } from './components/Link';
-export { Portal, type PortalProps } from './components/Portal';
-export { Progress, type ProgressProps } from './components/Progress';
-export { Radio, type RadioProps } from './components/Radio';
-export { Spinner, type SpinnerProps } from './components/Spinner';
-export { Stack, type StackProps } from './components/Stack';
-export { Switch, type SwitchProps } from './components/Switch';
-export { Text, type TextProps } from './components/Text';
+export { Divider, type DividerProps } from './components/display/Divider';
+export { Progress, type ProgressProps } from './components/feedback/Progress';
+export { Spinner, type SpinnerProps } from './components/feedback/Spinner';
+export { Button, type ButtonProps } from './components/form/Button';
+export { Checkbox, type CheckboxProps } from './components/form/Checkbox';
+export { Input, type InputProps } from './components/form/Input';
+export { Label, type LabelProps } from './components/form/Label';
+export { Radio, type RadioProps } from './components/form/Radio';
+export { Switch, type SwitchProps } from './components/form/Switch';
+export { Box, type BoxProps } from './components/layout/Box';
+export { Inline, type InlineProps } from './components/layout/Inline';
+export { Stack, type StackProps } from './components/layout/Stack';
+export { Link, type LinkProps } from './components/navigation/Link';
+export { BlocksProvider, type BlocksProviderProps } from './components/other/BlocksProvider';
+export { Portal, type PortalProps } from './components/other/Portal';
+export { Dialog, type DialogProps } from './components/overlay/Dialog';
+export { Heading, type HeadingProps } from './components/typography/Heading';
+export { Text, type TextProps } from './components/typography/Text';
 
 // Slot
-export { Slot, createSlottable } from './components/Slot';
+export { Slot, createSlottable } from './components/other/Slot';
 
 // Hooks
 export { useComponentStyleDefaultProps, useComponentStyles } from './hooks/useComponentStyles';
