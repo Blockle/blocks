@@ -1,6 +1,6 @@
-import { atoms } from '../../lib/css/atoms/sprinkles.css';
-import { Theme } from '../../lib/theme/makeTheme';
-import { classnames } from '../../lib/utils/classnames';
+import { atoms } from '../../../lib/css/atoms/sprinkles.css';
+import { Theme } from '../../../lib/theme/makeTheme';
+import { classnames } from '../../../lib/utils/classnames';
 import { BlocksProviderContext } from './context';
 
 export type BlocksProviderProps = {

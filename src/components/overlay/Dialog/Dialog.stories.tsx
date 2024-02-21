@@ -2,10 +2,10 @@ import { expect, jest } from '@storybook/jest';
 import { Meta, StoryObj } from '@storybook/react';
 import { fireEvent, getByRole, userEvent, within } from '@storybook/testing-library';
 import { useState } from 'react';
-import { Button } from '../Button';
-import { Stack } from '../layout/Stack';
-import { Heading } from '../typography/Heading';
-import { Text } from '../typography/Text';
+import { Button } from '../../form/Button';
+import { Stack } from '../../layout/Stack';
+import { Heading } from '../../typography/Heading';
+import { Text } from '../../typography/Text';
 import { Dialog, DialogProps } from './Dialog';
 
 export default {

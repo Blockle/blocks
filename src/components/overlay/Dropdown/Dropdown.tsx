@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { useClickOutside } from '../../hooks/useClickOutside/useClickOutside';
-import { useComponentStyles } from '../../hooks/useComponentStyles';
-import { useIsomorphicLayoutEffect } from '../../hooks/useIsomorphicLayoutEffect';
-import { useKeyboard } from '../../hooks/useKeyboard';
-import { useLayer } from '../../hooks/useLayer';
-import { useVisibilityState } from '../../hooks/useVisibilityState';
-import { DropdownTheme } from '../../lib/theme/componentThemes';
-import { classnames } from '../../lib/utils/classnames';
-import { hasAnimationDuration } from '../../lib/utils/dom';
-import { Portal } from '../Portal';
-import { Box } from '../layout/Box';
+import { useClickOutside } from '../../../hooks/useClickOutside/useClickOutside';
+import { useComponentStyles } from '../../../hooks/useComponentStyles';
+import { useIsomorphicLayoutEffect } from '../../../hooks/useIsomorphicLayoutEffect';
+import { useKeyboard } from '../../../hooks/useKeyboard';
+import { useLayer } from '../../../hooks/useLayer';
+import { useVisibilityState } from '../../../hooks/useVisibilityState';
+import { DropdownTheme } from '../../../lib/theme/componentThemes';
+import { classnames } from '../../../lib/utils/classnames';
+import { hasAnimationDuration } from '../../../lib/utils/dom';
+import { Box } from '../../layout/Box';
+import { Portal } from '../../other/Portal';
 import { getDropdownPosition } from './dropdown-utils';
 
 export type DropdownProps = {

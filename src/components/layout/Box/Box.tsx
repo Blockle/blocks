@@ -4,7 +4,7 @@ import { Atoms } from '../../../lib/css/atoms/atomTypes';
 import { getAtomsAndProps } from '../../../lib/utils/atom-props';
 import { classnames } from '../../../lib/utils/classnames';
 import { HTMLElementProps } from '../../../lib/utils/utils';
-import { createSlottable } from '../../Slot/Slot';
+import { createSlottable } from '../../other/Slot/Slot';
 
 export type BoxProps = {
   children?: React.ReactNode;

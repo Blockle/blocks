@@ -1,5 +1,5 @@
 import { createPortal } from 'react-dom';
-import { useTheme } from '../../hooks/useTheme';
+import { useTheme } from '../../../hooks/useTheme';
 import { BlocksProvider } from '../BlocksProvider/BlocksProvider';
 
 export type PortalProps = {

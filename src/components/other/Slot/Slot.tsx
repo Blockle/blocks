@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Children, cloneElement, forwardRef, isValidElement } from 'react';
-import { composeRefs } from '../../lib/react/react';
+import { composeRefs } from '../../../lib/react/react';
 import { UknownRecord, mergeProps } from './mergeProps';
 
 // Subset of HTML element tags that can be used as a default element

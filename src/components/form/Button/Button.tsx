@@ -1,12 +1,12 @@
 import { forwardRef } from 'react';
-import { useComponentStyles } from '../../hooks/useComponentStyles';
-import { Atoms, MarginAtoms, atoms } from '../../lib/css/atoms';
-import { ButtonTheme } from '../../lib/theme/componentThemes';
-import { getAtomsAndProps } from '../../lib/utils/atom-props';
-import { classnames } from '../../lib/utils/classnames';
-import { HTMLElementProps } from '../../lib/utils/utils';
-import { Slot, createSlottable } from '../Slot/Slot';
-import { Spinner } from '../Spinner';
+import { useComponentStyles } from '../../../hooks/useComponentStyles';
+import { Atoms, MarginAtoms, atoms } from '../../../lib/css/atoms';
+import { ButtonTheme } from '../../../lib/theme/componentThemes';
+import { getAtomsAndProps } from '../../../lib/utils/atom-props';
+import { classnames } from '../../../lib/utils/classnames';
+import { HTMLElementProps } from '../../../lib/utils/utils';
+import { Spinner } from '../../feedback/Spinner';
+import { Slot, createSlottable } from '../../other/Slot/Slot';
 import * as styles from './Button.css';
 
 export type ButtonProps = {

@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useRef, useState } from '@storybook/addons';
 import { Meta, StoryObj } from '@storybook/react';
-import { Button } from '../Button';
-import { Box } from '../layout/Box';
+import { Button } from '../../form/Button';
+import { Box } from '../../layout/Box';
 import { Dropdown, DropdownProps } from './Dropdown';
 
 export default {
