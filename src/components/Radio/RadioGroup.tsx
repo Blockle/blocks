@@ -1,5 +1,5 @@
 import { Atoms } from '../../lib/css/atoms';
-import { Stack } from '../Stack';
+import { Stack } from '../layout/Stack';
 
 export type RadioGroupProps = {
   'aria-labelledby'?: string;

@@ -3,9 +3,9 @@ import { Meta, StoryObj } from '@storybook/react';
 import { fireEvent, getByRole, userEvent, within } from '@storybook/testing-library';
 import { useState } from 'react';
 import { Button } from '../Button';
-import { Heading } from '../Heading';
-import { Stack } from '../Stack';
-import { Text } from '../Text';
+import { Stack } from '../layout/Stack';
+import { Heading } from '../typography/Heading';
+import { Text } from '../typography/Text';
 import { Dialog, DialogProps } from './Dialog';
 
 export default {

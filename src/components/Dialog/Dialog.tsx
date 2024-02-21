@@ -10,8 +10,8 @@ import { useVisibilityState } from '../../hooks/useVisibilityState';
 import { DialogTheme } from '../../lib/theme/componentThemes';
 import { classnames } from '../../lib/utils/classnames';
 import { hasAnimationDuration } from '../../lib/utils/dom';
-import { Box } from '../Box';
 import { Portal } from '../Portal';
+import { Box } from '../layout/Box';
 import * as styles from './dialog.css';
 import { DialogContext, useNestedDialog } from './dialogHelper';
 

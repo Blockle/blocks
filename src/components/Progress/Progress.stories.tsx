@@ -1,8 +1,8 @@
 import { expect } from '@storybook/jest';
 import { Meta, StoryObj } from '@storybook/react';
 import { within } from '@storybook/testing-library';
-import { Stack } from '../Stack';
-import { Text } from '../Text';
+import { Stack } from '../layout/Stack';
+import { Text } from '../typography/Text';
 import { Progress, ProgressProps } from './Progress';
 
 export default {

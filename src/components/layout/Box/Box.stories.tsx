@@ -1,7 +1,10 @@
 import { expect } from '@storybook/jest';
 import { Meta, StoryObj } from '@storybook/react';
 import { within } from '@storybook/testing-library';
-import { responsiveProperties, unresponsiveProperties } from '../../lib/css/atoms/atomicProperties';
+import {
+  responsiveProperties,
+  unresponsiveProperties,
+} from '../../../lib/css/atoms/atomicProperties';
 import { Box, BoxProps } from './Box';
 
 export default {

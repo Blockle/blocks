@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 import { MarginAtoms, PaddingAtoms, TextAtoms } from '../../../lib/css/atoms';
 import { classnames } from '../../../lib/utils/classnames';
 import { HTMLElementProps } from '../../../lib/utils/utils';
-import { Box } from '../../Box/Box';
+import { Box } from '../../layout/Box';
 import * as styles from './text.css';
 
 export type TextProps = {

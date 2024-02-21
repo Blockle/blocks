@@ -5,7 +5,7 @@ import {
   alignItemsMap,
   justifyContentMap,
 } from '../../lib/css/flexbox/flexbox';
-import { Box } from '../Box/Box';
+import { Box } from '../layout/Box';
 
 export type InlineProps = {
   alignX?: keyof JustifyContentMap;

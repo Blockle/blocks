@@ -1,6 +1,6 @@
-import { Atoms, MarginAtoms, PaddingAtoms, ResponsiveDisplayFlex } from '../../lib/css/atoms';
-import { AlignItemsMap, alignItemsMap } from '../../lib/css/flexbox/flexbox';
-import { Box } from '../Box/Box';
+import { Atoms, MarginAtoms, PaddingAtoms, ResponsiveDisplayFlex } from '../../../lib/css/atoms';
+import { AlignItemsMap, alignItemsMap } from '../../../lib/css/flexbox/flexbox';
+import { Box } from '../Box';
 
 export type StackProps = {
   alignX?: keyof AlignItemsMap;

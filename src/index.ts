@@ -9,11 +9,9 @@ export { vars } from './lib/theme/vars.css';
 
 // Components
 export { BlocksProvider, type BlocksProviderProps } from './components/BlocksProvider';
-export { Box, type BoxProps } from './components/Box';
 export { Button, type ButtonProps } from './components/Button';
 export { Checkbox, type CheckboxProps } from './components/Checkbox';
 export { Dialog, type DialogProps } from './components/Dialog';
-export { Divider, type DividerProps } from './components/Divider';
 export { Inline, type InlineProps } from './components/Inline';
 export { Input, type InputProps } from './components/Input';
 export { Label, type LabelProps } from './components/Label';
@@ -22,8 +20,10 @@ export { Portal, type PortalProps } from './components/Portal';
 export { Progress, type ProgressProps } from './components/Progress';
 export { Radio, type RadioProps } from './components/Radio';
 export { Spinner, type SpinnerProps } from './components/Spinner';
-export { Stack, type StackProps } from './components/Stack';
 export { Switch, type SwitchProps } from './components/Switch';
+export { Box, type BoxProps } from './components/layout/Box';
+export { Divider, type DividerProps } from './components/layout/Divider';
+export { Stack, type StackProps } from './components/layout/Stack';
 export { Heading, type HeadingProps } from './components/typography/Heading';
 export { Text, type TextProps } from './components/typography/Text';
 

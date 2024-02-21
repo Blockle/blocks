@@ -8,8 +8,8 @@ import { useVisibilityState } from '../../hooks/useVisibilityState';
 import { DropdownTheme } from '../../lib/theme/componentThemes';
 import { classnames } from '../../lib/utils/classnames';
 import { hasAnimationDuration } from '../../lib/utils/dom';
-import { Box } from '../Box';
 import { Portal } from '../Portal';
+import { Box } from '../layout/Box';
 import { getDropdownPosition } from './dropdown-utils';
 
 export type DropdownProps = {

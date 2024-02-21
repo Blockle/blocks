@@ -3,7 +3,7 @@ import { useComponentStyles } from '../../hooks/useComponentStyles';
 import { classnames } from '../../lib/utils/classnames';
 import { OptionalLiteral } from '../../lib/utils/helpers';
 import { HTMLElementProps } from '../../lib/utils/utils';
-import { Box } from '../Box';
+import { Box } from '../layout/Box';
 import * as styles from './input.css';
 
 export type InputProps = {

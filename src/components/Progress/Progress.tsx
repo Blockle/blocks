@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import { useComponentStyles } from '../../hooks/useComponentStyles';
 import { classnames } from '../../lib/utils/classnames';
-import { Box } from '../Box';
+import { Box } from '../layout/Box';
 
 export type ProgressProps = {
   /**
