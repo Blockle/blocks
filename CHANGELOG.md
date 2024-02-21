@@ -1,5 +1,13 @@
 # @blockle/blocks
 
+## 0.8.9
+
+### Patch Changes
+
+- fcb6830: - Renamed prop `gap` to `spacing` in Stack
+  - Renamed prop `visualOnly` to `asSpan` in Label
+  - Removed Stack from RadioGroup for more flexibility how to render child elements
+
 ## 0.8.8
 
 ### Patch Changes
