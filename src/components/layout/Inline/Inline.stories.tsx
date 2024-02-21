@@ -38,7 +38,7 @@ export const Default: StoryObj<InlineProps> = {
   },
 
   args: {
-    gap: ['small', 'medium', 'large'],
+    spacing: ['small', 'medium', 'large'],
     children: (
       <>
         <div style={{ border: '1px red solid', width: '60px', height: '60px' }}>1</div>
@@ -67,7 +67,7 @@ export const List: StoryObj<InlineProps> = {
   },
 
   args: {
-    gap: ['small', 'medium', 'large'],
+    spacing: ['small', 'medium', 'large'],
     children: (
       <>
         <li style={{ border: '1px red solid', width: '60px', height: '60px' }}>1</li>
