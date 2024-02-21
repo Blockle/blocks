@@ -3,7 +3,7 @@ import { Box } from '../../layout/Box';
 import { Switch, SwitchProps } from './Switch';
 
 export default {
-  title: 'DataEntry/Switch',
+  title: 'Form/Switch',
   component: Switch,
 } as Meta;
 

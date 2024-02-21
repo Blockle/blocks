@@ -4,7 +4,7 @@ import {
 } from '../../../hooks/useComponentStyles';
 import { Atoms } from '../../../lib/css/atoms';
 import { classnames } from '../../../lib/utils/classnames';
-import { Box } from '../Box';
+import { Box } from '../../layout/Box';
 import * as styles from './divider.css';
 
 export type DividerProps = {

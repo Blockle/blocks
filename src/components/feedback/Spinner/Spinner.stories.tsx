@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { Spinner, SpinnerProps } from './Spinner';
 
 export default {
-  title: 'Components/Spinner',
+  title: 'Feedback/Spinner',
   component: Spinner,
   // argTypes: {},
 } as Meta;

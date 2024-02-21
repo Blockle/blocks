@@ -6,7 +6,7 @@ import { Box } from '../../layout/Box';
 import { Dropdown, DropdownProps } from './Dropdown';
 
 export default {
-  title: 'Components/Dropdown',
+  title: 'Overlay/Dropdown',
   component: Dropdown,
   argTypes: {},
 } as Meta;

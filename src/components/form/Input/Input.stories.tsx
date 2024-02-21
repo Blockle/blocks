@@ -4,7 +4,7 @@ import { within } from '@storybook/testing-library';
 import { Input, InputProps } from './Input';
 
 export default {
-  title: 'DataEntry/Input',
+  title: 'Form/Input',
   component: Input,
 } as Meta<typeof Input>;
 

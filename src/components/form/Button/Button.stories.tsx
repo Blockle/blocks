@@ -5,7 +5,7 @@ import { userEvent, within } from '@storybook/testing-library';
 import { Button, ButtonProps } from './Button';
 
 export default {
-  title: 'Components/Button',
+  title: 'Form/Button',
   component: Button,
   argTypes: {},
 } as Meta;

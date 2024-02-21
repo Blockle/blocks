@@ -4,7 +4,7 @@ import { userEvent, within } from '@storybook/testing-library';
 import { Link, LinkProps } from './Link';
 
 export default {
-  title: 'Components/Link',
+  title: 'Navigation/Link',
   component: Link,
   argTypes: {
     variant: {

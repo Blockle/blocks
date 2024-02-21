@@ -6,7 +6,7 @@ import { Text } from '../../typography/Text';
 import { Progress, ProgressProps } from './Progress';
 
 export default {
-  title: 'Components/Progress',
+  title: 'Feedback/Progress',
   component: Progress,
   argTypes: {
     value: {

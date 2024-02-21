@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { Label, LabelProps } from './Label';
 
 export default {
-  title: 'DataEntry/Label',
+  title: 'Form/Label',
   component: Label,
 } as Meta;
 

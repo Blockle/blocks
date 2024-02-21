@@ -9,7 +9,7 @@ import { Text } from '../../typography/Text';
 import { Dialog, DialogProps } from './Dialog';
 
 export default {
-  title: 'Components/Dialog',
+  title: 'Overlay/Dialog',
   component: Dialog,
   argTypes: {},
 } as Meta;

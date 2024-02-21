@@ -8,6 +8,7 @@ export { type ThemeTokens } from './lib/theme/tokensType';
 export { vars } from './lib/theme/vars.css';
 
 // Components
+export { Divider, type DividerProps } from './components/display/Divider';
 export { Progress, type ProgressProps } from './components/feedback/Progress';
 export { Spinner, type SpinnerProps } from './components/feedback/Spinner';
 export { Button, type ButtonProps } from './components/form/Button';
@@ -17,7 +18,6 @@ export { Label, type LabelProps } from './components/form/Label';
 export { Radio, type RadioProps } from './components/form/Radio';
 export { Switch, type SwitchProps } from './components/form/Switch';
 export { Box, type BoxProps } from './components/layout/Box';
-export { Divider, type DividerProps } from './components/layout/Divider';
 export { Inline, type InlineProps } from './components/layout/Inline';
 export { Stack, type StackProps } from './components/layout/Stack';
 export { Link, type LinkProps } from './components/navigation/Link';

@@ -3,7 +3,7 @@ import { Radio, RadioProps } from './Radio';
 import { RadioGroup } from './RadioGroup';
 
 export default {
-  title: 'DataEntry/Radio',
+  title: 'Form/Radio',
   component: Radio,
 } as Meta;
 
