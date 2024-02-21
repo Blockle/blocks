@@ -14,7 +14,6 @@ export { Button, type ButtonProps } from './components/Button';
 export { Checkbox, type CheckboxProps } from './components/Checkbox';
 export { Dialog, type DialogProps } from './components/Dialog';
 export { Divider, type DividerProps } from './components/Divider';
-export { Heading, type HeadingProps } from './components/Heading';
 export { Inline, type InlineProps } from './components/Inline';
 export { Input, type InputProps } from './components/Input';
 export { Label, type LabelProps } from './components/Label';
@@ -25,7 +24,8 @@ export { Radio, type RadioProps } from './components/Radio';
 export { Spinner, type SpinnerProps } from './components/Spinner';
 export { Stack, type StackProps } from './components/Stack';
 export { Switch, type SwitchProps } from './components/Switch';
-export { Text, type TextProps } from './components/Text';
+export { Heading, type HeadingProps } from './components/typography/Heading';
+export { Text, type TextProps } from './components/typography/Text';
 
 // Slot
 export { Slot, createSlottable } from './components/Slot';

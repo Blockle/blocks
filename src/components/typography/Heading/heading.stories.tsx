@@ -1,8 +1,8 @@
 import { expect } from '@storybook/jest';
 import { Meta, StoryFn, StoryObj } from '@storybook/react';
 import { within } from '@storybook/testing-library';
-import { responsiveProperties } from '../../lib/css/atoms/atomicProperties';
-import { Stack } from '../Stack';
+import { responsiveProperties } from '../../../lib/css/atoms/atomicProperties';
+import { Stack } from '../../Stack';
 import { Heading, HeadingProps } from './Heading';
 
 export default {

@@ -1,7 +1,7 @@
-import { MarginAtoms, PaddingAtoms, TextAtoms } from '../../lib/css/atoms';
-import { classnames } from '../../lib/utils/classnames';
-import { HTMLElementProps } from '../../lib/utils/utils';
-import { Box } from '../Box';
+import { MarginAtoms, PaddingAtoms, TextAtoms } from '../../../lib/css/atoms';
+import { classnames } from '../../../lib/utils/classnames';
+import { HTMLElementProps } from '../../../lib/utils/utils';
+import { Box } from '../../Box';
 import * as styles from './heading.css';
 
 export type HeadingProps = {

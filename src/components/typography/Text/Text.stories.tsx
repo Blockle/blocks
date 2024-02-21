@@ -1,8 +1,11 @@
 import { expect } from '@storybook/jest';
 import { Meta, StoryObj } from '@storybook/react';
 import { within } from '@storybook/testing-library';
-import { responsiveProperties, unresponsiveProperties } from '../../lib/css/atoms/atomicProperties';
-import { vars } from '../../lib/theme/vars.css';
+import {
+  responsiveProperties,
+  unresponsiveProperties,
+} from '../../../lib/css/atoms/atomicProperties';
+import { vars } from '../../../lib/theme/vars.css';
 import { Text, TextProps } from './Text';
 
 export default {
