@@ -2,17 +2,17 @@ import { forwardRef } from 'react';
 import { useComponentStyles } from '../../../hooks/useComponentStyles';
 import { classnames } from '../../../lib/utils/classnames';
 import { HTMLElementProps } from '../../../lib/utils/utils';
-import { Label } from '../Label/Label';
+import { Label } from '../Label';
 import * as styles from './radio.css';
 
 export type RadioProps = {
   name: string;
   value: string;
-  label?: React.ReactNode;
+  children?: React.ReactNode;
 } & HTMLElementProps<HTMLInputElement>;
 
 export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Checkbox(
-  { name, label, className, ...restProps },
+  { name, children, className, ...restProps },
   ref,
 ) {
   const containerClassName = useComponentStyles('radio', { base: true }, false);
@@ -26,14 +26,14 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Checkbox(
     </div>
   );
 
-  if (!label) {
+  if (!children) {
     return input;
   }
 
   return (
     <label className={labelClassName}>
       {input}
-      {label && <Label visualOnly>{label}</Label>}
+      <Label asSpan>{children}</Label>
     </label>
   );
 });

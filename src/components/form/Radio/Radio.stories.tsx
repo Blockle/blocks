@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
+import { Stack } from '../../layout/Stack';
 import { Radio, RadioProps } from './Radio';
 import { RadioGroup } from './RadioGroup';
 
@@ -14,9 +15,17 @@ export const Default: StoryObj<RadioProps> = {
       <>
         <label id="radio-group">Radio group</label>
         <RadioGroup aria-labelledby="radio-group">
-          <Radio name="radio-group" value="a" label="Radio a" {...props} />
-          <Radio name="radio-group" value="b" label="Radio b" />
-          <Radio name="radio-group" value="c" label="Radio c" />
+          <Stack spacing="medium">
+            <Radio name="radio-group" value="a" {...props}>
+              Radio A
+            </Radio>
+            <Radio name="radio-group" value="b">
+              Radio B
+            </Radio>
+            <Radio name="radio-group" value="c">
+              Radio C
+            </Radio>
+          </Stack>
         </RadioGroup>
       </>
     );

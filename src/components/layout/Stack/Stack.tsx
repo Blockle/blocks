@@ -8,7 +8,7 @@ export type StackProps = {
   children: React.ReactNode;
   className?: string;
   display?: ResponsiveDisplayFlex;
-  gap: Atoms['gap'];
+  spacing: Atoms['gap'];
   style?: React.CSSProperties;
   role?: React.AriaRole;
   /**
@@ -22,19 +22,19 @@ export const Stack: React.FC<StackProps> = ({
   tag: Tag = 'div',
   display = 'flex',
   children,
-  gap,
+  spacing,
   alignX,
   ...restProps
 }) => {
   if (process.env.NODE_ENV === 'development' && restProps.start !== undefined && Tag !== 'ol') {
-    console.warn('Stack: start prop is only valid when tag="ol"');
+    console.warn('Stack: "start" prop is only valid with tag="ol"');
   }
 
   return (
     <Box
       asChild
       display={display}
-      gap={gap}
+      gap={spacing}
       flexDirection="column"
       alignItems={alignX ? alignItemsMap[alignX] : undefined}
       {...restProps}

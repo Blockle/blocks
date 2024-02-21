@@ -9,10 +9,10 @@ export default {
   title: 'Layout/Stack',
   component: Stack,
   args: {
-    gap: 'small',
+    spacing: 'small',
   },
   argTypes: {
-    gap: {
+    spacing: {
       name: 'gap',
       type: 'string',
       control: 'select',
@@ -38,7 +38,7 @@ export const Default: StoryObj<StackProps> = {
   },
 
   args: {
-    gap: ['small', 'medium', 'large'],
+    spacing: ['small', 'medium', 'large'],
     children: (
       <>
         <Box backgroundColor="danger" padding="small">
@@ -66,7 +66,7 @@ export const List: StoryObj<StackProps> = {
   },
 
   args: {
-    gap: ['small', 'medium', 'large'],
+    spacing: ['small', 'medium', 'large'],
     tag: 'ol',
     children: (
       <>

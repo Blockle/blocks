@@ -20,7 +20,7 @@ export default {
 export const Default: StoryObj<ProgressProps> = {
   render: (props) => {
     return (
-      <Stack gap="medium">
+      <Stack spacing="medium">
         <Text tag="label" id={props['aria-labelledby']}>
           Progress{' '}
           {props.value === undefined ? (

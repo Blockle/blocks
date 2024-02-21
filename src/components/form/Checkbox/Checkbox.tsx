@@ -34,7 +34,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
     <label className={labelClassName}>
       {input}
       {label && (
-        <Label visualOnly required={required}>
+        <Label asSpan required={required}>
           {label}
         </Label>
       )}
