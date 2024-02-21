@@ -14,7 +14,7 @@ export type InlineProps = {
   children: React.ReactNode;
   className?: string;
   display?: ResponsiveDisplayFlex;
-  gap: Atoms['gap'];
+  spacing: Atoms['gap'];
   style?: React.CSSProperties;
 } & MarginAtoms &
   PaddingAtoms;
@@ -25,14 +25,14 @@ export const Inline: React.FC<InlineProps> = ({
   tag: Tag = 'div',
   children,
   display = 'flex',
-  gap,
+  spacing,
   ...props
 }) => {
   return (
     <Box
       asChild
       display={display}
-      gap={gap}
+      gap={spacing}
       flexDirection="row"
       justifyContent={alignX ? justifyContentMap[alignX] : undefined}
       alignItems={alignY ? alignItemsMap[alignY] : undefined}
