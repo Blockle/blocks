@@ -1,8 +1,8 @@
-import { useComponentStyles } from '../../hooks/useComponentStyles';
-import { Atoms, atoms } from '../../lib/css/atoms';
-import { LabelTheme } from '../../lib/theme/componentThemes';
-import { classnames } from '../../lib/utils/classnames';
-import { HTMLElementProps } from '../../lib/utils/utils';
+import { useComponentStyles } from '../../../hooks/useComponentStyles';
+import { Atoms, atoms } from '../../../lib/css/atoms';
+import { LabelTheme } from '../../../lib/theme/componentThemes';
+import { classnames } from '../../../lib/utils/classnames';
+import { HTMLElementProps } from '../../../lib/utils/utils';
 
 export type LabelProps = {
   visualOnly?: boolean;

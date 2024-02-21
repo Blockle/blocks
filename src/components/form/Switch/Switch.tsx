@@ -1,7 +1,7 @@
 import { forwardRef, useCallback, useEffect, useState } from 'react';
-import { useComponentStyles } from '../../hooks/useComponentStyles';
-import { classnames } from '../../lib/utils/classnames';
-import { HTMLElementProps } from '../../lib/utils/utils';
+import { useComponentStyles } from '../../../hooks/useComponentStyles';
+import { classnames } from '../../../lib/utils/classnames';
+import { HTMLElementProps } from '../../../lib/utils/utils';
 import * as styles from './switch.css';
 
 export type SwitchProps = {

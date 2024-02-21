@@ -1,11 +1,11 @@
-import { Atoms, MarginAtoms, PaddingAtoms, ResponsiveDisplayFlex } from '../../lib/css/atoms';
+import { Atoms, MarginAtoms, PaddingAtoms, ResponsiveDisplayFlex } from '../../../lib/css/atoms';
 import {
   AlignItemsMap,
   JustifyContentMap,
   alignItemsMap,
   justifyContentMap,
-} from '../../lib/css/flexbox/flexbox';
-import { Box } from '../layout/Box';
+} from '../../../lib/css/flexbox/flexbox';
+import { Box } from '../Box';
 
 export type InlineProps = {
   alignX?: keyof JustifyContentMap;

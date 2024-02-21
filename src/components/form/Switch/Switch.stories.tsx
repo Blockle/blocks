@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { Box } from '../layout/Box';
+import { Box } from '../../layout/Box';
 import { Switch, SwitchProps } from './Switch';
 
 export default {

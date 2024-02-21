@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
-import { useComponentStyles } from '../../hooks/useComponentStyles';
-import { classnames } from '../../lib/utils/classnames';
-import { HTMLElementProps } from '../../lib/utils/utils';
+import { useComponentStyles } from '../../../hooks/useComponentStyles';
+import { classnames } from '../../../lib/utils/classnames';
+import { HTMLElementProps } from '../../../lib/utils/utils';
 import { Label } from '../Label/Label';
 import * as styles from './radio.css';
 
