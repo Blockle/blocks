@@ -21,7 +21,7 @@ export default {
     },
     padding: {
       control: 'select',
-      options: Object.keys(responsiveProperties.paddingBottom),
+      options: Object.keys(responsiveProperties.padding),
     },
   },
 } as Meta;

@@ -142,8 +142,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
           // Or we remove it from getDropdownPosition?
           // "horizontal" ? "vertical"
           margin: align === 'bottom' || align === 'top' ? 'var(--spacing) 0' : '0 var(--spacing)',
-          top: position.y,
           left: position.x,
+          top: position.y,
         }}
       >
         {children}

@@ -8,8 +8,7 @@ export const select = makeComponentTheme('select', {
   select: style([
     {
       color: 'text',
-      paddingY: 'large',
-      paddingX: 'large',
+      padding: 'large',
       border: 'none',
       outline: 'none',
       backgroundColor: 'white',
@@ -27,7 +26,7 @@ export const select = makeComponentTheme('select', {
     focusable,
   ]),
   icon: style({
-    paddingX: 'large',
+    paddingInline: 'large',
   }),
   defaultVariants: {
     variant: 'outline',

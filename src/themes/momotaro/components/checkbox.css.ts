@@ -11,8 +11,8 @@ export const checkbox = makeComponentTheme('checkbox', {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      width: 24,
-      height: 24,
+      inlineSize: 24,
+      blockSize: 24,
       transition: `transform ${vars.transition.fast}`,
       transitionProperty: 'background-color',
       ':hover': {
@@ -31,8 +31,8 @@ export const checkbox = makeComponentTheme('checkbox', {
     focusable,
   ]),
   icon: style({
-    height: 12,
-    width: 12,
+    inlineSize: 12,
+    blockSize: 12,
     backgroundColor: 'white',
     borderRadius: '8px',
     transform: 'scale(0)',

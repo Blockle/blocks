@@ -18,7 +18,7 @@ export const progress = makeComponentTheme('progress', {
       height: 8,
     },
     atoms({
-      width: 'full',
+      inlineSize: 'full',
       borderRadius: 'small',
       backgroundColor: 'textLight',
       color: 'primary',

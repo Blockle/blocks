@@ -14,7 +14,7 @@ export const dialog = makeComponentTheme('dialog', {
       boxShadow: 'large',
     }),
     {
-      minWidth: '300px',
+      minInlineSize: '300px',
       selectors: {
         '&[data-open]': {
           transform: 'scale(1)',
@@ -47,16 +47,16 @@ export const dialog = makeComponentTheme('dialog', {
   variants: {
     size: {
       small: style({
-        width: '400px',
-        maxWidth: 'min(400px, 90vw)',
+        inlineSize: '400px',
+        maxInlineSize: 'min(400px, 90vw)',
       }),
       medium: style({
-        width: '600px',
-        maxWidth: 'min(600px, 90vw)',
+        inlineSize: '600px',
+        maxInlineSize: 'min(600px, 90vw)',
       }),
       large: style({
-        width: '800px',
-        maxWidth: 'min(800px, 90vw)',
+        inlineSize: '800px',
+        maxInlineSize: 'min(800px, 90vw)',
       }),
     },
   },

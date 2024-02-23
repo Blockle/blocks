@@ -13,7 +13,7 @@ export const select = style({
   '@layer': {
     [blocksLayer]: {
       appearance: 'none',
-      width: '100%',
+      inlineSize: '100%',
     },
   },
 });
