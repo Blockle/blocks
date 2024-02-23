@@ -15,7 +15,7 @@ export const switchTheme = makeComponentTheme('switch', {
       backgroundColor: 'textLight',
       '@media': {
         '(prefers-reduced-motion: no-preference)': {
-          transition: 'background-color 120ms linear',
+          transition: `background-color 120ms linear, box-shadow ${vars.transition.fast}`,
         },
       },
       selectors: {
