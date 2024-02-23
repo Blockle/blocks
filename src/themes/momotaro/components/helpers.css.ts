@@ -3,13 +3,17 @@ import { vars } from '../../../lib/theme/vars.css';
 
 export const focusRingColor = createVar();
 
+/**
+ * NOTE: When the original element has a transition, make sure to include
+ * `box-shadow ${vars.transition.fast}` in the transition property for the
+ * focus transition to work correctly.
+ */
 export const focusable = style({
+  transition: `box-shadow ${vars.transition.fast}`,
   ':focus-visible': {
     outline: '2px solid transparent',
     outlineOffset: '2px',
     boxShadow: `0 0 1px 2px ${fallbackVar(focusRingColor, '#AF8EFF')}`,
-    transitionDuration: vars.transition.fast,
-    transitionProperty: 'box-shadow',
   },
   selectors: {
     '&:disabled, &[disabled]': {
@@ -21,8 +25,6 @@ export const focusable = style({
       outline: '2px solid transparent',
       outlineOffset: '2px',
       boxShadow: vars.focus.boxShadow,
-      transitionDuration: vars.transition.fast,
-      transitionProperty: 'box-shadow',
     },
     '&:has(input:disabled)': {
       opacity: 0.5,

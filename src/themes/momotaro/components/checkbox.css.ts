@@ -13,13 +13,12 @@ export const checkbox = makeComponentTheme('checkbox', {
       justifyContent: 'center',
       inlineSize: 24,
       blockSize: 24,
-      transition: `transform ${vars.transition.fast}`,
-      transitionProperty: 'background-color',
-      ':hover': {
-        backgroundColor: vars.color.primaryDark,
-      },
+      transition: `background-color ${vars.transition.normal}, box-shadow ${vars.transition.fast}`,
       selectors: {
-        '&:has(input:checked):not(:hover)': {
+        '&:hover:not(:has(input:disabled))': {
+          backgroundColor: vars.color.primaryDark,
+        },
+        '&:has(input:checked)': {
           backgroundColor: vars.color.primary,
         },
       },
@@ -31,10 +30,9 @@ export const checkbox = makeComponentTheme('checkbox', {
     focusable,
   ]),
   icon: style({
-    inlineSize: 12,
-    blockSize: 12,
-    backgroundColor: 'white',
-    borderRadius: '8px',
+    inlineSize: '1rem',
+    blockSize: '1rem',
+    color: 'white',
     transform: 'scale(0)',
     transition: `transform ${vars.transition.normal} ${bounceOut}`,
     selectors: {
