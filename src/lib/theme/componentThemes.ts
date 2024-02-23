@@ -96,19 +96,29 @@ export type DropdownTheme = {
   };
 };
 
+export type SelectTheme = {
+  wrapper?: string;
+  select: string;
+  icon: string;
+  variants: {
+    variant: 'solid' | 'outline';
+  };
+};
+
 export type ComponentThemes = {
   button: ButtonTheme;
   checkbox: CheckboxTheme;
   dialog: DialogTheme;
   divider: DividerTheme;
+  dropdown: DropdownTheme;
   input: InputTheme;
   label: LabelTheme;
   link: LinkTheme;
   progress: ProgressTheme;
   radio: RadioTheme;
+  select: SelectTheme;
   spinner: SpinnerTheme;
   switch: SwitchTheme;
-  dropdown: DropdownTheme;
 };
 
 /**

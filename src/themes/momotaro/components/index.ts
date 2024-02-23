@@ -9,6 +9,7 @@ import { label } from './label.css';
 import { link } from './link.css';
 import { progress } from './progress.css';
 import { radio } from './radio.css';
+import { select } from './select.css';
 import { spinner } from './spinner.css';
 import { switchTheme } from './switch.css';
 
@@ -17,12 +18,13 @@ export const components: ThemeComponentsStyles = {
   checkbox,
   dialog,
   divider,
+  dropdown,
   input,
   label,
   link,
   progress,
   radio,
+  select,
   spinner,
-  dropdown,
   switch: switchTheme,
 };
