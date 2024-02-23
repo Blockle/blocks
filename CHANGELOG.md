@@ -1,5 +1,17 @@
 # @blockle/blocks
 
+## 0.9.0
+
+### Minor Changes
+
+- 9992144: Removed "legacy" CSS properties and converted them to CSS logical properties
+
+### Patch Changes
+
+- 7c9d2c6: Added Select component
+- 6b23230: - Added checkbox icon.
+  - Transition improvements.
+
 ## 0.8.10
 
 ### Patch Changes
