@@ -9,7 +9,11 @@ export const focusRingColor = createVar();
  * focus transition to work correctly.
  */
 export const focusable = style({
-  transition: `box-shadow ${vars.transition.fast}`,
+  '@media': {
+    '(prefers-reduced-motion: no-preference)': {
+      transition: `box-shadow ${vars.transition.fast}`,
+    },
+  },
   ':focus-visible': {
     outline: '2px solid transparent',
     outlineOffset: '2px',
