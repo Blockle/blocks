@@ -15,8 +15,8 @@ export const input = style({
   '@layer': {
     [blocksLayer]: {
       opacity: 0,
-      maxHeight: 0,
-      maxWidth: 0,
+      maxBlockSize: 0,
+      maxInlineSize: 0,
     },
   },
 });

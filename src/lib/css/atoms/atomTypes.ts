@@ -8,22 +8,22 @@ export type ResponsiveDisplayFlex = ResponsiveValue<'none' | 'flex' | 'inline-fl
 
 export type MarginAtoms = {
   margin?: Atoms['margin'];
-  marginLeft?: Atoms['marginLeft'];
-  marginRight?: Atoms['marginRight'];
-  marginTop?: Atoms['marginTop'];
-  marginBottom?: Atoms['marginBottom'];
-  marginX?: Atoms['marginX'];
-  marginY?: Atoms['marginY'];
+  marginBlock?: Atoms['marginBlock'];
+  marginBlockStart?: Atoms['marginBlockStart'];
+  marginBlockEnd?: Atoms['marginBlockEnd'];
+  marginInline?: Atoms['marginInline'];
+  marginInlineStart?: Atoms['marginInlineStart'];
+  marginInlineEnd?: Atoms['marginInlineEnd'];
 };
 
 export type PaddingAtoms = {
   padding?: Atoms['padding'];
-  paddingLeft?: Atoms['paddingLeft'];
-  paddingRight?: Atoms['paddingRight'];
-  paddingTop?: Atoms['paddingTop'];
-  paddingBottom?: Atoms['paddingBottom'];
-  paddingX?: Atoms['paddingX'];
-  paddingY?: Atoms['paddingY'];
+  paddingBlock?: Atoms['paddingBlock'];
+  paddingBlockStart?: Atoms['paddingBlockStart'];
+  paddingBlockEnd?: Atoms['paddingBlockEnd'];
+  paddingInline?: Atoms['paddingInline'];
+  paddingInlineStart?: Atoms['paddingInlineStart'];
+  paddingInlineEnd?: Atoms['paddingInlineEnd'];
 };
 
 export type TextAtoms = {

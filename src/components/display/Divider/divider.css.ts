@@ -5,7 +5,7 @@ export const divider = style({
   '@layer': {
     [blocksLayer]: {
       clear: 'both',
-      height: '1px',
+      blockSize: '1px',
     },
   },
 });

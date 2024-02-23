@@ -5,7 +5,7 @@ import { breakpointNames, breakpointQuery } from './breakpoints';
 const unresponsiveAtomicProperties = defineProperties({
   properties: unresponsiveProperties,
   shorthands: {
-    inset: ['top', 'bottom', 'left', 'right'],
+    inset: ['insetBlockStart', 'insetBlockEnd', 'insetInlineStart', 'insetInlineEnd'],
   },
 });
 
@@ -26,12 +26,9 @@ const responsiveAtomicProperties = defineProperties({
   responsiveArray: breakpointNames,
   properties: responsiveProperties,
   shorthands: {
-    margin: ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'],
-    marginX: ['marginLeft', 'marginRight'],
-    marginY: ['marginTop', 'marginBottom'],
-    padding: ['paddingTop', 'paddingBottom', 'paddingLeft', 'paddingRight'],
-    paddingX: ['paddingLeft', 'paddingRight'],
-    paddingY: ['paddingTop', 'paddingBottom'],
+    margin: ['marginBlockStart', 'marginBlockEnd', 'marginInlineStart', 'marginInlineEnd'],
+    marginBlock: ['marginBlockStart', 'marginBlockEnd'],
+    marginInline: ['marginInlineStart', 'marginInlineEnd'],
     placeItems: ['justifyContent', 'alignItems'],
   },
 });

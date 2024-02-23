@@ -7,8 +7,7 @@ export const input = makeComponentTheme('input', {
   input: style([
     atoms({
       color: 'text',
-      paddingY: 'large',
-      paddingX: 'large',
+      padding: 'large',
       border: 'none',
       borderRadius: 'small',
     }),
