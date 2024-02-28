@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { expect, jest } from '@storybook/jest';
 import { Meta, StoryObj } from '@storybook/react';
 import { fireEvent, getByRole, userEvent, within } from '@storybook/testing-library';
@@ -19,7 +20,7 @@ const DialogTemplate: StoryObj<DialogProps>['render'] = (props) => {
 
   return (
     <>
-      <Button variant="solid" onClick={() => setOpen(true)}>
+      <Button variant="solid" onClick={() => setOpen(true)} autoFocus>
         Open Dialog
       </Button>
       <div style={{ height: '2000px' }}></div>
@@ -33,7 +34,9 @@ const NestedDialog: React.FC<{ children?: React.ReactNode }> = ({ children }) =>
 
   return (
     <>
-      <Button onClick={() => setOpen(true)}>Open dialog</Button>
+      <Button onClick={() => setOpen(true)} autoFocus>
+        Open dialog
+      </Button>
       <Dialog open={open} onRequestClose={() => setOpen(false)}>
         {children}
       </Dialog>
@@ -52,16 +55,19 @@ export const Default: StoryObj<DialogProps> = {
           <Text tag="p" fontSize="small">
             This is a dialog.
           </Text>
+          <form onSubmit={(event) => event.preventDefault()}>
+            <Stack spacing="small" alignX="center">
+              {/* <Input name="firstName" label="First name" autoFocus /> */}
+              <Button type="submit" autoFocus>
+                Submit
+              </Button>
+            </Stack>
+          </form>
+
           <NestedDialog>
             One
             <NestedDialog>Two</NestedDialog>
           </NestedDialog>
-          <form onSubmit={(event) => event.preventDefault()}>
-            <Stack spacing="small" alignX="center">
-              {/* <Input name="firstName" label="First name" autoFocus /> */}
-              <Button type="submit">Submit</Button>
-            </Stack>
-          </form>
         </Stack>
       </>
     ),
@@ -69,6 +75,35 @@ export const Default: StoryObj<DialogProps> = {
     onRequestClose: jest.fn(() => {
       console.log('Dialog close requested');
     }),
+  },
+};
+
+export const WithAriaMarkup: StoryObj<DialogProps> = {
+  render() {
+    const [open, setOpen] = useState(false);
+
+    return (
+      <>
+        <Button onClick={() => setOpen(true)}>Open dialog</Button>
+
+        <Dialog
+          open={open}
+          onRequestClose={() => setOpen(false)}
+          aria-labelledby="dialog-header"
+          aria-describedby="dialog-body"
+        >
+          <header id="dialog-header">Dialog title</header>
+
+          <p id="dialog-body">Some text</p>
+
+          <footer>
+            <Button autoFocus onClick={() => setOpen(false)}>
+              Close
+            </Button>
+          </footer>
+        </Dialog>
+      </>
+    );
   },
 };
 
@@ -97,7 +132,9 @@ export const Play: StoryObj<DialogProps> = {
       <>
         <Stack spacing="medium">
           <Heading level={2}>Hello world</Heading>
-          <Button type="submit">Close Dialog</Button>
+          <Button type="submit" autoFocus>
+            Close Dialog
+          </Button>
         </Stack>
       </>
     ),
