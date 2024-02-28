@@ -6,6 +6,7 @@ import { useKeyboard } from '../../../hooks/useKeyboard';
 import { useLayer } from '../../../hooks/useLayer';
 import { usePreventBodyScroll } from '../../../hooks/usePreventBodyScroll';
 import { useRestoreFocus } from '../../../hooks/useRestoreFocus';
+import { useRootAriaHidden } from '../../../hooks/useRootAriaHidden';
 import { useVisibilityState } from '../../../hooks/useVisibilityState';
 import { DialogTheme } from '../../../lib/theme/componentThemes';
 import { classnames } from '../../../lib/utils/classnames';
@@ -24,6 +25,7 @@ export type DialogProps = {
   'aria-label'?: string;
 };
 
+// TODO Should we focus on first focusable element when dialog is opened? Good for accessibility
 // TODO Can we use inert attribute? For example set it on the root element of the page
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert
 export const Dialog: React.FC<DialogProps> = ({
@@ -67,6 +69,9 @@ export const Dialog: React.FC<DialogProps> = ({
 
   // On Escape key press, close the dialog
   useKeyboard('Escape', onRequestClose, { enabled: open && enabled });
+
+  // Hide the root element from screen readers when the dialog is open
+  useRootAriaHidden(visible);
 
   // The DOM element of the dialog is not rendered when it is not open
   // This causes a problem when we want to animate the dialog with transitions
