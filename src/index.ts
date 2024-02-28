@@ -36,6 +36,7 @@ export { useComponentStyleDefaultProps, useComponentStyles } from './hooks/useCo
 export { useIsomorphicLayoutEffect } from './hooks/useIsomorphicLayoutEffect';
 export { useKeyboard } from './hooks/useKeyboard';
 export { usePreventBodyScroll } from './hooks/usePreventBodyScroll';
+export { useRootAriaHidden } from './hooks/useRootAriaHidden';
 
 // Utils
 export { classnames } from './lib/utils/classnames';

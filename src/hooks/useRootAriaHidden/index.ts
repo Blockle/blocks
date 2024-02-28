@@ -1,0 +1,1 @@
+export { useRootAriaHidden } from './useRootAriaHidden';
