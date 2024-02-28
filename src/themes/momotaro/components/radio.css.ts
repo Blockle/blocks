@@ -11,11 +11,14 @@ export const radio = makeComponentTheme('radio', {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      width: 24,
-      height: 24,
+      inlineSize: 24,
+      blockSize: 24,
       borderRadius: 12,
-      transition: `transform ${vars.transition.fast}`,
-      transitionProperty: 'background-color',
+      '@media': {
+        '(prefers-reduced-motion: no-preference)': {
+          transition: `background-color ${vars.transition.fast}, box-shadow ${vars.transition.fast}`,
+        },
+      },
       ':hover': {
         backgroundColor: vars.color.primaryDark,
       },
@@ -36,7 +39,11 @@ export const radio = makeComponentTheme('radio', {
     backgroundColor: 'white',
     borderRadius: '8px',
     transform: 'scale(0)',
-    transition: `transform ${vars.transition.normal} ${bounceOut}`,
+    '@media': {
+      '(prefers-reduced-motion: no-preference)': {
+        transition: `transform ${vars.transition.normal} ${bounceOut}`,
+      },
+    },
     selectors: {
       'input:checked ~ &': {
         transform: 'scale(1)',

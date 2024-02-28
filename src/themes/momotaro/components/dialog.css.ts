@@ -15,6 +15,7 @@ export const dialog = makeComponentTheme('dialog', {
     }),
     {
       maxHeight: '90%',
+      minWidth: '300px',
       selectors: {
         '&[data-open]': {
           transform: 'scale(1)',

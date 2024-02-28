@@ -47,15 +47,15 @@ export const button = makeComponentTheme('button', {
     },
     size: {
       small: style({
-        paddingX: 'large',
+        paddingInline: 'large',
         height: 40,
       }),
       medium: style({
-        paddingX: 'xlarge',
+        paddingInline: 'xlarge',
         height: 56,
       }),
       large: style({
-        paddingX: 'xlarge',
+        paddingInline: 'xlarge',
         height: 72,
       }),
     },

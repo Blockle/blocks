@@ -7,8 +7,7 @@ export const input = makeComponentTheme('input', {
   input: style([
     atoms({
       color: 'text',
-      paddingY: 'large',
-      paddingX: 'large',
+      padding: 'large',
       border: 'none',
       borderRadius: 'small',
     }),
@@ -24,8 +23,11 @@ export const input = makeComponentTheme('input', {
   container: style([
     {
       minHeight: 56,
-      transitionDuration: vars.transition.fast,
-      transitionProperty: 'box-shadow',
+      '@media': {
+        '(prefers-reduced-motion: no-preference)': {
+          transition: `box-shadow ${vars.transition.fast}`,
+        },
+      },
       ':focus-within': {
         outline: '2px solid transparent',
         outlineOffset: '2px',

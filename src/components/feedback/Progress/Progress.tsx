@@ -49,8 +49,8 @@ export const Progress = forwardRef<HTMLProgressElement, ProgressProps>(function 
       <Box
         className={classnames(barClassName)}
         backgroundColor="currentColor"
-        width="full"
-        height="full"
+        inlineSize="full"
+        blockSize="full"
         style={{ transform: value === undefined ? undefined : `translateX(-${100 - progress}%)` }}
       />
     </Box>
