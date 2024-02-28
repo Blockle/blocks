@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.9.1
+
+### Patch Changes
+
+- 2a01e1f: Dialog accessibility improvements
+
 ## 0.9.0
 
 ### Minor Changes
