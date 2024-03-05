@@ -105,6 +105,13 @@ export type SelectTheme = {
   };
 };
 
+export type SliderTheme = {
+  base: string;
+  track: string;
+  filledTrack: string;
+  thumb: string;
+};
+
 export type ComponentThemes = {
   button: ButtonTheme;
   checkbox: CheckboxTheme;
@@ -119,6 +126,7 @@ export type ComponentThemes = {
   select: SelectTheme;
   spinner: SpinnerTheme;
   switch: SwitchTheme;
+  slider: SliderTheme;
 };
 
 /**

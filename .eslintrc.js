@@ -39,6 +39,7 @@ module.exports = {
     'unicorn/no-null': 'off',
     'unicorn/prevent-abbreviations': 'off',
     'unicorn/prefer-query-selector': 'off',
+    'unicorn/prefer-ternary': 'off',
   },
   settings: {
     react: {
