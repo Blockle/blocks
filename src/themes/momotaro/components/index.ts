@@ -10,6 +10,7 @@ import { link } from './link.css';
 import { progress } from './progress.css';
 import { radio } from './radio.css';
 import { select } from './select.css';
+import { slider } from './slider.css';
 import { spinner } from './spinner.css';
 import { switchTheme } from './switch.css';
 
@@ -27,4 +28,5 @@ export const components: ThemeComponentsStyles = {
   select,
   spinner,
   switch: switchTheme,
+  slider,
 };

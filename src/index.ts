@@ -17,6 +17,7 @@ export { Input, type InputProps } from './components/form/Input';
 export { Label, type LabelProps } from './components/form/Label';
 export { Radio, type RadioProps } from './components/form/Radio';
 export { Select, type SelectProps } from './components/form/Select';
+export { Slider, type SliderProps } from './components/form/Slider';
 export { Switch, type SwitchProps } from './components/form/Switch';
 export { Box, type BoxProps } from './components/layout/Box';
 export { Inline, type InlineProps } from './components/layout/Inline';
