@@ -110,6 +110,10 @@ export type SliderTheme = {
   track: string;
   filledTrack: string;
   thumb: string;
+  variants: {
+    size: 'small' | 'medium' | 'large';
+    colorScheme: 'primary' | 'secondary';
+  };
 };
 
 export type ComponentThemes = {

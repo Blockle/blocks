@@ -1,10 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useComponentStyles } from '../../../hooks/useComponentStyles';
+import { SliderTheme } from '../../../lib/theme/componentThemes';
 import { classnames } from '../../../lib/utils/classnames';
 import * as styles from './slider.css';
 import { usePointerProgress } from './usePointerProgress';
 
 export type SliderProps = {
+  name?: string;
   min?: number;
   max?: number;
   step?: number;
@@ -15,6 +17,8 @@ export type SliderProps = {
   'aria-labelledby'?: string;
   'aria-valuetext'?: string;
   'aria-label'?: string;
+  size: SliderTheme['variants']['size'];
+  colorScheme: SliderTheme['variants']['colorScheme'];
 };
 
 function getBoundValue(newValue: number, min: number, max: number, step: number) {
@@ -34,19 +38,21 @@ export const Slider: React.FC<SliderProps> = ({
   defaultValue = 0,
   onChange,
   value,
+  name,
+  size,
+  colorScheme,
   ...restProps
 }) => {
   const [internValue, setInternValue] = useState(
     getBoundValue(value ?? defaultValue, min, max, step),
   );
 
-  const baseClass = useComponentStyles('slider', { base: true }, false);
+  const baseClass = useComponentStyles('slider', { base: true, variants: { size, colorScheme } });
   const trackClass = useComponentStyles('slider', { track: true }, false);
   const filledTrackClass = useComponentStyles('slider', { filledTrack: true }, false);
   const thumbClass = useComponentStyles('slider', { thumb: true }, false);
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const thumbRef = useRef<HTMLDivElement>(null);
 
   // Update the internal value when the value prop changes
   useEffect(() => {
@@ -64,7 +70,6 @@ export const Slider: React.FC<SliderProps> = ({
 
   usePointerProgress({
     container: containerRef,
-    target: thumbRef,
     orientation,
     onChange(progress) {
       if (orientation === 'vertical') {
@@ -124,7 +129,6 @@ export const Slider: React.FC<SliderProps> = ({
         />
       </div>
       <div
-        ref={thumbRef}
         className={classnames(styles.thumb, thumbClass)}
         tabIndex={0}
         role="slider"
@@ -139,6 +143,7 @@ export const Slider: React.FC<SliderProps> = ({
         onKeyDown={onKeyDown}
         {...restProps}
       />
+      <input type="hidden" name={name} value={internValue} />
     </div>
   );
 };

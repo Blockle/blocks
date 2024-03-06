@@ -2,48 +2,47 @@ import { useEffect } from 'react';
 
 type PointerProgressOptions = {
   container: React.RefObject<HTMLElement>;
-  target: React.RefObject<HTMLElement>;
   orientation: 'horizontal' | 'vertical';
   onChange(progress: number): void;
 };
 
+export function getProgress(event: PointerEvent, rect: DOMRect): [x: number, y: number] {
+  const { clientX, clientY } = event;
+  const { width, height, left, top } = rect;
+
+  const x = (clientX - left) / width;
+  const y = (clientY - top) / height;
+
+  return [x, y];
+}
+
 /**
  * Utility hook to track pointer events and calculate progress based on the pointer position.
  */
-export function usePointerProgress({
-  container,
-  target,
-  orientation,
-  onChange,
-}: PointerProgressOptions) {
+export function usePointerProgress({ container, orientation, onChange }: PointerProgressOptions) {
   useEffect(() => {
+    const element = container.current;
+
     function pointerdown(event: PointerEvent) {
       event.preventDefault();
       event.stopPropagation();
 
-      const element = target.current!;
-      const containerElement = container.current;
-
-      if (!containerElement) {
+      if (!element) {
         return;
       }
 
-      const containerRect = containerElement.getBoundingClientRect();
-      const containerSize =
-        orientation === 'horizontal' ? containerRect.width : containerRect.height;
-      const containerStart = orientation === 'horizontal' ? containerRect.left : containerRect.top;
+      const containerRect = element.getBoundingClientRect();
+      const axisIndex = orientation === 'horizontal' ? 0 : 1;
+      const progress = getProgress(event, containerRect);
 
-      const targetRect = element.getBoundingClientRect();
-      const targetSize = orientation === 'horizontal' ? targetRect.width : targetRect.height;
+      onChange(progress[axisIndex]);
 
       const pointermove = (event: PointerEvent) => {
         event.preventDefault();
 
-        const position = orientation === 'horizontal' ? event.clientX : event.clientY;
-        const progress =
-          (position - containerStart - targetSize / 2) / (containerSize - targetSize);
+        const progress = getProgress(event, containerRect);
 
-        onChange(progress);
+        onChange(progress[axisIndex]);
       };
 
       const pointerup = () => {
@@ -55,14 +54,14 @@ export function usePointerProgress({
       document.addEventListener('pointerup', pointerup);
     }
 
-    if (target.current) {
-      const element = target.current;
-
-      element.addEventListener('pointerdown', pointerdown);
-
-      return () => {
-        element?.removeEventListener('pointerdown', pointerdown);
-      };
+    if (!element) {
+      return;
     }
-  }, [container, onChange, orientation, target]);
+
+    element.addEventListener('pointerdown', pointerdown);
+
+    return () => {
+      element.removeEventListener('pointerdown', pointerdown);
+    };
+  }, [container, onChange, orientation]);
 }

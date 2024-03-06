@@ -21,6 +21,7 @@ export const containerVertical = style({
 export const track = style({
   '@layer': {
     [blocksLayer]: {
+      cursor: 'pointer',
       position: 'absolute',
       inlineSize: '100%',
       insetBlockStart: '50%',
