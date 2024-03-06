@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.10.0
+
+### Minor Changes
+
+- a6040bd: Added Slider component
+
 ## 0.9.1
 
 ### Patch Changes
