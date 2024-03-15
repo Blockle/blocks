@@ -33,26 +33,29 @@ export function getDropdownPosition(
   const bottomPosition = anchorRect.top + anchorRect.height + dropdownRect.height;
   const leftPosition = anchorRect.left - dropdownRect.width;
 
+  const offsetX = anchorLeft - Math.max((dropdownRect.width - anchorRect.width) / 2, 0);
+  const offsetY = anchorTop - Math.max((dropdownRect.height - anchorRect.height) / 2, 0);
+
   switch (align) {
-    case 'bottom': {
-      return bottomPosition < docHeight || topPosition < 0
-        ? [anchorLeft, anchorTop + anchorRect.height]
-        : [anchorLeft, anchorTop - dropdownRect.height - marginY];
-    }
     case 'top': {
       return topPosition > 0
-        ? [anchorLeft, anchorTop - dropdownRect.height - marginY]
-        : [anchorLeft, anchorTop + anchorRect.height];
+        ? [offsetX, anchorTop - dropdownRect.height - marginY]
+        : [offsetX, anchorTop + anchorRect.height];
+    }
+    case 'bottom': {
+      return bottomPosition < docHeight || topPosition < 0
+        ? [offsetX, anchorTop + anchorRect.height]
+        : [offsetX, anchorTop - dropdownRect.height - marginY];
     }
     case 'left': {
       return leftPosition > docWidth || leftPosition > 0
-        ? [anchorLeft - dropdownRect.width - marginX, anchorTop]
-        : [anchorLeft + anchorRect.width, anchorTop];
+        ? [anchorLeft - dropdownRect.width - marginX, offsetY]
+        : [anchorLeft + anchorRect.width, offsetY];
     }
     case 'right': {
       return rightPosition < docWidth || leftPosition < 0
-        ? [anchorLeft + anchorRect.width, anchorTop]
-        : [anchorLeft - dropdownRect.width - marginX, anchorTop];
+        ? [anchorLeft + anchorRect.width, offsetY]
+        : [anchorLeft - dropdownRect.width - marginX, offsetY];
     }
   }
 }

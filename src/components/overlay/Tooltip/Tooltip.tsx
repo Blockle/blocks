@@ -1,16 +1,18 @@
-import { Children, cloneElement, useEffect, useRef, useState } from 'react';
+import { Children, cloneElement, isValidElement, useEffect, useId, useRef, useState } from 'react';
+import { mergeRefs } from '../../../lib/utils/mergeRefs';
 import { Dropdown, DropdownProps } from '../Dropdown/Dropdown';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ReactElement = React.ReactElement<any, string | React.JSXElementConstructor<any>>;
 
 export type TooltipProps = {
+  align?: DropdownProps['align'];
   children: ReactElement;
   label: React.ReactNode;
-  align?: DropdownProps['align'];
 };
 
-export const Tooltip: React.FC<TooltipProps> = ({ children, label }) => {
+export const Tooltip: React.FC<TooltipProps> = ({ align = 'top', children, label }) => {
+  const id = useId();
   const ref = useRef<HTMLElement>(null);
   const [open, setOpen] = useState(false);
 
@@ -21,20 +23,24 @@ export const Tooltip: React.FC<TooltipProps> = ({ children, label }) => {
       return;
     }
 
-    const onMouseEnter = () => {
+    function onEnter() {
       setOpen(true);
-    };
+    }
 
-    const onMouseLeave = () => {
+    function onLeave() {
       setOpen(false);
-    };
+    }
 
-    element.addEventListener('mouseenter', onMouseEnter);
-    element.addEventListener('mouseleave', onMouseLeave);
+    element.addEventListener('mouseenter', onEnter);
+    element.addEventListener('mouseleave', onLeave);
+    element.addEventListener('focusin', onEnter);
+    element.addEventListener('focusout', onLeave);
 
     return () => {
-      element.removeEventListener('mouseenter', onMouseEnter);
-      element.removeEventListener('mouseleave', onMouseLeave);
+      element.removeEventListener('mouseenter', onEnter);
+      element.removeEventListener('mouseleave', onLeave);
+      element.removeEventListener('focusin', onEnter);
+      element.removeEventListener('focusout', onLeave);
     };
   }, [ref, setOpen]);
 
@@ -42,21 +48,28 @@ export const Tooltip: React.FC<TooltipProps> = ({ children, label }) => {
     throw new Error('Tooltip component can only have one child');
   }
 
-  const child = Children.toArray(children)[0] as ReactElement;
+  const child = Children.toArray(children)[0] as ReactElement & { ref?: React.Ref<HTMLElement> };
+
+  if (!isValidElement(child)) {
+    return null;
+  }
 
   return (
     <>
       {cloneElement(child, {
-        ref,
+        ref: child.ref ? mergeRefs(ref, child.ref) : ref,
+        ['aria-describedby']: open ? id : undefined,
       })}
       {/* TODO Rename dropdown to Popover? */}
       <Dropdown
+        id={id}
+        role="tooltip"
         anchorElement={ref}
         open={open}
         onRequestClose={() => {
           setOpen(false);
         }}
-        align="top"
+        align={align}
       >
         {label}
       </Dropdown>

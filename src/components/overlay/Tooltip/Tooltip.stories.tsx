@@ -15,11 +15,15 @@ export const Default: StoryObj<TooltipProps> = {
     return (
       <Box style={{ height: 1000, width: 1000 }}>
         <Box style={{ marginTop: 240, marginLeft: 240 }}>
-          <Tooltip label="Hi there!">
-            <Button>Hover me</Button>
+          <Tooltip {...props}>
+            <Button variant="outline">Hover me</Button>
           </Tooltip>
         </Box>
       </Box>
     );
+  },
+
+  args: {
+    label: 'Hi there',
   },
 };
