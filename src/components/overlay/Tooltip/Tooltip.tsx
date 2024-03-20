@@ -1,20 +1,33 @@
 import { Children, cloneElement, isValidElement, useEffect, useId, useRef, useState } from 'react';
+import { useComponentStyles } from '../../../hooks/useComponentStyles';
 import { composeRefs } from '../../../lib/react/react';
-import { Dropdown, DropdownProps } from '../Dropdown/Dropdown';
+import { TooltipTheme } from '../../../lib/theme/componentThemes';
+import { Popover, PopoverProps } from '../Popover/Popover';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ReactElement = React.ReactElement<any, string | React.JSXElementConstructor<any>>;
 
 export type TooltipProps = {
-  align?: DropdownProps['align'];
+  align?: PopoverProps['align'];
   children: ReactElement;
   label: React.ReactNode;
+  colorScheme?: TooltipTheme['variants']['colorScheme'];
 };
 
-export const Tooltip: React.FC<TooltipProps> = ({ align = 'top', children, label }) => {
+export const Tooltip: React.FC<TooltipProps> = ({
+  align = 'top',
+  children,
+  label,
+  colorScheme,
+}) => {
   const id = useId();
   const ref = useRef<HTMLElement>(null);
   const [open, setOpen] = useState(false);
+
+  const tooltipClassName = useComponentStyles('tooltip', {
+    base: true,
+    variants: { colorScheme },
+  });
 
   useEffect(() => {
     const element = ref.current;
@@ -60,8 +73,7 @@ export const Tooltip: React.FC<TooltipProps> = ({ align = 'top', children, label
         ref: composeRefs(ref, child.ref),
         ['aria-describedby']: open ? id : undefined,
       })}
-      {/* TODO Rename dropdown to Popover? */}
-      <Dropdown
+      <Popover
         id={id}
         role="tooltip"
         anchorElement={ref}
@@ -70,9 +82,10 @@ export const Tooltip: React.FC<TooltipProps> = ({ align = 'top', children, label
           setOpen(false);
         }}
         align={align}
+        className={tooltipClassName}
       >
         {label}
-      </Dropdown>
+      </Popover>
     </>
   );
 };

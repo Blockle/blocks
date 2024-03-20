@@ -5,16 +5,15 @@ import { useIsomorphicLayoutEffect } from '../../../hooks/useIsomorphicLayoutEff
 import { useKeyboard } from '../../../hooks/useKeyboard';
 import { useLayer } from '../../../hooks/useLayer';
 import { useVisibilityState } from '../../../hooks/useVisibilityState';
-import { DropdownTheme } from '../../../lib/theme/componentThemes';
 import { classnames } from '../../../lib/utils/classnames';
 import { hasAnimationDuration } from '../../../lib/utils/dom';
 import { HTMLElementProps } from '../../../lib/utils/utils';
 import { Box } from '../../layout/Box';
 import { Portal } from '../../other/Portal';
-import { getDropdownPosition } from './dropdown-utils';
+import { getDopoverPosition } from './popover-utils';
 
-export type DropdownProps = {
-  // Preferred alignment of the dropdown, will mirror if there is not enough space
+export type PopoverProps = {
+  // Preferred alignment of the popover, will mirror if there is not enough space
   align?: 'top' | 'bottom' | 'left' | 'right';
   anchorElement: React.RefObject<HTMLElement>;
   children: React.ReactNode;
@@ -23,11 +22,9 @@ export type DropdownProps = {
   open: boolean;
   repositionOnScroll?: boolean;
   style?: React.CSSProperties;
-  variant?: DropdownTheme['variants']['variant'];
 } & HTMLElementProps<HTMLDivElement>;
 
-// TODO Close on outside click
-export const Dropdown: React.FC<DropdownProps> = ({
+export const Popover: React.FC<PopoverProps> = ({
   align = 'bottom',
   anchorElement,
   children,
@@ -36,25 +33,20 @@ export const Dropdown: React.FC<DropdownProps> = ({
   open,
   repositionOnScroll,
   style,
-  variant,
   ...restProps
 }) => {
   const layer = useLayer();
   const [visible, hide] = useVisibilityState(open);
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const containerClassName = useComponentStyles(
-    'dropdown',
-    { base: true, variants: { variant } },
-    false,
-  );
+  const popoverRef = useRef<HTMLDivElement>(null);
+  const containerClassName = useComponentStyles('popover', { base: true }, false);
 
   useLayoutEffect(() => {
     if (!visible) {
       return;
     }
 
-    const position = getDropdownPosition(align, anchorElement, dropdownRef);
+    const position = getDopoverPosition(align, anchorElement, popoverRef);
 
     setPosition({ x: position[0], y: position[1] });
   }, [align, anchorElement, visible]);
@@ -65,7 +57,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     }
 
     function handleResize() {
-      const position = getDropdownPosition(align, anchorElement, dropdownRef);
+      const position = getDopoverPosition(align, anchorElement, popoverRef);
 
       setPosition({ x: position[0], y: position[1] });
     }
@@ -82,13 +74,13 @@ export const Dropdown: React.FC<DropdownProps> = ({
   // "workaround" so transition works on first render
   useIsomorphicLayoutEffect(() => {
     if (!open) {
-      dropdownRef.current?.removeAttribute('data-open');
+      popoverRef.current?.removeAttribute('data-open');
       return;
     }
 
     let timer = requestAnimationFrame(() => {
       timer = requestAnimationFrame(() => {
-        dropdownRef.current?.setAttribute('data-open', '');
+        popoverRef.current?.setAttribute('data-open', '');
       });
     });
 
@@ -97,43 +89,43 @@ export const Dropdown: React.FC<DropdownProps> = ({
     };
   }, [open, visible]);
 
-  // Hide the dropdown when the animation ends
+  // Hide the popover when the animation ends
   const onAnimationEnd = useCallback(() => {
     if (!open) {
       hide();
     }
   }, [hide, open]);
 
-  // Hide the dropdown immediately when the open prop changes to false
+  // Hide the popover immediately when the open prop changes to false
   // and no animation is used
   useEffect(() => {
     if (open) {
       return;
     }
 
-    // If the dropdown has no transition, hide it immediately
-    if (!hasAnimationDuration(dropdownRef.current)) {
+    // If the popover has no transition, hide it immediately
+    if (!hasAnimationDuration(popoverRef.current)) {
       hide();
     }
   }, [hide, open]);
 
-  // On Escape key press, close the dropdown
+  // On Escape key press, close the popover
   useKeyboard('Escape', onRequestClose, { enabled: visible });
 
-  // Close the dropdown when clicking outside of it
-  useClickOutside(dropdownRef, onRequestClose, { enabled: visible });
+  // Close the popover when clicking outside of it
+  useClickOutside(popoverRef, onRequestClose, { enabled: visible });
 
   if (!visible) {
     return null;
   }
 
-  // SSR: If the dropdown is open on the server, we need to render it with the open attribute
+  // SSR: If the popover is open on the server, we need to render it with the open attribute
   const dataOpen = typeof window === 'undefined' && open ? '' : undefined;
 
   return (
     <Portal container={layer()}>
       <Box
-        ref={dropdownRef}
+        ref={popoverRef}
         data-open={dataOpen}
         onAnimationEnd={onAnimationEnd}
         onTransitionEnd={onAnimationEnd}
@@ -141,10 +133,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
         position="absolute"
         style={{
           ...style,
-          // TODO Think about how to handle this, perhaps we could add a custom class to the dropdown
-          // Or we remove it from getDropdownPosition?
-          // "horizontal" ? "vertical"
-          margin: align === 'bottom' || align === 'top' ? 'var(--spacing) 0' : '0 var(--spacing)',
           left: position.x,
           top: position.y,
         }}

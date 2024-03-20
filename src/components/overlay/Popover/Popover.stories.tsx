@@ -3,24 +3,18 @@ import { useRef, useState } from '@storybook/addons';
 import { Meta, StoryObj } from '@storybook/react';
 import { Button } from '../../form/Button';
 import { Box } from '../../layout/Box';
-import { Dropdown, DropdownProps } from './Dropdown';
+import { Popover, PopoverProps } from './Popover';
 
 export default {
-  title: 'Overlay/Dropdown',
-  component: Dropdown,
+  title: 'Overlay/Popover',
+  component: Popover,
   argTypes: {},
 } as Meta;
 
-export const Default: StoryObj<DropdownProps> = {
+export const Default: StoryObj<PopoverProps> = {
   render: (props) => {
     const buttonRef = useRef<HTMLButtonElement>(null!);
     const [open, setOpen] = useState(props.open ?? false);
-    // Potentially useful for later
-    // const dropdown = useDropdownState({
-    //   align: 'bottom',
-    //   target: ref.current,
-    //   onRequestClose: () => {},
-    // });
 
     return (
       <Box style={{ height: 1000, width: 1000 }}>
@@ -28,14 +22,14 @@ export const Default: StoryObj<DropdownProps> = {
           <Button ref={buttonRef} onClick={() => setOpen((open) => !open)}>
             Toggle
           </Button>
-          <Dropdown
+          <Popover
             {...props}
             anchorElement={buttonRef}
             open={open}
             onRequestClose={() => setOpen(false)}
           >
             {props.children}
-          </Dropdown>
+          </Popover>
         </Box>
       </Box>
     );

@@ -1,15 +1,13 @@
 import { style } from '../../../lib/css/style/style';
 import { makeComponentTheme } from '../../../lib/theme/makeComponentTheme';
 
-export const dropdown = makeComponentTheme('dropdown', {
+export const popover = makeComponentTheme('popover', {
   base: style({
     backgroundColor: 'white',
     borderRadius: 'small',
     boxShadow: 'medium',
     padding: 'medium',
-    vars: {
-      '--spacing': '0.5rem',
-    },
+    margin: 'small', // Space between the popover and the anchor element
     selectors: {
       '&[data-open]': {
         transform: 'scale(1)',
@@ -25,25 +23,4 @@ export const dropdown = makeComponentTheme('dropdown', {
       },
     },
   }),
-  variants: {
-    variant: {
-      solid: style({
-        backgroundColor: 'white',
-        border: 'none',
-        boxShadow: 'medium',
-        color: 'black',
-        padding: 'medium',
-      }),
-      outline: style({
-        backgroundColor: 'transparent',
-        border: '1px solid black',
-        boxShadow: 'none',
-        color: 'black',
-        padding: 'medium',
-      }),
-    },
-  },
-  defaultVariants: {
-    variant: 'solid',
-  },
 });

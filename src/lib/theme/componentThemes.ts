@@ -89,11 +89,8 @@ export type SwitchTheme = {
   slider: string;
 };
 
-export type DropdownTheme = {
+export type PopoverTheme = {
   base: string;
-  variants: {
-    variant: 'solid' | 'outline';
-  };
 };
 
 export type SelectTheme = {
@@ -116,21 +113,29 @@ export type SliderTheme = {
   };
 };
 
+export type TooltipTheme = {
+  base: string;
+  variants: {
+    colorScheme: 'primary' | 'secondary';
+  };
+};
+
 export type ComponentThemes = {
   button: ButtonTheme;
   checkbox: CheckboxTheme;
   dialog: DialogTheme;
   divider: DividerTheme;
-  dropdown: DropdownTheme;
   input: InputTheme;
   label: LabelTheme;
   link: LinkTheme;
+  popover: PopoverTheme;
   progress: ProgressTheme;
   radio: RadioTheme;
   select: SelectTheme;
+  slider: SliderTheme;
   spinner: SpinnerTheme;
   switch: SwitchTheme;
-  slider: SliderTheme;
+  tooltip: TooltipTheme;
 };
 
 /**
