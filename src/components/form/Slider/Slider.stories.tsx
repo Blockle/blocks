@@ -1,6 +1,6 @@
-import { expect } from '@storybook/jest';
+import { expect } from '@storybook/test';
 import { Meta, StoryObj } from '@storybook/react';
-import { within } from '@storybook/testing-library';
+import { within } from '@storybook/test';
 import { FC, useState } from 'react';
 import { Stack } from '../../layout/Stack';
 import { Text } from '../../typography/Text';

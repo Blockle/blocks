@@ -9,15 +9,15 @@ import * as styles from './select.css';
 export type SelectProps = {
   children: React.ReactNode;
   placeholder?: string;
-  variant?: SelectTheme['variants'];
+  variant?: SelectTheme['variants']['variant'];
 } & HTMLElementProps<HTMLSelectElement>;
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
-  { children, placeholder, className, ...restProps },
+  { children, placeholder, className, variant, ...restProps },
   ref,
 ) {
   const wrapperClassName = useComponentStyles('select', { wrapper: true }, false);
-  const selectClassName = useComponentStyles('select', { select: true });
+  const selectClassName = useComponentStyles('select', { select: true, variants: { variant } });
   const iconClassName = useComponentStyles('select', { icon: true }, false);
 
   return (

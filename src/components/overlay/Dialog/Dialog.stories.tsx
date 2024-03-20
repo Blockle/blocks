@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { expect, jest } from '@storybook/jest';
+import { expect } from '@storybook/test';
+import * as test from '@storybook/test';
 import { Meta, StoryObj } from '@storybook/react';
-import { fireEvent, getByRole, userEvent, within } from '@storybook/testing-library';
+import { fireEvent, getByRole, userEvent, within } from '@storybook/test';
 import { useState } from 'react';
 import { Button } from '../../form/Button';
 import { Stack } from '../../layout/Stack';
@@ -72,7 +73,7 @@ export const Default: StoryObj<DialogProps> = {
       </>
     ),
     open: true,
-    onRequestClose: jest.fn(() => {
+    onRequestClose: test.fn(() => {
       console.log('Dialog close requested');
     }),
   },
@@ -138,7 +139,7 @@ export const Play: StoryObj<DialogProps> = {
         </Stack>
       </>
     ),
-    onRequestClose: jest.fn(() => {
+    onRequestClose: test.fn(() => {
       console.log('Dialog clicked');
     }),
   },

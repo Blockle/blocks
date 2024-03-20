@@ -1,6 +1,6 @@
-import { expect } from '@storybook/jest';
+import { expect } from '@storybook/test';
 import { Meta, StoryFn, StoryObj } from '@storybook/react';
-import { within } from '@storybook/testing-library';
+import { within } from '@storybook/test';
 import { vars } from '../../../lib/theme/vars.css';
 import { Inline, InlineProps } from './Inline';
 
