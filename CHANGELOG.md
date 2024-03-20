@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.11.3
+
+### Patch Changes
+
+- feadbfd: Dependency fix
+
 ## 0.11.2
 
 ### Patch Changes
