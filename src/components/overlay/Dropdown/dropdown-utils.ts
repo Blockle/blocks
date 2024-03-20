@@ -37,8 +37,8 @@ export function getDropdownPosition(
   const bottomPosition = anchorRect.top + anchorRect.height + dropdownRect.height;
   const leftPosition = anchorRect.left - dropdownRect.width;
 
-  const offsetX = anchorLeft - Math.max((dropdownRect.width - anchorRect.width) / 2, 0);
-  const offsetY = anchorTop - Math.max((dropdownRect.height - anchorRect.height) / 2, 0);
+  const offsetX = anchorLeft - (dropdownRect.width - anchorRect.width) / 2;
+  const offsetY = anchorTop - (dropdownRect.height - anchorRect.height) / 2;
 
   // Reset the transform
   dropdownRef.current.style.transform = '';
