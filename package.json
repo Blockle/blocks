@@ -105,7 +105,9 @@
   },
   "peerDependencies": {
     "@vanilla-extract/css": "^1.14",
-    "react": "^18"
+    "@vanilla-extract/sprinkles": "^1.6",
+    "react": "^18",
+    "react-dom": "^18"
   },
   "packageManager": "yarn@1.22.19"
 }
