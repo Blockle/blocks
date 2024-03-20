@@ -26,6 +26,7 @@ export { Link, type LinkProps } from './components/navigation/Link';
 export { BlocksProvider, type BlocksProviderProps } from './components/other/BlocksProvider';
 export { Portal, type PortalProps } from './components/other/Portal';
 export { Dialog, type DialogProps } from './components/overlay/Dialog';
+export { Tooltip, type TooltipProps } from './components/overlay/Tooltip';
 export { Heading, type HeadingProps } from './components/typography/Heading';
 export { Text, type TextProps } from './components/typography/Text';
 

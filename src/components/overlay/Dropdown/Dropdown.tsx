@@ -8,13 +8,15 @@ import { useVisibilityState } from '../../../hooks/useVisibilityState';
 import { DropdownTheme } from '../../../lib/theme/componentThemes';
 import { classnames } from '../../../lib/utils/classnames';
 import { hasAnimationDuration } from '../../../lib/utils/dom';
+import { HTMLElementProps } from '../../../lib/utils/utils';
 import { Box } from '../../layout/Box';
 import { Portal } from '../../other/Portal';
 import { getDropdownPosition } from './dropdown-utils';
 
 export type DropdownProps = {
-  align?: 'top' | 'bottom' | 'left' | 'right'; // Preferred alignment of the dropdown, will mirror if there is not enough space
-  anchorElement: React.RefObject<HTMLElement>; // HTMLElements or CSS selectors
+  // Preferred alignment of the dropdown, will mirror if there is not enough space
+  align?: 'top' | 'bottom' | 'left' | 'right';
+  anchorElement: React.RefObject<HTMLElement>;
   children: React.ReactNode;
   className?: string;
   onRequestClose: () => void;
@@ -22,7 +24,7 @@ export type DropdownProps = {
   repositionOnScroll?: boolean;
   style?: React.CSSProperties;
   variant?: DropdownTheme['variants']['variant'];
-};
+} & HTMLElementProps<HTMLDivElement>;
 
 // TODO Close on outside click
 export const Dropdown: React.FC<DropdownProps> = ({
@@ -35,6 +37,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   repositionOnScroll,
   style,
   variant,
+  ...restProps
 }) => {
   const layer = useLayer();
   const [visible, hide] = useVisibilityState(open);
@@ -145,6 +148,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
           left: position.x,
           top: position.y,
         }}
+        {...restProps}
       >
         {children}
       </Box>

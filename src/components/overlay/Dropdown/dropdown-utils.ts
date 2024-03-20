@@ -9,6 +9,10 @@ export function getDropdownPosition(
     return [0, 0];
   }
 
+  // Remove the transform to get the correct measurements
+  dropdownRef.current.style.transform = 'none';
+  dropdownRef.current.style.transitionDuration = '0s';
+
   // Get the measurements of the anchor and dropdown
   const anchorRect = anchorRef.current.getBoundingClientRect();
   const dropdownRect = dropdownRef.current.getBoundingClientRect();
@@ -33,26 +37,33 @@ export function getDropdownPosition(
   const bottomPosition = anchorRect.top + anchorRect.height + dropdownRect.height;
   const leftPosition = anchorRect.left - dropdownRect.width;
 
+  const offsetX = anchorLeft - (dropdownRect.width - anchorRect.width) / 2;
+  const offsetY = anchorTop - (dropdownRect.height - anchorRect.height) / 2;
+
+  // Reset the transform
+  dropdownRef.current.style.transform = '';
+  dropdownRef.current.style.transitionDuration = '';
+
   switch (align) {
-    case 'bottom': {
-      return bottomPosition < docHeight || topPosition < 0
-        ? [anchorLeft, anchorTop + anchorRect.height]
-        : [anchorLeft, anchorTop - dropdownRect.height - marginY];
-    }
     case 'top': {
       return topPosition > 0
-        ? [anchorLeft, anchorTop - dropdownRect.height - marginY]
-        : [anchorLeft, anchorTop + anchorRect.height];
+        ? [offsetX, anchorTop - dropdownRect.height - marginY]
+        : [offsetX, anchorTop + anchorRect.height];
+    }
+    case 'bottom': {
+      return bottomPosition < docHeight || topPosition < 0
+        ? [offsetX, anchorTop + anchorRect.height]
+        : [offsetX, anchorTop - dropdownRect.height - marginY];
     }
     case 'left': {
       return leftPosition > docWidth || leftPosition > 0
-        ? [anchorLeft - dropdownRect.width - marginX, anchorTop]
-        : [anchorLeft + anchorRect.width, anchorTop];
+        ? [anchorLeft - dropdownRect.width - marginX, offsetY]
+        : [anchorLeft + anchorRect.width, offsetY];
     }
     case 'right': {
       return rightPosition < docWidth || leftPosition < 0
-        ? [anchorLeft + anchorRect.width, anchorTop]
-        : [anchorLeft - dropdownRect.width - marginX, anchorTop];
+        ? [anchorLeft + anchorRect.width, offsetY]
+        : [anchorLeft - dropdownRect.width - marginX, offsetY];
     }
   }
 }

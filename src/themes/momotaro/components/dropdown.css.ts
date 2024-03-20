@@ -12,15 +12,14 @@ export const dropdown = makeComponentTheme('dropdown', {
     },
     selectors: {
       '&[data-open]': {
-        transform: 'translate(0, 0)',
+        transform: 'scale(1)',
         opacity: 1,
       },
     },
     // Apply the animation only if the user has not requested reduced motion
     '@media': {
       '(prefers-reduced-motion: no-preference)': {
-        // transform: 'scale(0.9)',
-        transform: 'translateY(var(--spacing))',
+        transform: 'scale(0.95)',
         transition: 'opacity 80ms linear, transform 80ms',
         opacity: 0,
       },
