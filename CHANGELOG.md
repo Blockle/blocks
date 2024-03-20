@@ -1,5 +1,13 @@
 # @blockle/blocks
 
+## 0.12.0
+
+### Minor Changes
+
+- f141de5: Renamed Dropdown to Popover
+  Removed variants from Popover.
+  Can now apply custom styling for Tooltip.
+
 ## 0.11.3
 
 ### Patch Changes
