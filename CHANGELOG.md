@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.11.1
+
+### Patch Changes
+
+- 5a20ca2: Fixed build
+
 ## 0.11.0
 
 ### Minor Changes
