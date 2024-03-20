@@ -9,6 +9,10 @@ export function getDropdownPosition(
     return [0, 0];
   }
 
+  // Remove the transform to get the correct measurements
+  dropdownRef.current.style.transform = 'none';
+  dropdownRef.current.style.transitionDuration = '0s';
+
   // Get the measurements of the anchor and dropdown
   const anchorRect = anchorRef.current.getBoundingClientRect();
   const dropdownRect = dropdownRef.current.getBoundingClientRect();
@@ -35,6 +39,10 @@ export function getDropdownPosition(
 
   const offsetX = anchorLeft - Math.max((dropdownRect.width - anchorRect.width) / 2, 0);
   const offsetY = anchorTop - Math.max((dropdownRect.height - anchorRect.height) / 2, 0);
+
+  // Reset the transform
+  dropdownRef.current.style.transform = '';
+  dropdownRef.current.style.transitionDuration = '';
 
   switch (align) {
     case 'top': {

@@ -1,5 +1,5 @@
 import { Children, cloneElement, isValidElement, useEffect, useId, useRef, useState } from 'react';
-import { mergeRefs } from '../../../lib/utils/mergeRefs';
+import { composeRefs } from '../../../lib/react/react';
 import { Dropdown, DropdownProps } from '../Dropdown/Dropdown';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -57,7 +57,7 @@ export const Tooltip: React.FC<TooltipProps> = ({ align = 'top', children, label
   return (
     <>
       {cloneElement(child, {
-        ref: child.ref ? mergeRefs(ref, child.ref) : ref,
+        ref: composeRefs(ref, child.ref),
         ['aria-describedby']: open ? id : undefined,
       })}
       {/* TODO Rename dropdown to Popover? */}
