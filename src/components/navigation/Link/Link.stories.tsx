@@ -1,6 +1,7 @@
-import { expect, jest } from '@storybook/jest';
+import { expect } from '@storybook/test';
+import * as test from '@storybook/test';
 import { Meta, StoryObj } from '@storybook/react';
-import { userEvent, within } from '@storybook/testing-library';
+import { userEvent, within } from '@storybook/test';
 import { Link, LinkProps } from './Link';
 
 export default {
@@ -26,7 +27,7 @@ export const Default: StoryObj<LinkProps> = {
     children: 'Link',
     href: 'https://example.com',
     underline: true,
-    onClick: jest.fn(() => {
+    onClick: test.fn(() => {
       console.log('Link clicked');
     }),
   },
@@ -49,7 +50,7 @@ export const Play: StoryObj<LinkProps> = {
     children: 'Link',
     href: 'https://example.com',
     underline: true,
-    onClick: jest.fn((event) => {
+    onClick: test.fn((event) => {
       event.preventDefault();
 
       console.log('Link clicked');

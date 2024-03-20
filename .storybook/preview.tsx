@@ -1,4 +1,4 @@
-import { Decorator } from '@storybook/react';
+import { Decorator, Preview } from '@storybook/react';
 import React from 'react';
 import { BlocksProvider } from '../src';
 import '../src/lib/css/reset/reset.css';
@@ -13,3 +13,11 @@ const withProviders: Decorator = (Story, context) => (
 );
 
 export const decorators = [withProviders];
+
+const preview: Preview = {
+  parameters: {
+    controls: { expanded: false },
+  },
+};
+
+export default preview;

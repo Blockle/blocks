@@ -4,7 +4,6 @@ import { vars } from '../../../lib/theme/vars.css';
 import { focusable } from './helpers.css';
 
 export const select = makeComponentTheme('select', {
-  // wrapper: style({}),
   select: style([
     {
       color: 'text',
@@ -25,10 +24,20 @@ export const select = makeComponentTheme('select', {
     },
     focusable,
   ]),
+  variants: {
+    variant: {
+      outline: style({
+        borderWidth: 'small',
+        borderStyle: 'solid',
+        borderColor: 'primary',
+      }),
+      solid: style({}),
+    },
+  },
   icon: style({
     paddingInline: 'large',
   }),
   defaultVariants: {
-    variant: 'outline',
+    variant: 'solid',
   },
 });

@@ -1,6 +1,7 @@
-import { expect, jest } from '@storybook/jest';
+import { expect } from '@storybook/test';
+import * as test from '@storybook/test';
 import { Meta, StoryObj } from '@storybook/react';
-import { userEvent, within } from '@storybook/testing-library';
+import { userEvent, within } from '@storybook/test';
 // import { Icon } from '../Icon';
 import { Button, ButtonProps } from './Button';
 
@@ -17,7 +18,7 @@ export const Default: StoryObj<ButtonProps> = {
 
   args: {
     children: 'Button',
-    onClick: jest.fn(() => {
+    onClick: test.fn(() => {
       console.log('Button clicked');
     }),
   },
@@ -35,7 +36,7 @@ export const LinkButton: StoryObj<ButtonProps> = {
       </a>
     ),
     asChild: true,
-    onClick: jest.fn((event) => {
+    onClick: test.fn((event) => {
       event.preventDefault();
       console.log('Link clicked and default prevented');
     }),
@@ -76,7 +77,7 @@ export const Play: StoryObj<ButtonProps> = {
 
   args: {
     children: 'Button',
-    onClick: jest.fn(() => {
+    onClick: test.fn(() => {
       console.log('Button clicked');
     }),
   },

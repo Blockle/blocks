@@ -14,5 +14,6 @@ export const Default: StoryObj<CheckboxProps> = {
     name: 'checkbox',
     label: 'Checkbox label',
     required: false,
+    disabled: false,
   },
 };

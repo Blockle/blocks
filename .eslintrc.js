@@ -40,6 +40,7 @@ module.exports = {
     'unicorn/prevent-abbreviations': 'off',
     'unicorn/prefer-query-selector': 'off',
     'unicorn/prefer-ternary': 'off',
+    'unicorn/prefer-dom-node-dataset': 'off',
   },
   settings: {
     react: {
