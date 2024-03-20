@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.11.2
+
+### Patch Changes
+
+- 5ef1b33: Moved dependencies to devDependencies
+
 ## 0.11.1
 
 ### Patch Changes
