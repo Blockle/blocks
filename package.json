@@ -1,6 +1,6 @@
 {
   "name": "@blockle/blocks",
-  "version": "0.11.0",
+  "version": "0.11.2",
   "description": "Blocks design system",
   "repository": "git@github.com:Blockle/blocks.git",
   "license": "MIT",
@@ -34,6 +34,7 @@
       "import": "./dist/themes/momotaro.mjs",
       "require": "./dist/themes/momotaro.cjs"
     },
+    "./dist/style.css": "./dist/style.css",
     "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
