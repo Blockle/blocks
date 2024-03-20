@@ -34,6 +34,7 @@
       "import": "./dist/themes/momotaro.mjs",
       "require": "./dist/themes/momotaro.cjs"
     },
+    "./dist/style.css": "./dist/style.css",
     "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
