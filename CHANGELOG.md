@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.11.0
+
+### Minor Changes
+
+- 1d2937b: Added Tooltip
+
 ## 0.10.0
 
 ### Minor Changes
