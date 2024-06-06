@@ -1,19 +1,17 @@
 import { style } from '@vanilla-extract/css';
 import { blocksLayer } from '../../../lib/css/layers/layers.css';
 
-export const backdrop = style({
+export const dialog = style({
   '@layer': {
     [blocksLayer]: {
-      contain: 'layout',
-      display: 'flex',
-      placeItems: 'center',
       position: 'fixed',
-      inlineSize: '100%',
-      blockSize: '100%',
-      insetInlineStart: 0,
-      insetBlockStart: 0,
-      overflow: 'hidden',
-      zIndex: 1000,
+      inset: 0,
+      border: 'none',
+      '::backdrop': {
+        // Remove pointer event to prevent clicks on the backdrop
+        // and make it easier to check if the click was outside the dialog
+        pointerEvents: 'none',
+      },
     },
   },
 });

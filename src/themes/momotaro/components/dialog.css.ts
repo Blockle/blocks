@@ -16,35 +16,32 @@ export const dialog = makeComponentTheme('dialog', {
     {
       maxHeight: '90%',
       minWidth: '300px',
+      '::backdrop': {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      },
       selectors: {
         '&[data-open]': {
-          transform: 'scale(1)',
+          transform: 'translate(0, 0)',
+          opacity: 1,
+        },
+        '&[data-open]::backdrop': {
+          opacity: 1,
         },
       },
       // Apply the animation only if the user has not requested reduced motion
       '@media': {
         '(prefers-reduced-motion: no-preference)': {
-          transform: 'scale(0.9)',
-          transition: 'transform 160ms',
+          transform: 'translate(0, -120px)',
+          opacity: 0,
+          transition: 'transform 240ms, opacity 160ms',
+          '::backdrop': {
+            opacity: 0,
+            transition: 'opacity 160ms',
+          },
         },
       },
     },
   ]),
-  backdrop: style({
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    selectors: {
-      '&[data-open]': {
-        opacity: 1,
-      },
-    },
-    // Apply the animation only if the user has not requested reduced motion
-    '@media': {
-      '(prefers-reduced-motion: no-preference)': {
-        opacity: 0,
-        transition: 'opacity 160ms',
-      },
-    },
-  }),
   variants: {
     size: {
       small: style({
