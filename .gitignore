@@ -27,3 +27,5 @@ storybook-static/
 /reset.css
 /themes/momotaro
 # end managed by crackle
+
+*.bak
