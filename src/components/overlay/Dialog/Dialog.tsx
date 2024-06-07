@@ -31,7 +31,6 @@ export const Dialog: React.FC<DialogProps> = ({
   ...restProps
 }) => {
   const dialogClassName = useComponentStyles('dialog', { dialog: true, variants: { size } });
-  const backdropRef = useRef<HTMLDivElement>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const layer = useLayer();
   const [visible, hide] = useVisibilityState(open);
@@ -44,13 +43,15 @@ export const Dialog: React.FC<DialogProps> = ({
   // Disable functionality of parent dialogs and return boolean if this dialog is nested
   const isNested = useNestedDialog(visible);
 
-  // Prevent body scroll when dialog is open
   // Diable hook for nested dialogs, top level dialog already handles this
   usePreventBodyScroll(visible && !isNested);
 
   const onEscape = useCallback(
     (event: KeyboardEvent) => {
+      // Native dialog closes on Escape key press
+      // Prevent this, so we can handle it ourselves
       event.preventDefault();
+
       onRequestClose();
     },
     [onRequestClose],
@@ -93,7 +94,6 @@ export const Dialog: React.FC<DialogProps> = ({
     }
 
     if (!open) {
-      backdropRef.current?.removeAttribute('data-open');
       dialogRef.current?.removeAttribute('data-open');
       return;
     }
@@ -102,7 +102,6 @@ export const Dialog: React.FC<DialogProps> = ({
     let timer = requestAnimationFrame(() => {
       timer = requestAnimationFrame(() => {
         dialogRef.current?.showModal();
-        backdropRef.current?.setAttribute('data-open', '');
         dialogRef.current?.setAttribute('data-open', '');
       });
     });
