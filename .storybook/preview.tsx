@@ -15,6 +15,7 @@ const withProviders: Decorator = (Story, context) => (
 export const decorators = [withProviders];
 
 const preview: Preview = {
+  decorators,
   parameters: {
     controls: { expanded: false },
   },
