@@ -1,6 +1,5 @@
-import { expect } from '@storybook/test';
 import { Meta, StoryFn, StoryObj } from '@storybook/react';
-import { within } from '@storybook/test';
+import { expect, within } from '@storybook/test';
 import { vars } from '../../../lib/theme/vars.css';
 import { Box } from '../Box';
 import { Stack, StackProps } from './Stack';
@@ -17,11 +16,6 @@ export default {
       type: 'string',
       control: 'select',
       options: Object.keys(vars.space),
-    },
-    children: {
-      control: {
-        type: 'none',
-      },
     },
   },
 } as Meta<typeof Stack>;
