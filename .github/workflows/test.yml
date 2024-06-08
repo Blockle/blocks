@@ -20,13 +20,13 @@ jobs:
           node-version: 20.x
 
       - name: Install Dependencies
-        run: yarn
+        run: npm install
 
       - name: TypeScript
-        run: yarn ts
+        run: npm run ts
 
       - name: Lint
-        run: yarn lint
+        run: npm run lint
 
       - name: Run tests
-        run: yarn test
+        run: npm run test
