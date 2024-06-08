@@ -7,7 +7,7 @@ type UseKeyboardOptions = {
 
 export const useKeyboard = (
   key: KeyboardEvent['key'],
-  callback: () => void,
+  callback: (event: KeyboardEvent) => void,
   { enabled = true, type = 'keydown' }: UseKeyboardOptions = {},
 ) => {
   useEffect(() => {
@@ -17,7 +17,7 @@ export const useKeyboard = (
 
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === key) {
-        callback();
+        callback(event);
       }
     }
 

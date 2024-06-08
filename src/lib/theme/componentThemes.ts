@@ -36,7 +36,6 @@ export type DividerTheme = {
 };
 
 export type DialogTheme = {
-  backdrop: string;
   dialog: string;
   variants: {
     size: 'small' | 'medium' | 'large';

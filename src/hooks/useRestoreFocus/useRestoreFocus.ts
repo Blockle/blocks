@@ -14,10 +14,7 @@ export const useRestoreFocus = (active: boolean) => {
 
   useEffect(() => {
     if (target.current && !active && target.current instanceof HTMLElement) {
-      target.current.focus();
-    }
-
-    if (!active) {
+      target.current?.focus();
       target.current = null;
     }
   }, [active]);
