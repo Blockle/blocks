@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.12.1
+
+### Patch Changes
+
+- 9ce2962: Using the intended js api to open and close the dialog
+
 ## 0.12.0
 
 ### Minor Changes
