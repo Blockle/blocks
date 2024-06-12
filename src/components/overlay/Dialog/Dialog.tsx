@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
+import { useClickOutside } from '../../../hooks/useClickOutside/useClickOutside';
 import { useComponentStyles } from '../../../hooks/useComponentStyles';
 import { useIsomorphicLayoutEffect } from '../../../hooks/useIsomorphicLayoutEffect';
 import { useKeyboard } from '../../../hooks/useKeyboard';
@@ -31,7 +32,6 @@ export const Dialog: React.FC<DialogProps> = ({
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [enabled, setEnabled] = useState(true);
   const [visible, setVisible] = useState(open);
-  const lastAction = useRef(0);
 
   // Store the previous active element and restore it when the dialog is closed
   useRestoreFocus(open);
@@ -56,31 +56,8 @@ export const Dialog: React.FC<DialogProps> = ({
   // On Escape key press, close the dialog
   useKeyboard('Escape', onEscape, { enabled: open && enabled });
 
-  useEffect(() => {
-    if (!open || !enabled) {
-      return;
-    }
-
-    lastAction.current = Date.now();
-
-    const listener = (event: globalThis.MouseEvent) => {
-      // Prevent closing the dialog if the last action was less than 30ms ago
-      // It looks like this listener is fired in the same event loop as the click event
-      if (lastAction.current + 30 > Date.now()) {
-        return;
-      }
-
-      if (!dialogRef.current?.contains(event.target as Node)) {
-        onRequestClose();
-      }
-    };
-
-    document.addEventListener('click', listener);
-
-    return () => {
-      document.removeEventListener('click', listener);
-    };
-  }, [enabled, onRequestClose, open]);
+  // Close the dialog when clicking outside of it
+  useClickOutside(dialogRef, onRequestClose, { enabled: open && enabled });
 
   useIsomorphicLayoutEffect(() => {
     // Using an addional state to control the visibility of the dialog
@@ -100,7 +77,6 @@ export const Dialog: React.FC<DialogProps> = ({
 
   const onAnimationEnd = useCallback(() => {
     if (!open) {
-      console.log('onAnimationEnd');
       setVisible(false);
     }
   }, [setVisible, open]);

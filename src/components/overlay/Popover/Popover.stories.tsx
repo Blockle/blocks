@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useRef, useState } from '@storybook/addons';
+import { useRef, useState } from '@storybook/preview-api';
 import { Meta, StoryObj } from '@storybook/react';
 import { Button } from '../../form/Button';
 import { Box } from '../../layout/Box';
