@@ -37,29 +37,19 @@ export const dialog = makeComponentTheme('dialog', {
           transitionBehavior: 'allow-discrete',
           transitionProperty: 'opacity, transform, overlay, display',
           transitionDuration: '240ms, 160ms, 240ms, 240ms',
-          // '@starting-style': {
-          //   transform: 'translate(120px, 120px)',
-          //   opacity: 0,
-          // },
+          '@starting-style': {
+            transform: 'translate(0, -120px)',
+            opacity: 0,
+          },
           '::backdrop': {
             opacity: 0,
             transitionBehavior: 'allow-discrete',
-            transitionDuration: '1600ms',
             transitionProperty: 'opacity, overlay, display',
+            transitionDuration: '160ms',
             '@starting-style': {
               opacity: 0,
             },
           },
-          // selectors: {
-          //   '&[open]': {
-          //     // transform: 'translate(0, 0)',
-          //     // opacity: 1,
-          //     '@starting-style': {
-          //       transform: 'translate(120px, 120px)',
-          //       opacity: 0,
-          //     },
-          //   },
-          // },
         },
       },
     },
