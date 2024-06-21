@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.12.2
+
+### Patch Changes
+
+- 82c24ac: Changed width to inlineSize in Divider
+
 ## 0.12.1
 
 ### Patch Changes
