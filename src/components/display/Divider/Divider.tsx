@@ -20,7 +20,7 @@ export const Divider: React.FC<DividerProps> = ({ className, color, ...restProps
   return (
     <Box
       role="separator"
-      width="full"
+      inlineSize="full"
       backgroundColor={color ?? dividerDefaults.color}
       className={classnames(className, dividerClass, styles.divider)}
       {...restProps}
