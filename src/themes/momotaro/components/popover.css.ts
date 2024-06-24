@@ -8,6 +8,7 @@ export const popover = makeComponentTheme('popover', {
     boxShadow: 'medium',
     padding: 'medium',
     margin: 'small', // Space between the popover and the anchor element
+    width: 'max-content',
     selectors: {
       '&[data-open]': {
         transform: 'scale(1)',

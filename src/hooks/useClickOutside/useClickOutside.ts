@@ -20,9 +20,14 @@ export const useClickOutside = (
       }
     };
 
-    document.addEventListener('click', listener);
+    // Wait for the next frame to attach the event listener
+    // This is to prevent the click event that triggered this hook from being caught
+    const rafId = requestAnimationFrame(() => {
+      document.addEventListener('click', listener);
+    });
 
     return () => {
+      cancelAnimationFrame(rafId);
       document.removeEventListener('click', listener);
     };
   }, [ref, onClickOutside, enabled]);

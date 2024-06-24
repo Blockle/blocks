@@ -7,5 +7,14 @@ export function hasAnimationDuration(element: HTMLElement | null): boolean {
   }
 
   const style = window.getComputedStyle(element);
-  return style.transitionDuration !== '0s' || style.animationDuration !== '0s';
+
+  return hasDuration(style.transitionDuration) || hasDuration(style.animationDuration);
+}
+
+function hasDuration(duration: string): boolean {
+  return duration
+    .split(',')
+    .map((part) => part.trim())
+    .map((part) => Number.parseFloat(part))
+    .some((part) => part > 0);
 }

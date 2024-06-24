@@ -1,6 +1,6 @@
 export type PopoverPositions = [x: number, y: number];
 
-export function getDopoverPosition(
+export function getPopoverPosition(
   align: 'top' | 'bottom' | 'left' | 'right',
   anchorRef: React.RefObject<HTMLElement>,
   popoverRef: React.RefObject<HTMLElement>,
@@ -16,7 +16,14 @@ export function getDopoverPosition(
   // Get the measurements of the anchor and popover
   const anchorRect = anchorRef.current.getBoundingClientRect();
   const popoverRect = popoverRef.current.getBoundingClientRect();
-  const popoverStyles = getComputedStyle(popoverRef.current);
+  let popoverStyles = getComputedStyle(popoverRef.current);
+
+  const top = popoverStyles.getPropertyValue('top');
+  const left = popoverStyles.getPropertyValue('left');
+  popoverRef.current.style.left = '0';
+  popoverRef.current.style.top = '0';
+
+  popoverStyles = getComputedStyle(popoverRef.current);
 
   const marginTop = Number.parseFloat(popoverStyles.getPropertyValue('margin-top'));
   const marginRight = Number.parseFloat(popoverStyles.getPropertyValue('margin-right'));
@@ -43,6 +50,8 @@ export function getDopoverPosition(
   // Reset the transform
   popoverRef.current.style.transform = '';
   popoverRef.current.style.transitionDuration = '';
+  popoverRef.current.style.top = top;
+  popoverRef.current.style.left = left;
 
   switch (align) {
     case 'top': {
