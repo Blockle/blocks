@@ -45,7 +45,7 @@ export const dialog = makeComponentTheme('dialog', {
             opacity: 0,
             transitionBehavior: 'allow-discrete',
             transitionProperty: 'opacity, overlay, display',
-            transitionDuration: '160ms',
+            transitionDuration: '160ms, 240ms, 240ms',
             '@starting-style': {
               opacity: 0,
             },

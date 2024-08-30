@@ -18,6 +18,12 @@ export const link = makeComponentTheme('link', {
         textDecoration: 'underline',
       },
       cursor: 'pointer',
+      // selectors: {
+      //   '&[target="_blank"]::after': {
+      //     content: '"\\2197"',
+      //     marginLeft: 4,
+      //   },
+      // },
     },
     focusable,
   ]),
