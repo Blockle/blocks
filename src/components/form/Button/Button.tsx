@@ -1,12 +1,12 @@
 import { forwardRef } from 'react';
 import { useComponentStyles } from '../../../hooks/useComponentStyles';
+import { createAsChildContainer } from '../../../lib/asChildRenderer/asChildRender';
 import { Atoms, MarginAtoms, atoms } from '../../../lib/css/atoms';
 import { ButtonTheme } from '../../../lib/theme/componentThemes';
 import { getAtomsAndProps } from '../../../lib/utils/atom-props';
 import { classnames } from '../../../lib/utils/classnames';
 import { HTMLElementProps } from '../../../lib/utils/utils';
 import { Spinner } from '../../feedback/Spinner';
-import { Slot, createSlottable } from '../../other/Slot/Slot';
 import * as styles from './Button.css';
 
 export type ButtonProps = {
@@ -22,10 +22,16 @@ export type ButtonProps = {
   endSlot?: React.ReactNode;
   disabled?: boolean;
   asChild?: boolean;
+  popovertarget?: string;
 } & Omit<HTMLElementProps<HTMLButtonElement>, 'size'> &
   MarginAtoms;
 
-const Slottable = createSlottable('button');
+const { Template, Slot } = createAsChildContainer({
+  defaultElement: 'button',
+  // Should have control over the props that are passed down to the elements that replace the Slot
+  // Black or white list?
+  inheritProps: ['type'],
+});
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
@@ -57,7 +63,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   const [atomsProps, otherProps] = getAtomsAndProps(restProps);
 
   return (
-    <Slottable
+    <Template
       ref={ref}
       asChild={asChild}
       disabled={disabled || loading}
@@ -68,6 +74,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       {loading && <Spinner size={size} />}
       <Slot>{children}</Slot>
       {endSlot && <div>{endSlot}</div>}
-    </Slottable>
+    </Template>
   );
 });
