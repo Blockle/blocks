@@ -30,8 +30,8 @@ export { Tooltip, type TooltipProps } from './components/overlay/Tooltip';
 export { Heading, type HeadingProps } from './components/typography/Heading';
 export { Text, type TextProps } from './components/typography/Text';
 
-// Slot
-export { Slot, createSlottable } from './components/other/Slot';
+//
+export { createAsChildTemplate } from './lib/asChildRenderer/createAsChildTemplate';
 
 // Hooks
 export { useComponentStyleDefaultProps, useComponentStyles } from './hooks/useComponentStyles';

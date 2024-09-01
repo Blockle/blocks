@@ -1,6 +1,6 @@
 import { Children, cloneElement, isValidElement, useEffect, useId, useRef, useState } from 'react';
 import { useComponentStyles } from '../../../hooks/useComponentStyles';
-import { composeRefs } from '../../../lib/react/react';
+import { composeRefs } from '../../../lib/react/refs';
 import { TooltipTheme } from '../../../lib/theme/componentThemes';
 import { Popover, PopoverProps } from '../Popover/Popover';
 
