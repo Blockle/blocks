@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { expect } from '@storybook/test';
-import * as test from '@storybook/test';
 import { Meta, StoryObj } from '@storybook/react';
-import { fireEvent, getByRole, userEvent, within } from '@storybook/test';
+import * as test from '@storybook/test';
+import { expect, fireEvent, getByRole, userEvent, within } from '@storybook/test';
 import { useState } from 'react';
 import { Button } from '../../form/Button';
 import { Stack } from '../../layout/Stack';
@@ -25,7 +24,15 @@ const DialogTemplate: StoryObj<DialogProps>['render'] = (props) => {
         Open Dialog
       </Button>
       <div style={{ height: '2000px' }}></div>
-      <Dialog {...props} open={open} onRequestClose={() => setOpen(false)} />
+      <div
+        style={{
+          width: 200,
+          height: 200,
+          overflow: 'hidden',
+        }}
+      >
+        <Dialog {...props} open={open} onRequestClose={() => setOpen(false)} />
+      </div>
     </>
   );
 };

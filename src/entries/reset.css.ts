@@ -1,1 +1,1 @@
-export * from '../lib/css/reset/reset.css';
+import '../lib/css/reset/reset.css';

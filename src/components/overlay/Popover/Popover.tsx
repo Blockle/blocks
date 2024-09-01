@@ -10,7 +10,7 @@ import { hasAnimationDuration } from '../../../lib/utils/dom';
 import { HTMLElementProps } from '../../../lib/utils/utils';
 import { Box } from '../../layout/Box';
 import { Portal } from '../../other/Portal';
-import { getDopoverPosition } from './popover-utils';
+import { getPopoverPosition } from './popover-utils';
 
 export type PopoverProps = {
   // Preferred alignment of the popover, will mirror if there is not enough space
@@ -46,7 +46,7 @@ export const Popover: React.FC<PopoverProps> = ({
       return;
     }
 
-    const position = getDopoverPosition(align, anchorElement, popoverRef);
+    const position = getPopoverPosition(align, anchorElement, popoverRef);
 
     setPosition({ x: position[0], y: position[1] });
   }, [align, anchorElement, visible]);
@@ -57,7 +57,7 @@ export const Popover: React.FC<PopoverProps> = ({
     }
 
     function handleResize() {
-      const position = getDopoverPosition(align, anchorElement, popoverRef);
+      const position = getPopoverPosition(align, anchorElement, popoverRef);
 
       setPosition({ x: position[0], y: position[1] });
     }

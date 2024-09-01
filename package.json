@@ -109,5 +109,9 @@
     "react": "^18",
     "react-dom": "^18"
   },
-  "packageManager": "yarn@1.22.19"
+  "packageManager": "yarn@1.22.19",
+  "dependencies": {
+    "npm": "^10.8.1",
+    "update": "^0.4.2"
+  }
 }
