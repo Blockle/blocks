@@ -1,3 +1,5 @@
+import { classnames } from '../utils/classnames';
+
 export type UknownRecord = Record<string, unknown>;
 
 export function mergeProps(slotProps: UknownRecord, childProps: UknownRecord) {
@@ -24,7 +26,7 @@ export function mergeProps(slotProps: UknownRecord, childProps: UknownRecord) {
     } else if (propName === 'style') {
       overrideProps[propName] = { ...slotPropValue, ...childPropValue };
     } else if (propName === 'className') {
-      overrideProps[propName] = [slotPropValue, childPropValue].filter(Boolean).join(' ');
+      overrideProps[propName] = classnames(slotPropValue, childPropValue);
     } else {
       overrideProps[propName] = childPropValue;
     }

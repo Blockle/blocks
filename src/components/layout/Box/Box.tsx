@@ -1,10 +1,10 @@
 import { forwardRef } from 'react';
+import { createAsChildTemplate } from '../../../lib/asChildRenderer/createAsChildTemplate';
 import { atoms } from '../../../lib/css/atoms';
 import { Atoms } from '../../../lib/css/atoms/atomTypes';
 import { getAtomsAndProps } from '../../../lib/utils/atom-props';
 import { classnames } from '../../../lib/utils/classnames';
 import { HTMLElementProps } from '../../../lib/utils/utils';
-import { createSlottable } from '../../other/Slot/Slot';
 
 export type BoxProps = {
   children?: React.ReactNode;
@@ -14,7 +14,7 @@ export type BoxProps = {
 } & Atoms &
   HTMLElementProps<HTMLDivElement>;
 
-const Slottable = createSlottable('div');
+const { Template, Slot } = createAsChildTemplate('div');
 
 export const Box = forwardRef<unknown, BoxProps>(function Box(
   { asChild, className, children, ...restProps },
@@ -23,13 +23,13 @@ export const Box = forwardRef<unknown, BoxProps>(function Box(
   const [atomsProps, otherProps] = getAtomsAndProps(restProps);
 
   return (
-    <Slottable
-      ref={ref}
+    <Template
+      ref={ref as React.RefObject<HTMLDivElement>}
       asChild={asChild}
       className={classnames(className, atoms(atomsProps))}
       {...otherProps}
     >
-      {children}
-    </Slottable>
+      <Slot>{children}</Slot>
+    </Template>
   );
 });
