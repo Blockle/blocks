@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.14.2
+
+### Patch Changes
+
+- 05eb6e3: Fixed render issue with asChild
+
 ## 0.14.1
 
 ### Patch Changes
