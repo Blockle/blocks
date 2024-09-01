@@ -50,17 +50,17 @@
     "coverage": "vitest run --coverage",
     "fix": "crackle fix",
     "lint": "eslint .",
-    "release": "yarn ts && yarn test && yarn build && changeset publish",
+    "release": "npm run ts && npm run test && npm run build && changeset publish",
     "storybook": "storybook dev -p 6006 --no-open",
     "test": "vitest",
-    "ts": "tsc --noemit --project ./tsconfig.json"
+    "ts": "tsc --noemit --project ./tsconfig.json",
+    "changeset": "changeset"
   },
   "resolutions": {
     "string-width": "^4.2.2"
   },
   "dependencies": {
-    "npm": "^10.8.1",
-    "update": "^0.4.2"
+    "npm": "^10.8.1"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.5",
@@ -111,6 +111,5 @@
     "@vanilla-extract/sprinkles": "^1.6",
     "react": "^18",
     "react-dom": "^18"
-  },
-  "packageManager": "yarn@1.22.19"
+  }
 }
