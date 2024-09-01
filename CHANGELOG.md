@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.14.1
+
+### Patch Changes
+
+- fb3c188: Updated packages
+
 ## 0.14.0
 
 ### Minor Changes
