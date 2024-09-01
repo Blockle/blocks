@@ -6,7 +6,7 @@ const { Template, Slot } = createAsChildTemplate('div');
 type TestComponentProps = {
   asChild?: boolean;
   className?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 const TestComponent: React.FC<TestComponentProps> = ({ children, asChild, className }) => {
@@ -108,7 +108,7 @@ describe('asChildRenderer', () => {
     expect(targetElement.textContent).toBe('ALinkB');
   });
 
-  it('should throw an error if more than one child is passed', () => {
+  it('should throw an error if more than one child is passed and asChild is enabled', () => {
     const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
     render(
@@ -120,6 +120,17 @@ describe('asChildRenderer', () => {
 
     expect(spy).toHaveBeenCalled();
     expect(spy.mock.calls[0][0]).toMatch('When using asChild, only one child is allowed');
+
+    spy.mockRestore();
+  });
+
+  it('should throw an error if no children are passed and asChild is enabled', () => {
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    render(<TestComponent asChild />);
+
+    expect(spy).toHaveBeenCalled();
+    expect(spy.mock.calls[0][0]).toMatch('When using asChild, at least one child is required');
 
     spy.mockRestore();
   });
