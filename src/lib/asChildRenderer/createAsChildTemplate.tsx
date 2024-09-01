@@ -60,19 +60,42 @@ export function createAsChildTemplate<T extends keyof HTMLElementTagNameMap>(def
     const slot = childrenArray[slotIndex];
 
     if (!slot) {
-      if (process.env.NODE_ENV === 'development') {
+      if (process.env.NODE_ENV !== 'production') {
         console.error('Template: No Slot provided');
       }
 
       return null;
     }
 
-    if (!isValidElement(slot) || !isValidElement(slot.props.children)) {
+    if (!isValidElement(slot)) {
+      return null;
+    }
+
+    if (
+      !isValidElement(slot.props.children) ||
+      Children.toArray(slot.props.children).length !== 1
+    ) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.error('When using asChild, only one child is allowed');
+      }
+
+      return null;
+    }
+
+    if (!isValidElement(slot.props.children)) {
       return null;
     }
 
     // Render children inside Slot
     const nextChildren = [...childrenArray];
+
+    if (nextChildren.length === 1 && !slot.props.children.props.children) {
+      return cloneElement(slot.props.children, {
+        ...mergeProps(rootProps, slot.props.children.props),
+        ref: composeRefs(ref, slot.props.children.ref),
+      });
+    }
+
     // Replace Slot with children
     nextChildren[slotIndex] = slot.props.children.props.children;
 
