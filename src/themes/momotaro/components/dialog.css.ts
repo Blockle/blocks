@@ -37,6 +37,7 @@ export const dialog = makeComponentTheme('dialog', {
           transitionBehavior: 'allow-discrete',
           transitionProperty: 'opacity, transform, overlay, display',
           transitionDuration: '240ms, 160ms, 240ms, 240ms',
+          // @ts-expect-error - Vanilla Extract does not support @starting-style (yet)
           '@starting-style': {
             transform: 'translate(0, -120px)',
             opacity: 0,
