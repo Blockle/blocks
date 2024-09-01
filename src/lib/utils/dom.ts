@@ -14,7 +14,6 @@ export function hasAnimationDuration(element: HTMLElement | null): boolean {
 function hasDuration(duration: string): boolean {
   return duration
     .split(',')
-    .map((part) => part.trim())
-    .map((part) => Number.parseFloat(part))
+    .map((part) => Number.parseFloat(part.trim()))
     .some((part) => part > 0);
 }
