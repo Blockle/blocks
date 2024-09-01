@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import { useComponentStyles } from '../../../hooks/useComponentStyles';
-import { createAsChildContainer } from '../../../lib/asChildRenderer/asChildRender';
+import { createAsChildTemplate } from '../../../lib/asChildRenderer/createAsChildTemplate';
 import { Atoms, MarginAtoms, atoms } from '../../../lib/css/atoms';
 import { ButtonTheme } from '../../../lib/theme/componentThemes';
 import { getAtomsAndProps } from '../../../lib/utils/atom-props';
@@ -26,12 +26,7 @@ export type ButtonProps = {
 } & Omit<HTMLElementProps<HTMLButtonElement>, 'size'> &
   MarginAtoms;
 
-const { Template, Slot } = createAsChildContainer({
-  defaultElement: 'button',
-  // Should have control over the props that are passed down to the elements that replace the Slot
-  // Black or white list?
-  inheritProps: ['type'],
-});
+const { Template, Slot } = createAsChildTemplate('button');
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {

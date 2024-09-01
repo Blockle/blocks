@@ -1,4 +1,4 @@
-type Args = null | undefined | boolean | string;
+type Args = null | undefined | boolean | string | unknown;
 
 // Return undefined for empty result so react doesn't add "class" attribute
 export const classnames = (...args: Args[]): string | undefined => {

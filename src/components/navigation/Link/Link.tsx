@@ -1,10 +1,10 @@
 import { forwardRef } from 'react';
 import { useComponentStyles } from '../../../hooks/useComponentStyles';
+import { createAsChildTemplate } from '../../../lib/asChildRenderer/createAsChildTemplate';
 import { MarginAtoms } from '../../../lib/css/atoms';
 import { LinkTheme } from '../../../lib/theme/componentThemes';
 import { classnames } from '../../../lib/utils/classnames';
 import { HTMLElementProps } from '../../../lib/utils/utils';
-import { createSlottable } from '../../other/Slot/Slot';
 
 export type LinkProps = {
   asChild?: boolean;
@@ -14,7 +14,7 @@ export type LinkProps = {
 } & MarginAtoms &
   HTMLElementProps<HTMLAnchorElement>;
 
-const Slottable = createSlottable('a');
+const { Template, Slot } = createAsChildTemplate('a');
 
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
   { asChild, className, children, variant, underline, ...restProps },
@@ -26,13 +26,13 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
   });
 
   return (
-    <Slottable
+    <Template
       asChild={asChild}
       ref={ref}
       className={classnames(className, linkClassName)}
       {...restProps}
     >
-      {children}
-    </Slottable>
+      <Slot>{children}</Slot>
+    </Template>
   );
 });

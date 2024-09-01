@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { createAsChildContainer } from '../../../lib/asChildRenderer/asChildRender';
+import { createAsChildTemplate } from '../../../lib/asChildRenderer/createAsChildTemplate';
 import { atoms } from '../../../lib/css/atoms';
 import { Atoms } from '../../../lib/css/atoms/atomTypes';
 import { getAtomsAndProps } from '../../../lib/utils/atom-props';
@@ -14,7 +14,7 @@ export type BoxProps = {
 } & Atoms &
   HTMLElementProps<HTMLDivElement>;
 
-const { Template, Slot } = createAsChildContainer({ defaultElement: 'div' });
+const { Template, Slot } = createAsChildTemplate('div');
 
 export const Box = forwardRef<unknown, BoxProps>(function Box(
   { asChild, className, children, ...restProps },
