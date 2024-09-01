@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.13.0
+
+### Minor Changes
+
+- 22fe39d: Introducing createAsChildTemplate that replaced Slottable
+
 ## 0.12.2
 
 ### Patch Changes
