@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.14.3
+
+### Patch Changes
+
+- 3b7935f: Improved error messages for createAsChildTemplate
+
 ## 0.14.2
 
 ### Patch Changes
