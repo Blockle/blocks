@@ -19,15 +19,26 @@ export type SliderProps = {
   'aria-label'?: string;
   size: SliderTheme['variants']['size'];
   colorScheme: SliderTheme['variants']['colorScheme'];
+  // TODO Disabled state
+  disabled?: boolean;
+  // TODO Precision?
+  precision?: number;
 };
 
-function getBoundValue(newValue: number, min: number, max: number, step: number) {
+function roundToPrecision(value: number, precision: number) {
+  const factor = 10 ** precision;
+
+  return Math.round(value * factor) / factor;
+}
+
+function getBoundValue(newValue: number, min: number, max: number, step: number, precision = 10) {
   // Round to the nearest step
   let value = Math.round(newValue / step) * step;
   // Clamp the value to the min and max
   value = Math.max(min, Math.min(max, value));
 
-  return value;
+  // Round to the desired precision
+  return roundToPrecision(value, precision);
 }
 
 export const Slider: React.FC<SliderProps> = ({
@@ -41,6 +52,7 @@ export const Slider: React.FC<SliderProps> = ({
   name,
   size,
   colorScheme,
+  disabled,
   ...restProps
 }) => {
   const [internValue, setInternValue] = useState(
@@ -53,20 +65,27 @@ export const Slider: React.FC<SliderProps> = ({
   const thumbClass = useComponentStyles('slider', { thumb: true }, false);
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const currentValue = (onChange ? value : internValue) ?? defaultValue;
 
-  // Update the internal value when the value prop changes
-  useEffect(() => {
-    if (value !== undefined) {
-      setInternValue(getBoundValue(value, min, max, step));
-    }
-  }, [value, min, max, step]);
+  const setValue = useCallback(
+    function setValue(value: number) {
+      // "Controlled" mode
+      if (onChange) {
+        onChange(value);
+      } else {
+        setInternValue(value);
+      }
+    },
+    [onChange],
+  );
 
-  // Notify the parent component when the value changes
+  // Warn if the component is in controlled mode but no value is provided
   useEffect(() => {
-    if (onChange && internValue !== value) {
-      onChange(internValue);
+    if (process.env.NODE_ENV !== 'production' && onChange && value === undefined) {
+      console.error('Slider is in controlled mode but no value is provided');
     }
-  }, [internValue, onChange, value]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   usePointerProgress({
     container: containerRef,
@@ -76,7 +95,7 @@ export const Slider: React.FC<SliderProps> = ({
         progress = 1 - progress;
       }
 
-      setInternValue(getBoundValue(max * progress, min, max, step));
+      setValue(getBoundValue(max * progress, min, max, step));
     },
   });
 
@@ -92,23 +111,23 @@ export const Slider: React.FC<SliderProps> = ({
 
       if (event.key === 'ArrowLeft' || event.key === 'ArrowDown' || event.key === 'PageDown') {
         // decrease value
-        return setInternValue((value) => getBoundValue(value - stepModifier, min, max, step));
+        return setValue(getBoundValue(currentValue - stepModifier, min, max, step));
       }
 
       if (event.key === 'ArrowRight' || event.key === 'ArrowUp' || event.key === 'PageUp') {
         // increase value
-        return setInternValue((value) => getBoundValue(value + stepModifier, min, max, step));
+        return setValue(getBoundValue(currentValue + stepModifier, min, max, step));
       }
 
       if (event.key === 'Home') {
-        return setInternValue(min);
+        return setValue(min);
       }
 
       if (event.key === 'End') {
-        return setInternValue(max);
+        return setValue(max);
       }
     },
-    [max, min, step],
+    [max, min, step, setValue, currentValue],
   );
 
   return (
@@ -124,7 +143,7 @@ export const Slider: React.FC<SliderProps> = ({
         <div
           className={classnames(styles.filledTrack, filledTrackClass)}
           style={{
-            inlineSize: `${(internValue / max) * 100}%`,
+            inlineSize: `${(currentValue / max) * 100}%`,
           }}
         />
       </div>
@@ -134,16 +153,16 @@ export const Slider: React.FC<SliderProps> = ({
         role="slider"
         aria-valuemin={min}
         aria-valuemax={max}
-        aria-valuenow={internValue}
+        aria-valuenow={currentValue}
         aria-orientation={orientation}
         style={{
           [orientation === 'horizontal' ? 'insetInlineStart' : 'insetInlineEnd']:
-            `${(internValue / max) * 100}%`,
+            `${(currentValue / max) * 100}%`,
         }}
         onKeyDown={onKeyDown}
         {...restProps}
       />
-      <input type="hidden" name={name} value={internValue} />
+      <input type="hidden" disabled={disabled} name={name} value={currentValue} />
     </div>
   );
 };
