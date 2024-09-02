@@ -71,12 +71,13 @@ export function createAsChildTemplate<T extends keyof HTMLElementTagNameMap>(def
       return null;
     }
 
-    if (
-      !isValidElement(slot.props.children) ||
-      Children.toArray(slot.props.children).length !== 1
-    ) {
+    if (!isValidElement(slot.props.children)) {
       if (process.env.NODE_ENV !== 'production') {
-        console.error('When using asChild, only one child is allowed');
+        if (Children.toArray(slot.props.children).length === 0) {
+          console.error('When using asChild, at least one child is required');
+        } else {
+          console.error('When using asChild, only one child is allowed');
+        }
       }
 
       return null;
