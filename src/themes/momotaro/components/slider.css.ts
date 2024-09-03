@@ -26,6 +26,15 @@ export const slider = makeComponentTheme('slider', {
       borderRadius: '50%',
       height: '16px',
       width: '16px',
+      boxShadow: `0 0 0 0px color-mix(in srgb,  ${vars.color.primaryLight}, transparent 0%)`,
+      ':hover': {
+        boxShadow: `0 0 0 8px color-mix(in srgb,  ${vars.color.primaryLight}, transparent 20%)`,
+      },
+      '@media': {
+        '(prefers-reduced-motion: no-preference)': {
+          transition: 'box-shadow 0.2s',
+        },
+      },
     },
     focusable,
   ]),

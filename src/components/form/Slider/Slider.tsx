@@ -1,7 +1,9 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useComponentStyles } from '../../../hooks/useComponentStyles';
+import { useControlledValue } from '../../../hooks/useControlledValue/useControlledValue';
 import { SliderTheme } from '../../../lib/theme/componentThemes';
 import { classnames } from '../../../lib/utils/classnames';
+import { getBoundValue, roundToPrecision } from '../../../lib/utils/math';
 import * as styles from './slider.css';
 import { usePointerProgress } from './usePointerProgress';
 
@@ -25,22 +27,6 @@ export type SliderProps = {
   precision?: number;
 };
 
-function roundToPrecision(value: number, precision: number) {
-  const factor = 10 ** precision;
-
-  return Math.round(value * factor) / factor;
-}
-
-function getBoundValue(newValue: number, min: number, max: number, step: number, precision = 10) {
-  // Round to the nearest step
-  let value = Math.round(newValue / step) * step;
-  // Clamp the value to the min and max
-  value = Math.max(min, Math.min(max, value));
-
-  // Round to the desired precision
-  return roundToPrecision(value, precision);
-}
-
 export const Slider: React.FC<SliderProps> = ({
   min = 0,
   max = 100,
@@ -53,39 +39,22 @@ export const Slider: React.FC<SliderProps> = ({
   size,
   colorScheme,
   disabled,
+  precision = 2,
   ...restProps
 }) => {
-  const [internValue, setInternValue] = useState(
-    getBoundValue(value ?? defaultValue, min, max, step),
-  );
-
   const baseClass = useComponentStyles('slider', { base: true, variants: { size, colorScheme } });
   const trackClass = useComponentStyles('slider', { track: true }, false);
   const filledTrackClass = useComponentStyles('slider', { filledTrack: true }, false);
   const thumbClass = useComponentStyles('slider', { thumb: true }, false);
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const currentValue = (onChange ? value : internValue) ?? defaultValue;
 
-  const setValue = useCallback(
-    function setValue(value: number) {
-      // "Controlled" mode
-      if (onChange) {
-        onChange(value);
-      } else {
-        setInternValue(value);
-      }
-    },
-    [onChange],
-  );
-
-  // Warn if the component is in controlled mode but no value is provided
-  useEffect(() => {
-    if (process.env.NODE_ENV !== 'production' && onChange && value === undefined) {
-      console.error('Slider is in controlled mode but no value is provided');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const [currentValue, setValue] = useControlledValue({
+    defaultValue,
+    value,
+    onChange,
+    transformValue: (value) => roundToPrecision(getBoundValue(value, min, max, step), precision),
+  });
 
   usePointerProgress({
     container: containerRef,
@@ -95,7 +64,7 @@ export const Slider: React.FC<SliderProps> = ({
         progress = 1 - progress;
       }
 
-      setValue(getBoundValue(max * progress, min, max, step));
+      setValue(max * progress);
     },
   });
 
@@ -111,12 +80,12 @@ export const Slider: React.FC<SliderProps> = ({
 
       if (event.key === 'ArrowLeft' || event.key === 'ArrowDown' || event.key === 'PageDown') {
         // decrease value
-        return setValue(getBoundValue(currentValue - stepModifier, min, max, step));
+        return setValue(currentValue - stepModifier);
       }
 
       if (event.key === 'ArrowRight' || event.key === 'ArrowUp' || event.key === 'PageUp') {
         // increase value
-        return setValue(getBoundValue(currentValue + stepModifier, min, max, step));
+        return setValue(currentValue + stepModifier);
       }
 
       if (event.key === 'Home') {
