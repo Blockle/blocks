@@ -1,3 +1,4 @@
+import { rem } from '../../lib/css/utils/cssUtils';
 import { ThemeTokens } from '../../lib/theme/tokensType';
 
 export const tokens: ThemeTokens = {
@@ -59,11 +60,11 @@ export const tokens: ThemeTokens = {
       secondary: '"Rubik", sans-serif',
     },
     fontSize: {
-      xsmall: '12px',
-      small: '14px',
-      medium: '16px',
-      large: '20px',
-      xlarge: '24px',
+      xsmall: rem(12),
+      small: rem(14),
+      medium: rem(16),
+      large: rem(20),
+      xlarge: rem(24),
     },
     fontWeight: {
       regular: 400,
@@ -71,11 +72,11 @@ export const tokens: ThemeTokens = {
       strong: 700,
     },
     lineHeight: {
-      xsmall: '1rem',
-      small: '1.25rem',
-      medium: '1.5rem',
-      large: '1.75rem',
-      xlarge: '2rem',
+      xsmall: rem(16),
+      small: rem(20),
+      medium: rem(24),
+      large: rem(28),
+      xlarge: rem(32),
     },
   },
 };
