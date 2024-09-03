@@ -1,6 +1,5 @@
-import { expect } from '@storybook/test';
 import { Meta, StoryObj } from '@storybook/react';
-import { within } from '@storybook/test';
+import { expect, within } from '@storybook/test';
 import { Stack } from '../../layout/Stack';
 import { Text } from '../../typography/Text';
 import { Progress, ProgressProps } from './Progress';
@@ -22,19 +21,14 @@ export const Default: StoryObj<ProgressProps> = {
     return (
       <Stack spacing="medium">
         <Text tag="label" id={props['aria-labelledby']}>
-          Progress{' '}
-          {props.value === undefined ? (
-            <Text fontStyle="italic">indeterminate</Text>
-          ) : (
-            `${props.value}%`
-          )}
+          Progress {props.value}%
         </Text>
         <Progress {...props} />
       </Stack>
     );
   },
   args: {
-    value: undefined,
+    value: 50,
     'aria-labelledby': 'progress-label',
   },
   play: async ({ canvasElement }) => {

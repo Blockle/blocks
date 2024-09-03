@@ -5,20 +5,21 @@ import { Box } from '../../layout/Box';
 
 export type ProgressProps = {
   /**
-   * The value of the progress bar, between 0 and 100.
-   * If undefined, the progress bar will be indeterminate.
+   * The value of the progress bar, between 0 and max=100.
    */
-  value?: number;
-  max?: number;
-  className?: string;
-  style?: React.CSSProperties;
   'aria-labelledby'?: string;
+  className?: string;
+  indeterminate?: boolean;
+  max?: number;
+  style?: React.CSSProperties;
+  value?: number;
 };
 
 export const Progress = forwardRef<HTMLProgressElement, ProgressProps>(function Progress(
-  { value, max = 100, className, ...restProps },
+  { className, indeterminate, max = 100, value = 0, ...restProps },
   ref,
 ) {
+  const progress = (value / max) * 100;
   const containerClassName = useComponentStyles(
     'progress',
     {
@@ -28,12 +29,9 @@ export const Progress = forwardRef<HTMLProgressElement, ProgressProps>(function 
   );
   const barClassName = useComponentStyles(
     'progress',
-    { bar: true, variants: { indeterminate: value === undefined } },
+    { bar: true, variants: { indeterminate } },
     false,
   );
-
-  // Calculate the progress as a percentage (0 - 100)
-  const progress = value === undefined ? 0 : (value / max) * 100;
 
   return (
     <Box
@@ -51,7 +49,7 @@ export const Progress = forwardRef<HTMLProgressElement, ProgressProps>(function 
         backgroundColor="currentColor"
         inlineSize="full"
         blockSize="full"
-        style={{ transform: value === undefined ? undefined : `translateX(-${100 - progress}%)` }}
+        style={{ transform: indeterminate ? undefined : `translateX(-${100 - progress}%)` }}
       />
     </Box>
   );
