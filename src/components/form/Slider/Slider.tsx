@@ -7,6 +7,20 @@ import { getBoundValue, roundToPrecision } from '../../../lib/utils/math';
 import * as styles from './slider.css';
 import { usePointerProgress } from './usePointerProgress';
 
+// Supported keys for keyboard navigation of the slider
+const usableKeys = new Set([
+  'ArrowLeft',
+  'ArrowRight',
+  'ArrowUp',
+  'ArrowDown',
+  'Home',
+  'End',
+  'PageUp',
+  'PageDown',
+  'Home',
+  'End',
+]);
+
 export type SliderProps = {
   name?: string;
   min?: number;
@@ -72,8 +86,8 @@ export const Slider: React.FC<SliderProps> = ({
 
   const onKeyDown = useCallback(
     (event: React.KeyboardEvent) => {
-      // Ignore Tab key, we don't want to disable keyboard navigation
-      if (event.key === 'Tab') {
+      // Only handle supported keys
+      if (!usableKeys.has(event.key)) {
         return;
       }
 
