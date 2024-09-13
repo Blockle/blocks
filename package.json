@@ -9,6 +9,7 @@
     "./src/lib/theme/globalTheme.ts",
     "dist/side-effects/**"
   ],
+  "type": "module",
   "exports": {
     ".": {
       "types": {
@@ -47,14 +48,14 @@
   "scripts": {
     "build": "crackle package && node ./temp-use-client-fix.js",
     "build-storybook": "storybook build",
+    "changeset": "changeset",
     "coverage": "vitest run --coverage",
     "fix": "crackle fix",
     "lint": "eslint .",
     "release": "npm run ts && npm run test && npm run build && changeset publish",
     "storybook": "storybook dev -p 6006 --no-open",
     "test": "vitest --silent # ignore warnings till js-dom can parse new css features",
-    "ts": "tsc --noemit --project ./tsconfig.json",
-    "changeset": "changeset"
+    "ts": "tsc --noemit --project ./tsconfig.json"
   },
   "resolutions": {
     "string-width": "^4.2.2"
