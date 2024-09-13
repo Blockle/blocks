@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.15.2
+
+### Patch Changes
+
+- 0951ab5: Bump
+
 ## 0.15.1
 
 ### Patch Changes
