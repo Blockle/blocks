@@ -21,7 +21,6 @@ export type SliderProps = {
   'aria-label'?: string;
   size: SliderTheme['variants']['size'];
   colorScheme: SliderTheme['variants']['colorScheme'];
-  // TODO Disabled state
   disabled?: boolean;
   // TODO Precision?
   precision?: number;
@@ -42,7 +41,10 @@ export const Slider: React.FC<SliderProps> = ({
   precision = 2,
   ...restProps
 }) => {
-  const baseClass = useComponentStyles('slider', { base: true, variants: { size, colorScheme } });
+  const baseClass = useComponentStyles('slider', {
+    base: true,
+    variants: { size, colorScheme, disabled },
+  });
   const trackClass = useComponentStyles('slider', { track: true }, false);
   const filledTrackClass = useComponentStyles('slider', { filledTrack: true }, false);
   const thumbClass = useComponentStyles('slider', { thumb: true }, false);
@@ -70,6 +72,11 @@ export const Slider: React.FC<SliderProps> = ({
 
   const onKeyDown = useCallback(
     (event: React.KeyboardEvent) => {
+      // Ignore Tab key, we don't want to disable keyboard navigation
+      if (event.key === 'Tab') {
+        return;
+      }
+
       // prevent scrolling
       event.preventDefault();
       event.stopPropagation();
@@ -116,9 +123,9 @@ export const Slider: React.FC<SliderProps> = ({
           }}
         />
       </div>
-      <div
+      <button
+        type="button"
         className={classnames(styles.thumb, thumbClass)}
-        tabIndex={0}
         role="slider"
         aria-valuemin={min}
         aria-valuemax={max}

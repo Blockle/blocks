@@ -109,6 +109,7 @@ export type SliderTheme = {
   variants: {
     size: 'small' | 'medium' | 'large';
     colorScheme: 'primary' | 'secondary';
+    disabled: boolean;
   };
 };
 

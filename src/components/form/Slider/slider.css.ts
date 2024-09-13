@@ -59,6 +59,7 @@ export const thumb = style({
       insetBlockStart: '50%',
       transform: 'translate(-50%, -50%)',
       touchAction: 'none',
+      border: 'none',
       selectors: {
         [`${containerVertical} &`]: {
           transform: 'translate(-50%, 50%)',
