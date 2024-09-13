@@ -9,6 +9,12 @@ export default {
 } as Meta;
 
 export const Default: StoryObj<RadioProps> = {
+  render: (props) => {
+    return <Radio {...props} />;
+  },
+};
+
+export const WithRadioGroup: StoryObj<RadioProps> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   render: ({ name, value, ...props }) => {
     return (
