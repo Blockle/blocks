@@ -1,6 +1,5 @@
-import { expect } from '@storybook/test';
 import { Meta, StoryObj } from '@storybook/react';
-import { within } from '@storybook/test';
+import { expect, within } from '@storybook/test';
 import { FC, useState } from 'react';
 import { Stack } from '../../layout/Stack';
 import { Text } from '../../typography/Text';
@@ -25,7 +24,8 @@ export const Default: StoryObj<SliderProps> = {
   },
 };
 
-const SliderWithState: FC<SliderProps> = (props) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const SliderWithState: FC<SliderProps> = ({ value: _value, ...props }) => {
   const [value, setValue] = useState(5);
 
   return (

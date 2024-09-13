@@ -90,7 +90,6 @@ export const Dialog: React.FC<DialogProps> = ({
 
   return (
     <>
-      {/* Portals render outside the "root", so make sure to wrap our dialog within the theme provider */}
       <DialogContext.Provider value={{ setEnabled }}>
         <dialog
           ref={dialogRef}

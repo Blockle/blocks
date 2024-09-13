@@ -7,6 +7,7 @@ import { focusable } from './helpers.css';
 const trackBackground = createVar();
 const filledTrackBackground = createVar();
 const thumbBackground = createVar();
+const thumbActive = createVar();
 
 export const slider = makeComponentTheme('slider', {
   base: style({
@@ -26,6 +27,21 @@ export const slider = makeComponentTheme('slider', {
       borderRadius: '50%',
       height: '16px',
       width: '16px',
+      boxShadow: `0 0 0 0px color-mix(in srgb,  ${vars.color.primaryLight}, transparent 0%)`,
+      vars: {
+        [thumbActive]: `0 0 0 8px color-mix(in srgb,  ${vars.color.primaryLight}, transparent 20%)`,
+      },
+      ':hover': {
+        boxShadow: thumbActive,
+      },
+      ':focus-visible': {
+        boxShadow: thumbActive,
+      },
+      '@media': {
+        '(prefers-reduced-motion: no-preference)': {
+          transition: 'box-shadow 0.2s',
+        },
+      },
     },
     focusable,
   ]),
@@ -57,6 +73,14 @@ export const slider = makeComponentTheme('slider', {
         },
       }),
     },
+    disabled: style({
+      pointerEvents: 'none',
+      vars: {
+        [trackBackground]: '#c0c0c0',
+        [filledTrackBackground]: '#ccc',
+        [thumbBackground]: '#c0c0c0',
+      },
+    }),
   },
   defaultVariants: {
     size: 'medium',

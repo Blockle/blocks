@@ -1,7 +1,9 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useComponentStyles } from '../../../hooks/useComponentStyles';
+import { useControlledValue } from '../../../hooks/useControlledValue/useControlledValue';
 import { SliderTheme } from '../../../lib/theme/componentThemes';
 import { classnames } from '../../../lib/utils/classnames';
+import { getBoundValue, roundToPrecision } from '../../../lib/utils/math';
 import * as styles from './slider.css';
 import { usePointerProgress } from './usePointerProgress';
 
@@ -19,16 +21,10 @@ export type SliderProps = {
   'aria-label'?: string;
   size: SliderTheme['variants']['size'];
   colorScheme: SliderTheme['variants']['colorScheme'];
+  disabled?: boolean;
+  // TODO Precision?
+  precision?: number;
 };
-
-function getBoundValue(newValue: number, min: number, max: number, step: number) {
-  // Round to the nearest step
-  let value = Math.round(newValue / step) * step;
-  // Clamp the value to the min and max
-  value = Math.max(min, Math.min(max, value));
-
-  return value;
-}
 
 export const Slider: React.FC<SliderProps> = ({
   min = 0,
@@ -41,32 +37,26 @@ export const Slider: React.FC<SliderProps> = ({
   name,
   size,
   colorScheme,
+  disabled,
+  precision = 2,
   ...restProps
 }) => {
-  const [internValue, setInternValue] = useState(
-    getBoundValue(value ?? defaultValue, min, max, step),
-  );
-
-  const baseClass = useComponentStyles('slider', { base: true, variants: { size, colorScheme } });
+  const baseClass = useComponentStyles('slider', {
+    base: true,
+    variants: { size, colorScheme, disabled },
+  });
   const trackClass = useComponentStyles('slider', { track: true }, false);
   const filledTrackClass = useComponentStyles('slider', { filledTrack: true }, false);
   const thumbClass = useComponentStyles('slider', { thumb: true }, false);
 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Update the internal value when the value prop changes
-  useEffect(() => {
-    if (value !== undefined) {
-      setInternValue(getBoundValue(value, min, max, step));
-    }
-  }, [value, min, max, step]);
-
-  // Notify the parent component when the value changes
-  useEffect(() => {
-    if (onChange && internValue !== value) {
-      onChange(internValue);
-    }
-  }, [internValue, onChange, value]);
+  const [currentValue, setValue] = useControlledValue({
+    defaultValue,
+    value,
+    onChange,
+    transformValue: (value) => roundToPrecision(getBoundValue(value, min, max, step), precision),
+  });
 
   usePointerProgress({
     container: containerRef,
@@ -76,12 +66,17 @@ export const Slider: React.FC<SliderProps> = ({
         progress = 1 - progress;
       }
 
-      setInternValue(getBoundValue(max * progress, min, max, step));
+      setValue(max * progress);
     },
   });
 
   const onKeyDown = useCallback(
     (event: React.KeyboardEvent) => {
+      // Ignore Tab key, we don't want to disable keyboard navigation
+      if (event.key === 'Tab') {
+        return;
+      }
+
       // prevent scrolling
       event.preventDefault();
       event.stopPropagation();
@@ -92,23 +87,23 @@ export const Slider: React.FC<SliderProps> = ({
 
       if (event.key === 'ArrowLeft' || event.key === 'ArrowDown' || event.key === 'PageDown') {
         // decrease value
-        return setInternValue((value) => getBoundValue(value - stepModifier, min, max, step));
+        return setValue(currentValue - stepModifier);
       }
 
       if (event.key === 'ArrowRight' || event.key === 'ArrowUp' || event.key === 'PageUp') {
         // increase value
-        return setInternValue((value) => getBoundValue(value + stepModifier, min, max, step));
+        return setValue(currentValue + stepModifier);
       }
 
       if (event.key === 'Home') {
-        return setInternValue(min);
+        return setValue(min);
       }
 
       if (event.key === 'End') {
-        return setInternValue(max);
+        return setValue(max);
       }
     },
-    [max, min, step],
+    [max, min, step, setValue, currentValue],
   );
 
   return (
@@ -124,26 +119,26 @@ export const Slider: React.FC<SliderProps> = ({
         <div
           className={classnames(styles.filledTrack, filledTrackClass)}
           style={{
-            inlineSize: `${(internValue / max) * 100}%`,
+            inlineSize: `${(currentValue / max) * 100}%`,
           }}
         />
       </div>
-      <div
+      <button
+        type="button"
         className={classnames(styles.thumb, thumbClass)}
-        tabIndex={0}
         role="slider"
         aria-valuemin={min}
         aria-valuemax={max}
-        aria-valuenow={internValue}
+        aria-valuenow={currentValue}
         aria-orientation={orientation}
         style={{
           [orientation === 'horizontal' ? 'insetInlineStart' : 'insetInlineEnd']:
-            `${(internValue / max) * 100}%`,
+            `${(currentValue / max) * 100}%`,
         }}
         onKeyDown={onKeyDown}
         {...restProps}
       />
-      <input type="hidden" name={name} value={internValue} />
+      <input type="hidden" disabled={disabled} name={name} value={currentValue} />
     </div>
   );
 };
