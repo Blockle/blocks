@@ -4,8 +4,8 @@
  * This script is used to add the 'use client' pragma to the top of the dist/index.mjs file.
  * For consumers of next js ssr apps.
  */
-const fs = require('node:fs');
-const { Buffer } = require('node:buffer');
+import { Buffer } from 'node:buffer';
+import fs from 'node:fs';
 
 const targetFile = './dist/index.mjs';
 
