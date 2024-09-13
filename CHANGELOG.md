@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.15.1
+
+### Patch Changes
+
+- b795f5d: type module added
+
 ## 0.15.0
 
 ### Minor Changes
