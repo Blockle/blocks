@@ -12,11 +12,10 @@ export type InputProps = {
   type?: OptionalLiteral<'email' | 'number' | 'password' | 'tel' | 'text' | 'url'>;
   startSlot?: React.ReactNode;
   endSlot?: React.ReactNode;
-  label: string;
 } & Omit<HTMLElementProps<HTMLInputElement>, 'type'>;
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
-  { className, name, type = 'text', startSlot, endSlot, label, placeholder, ...restProps },
+  { className, name, type = 'text', startSlot, endSlot, placeholder, ...restProps },
   ref,
 ) {
   const id = useId();
@@ -25,8 +24,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
 
   return (
     <Box>
-      {/* <Label htmlFor={id}>{label}</Label> */}
-
       <Box display="flex" alignItems="center" className={classnames(containerClassName, className)}>
         {startSlot}
 
@@ -36,7 +33,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
             ref={ref}
             name={name}
             type={type}
-            placeholder={placeholder || label}
+            placeholder={placeholder}
             className={classnames(styles.input, inputClassName)}
             {...restProps}
           />

@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { createAsChildTemplate } from './createAsChildTemplate';
 
 const { Template, Slot } = createAsChildTemplate('div');
@@ -29,33 +29,31 @@ const AdvancedTestComponent: React.FC<TestComponentProps> = ({ children, asChild
 
 describe('asChildRenderer', () => {
   it('should render the default element', () => {
-    const { getByText, container } = render(<TestComponent>Default</TestComponent>);
+    const { container } = render(<TestComponent>Default</TestComponent>);
     const targetElement = container.firstElementChild as HTMLElement;
 
-    expect(getByText('Default')).toBeInTheDocument();
+    expect(screen.getByText('Default')).toBeInTheDocument();
     expect(targetElement.nodeName).toBe('DIV');
     expect(targetElement.textContent).toBe('Default');
   });
 
   it('should render the default element with className', () => {
-    const { getByText, container } = render(
-      <TestComponent className="test">Default</TestComponent>,
-    );
+    const { container } = render(<TestComponent className="test">Default</TestComponent>);
     const targetElement = container.firstElementChild as HTMLElement;
 
-    expect(getByText('Default')).toBeInTheDocument();
+    expect(screen.getByText('Default')).toBeInTheDocument();
     expect(targetElement).toHaveClass('test');
   });
 
   it('should render the child element', () => {
-    const { getByText, container } = render(
+    const { container } = render(
       <TestComponent asChild className="test">
         <a href="#">Link</a>
       </TestComponent>,
     );
     const targetElement = container.firstElementChild as HTMLElement;
 
-    expect(getByText('Link')).toBeInTheDocument();
+    expect(screen.getByText('Link')).toBeInTheDocument();
     // Check node type
     expect(targetElement.nodeName).toBe('A');
     expect(targetElement.textContent).toBe('Link');
@@ -64,7 +62,7 @@ describe('asChildRenderer', () => {
   });
 
   it('should render the child element with className', () => {
-    const { getByText, container } = render(
+    const { container } = render(
       <TestComponent asChild className="test">
         <a href="#" className="link">
           Link
@@ -73,7 +71,7 @@ describe('asChildRenderer', () => {
     );
     const targetElement = container.firstElementChild as HTMLElement;
 
-    expect(getByText('Link')).toBeInTheDocument();
+    expect(screen.getByText('Link')).toBeInTheDocument();
     // Check node type
     expect(targetElement.nodeName).toBe('A');
     expect(targetElement).toHaveClass('test');
@@ -94,14 +92,14 @@ describe('asChildRenderer', () => {
   });
 
   it('should render the child element with multiple children', () => {
-    const { getByText, container } = render(
+    const { container } = render(
       <AdvancedTestComponent asChild className="test">
         <a href="#">Link</a>
       </AdvancedTestComponent>,
     );
     const targetElement = container.firstElementChild as HTMLElement;
 
-    expect(getByText('Link')).toBeInTheDocument();
+    expect(screen.getByText('Link')).toBeInTheDocument();
     // Check node type
     expect(targetElement.nodeName).toBe('A');
     expect(targetElement).toHaveClass('test');

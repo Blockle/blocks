@@ -1,4 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
+import { Stack } from '../../layout/Stack';
+import { Input } from '../Input';
 import { Label, LabelProps } from './Label';
 
 export default {
@@ -7,8 +9,24 @@ export default {
 } as Meta;
 
 export const Default: StoryObj<LabelProps> = {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   render: (props) => {
-    return <Label {...props}>Label text</Label>;
+    return <Label {...props} />;
+  },
+  args: {
+    children: 'Label text',
+  },
+};
+export const WithInput: StoryObj<LabelProps> = {
+  render: (props) => {
+    return (
+      <Stack spacing="medium">
+        <Label {...props} />
+        <Input name="input" defaultValue="Blep" type="text" id={props.htmlFor} />
+      </Stack>
+    );
+  },
+  args: {
+    children: 'Label text',
+    htmlFor: 'input',
   },
 };

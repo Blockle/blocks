@@ -1,21 +1,21 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { Box } from './Box';
 
 describe('Box', () => {
   it('should render', () => {
-    const { getByText } = render(<Box padding={['small', 'medium', 'large']}>Box content</Box>);
+    render(<Box padding={['small', 'medium', 'large']}>Box content</Box>);
 
-    expect(getByText('Box content')).toBeInTheDocument();
+    expect(screen.getByText('Box content')).toBeInTheDocument();
   });
 
   it('should render Anchor when asChild prop is provided', () => {
-    const { getByText } = render(
+    render(
       <Box asChild>
         <a href="/foo">Box content</a>
       </Box>,
     );
 
-    const target = getByText('Box content');
+    const target = screen.getByText('Box content');
 
     expect(target.tagName).toEqual('A');
     expect(target).toHaveAttribute('href', '/foo');
