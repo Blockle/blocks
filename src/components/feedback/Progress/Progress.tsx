@@ -4,14 +4,14 @@ import { classnames } from '../../../lib/utils/classnames';
 import { Box } from '../../layout/Box';
 
 export type ProgressProps = {
-  /**
-   * The value of the progress bar, between 0 and max=100.
-   */
   'aria-labelledby'?: string;
   className?: string;
   indeterminate?: boolean;
   max?: number;
   style?: React.CSSProperties;
+  /**
+   * The value of the progress bar, between 0 and max=100.
+   */
   value?: number;
 };
 
@@ -45,7 +45,7 @@ export const Progress = forwardRef<HTMLProgressElement, ProgressProps>(function 
       {...restProps}
     >
       <Box
-        className={classnames(barClassName)}
+        className={barClassName}
         backgroundColor="currentColor"
         inlineSize="full"
         blockSize="full"

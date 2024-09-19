@@ -12,28 +12,32 @@ export const Default: StoryObj<RadioProps> = {
   render: (props) => {
     return <Radio {...props} />;
   },
+  args: {
+    children: 'Radio',
+  },
 };
 
 export const WithRadioGroup: StoryObj<RadioProps> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   render: ({ name, value, ...props }) => {
     return (
-      <>
-        <label id="radio-group">Radio group</label>
+      <Stack spacing="medium">
+        <label id="radio-group">What is your favorite food?</label>
+
         <RadioGroup aria-labelledby="radio-group">
-          <Stack spacing="medium">
-            <Radio name="radio-group" value="a" {...props}>
-              Radio A
+          <Stack spacing="small">
+            <Radio name="radio-a" value="a" {...props}>
+              Apples
             </Radio>
-            <Radio name="radio-group" value="b">
-              Radio B
+            <Radio name="radio-a" value="b">
+              Bananas
             </Radio>
-            <Radio name="radio-group" value="c">
-              Radio C
+            <Radio name="radio-a" value="c">
+              Carrots
             </Radio>
           </Stack>
         </RadioGroup>
-      </>
+      </Stack>
     );
   },
 };
