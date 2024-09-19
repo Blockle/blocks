@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.15.3
+
+### Patch Changes
+
+- 616f3d2: Progress, Input, RadioGroup - improvements
+
 ## 0.15.2
 
 ### Patch Changes
