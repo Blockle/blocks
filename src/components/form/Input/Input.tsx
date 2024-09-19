@@ -27,17 +27,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       <Box display="flex" alignItems="center" className={classnames(containerClassName, className)}>
         {startSlot}
 
-        <Box asChild width="full" overflow="hidden">
-          <input
-            id={id}
-            ref={ref}
-            name={name}
-            type={type}
-            placeholder={placeholder}
-            className={classnames(styles.input, inputClassName)}
-            {...restProps}
-          />
-        </Box>
+        <input
+          id={id}
+          ref={ref}
+          name={name}
+          type={type}
+          placeholder={placeholder}
+          className={classnames(styles.input, inputClassName)}
+          {...restProps}
+        />
 
         {endSlot}
       </Box>

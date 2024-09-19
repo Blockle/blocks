@@ -42,7 +42,7 @@ export const BlocksProvider: React.FC<BlocksProviderProps> = ({
       <div
         ref={ref}
         className={classnames(theme.vars, atoms({ fontFamily: 'primary' }), className)}
-        aria-hidden={ariaHidden}
+        aria-hidden={ariaHidden ? true : undefined}
         // TODO Remove ref and useEffect when React supports inert attribute
         // inert={ariaHidden}
         {...restProps}
