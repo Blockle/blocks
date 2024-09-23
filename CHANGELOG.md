@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.16.0
+
+### Minor Changes
+
+- 80d0b19: Fixed reset entry
+
 ## 0.15.3
 
 ### Patch Changes
