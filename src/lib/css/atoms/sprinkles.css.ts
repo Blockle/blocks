@@ -1,6 +1,6 @@
 import { createSprinkles, defineProperties } from '@vanilla-extract/sprinkles';
 import { responsiveProperties, unresponsiveProperties } from './atomicProperties';
-import { breakpointNames, breakpointQuery } from './breakpoints';
+import { breakpointNames, minMediaQuery } from './breakpoints';
 
 const unresponsiveAtomicProperties = defineProperties({
   properties: unresponsiveProperties,
@@ -14,13 +14,13 @@ const responsiveAtomicProperties = defineProperties({
   conditions: {
     mobile: {},
     tablet: {
-      '@media': breakpointQuery('tablet'),
+      '@media': minMediaQuery('tablet'),
     },
     desktop: {
-      '@media': breakpointQuery('desktop'),
+      '@media': minMediaQuery('desktop'),
     },
     wide: {
-      '@media': breakpointQuery('wide'),
+      '@media': minMediaQuery('wide'),
     },
   },
   responsiveArray: breakpointNames,

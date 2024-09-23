@@ -19,13 +19,13 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
-    "./reset.css": {
+    "./reset": {
       "types": {
-        "import": "./dist/reset.css.d.mts",
-        "require": "./dist/reset.css.d.ts"
+        "import": "./dist/reset.d.mts",
+        "require": "./dist/reset.d.ts"
       },
-      "import": "./dist/reset.css.mjs",
-      "require": "./dist/reset.css.cjs"
+      "import": "./dist/reset.mjs",
+      "require": "./dist/reset.cjs"
     },
     "./themes/momotaro": {
       "types": {
@@ -42,7 +42,7 @@
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
-    "reset.css",
+    "reset",
     "themes/momotaro"
   ],
   "scripts": {
