@@ -37,9 +37,9 @@ export const tokens: ThemeTokens = {
     xlarge: '2rem',
   },
   transition: {
-    slow: '0.5s',
-    normal: '0.3s',
-    fast: '0.1s',
+    slow: '500ms',
+    normal: '300ms',
+    fast: '100ms',
   },
   border: {
     radius: {

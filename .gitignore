@@ -24,7 +24,7 @@ storybook-static/
 
 # managed by crackle
 /dist
-/reset.css
+/reset
 /themes/momotaro
 # end managed by crackle
 

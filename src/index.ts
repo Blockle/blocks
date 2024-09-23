@@ -1,6 +1,6 @@
 // Theming and styling
 export { atoms } from './lib/css/atoms/atoms';
-export { breakpointQuery } from './lib/css/atoms/breakpoints';
+export { minMediaQuery } from './lib/css/atoms/breakpoints';
 export { style } from './lib/css/style/style';
 export { makeComponentTheme, type ThemeComponentsStyles } from './lib/theme/makeComponentTheme';
 export { makeTheme } from './lib/theme/makeTheme';
