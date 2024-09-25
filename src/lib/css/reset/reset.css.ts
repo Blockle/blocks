@@ -1,8 +1,5 @@
 import { globalStyle } from '@vanilla-extract/css';
 
-// Export empty style to ensure this file is imported and not tree-shaken
-export const __KEEP_ME__ = true;
-
 // Must be placed before HTML so we wont override the box-sizing of the root element
 globalStyle(':where(*, *::before, *::after)', {
   boxSizing: 'inherit',
