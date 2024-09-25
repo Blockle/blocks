@@ -6,7 +6,10 @@
   "license": "MIT",
   "author": "Niek Saarberg <n.saarberg@gmail.com>",
   "sideEffects": [
-    "./src/lib/theme/globalTheme.ts",
+    "**/entries/reset.ts",
+    "**/reset/**",
+    "*.css.*",
+    "dist/reset.*",
     "dist/side-effects/**"
   ],
   "type": "module",
