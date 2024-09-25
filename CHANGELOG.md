@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.16.1
+
+### Patch Changes
+
+- c73fcb1: Better solution for handling side effects
+
 ## 0.16.0
 
 ### Minor Changes
