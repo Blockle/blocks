@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.18.1
+
+### Patch Changes
+
+- 78aceda: Fix for VisuallyHidden missing html props
+
 ## 0.18.0
 
 ### Minor Changes
