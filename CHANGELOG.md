@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.17.0
+
+### Minor Changes
+
+- f0bff18: Renamed checkbox label prop to children
+
 ## 0.16.1
 
 ### Patch Changes
