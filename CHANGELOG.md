@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.18.0
+
+### Minor Changes
+
+- e3c78aa: Added VisuallyHidden component
+
 ## 0.17.0
 
 ### Minor Changes
