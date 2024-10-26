@@ -10,4 +10,14 @@ describe('Checkbox', () => {
 
     expect(screen.getByRole('checkbox')).toBeInTheDocument();
   });
+
+  it('should render with a label when children are provided', () => {
+    render(<Checkbox>My checkbox</Checkbox>);
+
+    expect(
+      screen.getByRole('checkbox', {
+        name: 'My checkbox',
+      }),
+    ).toBeInTheDocument();
+  });
 });
