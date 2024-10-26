@@ -7,12 +7,12 @@ import * as styles from './checkbox.css';
 
 export type CheckboxProps = {
   name: string;
-  label?: React.ReactNode;
+  children?: React.ReactNode;
   required?: boolean;
 } & HTMLElementProps<HTMLInputElement>;
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
-  { name, label, required, className, ...restProps },
+  { name, children, required, className, ...restProps },
   ref,
 ) {
   const containerClassName = useComponentStyles('checkbox', { base: true }, false);
@@ -28,16 +28,16 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
     </div>
   );
 
-  if (!label) {
+  if (!children) {
     return input;
   }
 
   return (
     <label className={labelClassName}>
       {input}
-      {label && (
+      {children && (
         <Label asSpan required={required}>
-          {label}
+          {children}
         </Label>
       )}
     </label>

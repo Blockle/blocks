@@ -12,7 +12,7 @@ export const Default: StoryObj<CheckboxProps> = {
   },
   args: {
     name: 'checkbox',
-    label: 'Checkbox label',
+    children: 'Checkbox label',
     required: false,
     disabled: false,
   },
