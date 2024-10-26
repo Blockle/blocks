@@ -8,6 +8,10 @@ export { type ThemeTokens } from './lib/theme/tokensType';
 export { vars } from './lib/theme/vars.css';
 
 // Components
+export {
+  VisuallyHidden,
+  type VisuallyHiddenProps,
+} from './components/Accessibility/VisuallyHidden';
 export { Divider, type DividerProps } from './components/display/Divider';
 export { Progress, type ProgressProps } from './components/feedback/Progress';
 export { Spinner, type SpinnerProps } from './components/feedback/Spinner';
