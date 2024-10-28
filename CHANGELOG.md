@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.18.2
+
+### Patch Changes
+
+- a078eda: Checkbox a11y improvements
+
 ## 0.18.1
 
 ### Patch Changes
