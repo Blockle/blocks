@@ -4,9 +4,12 @@ import { classnames } from '../../../lib/utils/classnames';
 import { Box } from '../../layout/Box';
 
 export type ProgressProps = {
+  'aria-label'?: string;
   'aria-labelledby'?: string;
+  'aria-valuetext'?: string;
   className?: string;
   indeterminate?: boolean;
+  // TODO - add support for min
   max?: number;
   style?: React.CSSProperties;
   /**
