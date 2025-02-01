@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.18.4
+
+### Patch Changes
+
+- 1c6b3ce: Fixed version typo
+
 ## 0.18.3
 
 ### Patch Changes
