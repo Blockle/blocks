@@ -115,7 +115,7 @@
   "peerDependencies": {
     "@vanilla-extract/css": "^1.14",
     "@vanilla-extract/sprinkles": "^1.6",
-    "react": "^18",
-    "react-dom": "^18"
+    "react": ">=18",
+    "react-dom": ">=^18"
   }
 }
