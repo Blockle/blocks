@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.18.3
+
+### Patch Changes
+
+- 8253ef4: Support React 19
+
 ## 0.18.2
 
 ### Patch Changes
