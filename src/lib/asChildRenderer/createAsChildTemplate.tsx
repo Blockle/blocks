@@ -1,4 +1,4 @@
-import { Children, cloneElement, forwardRef, isValidElement } from 'react';
+import React, { Children, cloneElement, isValidElement } from 'react';
 import { mergeProps } from '../react/mergeProps';
 import { composeRefs } from '../react/refs';
 import { HTMLElementProps } from '../utils/utils';
@@ -6,6 +6,7 @@ import { HTMLElementProps } from '../utils/utils';
 type TemplateProps = {
   asChild?: boolean;
   children?: React.ReactNode;
+  ref?: React.Ref<Element>;
 };
 
 /**
@@ -35,10 +36,12 @@ export function createAsChildTemplate<T extends keyof HTMLElementTagNameMap>(def
   type Element = HTMLElementTagNameMap[T];
   type HTMLProps = HTMLElementProps<Element>;
 
-  const Template = forwardRef<Element, TemplateProps & HTMLProps>(function Template(
-    { asChild, children, ...rootProps },
+  const Template: React.FC<TemplateProps & HTMLProps> = ({
+    asChild,
+    children,
     ref,
-  ) {
+    ...rootProps
+  }) => {
     // Return default element
     if (!asChild) {
       const tagProps = { ref, ...rootProps };
@@ -108,7 +111,7 @@ export function createAsChildTemplate<T extends keyof HTMLElementTagNameMap>(def
       },
       nextChildren,
     );
-  });
+  };
 
   return {
     Template,

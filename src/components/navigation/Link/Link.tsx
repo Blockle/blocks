@@ -1,4 +1,3 @@
-import { forwardRef } from 'react';
 import { useComponentStyles } from '../../../hooks/useComponentStyles';
 import { createAsChildTemplate } from '../../../lib/asChildRenderer/createAsChildTemplate';
 import { MarginAtoms } from '../../../lib/css/atoms';
@@ -9,6 +8,7 @@ import { HTMLElementProps } from '../../../lib/utils/utils';
 export type LinkProps = {
   asChild?: boolean;
   children?: React.ReactNode;
+  ref?: React.Ref<HTMLAnchorElement>;
   underline?: LinkTheme['variants']['underline'];
   variant?: LinkTheme['variants']['variant'];
 } & MarginAtoms &
@@ -16,10 +16,15 @@ export type LinkProps = {
 
 const { Template, Slot } = createAsChildTemplate('a');
 
-export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
-  { asChild, className, children, variant, underline, ...restProps },
+export const Link: React.FC<LinkProps> = ({
+  asChild,
+  children,
+  className,
   ref,
-) {
+  underline,
+  variant,
+  ...restProps
+}) => {
   const linkClassName = useComponentStyles('link', {
     base: true,
     variants: { variant, underline },
@@ -35,4 +40,4 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
       <Slot>{children}</Slot>
     </Template>
   );
-});
+};
