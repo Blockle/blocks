@@ -16,7 +16,7 @@ export type ProgressProps = {
    * The value of the progress bar, between 0 and max=100.
    */
   value?: number;
-  ref?: React.Ref<HTMLProgressElement>;
+  ref?: React.Ref<HTMLDivElement>;
 };
 
 export const Progress: React.FC<ProgressProps> = ({

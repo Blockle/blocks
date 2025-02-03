@@ -6,17 +6,17 @@ import { Box } from '../../layout/Box';
 import * as styles from './text.css';
 
 type Tags =
-  | 'span'
-  | 'p'
-  | 'strong'
-  | 'em'
-  | 'small'
-  | 's'
   | 'del'
+  | 'em'
   | 'ins'
+  | 'label'
+  | 'p'
+  | 's'
+  | 'small'
+  | 'span'
+  | 'strong'
   | 'sub'
-  | 'sup'
-  | 'label';
+  | 'sup';
 
 export type TextProps<Tag extends Tags = 'span'> = {
   asChild?: boolean;
@@ -36,16 +36,16 @@ export const Text = <T extends Tags = 'span'>({
   tag,
   ...restProps
 }: TextProps<T>) => {
-  const Component = tag ?? 'span';
+  const Component = (tag ?? 'span') as Tags;
 
   return (
-    <Box
-      ref={asChild ? undefined : (ref as unknown as React.RefObject<HTMLDivElement>)}
-      asChild
-      className={classnames(styles.text, className)}
-      {...restProps}
-    >
-      {asChild ? children : <Component ref={ref}>{children}</Component>}
+    <Box asChild className={classnames(styles.text, className)} {...restProps}>
+      {asChild ? (
+        children
+      ) : (
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        <Component ref={ref as React.RefObject<any>}>{children}</Component>
+      )}
     </Box>
   );
 };
