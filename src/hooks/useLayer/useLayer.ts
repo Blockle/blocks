@@ -1,20 +1,20 @@
 import { useEffect, useRef } from 'react';
 
-export const useLayer = () => {
-  const layerRef = useRef<HTMLDivElement>();
+export const useLayer = (): (() => HTMLDivElement) => {
+  const layerRef = useRef<HTMLDivElement>(null);
 
   // Remove layer when unmounting
   useEffect(
     () => () => {
       if (layerRef.current) {
         layerRef.current.remove();
-        layerRef.current = undefined;
+        layerRef.current = null;
       }
     },
     [],
   );
 
-  return () => {
+  function getLayer() {
     if (!layerRef.current) {
       const div = document.createElement('div');
       div.dataset.layer = 'blocks';
@@ -24,5 +24,7 @@ export const useLayer = () => {
     }
 
     return layerRef.current;
-  };
+  }
+
+  return getLayer;
 };

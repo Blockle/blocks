@@ -5,10 +5,10 @@ type UseClickOutsideOptions = {
 };
 
 export const useClickOutside = (
-  ref: React.RefObject<HTMLElement>,
+  ref: React.RefObject<HTMLElement | null>,
   onClickOutside: () => void,
   { enabled = true }: UseClickOutsideOptions = {},
-) => {
+): void => {
   useEffect(() => {
     if (!enabled) {
       return;

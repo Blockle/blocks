@@ -1,11 +1,11 @@
-import { Children, cloneElement, forwardRef, isValidElement } from 'react';
+import React, { Children, cloneElement, isValidElement } from 'react';
 import { mergeProps } from '../react/mergeProps';
-import { composeRefs } from '../react/refs';
 import { HTMLElementProps } from '../utils/utils';
 
 type TemplateProps = {
   asChild?: boolean;
   children?: React.ReactNode;
+  ref?: React.Ref<Element>;
 };
 
 /**
@@ -35,10 +35,12 @@ export function createAsChildTemplate<T extends keyof HTMLElementTagNameMap>(def
   type Element = HTMLElementTagNameMap[T];
   type HTMLProps = HTMLElementProps<Element>;
 
-  const Template = forwardRef<Element, TemplateProps & HTMLProps>(function Template(
-    { asChild, children, ...rootProps },
+  const Template: React.FC<TemplateProps & HTMLProps> = ({
+    asChild,
+    children,
     ref,
-  ) {
+    ...rootProps
+  }) => {
     // Return default element
     if (!asChild) {
       const tagProps = { ref, ...rootProps };
@@ -67,7 +69,7 @@ export function createAsChildTemplate<T extends keyof HTMLElementTagNameMap>(def
       return null;
     }
 
-    if (!isValidElement(slot)) {
+    if (!isValidElementWithChildren(slot)) {
       return null;
     }
 
@@ -83,7 +85,7 @@ export function createAsChildTemplate<T extends keyof HTMLElementTagNameMap>(def
       return null;
     }
 
-    if (!isValidElement(slot.props.children)) {
+    if (!isValidElementWithChildren(slot.props.children)) {
       return null;
     }
 
@@ -91,29 +93,29 @@ export function createAsChildTemplate<T extends keyof HTMLElementTagNameMap>(def
     const nextChildren = [...childrenArray];
 
     if (nextChildren.length === 1 && !slot.props.children.props.children) {
-      return cloneElement(slot.props.children, {
-        ...mergeProps(rootProps, slot.props.children.props),
-        ref: composeRefs(ref, slot.props.children.ref),
-      });
+      return cloneElement(slot.props.children, mergeProps(rootProps, slot.props.children.props));
     }
 
     // Replace Slot with children
-    nextChildren[slotIndex] = slot.props.children.props.children;
+    nextChildren[slotIndex] = slot.props.children.props.children as React.ReactElement;
 
     return cloneElement(
       slot.props.children,
-      {
-        ...mergeProps(rootProps, slot.props.children.props),
-        ref: composeRefs(ref, slot.props.children.ref),
-      },
+      mergeProps(rootProps, slot.props.children.props),
       nextChildren,
     );
-  });
+  };
 
   return {
     Template,
     Slot,
   };
+}
+
+function isValidElementWithChildren(
+  child: React.ReactNode,
+): child is React.ReactElement<{ children: React.ReactNode; ref?: unknown }> {
+  return isValidElement(child) && !!child.props; // && isValidElement((child.props as UknownRecord).children);
 }
 
 // Slot

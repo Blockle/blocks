@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useComponentStyles } from '../../../hooks/useComponentStyles';
 import { classnames } from '../../../lib/utils/classnames';
 import { HTMLElementProps } from '../../../lib/utils/utils';
@@ -6,12 +6,17 @@ import * as styles from './switch.css';
 
 export type SwitchProps = {
   onChange?: (value: boolean) => void;
+  ref?: React.Ref<HTMLInputElement>;
 } & Omit<HTMLElementProps<HTMLInputElement>, 'onChange'>;
 
-export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
-  { className, checked, onChange, defaultChecked, ...restProps },
+export const Switch: React.FC<SwitchProps> = ({
+  checked,
+  className,
+  defaultChecked,
+  onChange,
   ref,
-) {
+  ...restProps
+}) => {
   const [isChecked, setIsChecked] = useState<boolean>(defaultChecked || checked || false);
   const baseClassName = useComponentStyles('switch', { base: true });
   const sliderClassName = useComponentStyles('switch', { slider: true }, false);
@@ -73,4 +78,4 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
       </div>
     </>
   );
-});
+};

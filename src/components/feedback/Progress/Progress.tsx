@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import React from 'react';
 import { useComponentStyles } from '../../../hooks/useComponentStyles';
 import { classnames } from '../../../lib/utils/classnames';
 import { Box } from '../../layout/Box';
@@ -16,12 +16,17 @@ export type ProgressProps = {
    * The value of the progress bar, between 0 and max=100.
    */
   value?: number;
+  ref?: React.Ref<HTMLDivElement>;
 };
 
-export const Progress = forwardRef<HTMLProgressElement, ProgressProps>(function Progress(
-  { className, indeterminate, max = 100, value = 0, ...restProps },
+export const Progress: React.FC<ProgressProps> = ({
+  className,
+  indeterminate,
+  max = 100,
   ref,
-) {
+  value = 0,
+  ...restProps
+}) => {
   const progress = (value / max) * 100;
   const containerClassName = useComponentStyles(
     'progress',
@@ -56,4 +61,4 @@ export const Progress = forwardRef<HTMLProgressElement, ProgressProps>(function 
       />
     </Box>
   );
-});
+};

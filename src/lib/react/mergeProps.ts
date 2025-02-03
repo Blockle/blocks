@@ -1,4 +1,5 @@
 import { classnames } from '../utils/classnames';
+import { composeRefs } from './refs';
 
 export type UknownRecord = Record<string, unknown>;
 
@@ -23,13 +24,24 @@ export function mergeProps(slotProps: UknownRecord, childProps: UknownRecord) {
         childPropValue(...args);
         slotPropValue(...args);
       };
-    } else if (propName === 'style') {
-      overrideProps[propName] = { ...slotPropValue, ...childPropValue };
-    } else if (propName === 'className') {
-      overrideProps[propName] = classnames(slotPropValue, childPropValue);
-    } else {
-      overrideProps[propName] = childPropValue;
-    }
+    } else
+      switch (propName) {
+        case 'style': {
+          overrideProps[propName] = { ...slotPropValue, ...childPropValue };
+          break;
+        }
+        case 'className': {
+          overrideProps[propName] = classnames(slotPropValue, childPropValue);
+          break;
+        }
+        case 'ref': {
+          overrideProps[propName] = composeRefs(slotPropValue, childPropValue);
+          break;
+        }
+        default: {
+          overrideProps[propName] = childPropValue;
+        }
+      }
   }
 
   return { ...slotProps, ...overrideProps };
