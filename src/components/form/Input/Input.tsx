@@ -1,4 +1,4 @@
-import { forwardRef, useId } from 'react';
+import { useId } from 'react';
 import { useComponentStyles } from '../../../hooks/useComponentStyles';
 import { classnames } from '../../../lib/utils/classnames';
 import { OptionalLiteral } from '../../../lib/utils/helpers';
@@ -8,16 +8,23 @@ import * as styles from './input.css';
 
 export type InputProps = {
   className?: string;
-  name: string;
-  type?: OptionalLiteral<'email' | 'number' | 'password' | 'tel' | 'text' | 'url'>;
-  startSlot?: React.ReactNode;
   endSlot?: React.ReactNode;
+  name: string;
+  ref?: React.Ref<HTMLInputElement>;
+  startSlot?: React.ReactNode;
+  type?: OptionalLiteral<'email' | 'number' | 'password' | 'tel' | 'text' | 'url'>;
 } & Omit<HTMLElementProps<HTMLInputElement>, 'type'>;
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
-  { className, name, type = 'text', startSlot, endSlot, placeholder, ...restProps },
+export const Input: React.FC<InputProps> = ({
+  className,
+  endSlot,
+  name,
+  placeholder,
   ref,
-) {
+  startSlot,
+  type = 'text',
+  ...restProps
+}) => {
   const id = useId();
   const containerClassName = useComponentStyles('input', { container: true }, false);
   const inputClassName = useComponentStyles('input', { input: true });
@@ -43,4 +50,4 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       {/* <Text>Input error</Text> */}
     </Box>
   );
-});
+};

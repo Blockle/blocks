@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import React from 'react';
 import { createAsChildTemplate } from '../../../lib/asChildRenderer/createAsChildTemplate';
 import { atoms } from '../../../lib/css/atoms';
 import { Atoms } from '../../../lib/css/atoms/atomTypes';
@@ -7,24 +7,22 @@ import { classnames } from '../../../lib/utils/classnames';
 import { HTMLElementProps } from '../../../lib/utils/utils';
 
 export type BoxProps = {
+  asChild?: boolean;
   children?: React.ReactNode;
   className?: string;
+  ref?: React.Ref<HTMLDivElement>;
   style?: React.CSSProperties;
-  asChild?: boolean;
 } & Atoms &
   HTMLElementProps<HTMLDivElement>;
 
 const { Template, Slot } = createAsChildTemplate('div');
 
-export const Box = forwardRef<unknown, BoxProps>(function Box(
-  { asChild, className, children, ...restProps },
-  ref,
-) {
+export const Box: React.FC<BoxProps> = ({ asChild, className, children, ref, ...restProps }) => {
   const [atomsProps, otherProps] = getAtomsAndProps(restProps);
 
   return (
     <Template
-      ref={ref as React.RefObject<HTMLDivElement>}
+      ref={ref}
       asChild={asChild}
       className={classnames(className, atoms(atomsProps))}
       {...otherProps}
@@ -32,4 +30,4 @@ export const Box = forwardRef<unknown, BoxProps>(function Box(
       <Slot>{children}</Slot>
     </Template>
   );
-});
+};

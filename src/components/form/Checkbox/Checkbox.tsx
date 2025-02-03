@@ -1,4 +1,4 @@
-import React, { forwardRef, useId } from 'react';
+import React, { useId } from 'react';
 import { useComponentStyles } from '../../../hooks/useComponentStyles';
 import { classnames } from '../../../lib/utils/classnames';
 import { HTMLElementProps } from '../../../lib/utils/utils';
@@ -6,15 +6,21 @@ import { Label } from '../Label/Label';
 import * as styles from './checkbox.css';
 
 export type CheckboxProps = {
-  name: string;
   children?: React.ReactNode;
+  name: string;
+  ref?: React.Ref<HTMLInputElement>;
   required?: boolean;
 } & HTMLElementProps<HTMLInputElement>;
 
-export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
-  { name, id, children, required, className, ...restProps },
+export const Checkbox: React.FC<CheckboxProps> = ({
+  children,
+  className,
+  id,
+  name,
   ref,
-) {
+  required,
+  ...restProps
+}) => {
   const containerClassName = useComponentStyles('checkbox', { base: true }, false);
   const iconClassName = useComponentStyles('checkbox', { icon: true }, false);
   const labelClassName = useComponentStyles('checkbox', { label: true }, false);
@@ -51,7 +57,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
       )}
     </span>
   );
-});
+};
 
 // Icon from https://heroicons.com/
 const DefaultIcon: React.FC = () => {

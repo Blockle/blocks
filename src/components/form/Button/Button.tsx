@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import React from 'react';
 import { useComponentStyles } from '../../../hooks/useComponentStyles';
 import { createAsChildTemplate } from '../../../lib/asChildRenderer/createAsChildTemplate';
 import { Atoms, MarginAtoms, atoms } from '../../../lib/css/atoms';
@@ -10,40 +10,39 @@ import { Spinner } from '../../feedback/Spinner';
 import * as styles from './Button.css';
 
 export type ButtonProps = {
+  alignSelf?: Atoms['alignSelf'];
+  asChild?: boolean;
   children: React.ReactNode;
+  disabled?: boolean;
+  endSlot?: React.ReactNode;
+  inlineSize?: Atoms['inlineSize'];
+  intent?: ButtonTheme['variants']['intent'];
+  loading?: boolean;
+  popovertarget?: string;
+  ref?: React.Ref<HTMLButtonElement>;
+  size?: ButtonTheme['variants']['size'];
+  startSlot?: React.ReactNode;
   type?: 'button' | 'submit' | 'reset';
   variant?: ButtonTheme['variants']['variant'];
-  intent?: ButtonTheme['variants']['intent'];
-  size?: ButtonTheme['variants']['size'];
-  inlineSize?: Atoms['inlineSize'];
-  alignSelf?: Atoms['alignSelf'];
-  loading?: boolean;
-  startSlot?: React.ReactNode;
-  endSlot?: React.ReactNode;
-  disabled?: boolean;
-  asChild?: boolean;
-  popovertarget?: string;
 } & Omit<HTMLElementProps<HTMLButtonElement>, 'size'> &
   MarginAtoms;
 
 const { Template, Slot } = createAsChildTemplate('button');
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  {
-    children,
-    className,
-    variant,
-    intent,
-    size,
-    startSlot,
-    endSlot,
-    loading,
-    disabled,
-    asChild,
-    ...restProps
-  },
+export const Button: React.FC<ButtonProps> = ({
+  asChild,
+  children,
+  className,
+  disabled,
+  endSlot,
+  intent,
+  loading,
   ref,
-) {
+  size,
+  startSlot,
+  variant,
+  ...restProps
+}) => {
   const buttonClassName = useComponentStyles('button', {
     base: true,
     variants: {
@@ -71,4 +70,4 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       {endSlot && <div>{endSlot}</div>}
     </Template>
   );
-});
+};

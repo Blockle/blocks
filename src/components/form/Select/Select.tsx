@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import { useComponentStyles } from '../../../hooks/useComponentStyles';
 import { SelectTheme } from '../../../lib/theme/componentThemes';
 import { classnames } from '../../../lib/utils/classnames';
@@ -9,13 +9,18 @@ import * as styles from './select.css';
 export type SelectProps = {
   children: React.ReactNode;
   placeholder?: string;
+  ref?: React.Ref<HTMLSelectElement>;
   variant?: SelectTheme['variants']['variant'];
 } & HTMLElementProps<HTMLSelectElement>;
 
-export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
-  { children, placeholder, className, variant, ...restProps },
+export const Select: React.FC<SelectProps> = ({
+  children,
+  placeholder,
+  className,
+  variant,
   ref,
-) {
+  ...restProps
+}) => {
   const wrapperClassName = useComponentStyles('select', { wrapper: true }, false);
   const selectClassName = useComponentStyles('select', { select: true, variants: { variant } });
   const iconClassName = useComponentStyles('select', { icon: true }, false);
@@ -35,7 +40,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
       </Box>
     </Box>
   );
-});
+};
 
 const DefaultIcon: React.FC = () => {
   return (
