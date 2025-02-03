@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
-type PointerProgressOptions = {
-  container: React.RefObject<HTMLElement>;
+type PointerProgressOptions<T extends React.RefObject<HTMLElement | null>> = {
+  container: T;
   orientation: 'horizontal' | 'vertical';
   onChange(progress: number): void;
 };
@@ -19,7 +19,11 @@ export function getProgress(event: PointerEvent, rect: DOMRect): [x: number, y: 
 /**
  * Utility hook to track pointer events and calculate progress based on the pointer position.
  */
-export function usePointerProgress({ container, orientation, onChange }: PointerProgressOptions) {
+export function usePointerProgress<T extends React.RefObject<HTMLElement | null>>({
+  container,
+  orientation,
+  onChange,
+}: PointerProgressOptions<T>): void {
   useEffect(() => {
     const element = container.current;
 

@@ -2,8 +2,8 @@ export type PopoverPositions = [x: number, y: number];
 
 export function getPopoverPosition(
   align: 'top' | 'bottom' | 'left' | 'right',
-  anchorRef: React.RefObject<HTMLElement>,
-  popoverRef: React.RefObject<HTMLElement>,
+  anchorRef: React.RefObject<HTMLElement | null>,
+  popoverRef: React.RefObject<HTMLElement | null>,
 ): PopoverPositions {
   if (!anchorRef.current || !popoverRef.current) {
     return [0, 0];

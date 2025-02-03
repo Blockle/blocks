@@ -15,7 +15,7 @@ import { getPopoverPosition } from './popover-utils';
 export type PopoverProps = {
   // Preferred alignment of the popover, will mirror if there is not enough space
   align?: 'top' | 'bottom' | 'left' | 'right';
-  anchorElement: React.RefObject<HTMLElement>;
+  anchorElement: React.RefObject<HTMLElement | null>;
   children: React.ReactNode;
   className?: string;
   onRequestClose: () => void;
