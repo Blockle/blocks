@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.19.0
+
+### Minor Changes
+
+- b4faf01: Updated to react 19
+
 ## 0.18.4
 
 ### Patch Changes
