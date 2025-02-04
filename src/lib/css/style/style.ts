@@ -3,14 +3,18 @@ import { AnyString } from '../../utils/helpers';
 import { Atoms, atoms } from '../atoms';
 
 type StyleRuleWithAtoms = Omit<StyleRule, keyof Atoms> & {
-  [K in keyof Atoms]?: K extends keyof StyleRule ? Atoms[K] | AnyString | number : Atoms[K];
+  [K in keyof Atoms]?: K extends keyof StyleRule
+    ? Atoms[K] | AnyString | number
+    : Atoms[K];
 };
 
 /**
  * A wrapper around vanilla-extract's `style` function that allows you to use
  * atoms and raw CSS values in the same object.
  */
-export function style(props: StyleRuleWithAtoms | (StyleRuleWithAtoms | string)[]): string {
+export function style(
+  props: StyleRuleWithAtoms | (StyleRuleWithAtoms | string)[],
+): string {
   const styleRule: Record<string, unknown> = {};
   const atomClassNames: string[] = [];
 

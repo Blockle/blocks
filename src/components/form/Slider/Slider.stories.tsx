@@ -14,7 +14,9 @@ export const Default: StoryObj<SliderProps> = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    expect(canvas.getByLabelText('How happy are you today?')).toBeInTheDocument();
+    expect(
+      canvas.getByLabelText('How happy are you today?'),
+    ).toBeInTheDocument();
   },
 
   args: {

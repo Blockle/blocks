@@ -12,7 +12,10 @@ export const VisuallyHidden: React.FC<VisuallyHiddenProps> = ({
   ...restProps
 }) => {
   return (
-    <span className={classnames(styles.visuallyHidden, className)} {...restProps}>
+    <span
+      className={classnames(styles.visuallyHidden, className)}
+      {...restProps}
+    >
       {children}
     </span>
   );

@@ -60,7 +60,11 @@ export const Slider: React.FC<SliderProps> = ({
     variants: { size, colorScheme, disabled },
   });
   const trackClass = useComponentStyles('slider', { track: true }, false);
-  const filledTrackClass = useComponentStyles('slider', { filledTrack: true }, false);
+  const filledTrackClass = useComponentStyles(
+    'slider',
+    { filledTrack: true },
+    false,
+  );
   const thumbClass = useComponentStyles('slider', { thumb: true }, false);
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -69,7 +73,8 @@ export const Slider: React.FC<SliderProps> = ({
     defaultValue,
     value,
     onChange,
-    transformValue: (value) => roundToPrecision(getBoundValue(value, min, max, step), precision),
+    transformValue: (value) =>
+      roundToPrecision(getBoundValue(value, min, max, step), precision),
   });
 
   usePointerProgress({
@@ -97,14 +102,24 @@ export const Slider: React.FC<SliderProps> = ({
 
       const specialKey = ['PageUp', 'PageDown'];
       const stepModifier =
-        event.shiftKey || specialKey.includes(event.key) ? (max - min) / 10 : step;
+        event.shiftKey || specialKey.includes(event.key)
+          ? (max - min) / 10
+          : step;
 
-      if (event.key === 'ArrowLeft' || event.key === 'ArrowDown' || event.key === 'PageDown') {
+      if (
+        event.key === 'ArrowLeft' ||
+        event.key === 'ArrowDown' ||
+        event.key === 'PageDown'
+      ) {
         // decrease value
         return setValue(currentValue - stepModifier);
       }
 
-      if (event.key === 'ArrowRight' || event.key === 'ArrowUp' || event.key === 'PageUp') {
+      if (
+        event.key === 'ArrowRight' ||
+        event.key === 'ArrowUp' ||
+        event.key === 'PageUp'
+      ) {
         // increase value
         return setValue(currentValue + stepModifier);
       }
@@ -146,13 +161,19 @@ export const Slider: React.FC<SliderProps> = ({
         aria-valuenow={currentValue}
         aria-orientation={orientation}
         style={{
-          [orientation === 'horizontal' ? 'insetInlineStart' : 'insetInlineEnd']:
-            `${(currentValue / max) * 100}%`,
+          [orientation === 'horizontal'
+            ? 'insetInlineStart'
+            : 'insetInlineEnd']: `${(currentValue / max) * 100}%`,
         }}
         onKeyDown={onKeyDown}
         {...restProps}
       />
-      <input type="hidden" disabled={disabled} name={name} value={currentValue} />
+      <input
+        type="hidden"
+        disabled={disabled}
+        name={name}
+        value={currentValue}
+      />
     </div>
   );
 };

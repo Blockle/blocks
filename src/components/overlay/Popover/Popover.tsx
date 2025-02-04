@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useClickOutside } from '../../../hooks/useClickOutside/useClickOutside';
 import { useComponentStyles } from '../../../hooks/useComponentStyles';
 import { useIsomorphicLayoutEffect } from '../../../hooks/useIsomorphicLayoutEffect';
@@ -39,7 +45,11 @@ export const Popover: React.FC<PopoverProps> = ({
   const [visible, hide] = useVisibilityState(open);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const popoverRef = useRef<HTMLDivElement>(null);
-  const containerClassName = useComponentStyles('popover', { base: true }, false);
+  const containerClassName = useComponentStyles(
+    'popover',
+    { base: true },
+    false,
+  );
 
   useLayoutEffect(() => {
     if (!visible) {

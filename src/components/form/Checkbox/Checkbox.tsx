@@ -21,14 +21,20 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   required,
   ...restProps
 }) => {
-  const containerClassName = useComponentStyles('checkbox', { base: true }, false);
+  const containerClassName = useComponentStyles(
+    'checkbox',
+    { base: true },
+    false,
+  );
   const iconClassName = useComponentStyles('checkbox', { icon: true }, false);
   const labelClassName = useComponentStyles('checkbox', { label: true }, false);
   const reactId = useId();
   const inputId = id || reactId;
 
   const input = (
-    <div className={classnames(styles.container, containerClassName, className)}>
+    <div
+      className={classnames(styles.container, containerClassName, className)}
+    >
       <input
         ref={ref}
         type="checkbox"
@@ -70,7 +76,11 @@ const DefaultIcon: React.FC = () => {
       stroke="currentColor"
       style={{ width: '1rem', height: '1rem', display: 'block' }}
     >
-      <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="m4.5 12.75 6 6 9-13.5"
+      />
     </svg>
   );
 };

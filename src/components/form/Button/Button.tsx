@@ -61,7 +61,12 @@ export const Button: React.FC<ButtonProps> = ({
       ref={ref}
       asChild={asChild}
       disabled={disabled || loading}
-      className={classnames(styles.buttonReset, buttonClassName, atoms(atomsProps), className)}
+      className={classnames(
+        styles.buttonReset,
+        buttonClassName,
+        atoms(atomsProps),
+        className,
+      )}
       {...otherProps}
     >
       {startSlot && <div>{startSlot}</div>}

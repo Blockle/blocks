@@ -29,7 +29,11 @@ export const BlocksProvider: React.FC<BlocksProviderProps> = ({
   return (
     <BlocksProviderContext value={contextValue}>
       <div
-        className={classnames(theme.vars, atoms({ fontFamily: 'primary' }), className)}
+        className={classnames(
+          theme.vars,
+          atoms({ fontFamily: 'primary' }),
+          className,
+        )}
         inert={ariaHidden ? true : undefined}
         {...restProps}
       >

@@ -21,7 +21,12 @@ export const WithInput: StoryObj<LabelProps> = {
     return (
       <Stack spacing="medium">
         <Label {...props} />
-        <Input name="input" defaultValue="Blep" type="text" id={props.htmlFor} />
+        <Input
+          name="input"
+          defaultValue="Blep"
+          type="text"
+          id={props.htmlFor}
+        />
       </Stack>
     );
   },

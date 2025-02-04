@@ -21,8 +21,15 @@ export const Select: React.FC<SelectProps> = ({
   ref,
   ...restProps
 }) => {
-  const wrapperClassName = useComponentStyles('select', { wrapper: true }, false);
-  const selectClassName = useComponentStyles('select', { select: true, variants: { variant } });
+  const wrapperClassName = useComponentStyles(
+    'select',
+    { wrapper: true },
+    false,
+  );
+  const selectClassName = useComponentStyles('select', {
+    select: true,
+    variants: { variant },
+  });
   const iconClassName = useComponentStyles('select', { icon: true }, false);
 
   return (
@@ -35,7 +42,11 @@ export const Select: React.FC<SelectProps> = ({
         {placeholder && <option value="">{placeholder}</option>}
         {children}
       </select>
-      <Box className={classnames(styles.icon, iconClassName)} role="presentation" aria-hidden>
+      <Box
+        className={classnames(styles.icon, iconClassName)}
+        role="presentation"
+        aria-hidden
+      >
         <DefaultIcon />
       </Box>
     </Box>

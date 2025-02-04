@@ -1,11 +1,22 @@
-import { Children, cloneElement, isValidElement, useEffect, useId, useRef, useState } from 'react';
+import {
+  Children,
+  cloneElement,
+  isValidElement,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from 'react';
 import { useComponentStyles } from '../../../hooks/useComponentStyles';
 import { composeRefs } from '../../../lib/react/refs';
 import { TooltipTheme } from '../../../lib/theme/componentThemes';
 import { Popover, PopoverProps } from '../Popover/Popover';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type ReactElement = React.ReactElement<any, string | React.JSXElementConstructor<any>>;
+type ReactElement = React.ReactElement<
+  any,
+  string | React.JSXElementConstructor<any>
+>;
 
 export type TooltipProps = {
   align?: PopoverProps['align'];
@@ -61,7 +72,9 @@ export const Tooltip: React.FC<TooltipProps> = ({
     throw new Error('Tooltip component can only have one child');
   }
 
-  const child = Children.toArray(children)[0] as ReactElement & { ref?: React.Ref<HTMLElement> };
+  const child = Children.toArray(children)[0] as ReactElement & {
+    ref?: React.Ref<HTMLElement>;
+  };
 
   if (!isValidElement(child)) {
     return null;

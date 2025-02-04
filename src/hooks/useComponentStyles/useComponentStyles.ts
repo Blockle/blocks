@@ -1,4 +1,7 @@
-import { ComponentThemes, ComponentThemesProps } from '../../lib/theme/componentThemes';
+import {
+  ComponentThemes,
+  ComponentThemesProps,
+} from '../../lib/theme/componentThemes';
 import { ComponentTheme } from '../../lib/theme/makeComponentTheme';
 import { useTheme } from '../useTheme/useTheme';
 
@@ -28,7 +31,9 @@ export function useComponentStyles<T extends keyof ComponentThemesProps>(
 
     if (typeof value === 'boolean' && value) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      classNames.push((component as unknown as ComponentTheme<any>)[key] as string);
+      classNames.push(
+        (component as unknown as ComponentTheme<any>)[key] as string,
+      );
     }
   }
 
@@ -69,7 +74,9 @@ export function useComponentStyles<T extends keyof ComponentThemesProps>(
     }
 
     // String union variants
-    const variant = (componentVariants[key] as unknown as Record<string, string>)[value];
+    const variant = (
+      componentVariants[key] as unknown as Record<string, string>
+    )[value];
 
     if (variant) {
       classNames.push(variant);
@@ -81,7 +88,9 @@ export function useComponentStyles<T extends keyof ComponentThemesProps>(
 
   if (compoundVariants) {
     for (const compoundVariant of compoundVariants) {
-      const keys = Object.keys(compoundVariant.variants) as (keyof ComponentThemes[T])[];
+      const keys = Object.keys(
+        compoundVariant.variants,
+      ) as (keyof ComponentThemes[T])[];
 
       const matches = keys.every((key) => {
         const value = variantsWithDefaults[key as string];

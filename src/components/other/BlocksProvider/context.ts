@@ -6,4 +6,5 @@ export type BlocksProviderContextProps = {
   setAriaHidden: (value: boolean) => void;
 };
 
-export const BlocksProviderContext = createContext<BlocksProviderContextProps | null>(null);
+export const BlocksProviderContext =
+  createContext<BlocksProviderContextProps | null>(null);

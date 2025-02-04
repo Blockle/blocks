@@ -35,24 +35,31 @@ type VariantsToStyle<T extends RecordLike> = {
 /**
  * ComponentThemeToStyles is a helper type to define the props passed to useComponentStyles.
  */
-export type ComponentThemeToStyles<T extends RecordLike> = Omit<T, 'variants'> & {
-  variants?: T['variants'] extends RecordLike ? VariantsToStyle<T['variants']> : never;
+export type ComponentThemeToStyles<T extends RecordLike> = Omit<
+  T,
+  'variants'
+> & {
+  variants?: T['variants'] extends RecordLike
+    ? VariantsToStyle<T['variants']>
+    : never;
 };
 
-export type ComponentThemeCompoundVariants<T extends RecordLike> = T['variants'] extends RecordLike
-  ? {
-      variants: {
-        [K in keyof T['variants']]?: T['variants'][K];
-      };
-      style: string;
-    }[]
-  : never;
+export type ComponentThemeCompoundVariants<T extends RecordLike> =
+  T['variants'] extends RecordLike
+    ? {
+        variants: {
+          [K in keyof T['variants']]?: T['variants'][K];
+        };
+        style: string;
+      }[]
+    : never;
 
-export type ComponentThemeDefaultVariants<T extends RecordLike> = T['variants'] extends RecordLike
-  ? {
-      [K in keyof T['variants']]?: T['variants'][K];
-    }
-  : never;
+export type ComponentThemeDefaultVariants<T extends RecordLike> =
+  T['variants'] extends RecordLike
+    ? {
+        [K in keyof T['variants']]?: T['variants'][K];
+      }
+    : never;
 
 export type ComponentTheme<T extends RecordLike> = ComponentThemeToStyles<T> & {
   compoundVariants?: ComponentThemeCompoundVariants<T>;

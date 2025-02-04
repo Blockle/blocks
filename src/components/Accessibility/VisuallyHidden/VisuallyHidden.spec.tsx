@@ -8,6 +8,8 @@ describe('VisuallyHidden', () => {
   it('should render with storybook', () => {
     render(<VisuallyHidden>This text is visually hidden</VisuallyHidden>);
 
-    expect(screen.getByText('This text is visually hidden')).toBeInTheDocument();
+    expect(
+      screen.getByText('This text is visually hidden'),
+    ).toBeInTheDocument();
   });
 });

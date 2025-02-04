@@ -38,7 +38,8 @@ export const Default: StoryObj<HeadingProps> = {
   },
 
   args: {
-    children: 'Lorem Ipsum is simply dummy Heading of the printing and typesetting industry.',
+    children:
+      'Lorem Ipsum is simply dummy Heading of the printing and typesetting industry.',
     fontFamily: 'primary',
     level: 1,
   },

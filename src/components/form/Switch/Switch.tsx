@@ -17,7 +17,9 @@ export const Switch: React.FC<SwitchProps> = ({
   ref,
   ...restProps
 }) => {
-  const [isChecked, setIsChecked] = useState<boolean>(defaultChecked || checked || false);
+  const [isChecked, setIsChecked] = useState<boolean>(
+    defaultChecked || checked || false,
+  );
   const baseClassName = useComponentStyles('switch', { base: true });
   const sliderClassName = useComponentStyles('switch', { slider: true }, false);
 

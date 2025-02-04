@@ -28,7 +28,10 @@ export const Dialog: React.FC<DialogProps> = ({
   size,
   ...restProps
 }) => {
-  const dialogClassName = useComponentStyles('dialog', { dialog: true, variants: { size } });
+  const dialogClassName = useComponentStyles('dialog', {
+    dialog: true,
+    variants: { size },
+  });
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [enabled, setEnabled] = useState(true);
   const [visible, setVisible] = useState(open);

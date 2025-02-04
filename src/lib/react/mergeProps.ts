@@ -19,7 +19,10 @@ export function mergeProps(slotProps: UknownRecord, childProps: UknownRecord) {
       continue;
     }
 
-    if (typeof slotPropValue === 'function' && typeof childPropValue === 'function') {
+    if (
+      typeof slotPropValue === 'function' &&
+      typeof childPropValue === 'function'
+    ) {
       overrideProps[propName] = (...args: unknown[]) => {
         childPropValue(...args);
         slotPropValue(...args);
