@@ -6,14 +6,14 @@ import {
   useState,
 } from 'react';
 import { useClickOutside } from '../../../hooks/useClickOutside/useClickOutside';
-import { useComponentStyles } from '../../../hooks/useComponentStyles';
 import { useIsomorphicLayoutEffect } from '../../../hooks/useIsomorphicLayoutEffect';
 import { useKeyboard } from '../../../hooks/useKeyboard';
 import { useLayer } from '../../../hooks/useLayer';
 import { useVisibilityState } from '../../../hooks/useVisibilityState';
+import { getComponentStyles } from '../../../lib/theme/store/theme';
 import { classnames } from '../../../lib/utils/classnames';
 import { hasAnimationDuration } from '../../../lib/utils/dom';
-import { HTMLElementProps } from '../../../lib/utils/utils';
+import type { HTMLElementProps } from '../../../lib/utils/utils';
 import { Box } from '../../layout/Box';
 import { Portal } from '../../other/Portal';
 import { getPopoverPosition } from './popover-utils';
@@ -45,7 +45,7 @@ export const Popover: React.FC<PopoverProps> = ({
   const [visible, hide] = useVisibilityState(open);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const popoverRef = useRef<HTMLDivElement>(null);
-  const containerClassName = useComponentStyles(
+  const containerClassName = getComponentStyles(
     'popover',
     { base: true },
     false,

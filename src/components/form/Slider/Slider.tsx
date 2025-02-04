@@ -1,7 +1,8 @@
-import React, { useCallback, useRef } from 'react';
-import { useComponentStyles } from '../../../hooks/useComponentStyles';
+import type React from 'react';
+import { useCallback, useRef } from 'react';
 import { useControlledValue } from '../../../hooks/useControlledValue/useControlledValue';
-import { SliderTheme } from '../../../lib/theme/componentThemes';
+import type { SliderTheme } from '../../../lib/theme/componentThemes';
+import { getComponentStyles } from '../../../lib/theme/store/theme';
 import { classnames } from '../../../lib/utils/classnames';
 import { getBoundValue, roundToPrecision } from '../../../lib/utils/math';
 import * as styles from './slider.css';
@@ -55,17 +56,17 @@ export const Slider: React.FC<SliderProps> = ({
   precision = 2,
   ...restProps
 }) => {
-  const baseClass = useComponentStyles('slider', {
+  const baseClass = getComponentStyles('slider', {
     base: true,
     variants: { size, colorScheme, disabled },
   });
-  const trackClass = useComponentStyles('slider', { track: true }, false);
-  const filledTrackClass = useComponentStyles(
+  const trackClass = getComponentStyles('slider', { track: true }, false);
+  const filledTrackClass = getComponentStyles(
     'slider',
     { filledTrack: true },
     false,
   );
-  const thumbClass = useComponentStyles('slider', { thumb: true }, false);
+  const thumbClass = getComponentStyles('slider', { thumb: true }, false);
 
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -82,10 +83,10 @@ export const Slider: React.FC<SliderProps> = ({
     orientation,
     onChange(progress) {
       if (orientation === 'vertical') {
-        progress = 1 - progress;
+        setValue(max * (1 - progress));
+      } else {
+        setValue(max * progress);
       }
-
-      setValue(max * progress);
     },
   });
 

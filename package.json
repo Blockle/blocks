@@ -43,13 +43,9 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist",
-    "reset",
-    "themes/momotaro"
-  ],
+  "files": ["dist", "reset", "themes/momotaro"],
   "scripts": {
-    "build": "crackle package && node ./temp-use-client-fix.js",
+    "build": "crackle package && node ./scripts/use-client-fix.mjs",
     "build-storybook": "storybook build",
     "changeset": "changeset",
     "coverage": "vitest run --coverage",

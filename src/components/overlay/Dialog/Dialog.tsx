@@ -1,11 +1,11 @@
 import { useCallback, useRef, useState } from 'react';
 import { useClickOutside } from '../../../hooks/useClickOutside/useClickOutside';
-import { useComponentStyles } from '../../../hooks/useComponentStyles';
 import { useIsomorphicLayoutEffect } from '../../../hooks/useIsomorphicLayoutEffect';
 import { useKeyboard } from '../../../hooks/useKeyboard';
 import { usePreventBodyScroll } from '../../../hooks/usePreventBodyScroll';
 import { useRestoreFocus } from '../../../hooks/useRestoreFocus';
-import { DialogTheme } from '../../../lib/theme/componentThemes';
+import type { DialogTheme } from '../../../lib/theme/componentThemes';
+import { getComponentStyles } from '../../../lib/theme/store/theme';
 import { classnames } from '../../../lib/utils/classnames';
 import { hasAnimationDuration } from '../../../lib/utils/dom';
 import * as styles from './dialog.css';
@@ -28,7 +28,7 @@ export const Dialog: React.FC<DialogProps> = ({
   size,
   ...restProps
 }) => {
-  const dialogClassName = useComponentStyles('dialog', {
+  const dialogClassName = getComponentStyles('dialog', {
     dialog: true,
     variants: { size },
   });
@@ -82,7 +82,7 @@ export const Dialog: React.FC<DialogProps> = ({
     if (!open) {
       setVisible(false);
     }
-  }, [setVisible, open]);
+  }, [open]);
 
   if (!visible) {
     return null;

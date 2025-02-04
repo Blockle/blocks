@@ -1,8 +1,8 @@
-import React from 'react';
-import { useComponentStyles } from '../../../hooks/useComponentStyles';
-import { SelectTheme } from '../../../lib/theme/componentThemes';
+import type React from 'react';
+import type { SelectTheme } from '../../../lib/theme/componentThemes';
+import { getComponentStyles } from '../../../lib/theme/store/theme';
 import { classnames } from '../../../lib/utils/classnames';
-import { HTMLElementProps } from '../../../lib/utils/utils';
+import type { HTMLElementProps } from '../../../lib/utils/utils';
 import { Box } from '../../layout/Box';
 import * as styles from './select.css';
 
@@ -21,16 +21,16 @@ export const Select: React.FC<SelectProps> = ({
   ref,
   ...restProps
 }) => {
-  const wrapperClassName = useComponentStyles(
+  const wrapperClassName = getComponentStyles(
     'select',
     { wrapper: true },
     false,
   );
-  const selectClassName = useComponentStyles('select', {
+  const selectClassName = getComponentStyles('select', {
     select: true,
     variants: { variant },
   });
-  const iconClassName = useComponentStyles('select', { icon: true }, false);
+  const iconClassName = getComponentStyles('select', { icon: true }, false);
 
   return (
     <Box className={classnames(styles.wrapper, wrapperClassName)}>
@@ -56,6 +56,7 @@ export const Select: React.FC<SelectProps> = ({
 const DefaultIcon: React.FC = () => {
   return (
     // TOOD - replace with actual icon component renderer
+    // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
     <svg viewBox="0 0 24 24" style={{ width: '1rem', height: '1rem' }}>
       <path
         fill="currentColor"

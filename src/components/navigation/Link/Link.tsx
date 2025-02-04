@@ -1,9 +1,9 @@
-import { useComponentStyles } from '../../../hooks/useComponentStyles';
 import { createAsChildTemplate } from '../../../lib/asChildRenderer/createAsChildTemplate';
-import { MarginAtoms } from '../../../lib/css/atoms';
-import { LinkTheme } from '../../../lib/theme/componentThemes';
+import type { MarginAtoms } from '../../../lib/css/atoms';
+import type { LinkTheme } from '../../../lib/theme/componentThemes';
+import { getComponentStyles } from '../../../lib/theme/store/theme';
 import { classnames } from '../../../lib/utils/classnames';
-import { HTMLElementProps } from '../../../lib/utils/utils';
+import type { HTMLElementProps } from '../../../lib/utils/utils';
 
 export type LinkProps = {
   asChild?: boolean;
@@ -25,7 +25,7 @@ export const Link: React.FC<LinkProps> = ({
   variant,
   ...restProps
 }) => {
-  const linkClassName = useComponentStyles('link', {
+  const linkClassName = getComponentStyles('link', {
     base: true,
     variants: { variant, underline },
   });

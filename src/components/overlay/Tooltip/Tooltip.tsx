@@ -7,14 +7,15 @@ import {
   useRef,
   useState,
 } from 'react';
-import { useComponentStyles } from '../../../hooks/useComponentStyles';
 import { composeRefs } from '../../../lib/react/refs';
-import { TooltipTheme } from '../../../lib/theme/componentThemes';
-import { Popover, PopoverProps } from '../Popover/Popover';
+import type { TooltipTheme } from '../../../lib/theme/componentThemes';
+import { getComponentStyles } from '../../../lib/theme/store/theme';
+import { Popover, type PopoverProps } from '../Popover/Popover';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ReactElement = React.ReactElement<
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   any,
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   string | React.JSXElementConstructor<any>
 >;
 
@@ -35,7 +36,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
   const ref = useRef<HTMLElement>(null);
   const [open, setOpen] = useState(false);
 
-  const tooltipClassName = useComponentStyles('tooltip', {
+  const tooltipClassName = getComponentStyles('tooltip', {
     base: true,
     variants: { colorScheme },
   });
@@ -66,7 +67,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
       element.removeEventListener('focusin', onEnter);
       element.removeEventListener('focusout', onLeave);
     };
-  }, [ref, setOpen]);
+  }, []);
 
   if (Children.count(children) !== 1) {
     throw new Error('Tooltip component can only have one child');

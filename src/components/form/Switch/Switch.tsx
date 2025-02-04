@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useComponentStyles } from '../../../hooks/useComponentStyles';
+import { getComponentStyles } from '../../../lib/theme/store/theme';
 import { classnames } from '../../../lib/utils/classnames';
-import { HTMLElementProps } from '../../../lib/utils/utils';
+import type { HTMLElementProps } from '../../../lib/utils/utils';
 import * as styles from './switch.css';
 
 export type SwitchProps = {
@@ -20,8 +20,8 @@ export const Switch: React.FC<SwitchProps> = ({
   const [isChecked, setIsChecked] = useState<boolean>(
     defaultChecked || checked || false,
   );
-  const baseClassName = useComponentStyles('switch', { base: true });
-  const sliderClassName = useComponentStyles('switch', { slider: true }, false);
+  const baseClassName = getComponentStyles('switch', { base: true });
+  const sliderClassName = getComponentStyles('switch', { slider: true }, false);
 
   useEffect(() => {
     if (checked !== undefined) {
@@ -55,6 +55,7 @@ export const Switch: React.FC<SwitchProps> = ({
   return (
     <>
       {/* Note: no tabindex needed on div, Safari needs special setting enabled for keyboard navigation.. */}
+      {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
       <div
         className={classnames(className, styles.container, baseClassName)}
         data-checked={isChecked}

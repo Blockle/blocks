@@ -1,8 +1,8 @@
+import type { Atoms } from '../../../lib/css/atoms';
 import {
-  useComponentStyleDefaultProps,
-  useComponentStyles,
-} from '../../../hooks/useComponentStyles';
-import { Atoms } from '../../../lib/css/atoms';
+  getComponentStyleDefaults,
+  getComponentStyles,
+} from '../../../lib/theme/store/theme';
 import { classnames } from '../../../lib/utils/classnames';
 import { Box } from '../../layout/Box';
 import * as styles from './divider.css';
@@ -18,8 +18,8 @@ export const Divider: React.FC<DividerProps> = ({
   color,
   ...restProps
 }) => {
-  const dividerClass = useComponentStyles('divider', { base: true });
-  const dividerDefaults = useComponentStyleDefaultProps('divider');
+  const dividerClass = getComponentStyles('divider', { base: true });
+  const dividerDefaults = getComponentStyleDefaults('divider');
 
   return (
     <Box

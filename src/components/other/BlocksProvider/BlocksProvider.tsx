@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { atoms } from '../../../lib/css/atoms/sprinkles.css';
-import { Theme } from '../../../lib/theme/makeTheme';
+import type { Theme } from '../../../lib/theme/makeTheme';
+import { setTheme } from '../../../lib/theme/store/theme';
 import { classnames } from '../../../lib/utils/classnames';
 import { BlocksProviderContext } from './context';
 
@@ -20,11 +21,12 @@ export const BlocksProvider: React.FC<BlocksProviderProps> = ({
   const [ariaHidden, setAriaHidden] = useState(false);
   const contextValue = useMemo(
     () => ({
-      theme,
       setAriaHidden,
     }),
-    [theme, setAriaHidden],
+    [],
   );
+
+  setTheme(theme);
 
   return (
     <BlocksProviderContext value={contextValue}>

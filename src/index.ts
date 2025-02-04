@@ -14,7 +14,7 @@ export { vars } from './lib/theme/vars.css';
 export {
   VisuallyHidden,
   type VisuallyHiddenProps,
-} from './components/Accessibility/VisuallyHidden';
+} from './components/accessibility/VisuallyHidden';
 export { Divider, type DividerProps } from './components/display/Divider';
 export { Progress, type ProgressProps } from './components/feedback/Progress';
 export { Spinner, type SpinnerProps } from './components/feedback/Spinner';
@@ -44,14 +44,11 @@ export { Text, type TextProps } from './components/typography/Text';
 export { createAsChildTemplate } from './lib/asChildRenderer/createAsChildTemplate';
 
 // Hooks
-export {
-  useComponentStyleDefaultProps,
-  useComponentStyles,
-} from './hooks/useComponentStyles';
 export { useIsomorphicLayoutEffect } from './hooks/useIsomorphicLayoutEffect';
 export { useKeyboard } from './hooks/useKeyboard';
 export { usePreventBodyScroll } from './hooks/usePreventBodyScroll';
 export { useRootAriaHidden } from './hooks/useRootAriaHidden';
 
 // Utils
+export { getTheme, setTheme } from './lib/theme/store/theme';
 export { classnames } from './lib/utils/classnames';

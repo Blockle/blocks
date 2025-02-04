@@ -1,11 +1,11 @@
-import React from 'react';
-import { useComponentStyles } from '../../../hooks/useComponentStyles';
+import type React from 'react';
 import { createAsChildTemplate } from '../../../lib/asChildRenderer/createAsChildTemplate';
-import { Atoms, MarginAtoms, atoms } from '../../../lib/css/atoms';
-import { ButtonTheme } from '../../../lib/theme/componentThemes';
+import { type Atoms, type MarginAtoms, atoms } from '../../../lib/css/atoms';
+import type { ButtonTheme } from '../../../lib/theme/componentThemes';
+import { getComponentStyles } from '../../../lib/theme/store/theme';
 import { getAtomsAndProps } from '../../../lib/utils/atom-props';
 import { classnames } from '../../../lib/utils/classnames';
-import { HTMLElementProps } from '../../../lib/utils/utils';
+import type { HTMLElementProps } from '../../../lib/utils/utils';
 import { Spinner } from '../../feedback/Spinner';
 import * as styles from './Button.css';
 
@@ -43,7 +43,7 @@ export const Button: React.FC<ButtonProps> = ({
   variant,
   ...restProps
 }) => {
-  const buttonClassName = useComponentStyles('button', {
+  const buttonClassName = getComponentStyles('button', {
     base: true,
     variants: {
       variant,
