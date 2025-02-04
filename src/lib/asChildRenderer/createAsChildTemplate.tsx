@@ -115,7 +115,7 @@ export function createAsChildTemplate<T extends keyof HTMLElementTagNameMap>(def
 function isValidElementWithChildren(
   child: React.ReactNode,
 ): child is React.ReactElement<{ children: React.ReactNode; ref?: unknown }> {
-  return isValidElement(child) && !!child.props; // && isValidElement((child.props as UknownRecord).children);
+  return isValidElement(child) && !!child.props;
 }
 
 // Slot
