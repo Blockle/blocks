@@ -11,8 +11,22 @@ export type SpinnerProps = {
   style?: React.CSSProperties;
 } & MarginAtoms;
 
-export const Spinner: React.FC<SpinnerProps> = ({ className, size, color, ...restProps }) => {
-  const spinnerClassName = useComponentStyles('spinner', { base: true, variants: { size, color } });
+export const Spinner: React.FC<SpinnerProps> = ({
+  className,
+  size,
+  color,
+  ...restProps
+}) => {
+  const spinnerClassName = useComponentStyles('spinner', {
+    base: true,
+    variants: { size, color },
+  });
 
-  return <Box color={color} className={classnames(spinnerClassName, className)} {...restProps} />;
+  return (
+    <Box
+      color={color}
+      className={classnames(spinnerClassName, className)}
+      {...restProps}
+    />
+  );
 };

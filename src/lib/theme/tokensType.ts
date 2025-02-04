@@ -1,5 +1,12 @@
 type FontWeight = 'regular' | 'medium' | 'strong';
-type Space = 'none' | 'gutter' | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
+type Space =
+  | 'none'
+  | 'gutter'
+  | 'xsmall'
+  | 'small'
+  | 'medium'
+  | 'large'
+  | 'xlarge';
 type Transition = 'slow' | 'normal' | 'fast';
 type BorderRadius = 'small' | 'medium' | 'large' | 'xlarge';
 type BorderWidth = 'small' | 'medium' | 'large';

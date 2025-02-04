@@ -17,7 +17,13 @@ export type BoxProps = {
 
 const { Template, Slot } = createAsChildTemplate('div');
 
-export const Box: React.FC<BoxProps> = ({ asChild, className, children, ref, ...restProps }) => {
+export const Box: React.FC<BoxProps> = ({
+  asChild,
+  className,
+  children,
+  ref,
+  ...restProps
+}) => {
   const [atomsProps, otherProps] = getAtomsAndProps(restProps);
 
   return (

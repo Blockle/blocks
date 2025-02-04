@@ -13,7 +13,11 @@ export type DividerProps = {
   style?: React.CSSProperties;
 };
 
-export const Divider: React.FC<DividerProps> = ({ className, color, ...restProps }) => {
+export const Divider: React.FC<DividerProps> = ({
+  className,
+  color,
+  ...restProps
+}) => {
   const dividerClass = useComponentStyles('divider', { base: true });
   const dividerDefaults = useComponentStyleDefaultProps('divider');
 

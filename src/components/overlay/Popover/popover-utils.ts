@@ -25,10 +25,18 @@ export function getPopoverPosition(
 
   popoverStyles = getComputedStyle(popoverRef.current);
 
-  const marginTop = Number.parseFloat(popoverStyles.getPropertyValue('margin-top'));
-  const marginRight = Number.parseFloat(popoverStyles.getPropertyValue('margin-right'));
-  const marginBottom = Number.parseFloat(popoverStyles.getPropertyValue('margin-bottom'));
-  const marginLeft = Number.parseFloat(popoverStyles.getPropertyValue('margin-left'));
+  const marginTop = Number.parseFloat(
+    popoverStyles.getPropertyValue('margin-top'),
+  );
+  const marginRight = Number.parseFloat(
+    popoverStyles.getPropertyValue('margin-right'),
+  );
+  const marginBottom = Number.parseFloat(
+    popoverStyles.getPropertyValue('margin-bottom'),
+  );
+  const marginLeft = Number.parseFloat(
+    popoverStyles.getPropertyValue('margin-left'),
+  );
   const marginY = marginTop + marginBottom;
   const marginX = marginRight + marginLeft;
 
@@ -41,11 +49,14 @@ export function getPopoverPosition(
   const anchorTop = anchorRect.top + docScrollTop;
   const topPosition = anchorRect.top - (popoverRect.height + marginTop);
   const rightPosition = anchorRect.left + anchorRect.width + popoverRect.width;
-  const bottomPosition = anchorRect.top + anchorRect.height + popoverRect.height;
+  const bottomPosition =
+    anchorRect.top + anchorRect.height + popoverRect.height;
   const leftPosition = anchorRect.left - popoverRect.width;
 
-  const offsetX = anchorLeft - marginLeft - (popoverRect.width - anchorRect.width) / 2;
-  const offsetY = anchorTop - marginTop - (popoverRect.height - anchorRect.height) / 2;
+  const offsetX =
+    anchorLeft - marginLeft - (popoverRect.width - anchorRect.width) / 2;
+  const offsetY =
+    anchorTop - marginTop - (popoverRect.height - anchorRect.height) / 2;
 
   // Reset the transform
   popoverRef.current.style.transform = '';

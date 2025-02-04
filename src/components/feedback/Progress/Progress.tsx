@@ -57,7 +57,11 @@ export const Progress: React.FC<ProgressProps> = ({
         backgroundColor="currentColor"
         inlineSize="full"
         blockSize="full"
-        style={{ transform: indeterminate ? undefined : `translateX(-${100 - progress}%)` }}
+        style={{
+          transform: indeterminate
+            ? undefined
+            : `translateX(-${100 - progress}%)`,
+        }}
       />
     </Box>
   );

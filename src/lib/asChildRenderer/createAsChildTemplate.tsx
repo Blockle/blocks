@@ -1,6 +1,7 @@
-import React, { Children, cloneElement, isValidElement } from 'react';
+import type React from 'react';
+import { Children, cloneElement, isValidElement } from 'react';
 import { mergeProps } from '../react/mergeProps';
-import { HTMLElementProps } from '../utils/utils';
+import type { HTMLElementProps } from '../utils/utils';
 
 type TemplateProps = {
   asChild?: boolean;
@@ -27,7 +28,9 @@ type TemplateProps = {
  * <MyComponent className="test"><a href="#">Link</a></MyComponent> // Renders as <div class="test"><a href="#">Link</a></div>
  * <MyComponent className="test" asChild><a href="#">Link</a></MyComponent> // Renders as <a href="#" class="test">Link</a>
  */
-export function createAsChildTemplate<T extends keyof HTMLElementTagNameMap>(defaultElement: T) {
+export function createAsChildTemplate<T extends keyof HTMLElementTagNameMap>(
+  defaultElement: T,
+) {
   // Cast as any to avoid TS errors when using <Tag />
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const Tag = defaultElement as any;
@@ -93,11 +96,15 @@ export function createAsChildTemplate<T extends keyof HTMLElementTagNameMap>(def
     const nextChildren = [...childrenArray];
 
     if (nextChildren.length === 1 && !slot.props.children.props.children) {
-      return cloneElement(slot.props.children, mergeProps(rootProps, slot.props.children.props));
+      return cloneElement(
+        slot.props.children,
+        mergeProps(rootProps, slot.props.children.props),
+      );
     }
 
     // Replace Slot with children
-    nextChildren[slotIndex] = slot.props.children.props.children as React.ReactElement;
+    nextChildren[slotIndex] = slot.props.children.props
+      .children as React.ReactElement;
 
     return cloneElement(
       slot.props.children,

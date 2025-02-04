@@ -12,7 +12,9 @@ export type InputProps = {
   name: string;
   ref?: React.Ref<HTMLInputElement>;
   startSlot?: React.ReactNode;
-  type?: OptionalLiteral<'email' | 'number' | 'password' | 'tel' | 'text' | 'url'>;
+  type?: OptionalLiteral<
+    'email' | 'number' | 'password' | 'tel' | 'text' | 'url'
+  >;
 } & Omit<HTMLElementProps<HTMLInputElement>, 'type'>;
 
 export const Input: React.FC<InputProps> = ({
@@ -26,12 +28,20 @@ export const Input: React.FC<InputProps> = ({
   ...restProps
 }) => {
   const id = useId();
-  const containerClassName = useComponentStyles('input', { container: true }, false);
+  const containerClassName = useComponentStyles(
+    'input',
+    { container: true },
+    false,
+  );
   const inputClassName = useComponentStyles('input', { input: true });
 
   return (
     <Box>
-      <Box display="flex" alignItems="center" className={classnames(containerClassName, className)}>
+      <Box
+        display="flex"
+        alignItems="center"
+        className={classnames(containerClassName, className)}
+      >
         {startSlot}
 
         <input

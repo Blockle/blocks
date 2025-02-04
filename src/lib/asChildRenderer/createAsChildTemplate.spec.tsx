@@ -9,7 +9,11 @@ type TestComponentProps = {
   children?: React.ReactNode;
 };
 
-const TestComponent: React.FC<TestComponentProps> = ({ children, asChild, className }) => {
+const TestComponent: React.FC<TestComponentProps> = ({
+  children,
+  asChild,
+  className,
+}) => {
   return (
     <Template asChild={asChild} className={className}>
       <Slot>{children}</Slot>
@@ -17,7 +21,11 @@ const TestComponent: React.FC<TestComponentProps> = ({ children, asChild, classN
   );
 };
 
-const AdvancedTestComponent: React.FC<TestComponentProps> = ({ children, asChild, className }) => {
+const AdvancedTestComponent: React.FC<TestComponentProps> = ({
+  children,
+  asChild,
+  className,
+}) => {
   return (
     <Template asChild={asChild} className={className}>
       <span>A</span>
@@ -38,7 +46,9 @@ describe('asChildRenderer', () => {
   });
 
   it('should render the default element with className', () => {
-    const { container } = render(<TestComponent className="test">Default</TestComponent>);
+    const { container } = render(
+      <TestComponent className="test">Default</TestComponent>,
+    );
     const targetElement = container.firstElementChild as HTMLElement;
 
     expect(screen.getByText('Default')).toBeInTheDocument();
@@ -117,7 +127,9 @@ describe('asChildRenderer', () => {
     );
 
     expect(spy).toHaveBeenCalled();
-    expect(spy.mock.calls[0][0]).toMatch('When using asChild, only one child is allowed');
+    expect(spy.mock.calls[0][0]).toMatch(
+      'When using asChild, only one child is allowed',
+    );
 
     spy.mockRestore();
   });
@@ -128,7 +140,9 @@ describe('asChildRenderer', () => {
     render(<TestComponent asChild />);
 
     expect(spy).toHaveBeenCalled();
-    expect(spy.mock.calls[0][0]).toMatch('When using asChild, at least one child is required');
+    expect(spy.mock.calls[0][0]).toMatch(
+      'When using asChild, at least one child is required',
+    );
 
     spy.mockRestore();
   });

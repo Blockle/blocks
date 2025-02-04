@@ -4,7 +4,9 @@ type DialogContextValue = {
   setEnabled: (active: boolean) => void;
 };
 
-export const DialogContext = createContext<DialogContextValue | undefined>(undefined);
+export const DialogContext = createContext<DialogContextValue | undefined>(
+  undefined,
+);
 
 export const useNestedDialog = (open: boolean): boolean => {
   const parentDialog = useContext(DialogContext);

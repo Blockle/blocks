@@ -6,7 +6,11 @@ export type RadioGroupProps = {
   style?: React.CSSProperties;
 };
 
-export const RadioGroup: React.FC<RadioGroupProps> = ({ children, required, ...restProps }) => {
+export const RadioGroup: React.FC<RadioGroupProps> = ({
+  children,
+  required,
+  ...restProps
+}) => {
   return (
     <div role="radiogroup" aria-required={required} {...restProps}>
       {children}

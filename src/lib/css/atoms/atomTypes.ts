@@ -4,7 +4,9 @@ export type Atoms = Parameters<typeof atoms>[0];
 
 export type ResponsiveValue<T> = T | [T] | [T, T] | [T, T, T] | [T, T, T, T];
 
-export type ResponsiveDisplayFlex = ResponsiveValue<'none' | 'flex' | 'inline-flex'>;
+export type ResponsiveDisplayFlex = ResponsiveValue<
+  'none' | 'flex' | 'inline-flex'
+>;
 
 export type MarginAtoms = {
   margin?: Atoms['margin'];

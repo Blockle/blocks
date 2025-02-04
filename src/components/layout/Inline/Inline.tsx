@@ -1,4 +1,9 @@
-import { Atoms, MarginAtoms, PaddingAtoms, ResponsiveDisplayFlex } from '../../../lib/css/atoms';
+import {
+  Atoms,
+  MarginAtoms,
+  PaddingAtoms,
+  ResponsiveDisplayFlex,
+} from '../../../lib/css/atoms';
 import {
   AlignItemsMap,
   JustifyContentMap,

@@ -1,4 +1,9 @@
-import { Atoms, MarginAtoms, PaddingAtoms, ResponsiveDisplayFlex } from '../../../lib/css/atoms';
+import {
+  Atoms,
+  MarginAtoms,
+  PaddingAtoms,
+  ResponsiveDisplayFlex,
+} from '../../../lib/css/atoms';
 import { AlignItemsMap, alignItemsMap } from '../../../lib/css/flexbox/flexbox';
 import { Box } from '../Box';
 
@@ -26,7 +31,11 @@ export const Stack: React.FC<StackProps> = ({
   alignX,
   ...restProps
 }) => {
-  if (process.env.NODE_ENV === 'development' && restProps.start !== undefined && Tag !== 'ol') {
+  if (
+    process.env.NODE_ENV === 'development' &&
+    restProps.start !== undefined &&
+    Tag !== 'ol'
+  ) {
     console.warn('Stack: "start" prop is only valid with tag="ol"');
   }
 

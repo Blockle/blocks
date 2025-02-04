@@ -3,14 +3,23 @@ import { ThemeTokens } from './tokensType';
 export const makeVanillaTheme = (tokens: ThemeTokens) => {
   return {
     space: tokens.spacing as Record<keyof typeof tokens.spacing, string>,
-    borderRadius: tokens.border.radius as Record<keyof typeof tokens.border.radius, string>,
+    borderRadius: tokens.border.radius as Record<
+      keyof typeof tokens.border.radius,
+      string
+    >,
     color: tokens.color as Record<keyof typeof tokens.color, string>,
-    borderWidth: tokens.border.width as Record<keyof typeof tokens.border.width, string>,
+    borderWidth: tokens.border.width as Record<
+      keyof typeof tokens.border.width,
+      string
+    >,
     fontFamily: tokens.typography.fontFamily as Record<
       keyof typeof tokens.typography.fontFamily,
       string
     >,
-    fontSize: tokens.typography.fontSize as Record<keyof typeof tokens.typography.fontSize, string>,
+    fontSize: tokens.typography.fontSize as Record<
+      keyof typeof tokens.typography.fontSize,
+      string
+    >,
     fontWeight: tokens.typography.fontWeight as unknown as Record<
       keyof typeof tokens.typography.fontWeight,
       string
@@ -19,7 +28,10 @@ export const makeVanillaTheme = (tokens: ThemeTokens) => {
       keyof typeof tokens.typography.lineHeight,
       string
     >,
-    transition: tokens.transition as Record<keyof typeof tokens.transition, string>,
+    transition: tokens.transition as Record<
+      keyof typeof tokens.transition,
+      string
+    >,
     shadow: tokens.shadow as Record<keyof typeof tokens.shadow, string>,
     focus: {
       boxShadow: tokens.focus.boxShadow,

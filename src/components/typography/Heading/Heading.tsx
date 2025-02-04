@@ -22,7 +22,11 @@ export const Heading: React.FC<HeadingProps> = ({
   const Tag = `h${level}` as const;
 
   return (
-    <Box asChild className={classnames(styles.heading, className)} {...restProps}>
+    <Box
+      asChild
+      className={classnames(styles.heading, className)}
+      {...restProps}
+    >
       <Tag>{children}</Tag>
     </Box>
   );

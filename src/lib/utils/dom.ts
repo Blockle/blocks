@@ -8,7 +8,10 @@ export function hasAnimationDuration(element: HTMLElement | null): boolean {
 
   const style = window.getComputedStyle(element);
 
-  return hasDuration(style.transitionDuration) || hasDuration(style.animationDuration);
+  return (
+    hasDuration(style.transitionDuration) ||
+    hasDuration(style.animationDuration)
+  );
 }
 
 function hasDuration(duration: string): boolean {
