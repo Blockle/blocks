@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 0.19.1
+
+### Patch Changes
+
+- 32998ec: Refactored inert legacy code
+
 ## 0.19.0
 
 ### Minor Changes
