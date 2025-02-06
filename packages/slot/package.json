@@ -1,7 +1,7 @@
 {
-  "name": "@blockle/blocks",
-  "version": "0.20.0-alpha1",
-  "description": "Design system for React",
+  "name": "@blockle/slot",
+  "version": "0.0.1",
+  "description": "Slot",
   "type": "module",
   "exports": {
     ".": {
@@ -13,9 +13,7 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

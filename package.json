@@ -13,7 +13,12 @@
     "dist/side-effects/**"
   ],
   "type": "module",
-  "workspaces": ["packages/theme", "packages/blocks"],
+  "workspaces": [
+    "packages/core",
+    "packages/slot",
+    "packages/layout",
+    "packages/blocks"
+  ],
   "exports": {
     ".": {
       "types": {

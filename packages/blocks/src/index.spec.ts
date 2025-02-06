@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
-describe('index', () => {
+// Test if the index file is working
+import './index';
+
+describe('@blockle/blocks', () => {
   it('should work', () => {
     expect(true).toBe(true);
   });

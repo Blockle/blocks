@@ -1,7 +1,7 @@
 {
-  "name": "@blockle/blocks",
-  "version": "0.20.0-alpha1",
-  "description": "Design system for React",
+  "name": "@blockle/layout",
+  "version": "0.0.1",
+  "description": "Layout components for Blockle",
   "type": "module",
   "exports": {
     ".": {
@@ -37,6 +37,13 @@
   },
   "homepage": "https://github.com/Blockle/blocks#readme",
   "dependencies": {
-    "@blockle/blocks-core": "^0.0.1"
+    "@blockle/blocks-core": "^0.0.1",
+    "@blockle/slot": "^0.0.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   }
 }

@@ -1,2 +1,2 @@
 // Export @blockle/* packages
-export * from '@blockle/theme';
+export * from '@blockle/blocks-core';
