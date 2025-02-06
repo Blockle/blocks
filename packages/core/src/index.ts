@@ -1,3 +1,5 @@
+export type { ThemeTokens } from './config/themeTokens';
+export { vars } from './css/vars.css';
 export { sprinkles, type Sprinkles } from './sprinkles/sprinkles.css';
 export { classnames } from './utils/classnames/classnames';
 export { mergeProps } from './utils/react/mergeProps';

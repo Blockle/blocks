@@ -37,6 +37,8 @@
   },
   "homepage": "https://github.com/Blockle/blocks#readme",
   "dependencies": {
-    "@blockle/blocks-core": "^0.0.1"
+    "@blockle/blocks-core": "^0.0.1",
+    "@blockle/layout": "^0.0.1",
+    "@blockle/slot": "^0.0.1"
   }
 }
