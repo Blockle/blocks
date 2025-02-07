@@ -5,7 +5,7 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   plugins: [vanillaExtractPlugin()],
   test: {
-    globals: true,
+    globals: false,
     environment: 'jsdom',
     workspace: ['packages/*'],
     include: ['**/*.test.{ts,tsx}'],
