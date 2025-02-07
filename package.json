@@ -1,17 +1,10 @@
 {
-  "name": "@blockle/blocks",
-  "version": "0.20.0-alpha1",
+  "name": "blocks",
+  "private": true,
   "description": "Blocks design system",
   "repository": "git@github.com:Blockle/blocks.git",
   "license": "MIT",
   "author": "Niek Saarberg <n.saarberg@gmail.com>",
-  "sideEffects": [
-    "**/entries/reset.ts",
-    "**/reset/**",
-    "*.css.*",
-    "dist/reset.*",
-    "dist/side-effects/**"
-  ],
   "type": "module",
   "workspaces": [
     "packages/core",
@@ -20,47 +13,11 @@
     "packages/layout",
     "packages/blocks"
   ],
-  "exports": {
-    ".": {
-      "types": {
-        "import": "./dist/index.d.mts",
-        "require": "./dist/index.d.ts"
-      },
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
-    },
-    "./reset": {
-      "types": {
-        "import": "./dist/reset.d.mts",
-        "require": "./dist/reset.d.ts"
-      },
-      "import": "./dist/reset.mjs",
-      "require": "./dist/reset.cjs"
-    },
-    "./themes/momotaro": {
-      "types": {
-        "import": "./dist/themes/momotaro.d.mts",
-        "require": "./dist/themes/momotaro.d.ts"
-      },
-      "import": "./dist/themes/momotaro.mjs",
-      "require": "./dist/themes/momotaro.cjs"
-    },
-    "./package.json": "./package.json"
-  },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist",
-    "reset",
-    "themes/momotaro"
-  ],
   "scripts": {
     "build": "npm run build --workspaces",
     "build-storybook": "storybook build",
     "changeset": "changeset",
     "coverage": "vitest run --coverage",
-    "fix": "crackle fix",
     "lint": "biome format ./src",
     "lint:fix": "biome format --write ./src",
     "release": "npm run ts && npm run test && npm run build && changeset publish",
@@ -75,8 +32,6 @@
     "@biomejs/biome": "1.9.4",
     "@changesets/cli": "^2.27.12",
     "@chromatic-com/storybook": "^3.2.4",
-    "@crackle/cli": "^0.15.5",
-    "@crackle/core": "^0.33.3",
     "@storybook/addon-a11y": "^8.5.3",
     "@storybook/addon-coverage": "^1.0.5",
     "@storybook/addon-essentials": "^8.5.3",
@@ -100,7 +55,6 @@
     "autoprefixer": "^10.4.19",
     "cross-env": "^7.0.3",
     "jsdom": "^26.0.0",
-    "prop-types": "^15.8.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "rollup-preserve-directives": "^1.1.3",
