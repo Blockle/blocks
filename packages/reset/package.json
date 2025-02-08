@@ -1,9 +1,11 @@
 {
-  "name": "@blockle/blocks",
-  "version": "0.20.0-alpha1",
-  "description": "Design system for React",
+  "name": "@blockle/blocks-reset",
+  "version": "0.0.1",
+  "description": "CSS reset for Blockle",
   "type": "module",
-  "sideEffects": false,
+  "sideEffects": [
+    "*.css.*"
+  ],
   "exports": {
     ".": {
       "types": {
@@ -12,14 +14,6 @@
       },
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
-    },
-    "./reset": {
-      "types": {
-        "import": "./dist/reset.d.mts",
-        "require": "./dist/reset.d.ts"
-      },
-      "import": "./dist/reset.js",
-      "require": "./dist/reset.cjs"
     }
   },
   "files": [
@@ -46,10 +40,6 @@
   },
   "homepage": "https://github.com/Blockle/blocks#readme",
   "dependencies": {
-    "@blockle/blocks-core": "^0.0.1",
-    "@blockle/blocks-hooks": "^0.0.1",
-    "@blockle/blocks-layout": "^0.0.1",
-    "@blockle/blocks-reset": "^0.0.1",
-    "@blockle/blocks-slot": "^0.0.1"
+    "@blockle/blocks-core": "^0.0.1"
   }
 }

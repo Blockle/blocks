@@ -8,6 +8,7 @@
   "type": "module",
   "workspaces": [
     "packages/core",
+    "packages/reset",
     "packages/hooks",
     "packages/slot",
     "packages/layout",

@@ -1,17 +1,17 @@
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import react from '@vitejs/plugin-react-swc';
 import preserveDirectives from 'rollup-preserve-directives';
-import { type UserConfig, defineConfig } from 'vite';
+import { type LibraryOptions, type UserConfig, defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import { externalizeDeps } from 'vite-plugin-externalize-deps';
 
-export function createConfig(): UserConfig {
+export function createConfig(entry?: LibraryOptions['entry']): UserConfig {
   return defineConfig({
     build: {
       minify: false,
       ssr: true,
       lib: {
-        entry: 'src/index.ts',
+        entry: entry ?? 'src/index.ts',
         formats: ['es', 'cjs'],
       },
       rollupOptions: {
