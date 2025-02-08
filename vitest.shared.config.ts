@@ -1,13 +1,12 @@
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import { resolve } from 'node:path';
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from 'vite';
 
-export default defineConfig({
+export const sharedConfig = defineConfig({
   plugins: [vanillaExtractPlugin()],
   test: {
     globals: true,
     environment: 'jsdom',
-    workspace: ['packages/*'],
     include: ['**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}'],
     setupFiles: [
       resolve(__dirname, './setupTests.ts'),
