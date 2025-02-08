@@ -20,7 +20,7 @@
     "coverage": "vitest run --coverage",
     "lint": "biome format ./src",
     "format": "biome format --write ./src",
-    "release": "npm run --workspaces ts && npm run build && npm run test && changeset publish",
+    "release": "npm run build && npm run ts && npm run test && changeset publish",
     "storybook": "storybook dev -p 6006 --no-open",
     "test": "vitest --silent",
     "ts": "tsc --noemit --project ./tsconfig.json && npm run ts --workspaces"
