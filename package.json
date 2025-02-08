@@ -19,14 +19,11 @@
     "changeset": "changeset",
     "coverage": "vitest run --coverage",
     "lint": "biome format ./src",
-    "lint:fix": "biome format --write ./src",
-    "release": "npm run ts && npm run test && npm run build && changeset publish",
+    "format": "biome format --write ./src",
+    "release": "npm run --workspaces ts && npm run build && npm run test && changeset publish",
     "storybook": "storybook dev -p 6006 --no-open",
     "test": "vitest --silent",
     "ts": "tsc --noemit --project ./tsconfig.json"
-  },
-  "resolutions": {
-    "string-width": "^4.2.2"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
