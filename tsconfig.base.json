@@ -18,7 +18,7 @@
     "sourceMap": true,
     "strict": true,
     "target": "ESNext",
-    "types": ["@testing-library/jest-dom"]
+    "types": ["@testing-library/jest-dom", "vite/client"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]

@@ -1,5 +1,4 @@
 import type { Decorator, Preview } from '@storybook/react';
-import React from 'react';
 import { BlocksProvider } from '../src';
 import '../src/lib/css/reset/reset.css';
 import { momotaro } from '../src/themes/momotaro';

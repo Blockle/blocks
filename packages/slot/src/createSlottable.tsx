@@ -65,7 +65,7 @@ export function createSlottable<T extends keyof HTMLElementTagNameMap>(
     const slot = childrenArray[slotIndex];
 
     if (!slot) {
-      if (process.env.NODE_ENV !== 'production') {
+      if (!import.meta.env.PROD) {
         console.error('Template: No Slot provided');
       }
 
@@ -77,7 +77,7 @@ export function createSlottable<T extends keyof HTMLElementTagNameMap>(
     }
 
     if (!isValidElement(slot.props.children)) {
-      if (process.env.NODE_ENV !== 'production') {
+      if (!import.meta.env.PROD) {
         if (Children.toArray(slot.props.children).length === 0) {
           console.error('When using asChild, at least one child is required');
         } else {

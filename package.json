@@ -23,7 +23,7 @@
     "release": "npm run --workspaces ts && npm run build && npm run test && changeset publish",
     "storybook": "storybook dev -p 6006 --no-open",
     "test": "vitest --silent",
-    "ts": "tsc --noemit --project ./tsconfig.json"
+    "ts": "tsc --noemit --project ./tsconfig.json && npm run ts --workspaces"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
