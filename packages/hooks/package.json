@@ -1,5 +1,5 @@
 {
-  "name": "@blockle/hooks",
+  "name": "@blockle/blocks-hooks",
   "version": "0.0.1",
   "description": "React hooks for Blockle",
   "type": "module",

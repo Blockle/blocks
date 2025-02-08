@@ -1,17 +1,17 @@
-# @blockle/slot
+# @blockle/blocks-slot
 
 A simple slot component for React.
 
 ## Installation
 
 ```bash
-npm install @blockle/slot
+npm install @blockle/blocks-slot
 ```
 
 ## Usage
 
 ```tsx
-import { createSlottable, Slot } from '@blockle/slot';
+import { createSlottable, Slot } from '@blockle/blocks-slot';
 
 const Template = createSlottable('button'); // Provide a default tag name
 

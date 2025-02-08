@@ -1,4 +1,4 @@
-# @blockle/hooks
+# @blockle/blocks-hooks
 
 A collection of React hooks.
 

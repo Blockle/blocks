@@ -1,4 +1,4 @@
-# @blockle/layout
+# @blockle/blocks-layout
 
 ## Box
 

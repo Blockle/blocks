@@ -5,7 +5,7 @@ import {
   splitSpinklesAndComponentProps,
   sprinkles,
 } from '@blockle/blocks-core';
-import { createSlottable } from '@blockle/slot';
+import { createSlottable } from '@blockle/blocks-slot';
 
 export type BoxProps = {
   asChild?: boolean;
