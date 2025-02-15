@@ -1,5 +1,5 @@
 // Theming and styling
-export { atoms } from './lib/css/atoms/atoms';
+export { atoms as sprinkles } from './lib/css/atoms/atoms';
 export { minMediaQuery } from './lib/css/atoms/breakpoints';
 export { style } from './lib/css/style/style';
 export {

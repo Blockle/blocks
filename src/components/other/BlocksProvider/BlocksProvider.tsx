@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo, useState } from 'react';
 import { atoms } from '../../../lib/css/atoms/sprinkles.css';
 import type { Theme } from '../../../lib/theme/makeTheme';
