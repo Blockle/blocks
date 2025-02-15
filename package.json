@@ -1,11 +1,13 @@
 {
   "name": "@blockle/blocks",
-  "version": "0.20.0-alpha1",
+  "version": "0.20.0-alpha1.0",
   "description": "Blocks design system",
   "repository": "git@github.com:Blockle/blocks.git",
   "license": "MIT",
   "author": "Niek Saarberg <n.saarberg@gmail.com>",
-  "sideEffects": ["*.css.*"],
+  "sideEffects": [
+    "*.css.*"
+  ],
   "type": "module",
   "exports": {
     ".": {
@@ -37,7 +39,11 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "files": ["dist", "reset", "themes/momotaro"],
+  "files": [
+    "dist",
+    "reset",
+    "themes/momotaro"
+  ],
   "scripts": {
     "build": "vite build",
     "build-storybook": "storybook build",
