@@ -1,8 +1,8 @@
-import { Meta, StoryFn, StoryObj } from '@storybook/react';
+import type { Meta, StoryFn, StoryObj } from '@storybook/react';
 import { expect, within } from '@storybook/test';
 import { vars } from '../../../lib/theme/vars.css';
 import { Box } from '../Box';
-import { Stack, StackProps } from './Stack';
+import { Stack, type StackProps } from './Stack';
 
 export default {
   title: 'Layout/Stack',
@@ -32,7 +32,7 @@ export const Default: StoryObj<StackProps> = {
   },
 
   args: {
-    spacing: ['small', 'medium', 'large'],
+    space: ['small', 'medium', 'large'],
     children: (
       <>
         <Box backgroundColor="danger" padding="small">
@@ -60,7 +60,7 @@ export const List: StoryObj<StackProps> = {
   },
 
   args: {
-    spacing: ['small', 'medium', 'large'],
+    space: ['small', 'medium', 'large'],
     tag: 'ol',
     children: (
       <>

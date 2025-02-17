@@ -1,7 +1,7 @@
-import { Meta, StoryFn, StoryObj } from '@storybook/react';
+import type { Meta, StoryFn, StoryObj } from '@storybook/react';
 import { expect, within } from '@storybook/test';
 import { vars } from '../../../lib/theme/vars.css';
-import { Inline, InlineProps } from './Inline';
+import { Inline, type InlineProps } from './Inline';
 
 export default {
   title: 'Layout/Inline',
@@ -32,7 +32,7 @@ export const Default: StoryObj<InlineProps> = {
   },
 
   args: {
-    spacing: ['small', 'medium', 'large'],
+    space: ['small', 'medium', 'large'],
     children: (
       <>
         <div style={{ border: '1px red solid', width: '60px', height: '60px' }}>
@@ -79,7 +79,7 @@ export const List: StoryObj<InlineProps> = {
   },
 
   args: {
-    spacing: ['small', 'medium', 'large'],
+    space: ['small', 'medium', 'large'],
     children: (
       <>
         <li style={{ border: '1px red solid', width: '60px', height: '60px' }}>

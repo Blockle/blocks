@@ -1,12 +1,12 @@
-import {
+import type {
   Atoms,
   MarginAtoms,
   PaddingAtoms,
   ResponsiveDisplayFlex,
 } from '../../../lib/css/atoms';
 import {
-  AlignItemsMap,
-  JustifyContentMap,
+  type AlignItemsMap,
+  type JustifyContentMap,
   alignItemsMap,
   justifyContentMap,
 } from '../../../lib/css/flexbox/flexbox';
@@ -19,7 +19,7 @@ export type InlineProps = {
   children: React.ReactNode;
   className?: string;
   display?: ResponsiveDisplayFlex;
-  spacing: Atoms['gap'];
+  space: Atoms['gap'];
   style?: React.CSSProperties;
 } & MarginAtoms &
   PaddingAtoms;
@@ -30,14 +30,14 @@ export const Inline: React.FC<InlineProps> = ({
   tag: Tag = 'div',
   children,
   display = 'flex',
-  spacing,
+  space,
   ...props
 }) => {
   return (
     <Box
       asChild
       display={display}
-      gap={spacing}
+      gap={space}
       flexDirection="row"
       justifyContent={alignX ? justifyContentMap[alignX] : undefined}
       alignItems={alignY ? alignItemsMap[alignY] : undefined}

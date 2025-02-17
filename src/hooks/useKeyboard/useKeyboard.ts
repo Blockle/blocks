@@ -7,6 +7,7 @@ type UseKeyboardOptions = {
   type?: 'keydown' | 'keyup';
 };
 
+// useKeyboardEvent?
 export const useKeyboard = (
   key: KeyboardEvent['key'],
   callback: (event: KeyboardEvent) => void,

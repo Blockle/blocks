@@ -5,9 +5,7 @@
   "repository": "git@github.com:Blockle/blocks.git",
   "license": "MIT",
   "author": "Niek Saarberg <n.saarberg@gmail.com>",
-  "sideEffects": [
-    "*.css.*"
-  ],
+  "sideEffects": ["reset.css.*"],
   "type": "module",
   "exports": {
     ".": {
@@ -28,8 +26,8 @@
     },
     "./themes/momotaro": {
       "types": {
-        "import": "./dist/themes/momotaro.d.ts",
-        "require": "./dist/themes/momotaro.d.ts"
+        "import": "./dist/themes/momotaro/index.d.ts",
+        "require": "./dist/themes/momotaro/index.d.ts"
       },
       "import": "./dist/themes/momotaro.js",
       "require": "./dist/themes/momotaro.cjs"
@@ -39,11 +37,7 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist",
-    "reset",
-    "themes/momotaro"
-  ],
+  "files": ["dist", "reset", "themes/momotaro"],
   "scripts": {
     "build": "vite build",
     "build-storybook": "storybook build",
@@ -100,6 +94,7 @@
   },
   "peerDependencies": {
     "@vanilla-extract/css": ">=1.14",
+    "@vanilla-extract/css-utils": ">=0.1",
     "@vanilla-extract/sprinkles": ">=1.6",
     "react": ">=19.0.0",
     "react-dom": ">=19.0.0"
