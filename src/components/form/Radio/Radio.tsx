@@ -1,6 +1,6 @@
-import { useComponentStyles } from '../../../hooks/useComponentStyles';
+import { getComponentStyles } from '../../../lib/theme/store/theme';
 import { classnames } from '../../../lib/utils/classnames';
-import { HTMLElementProps } from '../../../lib/utils/utils';
+import type { HTMLElementProps } from '../../../lib/utils/utils';
 import { Label } from '../Label';
 import * as styles from './radio.css';
 
@@ -18,9 +18,9 @@ export const Radio: React.FC<RadioProps> = ({
   ref,
   ...restProps
 }) => {
-  const containerClassName = useComponentStyles('radio', { base: true }, false);
-  const iconClassName = useComponentStyles('radio', { icon: true }, false);
-  const labelClassName = useComponentStyles('checkbox', { label: true }, false);
+  const containerClassName = getComponentStyles('radio', { base: true }, false);
+  const iconClassName = getComponentStyles('radio', { icon: true }, false);
+  const labelClassName = getComponentStyles('checkbox', { label: true }, false);
 
   const input = (
     <div
@@ -42,6 +42,7 @@ export const Radio: React.FC<RadioProps> = ({
   }
 
   return (
+    // biome-ignore lint/a11y/noLabelWithoutControl: <explanation>
     <label className={labelClassName}>
       {input}
       <Label asSpan>{children}</Label>

@@ -1,6 +1,6 @@
-import { useComponentStyles } from '../../../hooks/useComponentStyles';
-import { MarginAtoms } from '../../../lib/css/atoms';
-import { SpinnerTheme } from '../../../lib/theme/componentThemes';
+import type { MarginAtoms } from '../../../lib/css/atoms';
+import type { SpinnerTheme } from '../../../lib/theme/componentThemes';
+import { getComponentStyles } from '../../../lib/theme/store/theme';
 import { classnames } from '../../../lib/utils/classnames';
 import { Box } from '../../layout/Box';
 
@@ -17,7 +17,7 @@ export const Spinner: React.FC<SpinnerProps> = ({
   color,
   ...restProps
 }) => {
-  const spinnerClassName = useComponentStyles('spinner', {
+  const spinnerClassName = getComponentStyles('spinner', {
     base: true,
     variants: { size, color },
   });

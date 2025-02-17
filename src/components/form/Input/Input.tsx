@@ -1,8 +1,8 @@
 import { useId } from 'react';
-import { useComponentStyles } from '../../../hooks/useComponentStyles';
+import { getComponentStyles } from '../../../lib/theme/store/theme';
 import { classnames } from '../../../lib/utils/classnames';
-import { OptionalLiteral } from '../../../lib/utils/helpers';
-import { HTMLElementProps } from '../../../lib/utils/utils';
+import type { OptionalLiteral } from '../../../lib/utils/helpers';
+import type { HTMLElementProps } from '../../../lib/utils/utils';
 import { Box } from '../../layout/Box';
 import * as styles from './input.css';
 
@@ -28,12 +28,12 @@ export const Input: React.FC<InputProps> = ({
   ...restProps
 }) => {
   const id = useId();
-  const containerClassName = useComponentStyles(
+  const containerClassName = getComponentStyles(
     'input',
     { container: true },
     false,
   );
-  const inputClassName = useComponentStyles('input', { input: true });
+  const inputClassName = getComponentStyles('input', { input: true });
 
   return (
     <Box>

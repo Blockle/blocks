@@ -1,10 +1,13 @@
-import {
+import type {
   Atoms,
   MarginAtoms,
   PaddingAtoms,
   ResponsiveDisplayFlex,
 } from '../../../lib/css/atoms';
-import { AlignItemsMap, alignItemsMap } from '../../../lib/css/flexbox/flexbox';
+import {
+  type AlignItemsMap,
+  alignItemsMap,
+} from '../../../lib/css/flexbox/flexbox';
 import { Box } from '../Box';
 
 export type StackProps = {
@@ -13,7 +16,7 @@ export type StackProps = {
   children: React.ReactNode;
   className?: string;
   display?: ResponsiveDisplayFlex;
-  spacing: Atoms['gap'];
+  space: Atoms['gap'];
   style?: React.CSSProperties;
   role?: React.AriaRole;
   /**
@@ -27,8 +30,8 @@ export const Stack: React.FC<StackProps> = ({
   tag: Tag = 'div',
   display = 'flex',
   children,
-  spacing,
-  alignX,
+  space,
+  alignX = 'left',
   ...restProps
 }) => {
   if (
@@ -43,7 +46,7 @@ export const Stack: React.FC<StackProps> = ({
     <Box
       asChild
       display={display}
-      gap={spacing}
+      gap={space}
       flexDirection="column"
       alignItems={alignX ? alignItemsMap[alignX] : undefined}
       {...restProps}

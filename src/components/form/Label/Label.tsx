@@ -1,8 +1,8 @@
-import { useComponentStyles } from '../../../hooks/useComponentStyles';
-import { Atoms, atoms } from '../../../lib/css/atoms';
-import { LabelTheme } from '../../../lib/theme/componentThemes';
+import { type Atoms, atoms } from '../../../lib/css/atoms';
+import type { LabelTheme } from '../../../lib/theme/componentThemes';
+import { getComponentStyles } from '../../../lib/theme/store/theme';
 import { classnames } from '../../../lib/utils/classnames';
-import { HTMLElementProps } from '../../../lib/utils/utils';
+import type { HTMLElementProps } from '../../../lib/utils/utils';
 
 export type LabelProps = {
   /**
@@ -29,7 +29,7 @@ export const Label: React.FC<LabelProps> = ({
   ...restProps
 }) => {
   const Component = asSpan ? 'span' : 'label';
-  const containerClassName = useComponentStyles('label', {
+  const containerClassName = getComponentStyles('label', {
     base: true,
     variants: { required, size },
   });

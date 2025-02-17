@@ -1,4 +1,7 @@
-import React, { useEffect } from 'react';
+'use client';
+
+import type React from 'react';
+import { useEffect } from 'react';
 
 type UseClickOutsideOptions = {
   enabled?: boolean;

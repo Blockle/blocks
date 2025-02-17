@@ -1,5 +1,5 @@
-import React from 'react';
-import { useComponentStyles } from '../../../hooks/useComponentStyles';
+import type React from 'react';
+import { getComponentStyles } from '../../../lib/theme/store/theme';
 import { classnames } from '../../../lib/utils/classnames';
 import { Box } from '../../layout/Box';
 
@@ -28,14 +28,14 @@ export const Progress: React.FC<ProgressProps> = ({
   ...restProps
 }) => {
   const progress = (value / max) * 100;
-  const containerClassName = useComponentStyles(
+  const containerClassName = getComponentStyles(
     'progress',
     {
       base: true,
     },
     false,
   );
-  const barClassName = useComponentStyles(
+  const barClassName = getComponentStyles(
     'progress',
     { bar: true, variants: { indeterminate } },
     false,

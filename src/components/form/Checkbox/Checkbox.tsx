@@ -1,7 +1,8 @@
-import React, { useId } from 'react';
-import { useComponentStyles } from '../../../hooks/useComponentStyles';
+import type React from 'react';
+import { useId } from 'react';
+import { getComponentStyles } from '../../../lib/theme/store/theme';
 import { classnames } from '../../../lib/utils/classnames';
-import { HTMLElementProps } from '../../../lib/utils/utils';
+import type { HTMLElementProps } from '../../../lib/utils/utils';
 import { Label } from '../Label/Label';
 import * as styles from './checkbox.css';
 
@@ -21,13 +22,13 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   required,
   ...restProps
 }) => {
-  const containerClassName = useComponentStyles(
+  const containerClassName = getComponentStyles(
     'checkbox',
     { base: true },
     false,
   );
-  const iconClassName = useComponentStyles('checkbox', { icon: true }, false);
-  const labelClassName = useComponentStyles('checkbox', { label: true }, false);
+  const iconClassName = getComponentStyles('checkbox', { icon: true }, false);
+  const labelClassName = getComponentStyles('checkbox', { label: true }, false);
   const reactId = useId();
   const inputId = id || reactId;
 
@@ -69,6 +70,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
 const DefaultIcon: React.FC = () => {
   return (
     // TOOD - replace with actual icon component renderer
+    // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
     <svg
       viewBox="0 0 24 24"
       fill="none"

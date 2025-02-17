@@ -1,6 +1,4 @@
 import { createPortal } from 'react-dom';
-import { useTheme } from '../../../hooks/useTheme';
-import { BlocksProvider } from '../BlocksProvider/BlocksProvider';
 
 export type PortalProps = {
   children: React.ReactNode;
@@ -8,10 +6,5 @@ export type PortalProps = {
 };
 
 export const Portal: React.FC<PortalProps> = ({ children, container }) => {
-  const context = useTheme();
-
-  return createPortal(
-    <BlocksProvider theme={context}>{children}</BlocksProvider>,
-    container || document.body,
-  );
+  return createPortal(<div>{children}</div>, container || document.body);
 };
