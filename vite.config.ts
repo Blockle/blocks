@@ -35,7 +35,7 @@ export function createConfig(entry?: LibraryOptions['entry']): UserConfig {
         unstable_mode: 'transform',
       }),
       dts({
-        include: ['src/**/*.ts', 'src/**/*.tsx'],
+        include: ['src/**/*.{ts,tsx}'],
       }),
     ],
   });
