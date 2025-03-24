@@ -1,7 +1,7 @@
+import { BlocksProvider } from '@blockle/blocks-react';
+import { momotaro } from '@blockle/blocks-theme-momotaro';
+import '@blockle/blocks/reset';
 import type { Decorator, Preview } from '@storybook/react';
-import { BlocksProvider } from '../src';
-import '../src/lib/css/reset/reset.css';
-import { momotaro } from '../src/themes/momotaro';
 
 // import spriteUrl from '../assets/icons.svg';
 // TODO <BlocksProvider spriteUrl={spriteUrl}

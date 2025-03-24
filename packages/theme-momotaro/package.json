@@ -1,0 +1,41 @@
+{
+  "name": "@blockle/blocks-theme-momotaro",
+  "version": "0.0.1",
+  "description": "Design system for React",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": {
+        "import": "./dist/index.d.mts",
+        "require": "./dist/index.d.ts"
+      },
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist"],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "vite build",
+    "test": "vitest --silent",
+    "lint": "biome format ./src",
+    "format": "biome format --write ./src",
+    "ts": "tsc --noemit --project ./tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Blockle/blocks.git"
+  },
+  "author": "Niek Saarberg <n.saarberg@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Blockle/blocks/issues"
+  },
+  "homepage": "https://github.com/Blockle/blocks#readme",
+  "peerDependencies": {
+    "@blockle/blocks-core": "^0.0.1"
+  }
+}

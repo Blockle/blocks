@@ -11,7 +11,8 @@
     "packages/core",
     "packages/slot",
     "packages/react",
-    "packages/blocks"
+    "packages/blocks",
+    "packages/theme-momotaro"
   ],
   "scripts": {
     "build": "npm run build --workspaces",

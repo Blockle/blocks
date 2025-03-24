@@ -45,3 +45,6 @@ export function createConfig(entry?: LibraryOptions['entry']): UserConfig {
     publicDir: false,
   });
 }
+
+// Default export is needed for storybook, see .storybook/main.ts
+export default createConfig();

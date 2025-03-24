@@ -1,7 +1,7 @@
 import type { UknownRecord } from '../utils/react/mergeProps';
 import { sprinkles } from './sprinkles.css';
 
-export function getSpinklesAndComponentProps(
+export function getAtomsAndProps(
   props: UknownRecord,
 ): [atoms: UknownRecord, props: UknownRecord] {
   const atomProps: UknownRecord = {};
