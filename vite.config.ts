@@ -10,6 +10,7 @@ export function createConfig(entry?: LibraryOptions['entry']): UserConfig {
     build: {
       minify: false,
       ssr: true,
+      outDir: './dist',
       lib: {
         entry: entry ?? 'src/index.ts',
         formats: ['es', 'cjs'],
@@ -35,8 +36,12 @@ export function createConfig(entry?: LibraryOptions['entry']): UserConfig {
         unstable_mode: 'transform',
       }),
       dts({
-        include: ['src/**/*.{ts,tsx}'],
+        include: ['./src/**/*.{ts,tsx}'],
+        // outDir: './dist',
+        // root: 'src',
+        // entryRoot: '/Users/niek/Projects/blockle/blocks/packages/css/src',
       }),
     ],
+    publicDir: false,
   });
 }

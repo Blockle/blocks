@@ -1,5 +1,5 @@
 {
-  "name": "@blockle/blocks-slot",
+  "name": "@blockle/blocks-react-slot",
   "version": "0.0.1",
   "description": "Slot",
   "type": "module",
@@ -14,6 +14,7 @@
     }
   },
   "files": ["dist"],
+  "sideEffects": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -34,7 +35,8 @@
     "url": "https://github.com/Blockle/blocks/issues"
   },
   "homepage": "https://github.com/Blockle/blocks#readme",
-  "dependencies": {
-    "@blockle/blocks-core": "^0.0.1"
+  "peerDependencies": {
+    "react": ">=19.0.0",
+    "@blockle/blocks-core": ">=0.0.1"
   }
 }

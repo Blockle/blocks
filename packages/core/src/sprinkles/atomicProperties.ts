@@ -5,6 +5,7 @@ const colorsWithCurrentColor = { ...vars.color, currentColor: 'currentColor' };
 const size = { auto: 'auto', full: '100%', 'fit-content': 'fit-content' };
 
 export const unresponsiveProperties = {
+  // textboxtrim: ['none'],
   backgroundColor: colorsWithCurrentColor,
   borderColor: colorsWithCurrentColor,
   borderRadius: vars.borderRadius,

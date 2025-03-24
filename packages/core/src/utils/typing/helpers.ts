@@ -1,3 +1,5 @@
+// import type { Sprinkles } from '../../sprinkles/sprinkles.css';
+
 import type { Sprinkles } from '../../sprinkles/sprinkles.css';
 
 export type AnyString = string & {};

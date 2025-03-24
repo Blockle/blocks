@@ -1,9 +1,8 @@
 {
-  "name": "@blockle/blocks-reset",
+  "name": "@blockle/blocks-react",
   "version": "0.0.1",
-  "description": "CSS reset for Blockle",
+  "description": "React hooks and components for Blockle",
   "type": "module",
-  "sideEffects": ["reset.css.*"],
   "exports": {
     ".": {
       "types": {
@@ -15,6 +14,7 @@
     }
   },
   "files": ["dist"],
+  "sideEffects": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -35,10 +35,11 @@
     "url": "https://github.com/Blockle/blocks/issues"
   },
   "homepage": "https://github.com/Blockle/blocks#readme",
-  "devDependencies": {
-    "@vanilla-extract/css": "^1.17.1"
-  },
   "peerDependencies": {
+    "react": ">=19.0.0",
+    "react-dom": ">=19.0.0",
+    "@blockle/blocks-core": ">=0.0.1",
+    "@blockle/blocks-react-slot": ">=0.0.1",
     "@vanilla-extract/css": "^1.17.1"
   }
 }

@@ -1,4 +1,3 @@
-import { sprinkles } from '@blockle/blocks-core';
 import { globalStyle } from '@vanilla-extract/css';
 
 // Must be placed before HTML so we wont override the box-sizing of the root element
@@ -41,6 +40,3 @@ globalStyle(':where(h1, h2, h3, h4, h5, h6)', {
 globalStyle(':where(pre)', {
   whiteSpace: 'pre-wrap',
 });
-
-// Make sure sprinkles are loaded right after the reset
-sprinkles({});

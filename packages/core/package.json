@@ -1,7 +1,7 @@
 {
   "name": "@blockle/blocks-core",
   "version": "0.0.1",
-  "description": "Core utils for Blocks",
+  "description": "Core for Blocks",
   "type": "module",
   "exports": {
     ".": {
@@ -13,9 +13,7 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -38,5 +36,8 @@
   "bugs": {
     "url": "https://github.com/Blockle/blocks/issues"
   },
-  "homepage": "https://github.com/Blockle/blocks#readme"
+  "homepage": "https://github.com/Blockle/blocks#readme",
+  "peerDependencies": {
+    "react": ">=19.0.0"
+  }
 }

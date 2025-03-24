@@ -7,11 +7,10 @@
   "author": "Niek Saarberg <n.saarberg@gmail.com>",
   "type": "module",
   "workspaces": [
-    "packages/core",
     "packages/reset",
-    "packages/hooks",
+    "packages/core",
     "packages/slot",
-    "packages/layout",
+    "packages/react",
     "packages/blocks"
   ],
   "scripts": {

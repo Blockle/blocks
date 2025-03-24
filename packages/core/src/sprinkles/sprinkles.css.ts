@@ -1,6 +1,5 @@
 import { createSprinkles, defineProperties } from '@vanilla-extract/sprinkles';
-
-import { breakpointNames, minMediaQuery } from '../utils/breakpoint/breakpoint';
+import { breakpointNames, minMediaQuery } from '../css/breakpoint/breakpoint';
 import {
   responsiveProperties,
   unresponsiveProperties,
