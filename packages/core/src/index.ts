@@ -27,6 +27,7 @@ export type {
 export { makeTheme } from './theme/makeTheme';
 export type { Theme } from './theme/makeTheme';
 export { classnames } from './utils/classnames/classnames';
+export { hasAnimationDuration } from './utils/dom/hasAnimationDuration';
 export {
   alignItemsMap,
   justifyContentMap,
@@ -35,6 +36,7 @@ export {
 } from './utils/flexbox/flexbox';
 export { getBoundValue, roundToPrecision } from './utils/math/math';
 export { mergeProps } from './utils/react/mergeProps';
+export { composeRefs } from './utils/react/refs';
 export type {
   AnyString,
   HTMLElementProps,

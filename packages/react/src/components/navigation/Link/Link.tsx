@@ -1,0 +1,47 @@
+import {
+  type ComponentThemes,
+  type HTMLElementProps,
+  type MarginSprinkles,
+  classnames,
+} from '@blockle/blocks-core';
+import { createSlottable } from '@blockle/blocks-react-slot';
+import { useComponentStyles } from '../../../hooks/useComponentStyles';
+
+type LinkTheme = ComponentThemes['link'];
+
+export type LinkProps = {
+  asChild?: boolean;
+  children?: React.ReactNode;
+  ref?: React.Ref<HTMLAnchorElement>;
+  underline?: LinkTheme['variants']['underline'];
+  variant?: LinkTheme['variants']['variant'];
+} & MarginSprinkles &
+  HTMLElementProps<HTMLAnchorElement>;
+
+const [Template, Slot] = createSlottable('a');
+
+export const Link: React.FC<LinkProps> = ({
+  asChild,
+  children,
+  className,
+  ref,
+  underline,
+  variant,
+  ...restProps
+}) => {
+  const linkClassName = useComponentStyles('link', {
+    base: true,
+    variants: { variant, underline },
+  });
+
+  return (
+    <Template
+      asChild={asChild}
+      ref={ref}
+      className={classnames(className, linkClassName)}
+      {...restProps}
+    >
+      <Slot>{children}</Slot>
+    </Template>
+  );
+};
