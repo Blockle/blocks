@@ -20,7 +20,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "vite build",
-    "test": "vitest --silent",
+    "test": "vitest",
     "lint": "biome format ./src",
     "format": "biome format --write ./src",
     "ts": "tsc --noemit --project ./tsconfig.json"
