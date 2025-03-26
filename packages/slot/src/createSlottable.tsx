@@ -30,7 +30,12 @@ type TemplateProps = {
  */
 export function createSlottable<T extends keyof HTMLElementTagNameMap>(
   defaultElement: T,
-) {
+): [
+  Template: React.FC<
+    TemplateProps & HTMLElementProps<HTMLElementTagNameMap[T]>
+  >,
+  Slot: typeof Slot,
+] {
   // Cast as any to avoid TS errors when using <Tag />
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const Tag = defaultElement as any;
@@ -113,10 +118,7 @@ export function createSlottable<T extends keyof HTMLElementTagNameMap>(
     );
   };
 
-  return {
-    Template,
-    Slot,
-  };
+  return [Template, Slot];
 }
 
 function isValidElementWithChildren(

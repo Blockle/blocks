@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import { type Theme, classnames, sprinkles } from '@blockle/blocks-core';
+import { createSlottable } from '@blockle/blocks-react-slot';
 import { BlocksProviderContext } from './context';
 
 export type BlocksProviderProps = {
@@ -8,7 +9,10 @@ export type BlocksProviderProps = {
   theme: Theme;
   className?: string;
   style?: React.CSSProperties;
+  asChild?: boolean;
 };
+
+const [Template, Slot] = createSlottable('div');
 
 export const BlocksProvider: React.FC<BlocksProviderProps> = ({
   children,
@@ -16,28 +20,25 @@ export const BlocksProvider: React.FC<BlocksProviderProps> = ({
   className,
   ...restProps
 }) => {
-  const [ariaHidden, setAriaHidden] = useState(false);
   const contextValue = useMemo(
     () => ({
       theme,
-      setAriaHidden,
     }),
     [theme],
   );
 
   return (
     <BlocksProviderContext value={contextValue}>
-      <div
+      <Template
         className={classnames(
           theme.vars,
           sprinkles({ fontFamily: 'primary' }),
           className,
         )}
-        inert={ariaHidden ? true : undefined}
         {...restProps}
       >
-        {children}
-      </div>
+        <Slot>{children}</Slot>
+      </Template>
     </BlocksProviderContext>
   );
 };

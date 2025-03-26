@@ -8,4 +8,11 @@ export {
 } from './components/providers/BlocksProvider';
 
 // Hooks
-export { useIsomorphicLayoutEffect } from './hooks/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect';
+export {
+  useComponentStyleDefaultProps,
+  useComponentStyles,
+} from './hooks/useComponentStyles';
+export { useControlledValue } from './hooks/useControlledValue';
+export { useIsomorphicLayoutEffect } from './hooks/useIsomorphicLayoutEffect';
+export { useKeyboard } from './hooks/useKeyboard';
+export { usePreventBodyScroll } from './hooks/usePreventBodyScroll';
