@@ -1,3 +1,5 @@
+'use client';
+
 import { type HTMLElementProps, classnames } from '@blockle/blocks-core';
 import type React from 'react';
 import { useId } from 'react';

@@ -1,3 +1,5 @@
+'use client';
+
 import { createPortal } from 'react-dom';
 import { useTheme } from '../../../hooks/useTheme';
 import { BlocksProvider } from '../../providers/BlocksProvider';

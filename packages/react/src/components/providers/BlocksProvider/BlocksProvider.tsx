@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo } from 'react';
 
 import { type Theme, classnames, sprinkles } from '@blockle/blocks-core';

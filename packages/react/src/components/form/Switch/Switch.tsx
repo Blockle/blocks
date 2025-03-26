@@ -1,3 +1,5 @@
+'use client';
+
 import { type HTMLElementProps, classnames } from '@blockle/blocks-core';
 import { useCallback, useEffect, useState } from 'react';
 import { useComponentStyles } from '../../../hooks/useComponentStyles';

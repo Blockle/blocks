@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { useRef, useState } from '@storybook/preview-api';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from '../../form/Button';
@@ -13,7 +12,7 @@ export default {
 
 export const Default: StoryObj<PopoverProps> = {
   render: (props) => {
-    const buttonRef = useRef<HTMLButtonElement>(null!);
+    const buttonRef = useRef<HTMLButtonElement | null>(null);
     const [open, setOpen] = useState(props.open ?? false);
 
     return (

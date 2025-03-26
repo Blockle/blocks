@@ -1,3 +1,5 @@
+'use client';
+
 import { type ComponentThemes, composeRefs } from '@blockle/blocks-core';
 import {
   Children,
