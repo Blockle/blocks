@@ -1,7 +1,8 @@
-import { BlocksProvider } from '@blockle/blocks-react';
 import { momotaro } from '@blockle/blocks-theme-momotaro';
 import '@blockle/blocks/reset';
 import type { Decorator, Preview } from '@storybook/react';
+// Relative `BlocksProvider` import for tests to also work correctly
+import { BlocksProvider } from '../packages/react/src/components/providers/BlocksProvider';
 
 // import spriteUrl from '../assets/icons.svg';
 // TODO <BlocksProvider spriteUrl={spriteUrl}

@@ -34,31 +34,47 @@ export const button = makeComponentTheme('button', {
         backgroundColor: intentColor,
         border: 'none',
       }),
-      outline: style({
-        color: intentColor,
-        borderWidth: 'small',
-        borderStyle: 'solid',
-        borderColor: intentColor,
-        background: 'transparent',
-      }),
+      outline: style([
+        sprinkles({
+          borderWidth: 'small',
+        }),
+        {
+          color: intentColor,
+          borderStyle: 'solid',
+          borderColor: intentColor,
+          background: 'transparent',
+        },
+      ]),
       ghost: style({
         color: intentColor,
         background: 'transparent',
       }),
     },
     size: {
-      small: style({
-        paddingInline: 'large',
-        height: 40,
-      }),
-      medium: style({
-        paddingInline: 'xlarge',
-        height: 56,
-      }),
-      large: style({
-        paddingInline: 'xlarge',
-        height: 72,
-      }),
+      small: style([
+        sprinkles({
+          paddingInline: 'large',
+        }),
+        {
+          height: 40,
+        },
+      ]),
+      medium: style([
+        sprinkles({
+          paddingInline: 'xlarge',
+        }),
+        {
+          height: 56,
+        },
+      ]),
+      large: style([
+        sprinkles({
+          paddingInline: 'xlarge',
+        }),
+        {
+          height: 72,
+        },
+      ]),
     },
     intent: {
       neutral: style({

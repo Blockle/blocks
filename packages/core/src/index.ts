@@ -33,6 +33,7 @@ export {
   type AlignItemsMap,
   type JustifyContentMap,
 } from './utils/flexbox/flexbox';
+export { getBoundValue, roundToPrecision } from './utils/math/math';
 export { mergeProps } from './utils/react/mergeProps';
 export type {
   AnyString,
