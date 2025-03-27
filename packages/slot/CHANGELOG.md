@@ -1,5 +1,11 @@
 # @blockle/blocks-react-slot
 
+## 1.0.1
+
+### Patch Changes
+
+- 1a0719b: Dependency corrections
+
 ## 1.0.0
 
 ### Minor Changes
