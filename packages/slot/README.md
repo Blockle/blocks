@@ -1,6 +1,8 @@
-# @blockle/blocks-slot
+# @blockle/blocks-react-slot
 
 A simple slot component for React.
+
+> Note: The Slot component must be used as a direct child of the Template component.
 
 ## Installation
 
@@ -11,9 +13,9 @@ npm install @blockle/blocks-slot
 ## Usage
 
 ```tsx
-import { createSlottable, Slot } from '@blockle/blocks-slot';
+import { createSlottable } from '@blockle/blocks-slot';
 
-const Template = createSlottable('button'); // Provide a default tag name
+const [Template, Slot] = createSlottable('button'); // Provide default html tag
 
 export const Button = ({asChild}) => {
   return (
