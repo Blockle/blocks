@@ -15,12 +15,13 @@
     "packages/theme-momotaro"
   ],
   "scripts": {
-    "build": "npm run build --workspaces",
     "build-storybook": "storybook build",
+    "build": "npm run build --workspaces",
     "changeset": "changeset",
     "coverage": "vitest run --coverage",
-    "lint": "biome format ./packages/*/src",
     "format": "biome format --write ./packages/*/src",
+    "link": "npm link --workspaces",
+    "lint": "biome format ./packages/*/src",
     "release": "npm run build && npm run ts && npm run test && changeset publish",
     "storybook": "storybook dev -p 6006 --no-open",
     "test": "vitest ",

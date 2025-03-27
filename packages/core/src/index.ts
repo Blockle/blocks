@@ -3,6 +3,7 @@ export type {
   ComponentThemesProps,
 } from './config/componentThemes';
 export type { ThemeTokens } from './config/themeTokens';
+export { minMediaQuery } from './css/breakpoint/breakpoint';
 export { blocksLayer } from './css/layers.css';
 export { rem } from './css/rem';
 export { vars } from './css/vars.css';
