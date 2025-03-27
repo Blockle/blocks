@@ -1,5 +1,11 @@
 # @blockle/blocks-core
 
+## 0.21.2
+
+### Patch Changes
+
+- 1a0719b: Dependency corrections
+
 ## 0.21.1
 
 ### Patch Changes
