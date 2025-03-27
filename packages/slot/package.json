@@ -1,0 +1,42 @@
+{
+  "name": "@blockle/blocks-react-slot",
+  "version": "0.20.0",
+  "description": "Slot",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": {
+        "import": "./dist/index.d.mts",
+        "require": "./dist/index.d.ts"
+      },
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist"],
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "vite build",
+    "test": "vitest ",
+    "lint": "biome format ./src",
+    "format": "biome format --write ./src",
+    "ts": "tsc --noemit --project ./tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Blockle/blocks.git"
+  },
+  "author": "Niek Saarberg <n.saarberg@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Blockle/blocks/issues"
+  },
+  "homepage": "https://github.com/Blockle/blocks#readme",
+  "peerDependencies": {
+    "react": ">=19.0.0",
+    "@blockle/blocks-core": "^0.20.0"
+  }
+}
