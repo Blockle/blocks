@@ -1,6 +1,6 @@
 {
   "name": "@blockle/blocks-core",
-  "version": "0.21.0",
+  "version": "0.21.1",
   "description": "Core for Blocks",
   "type": "module",
   "exports": {
@@ -13,7 +13,9 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",

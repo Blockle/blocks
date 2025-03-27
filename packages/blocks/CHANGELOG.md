@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 1.0.1
+
+### Patch Changes
+
+- ed91949: peer dependency correction
+
 ## 1.0.0
 
 ### Minor Changes
