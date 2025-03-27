@@ -1,6 +1,6 @@
 {
   "name": "@blockle/blocks-core",
-  "version": "0.0.1",
+  "version": "0.20.0",
   "description": "Core for Blocks",
   "type": "module",
   "exports": {
