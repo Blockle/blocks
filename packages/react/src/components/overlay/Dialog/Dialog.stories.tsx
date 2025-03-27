@@ -22,7 +22,7 @@ export default {
 } as Meta;
 
 const DialogTemplate: StoryObj<DialogProps>['render'] = (props) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(props.open ?? false);
 
   return (
     <>

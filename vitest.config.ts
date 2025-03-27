@@ -8,7 +8,7 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     workspace: ['packages/*'],
-    include: ['**/*.test.{ts,tsx}'],
+    include: ['**/*.{test,spec}.{ts,tsx}'],
     setupFiles: [
       resolve(__dirname, './setupTests.ts'),
       resolve(__dirname, './setupTests.storybook.ts'),

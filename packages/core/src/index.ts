@@ -37,13 +37,13 @@ export {
 export { getBoundValue, roundToPrecision } from './utils/math/math';
 export { mergeProps } from './utils/react/mergeProps';
 export { composeRefs } from './utils/react/refs';
-export type {
-  AnyString,
-  HTMLElementProps,
-  IsNumberUnion,
+export {
   isObjectLike,
-  IsStringUnion,
-  IsUnion,
-  OptionalLiteral,
-  RecordLike,
+  type AnyString,
+  type HTMLElementProps,
+  type IsNumberUnion,
+  type IsStringUnion,
+  type IsUnion,
+  type OptionalLiteral,
+  type RecordLike,
 } from './utils/typing/helpers';

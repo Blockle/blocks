@@ -71,7 +71,11 @@ export const Dialog: React.FC<DialogProps> = ({
   useIsomorphicLayoutEffect(() => {
     // Using an addional state to control the visibility of the dialog
     if (open && visible) {
-      dialogRef.current?.showModal();
+      if (!dialogRef.current || !dialogRef.current.showModal) {
+        return;
+      }
+
+      dialogRef.current.showModal();
     } else if (open) {
       setVisible(true);
     } else {
