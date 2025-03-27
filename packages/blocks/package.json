@@ -1,6 +1,6 @@
 {
   "name": "@blockle/blocks",
-  "version": "0.20.0",
+  "version": "1.0.0",
   "description": "Design system for React",
   "type": "module",
   "sideEffects": false,
@@ -22,7 +22,9 @@
       "require": "./dist/reset.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -44,9 +46,9 @@
   },
   "homepage": "https://github.com/Blockle/blocks#readme",
   "peerDependencies": {
-    "@blockle/blocks-core": "^0.20.0",
-    "@blockle/blocks-react": "^0.20.0",
-    "@blockle/blocks-react-slot": "^0.20.0",
-    "@blockle/blocks-reset": "^0.20.0"
+    "@blockle/blocks-core": "^0.21.0",
+    "@blockle/blocks-react": "^1.0.0",
+    "@blockle/blocks-react-slot": "^1.0.0",
+    "@blockle/blocks-reset": "^0.21.0"
   }
 }
