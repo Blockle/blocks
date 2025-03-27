@@ -36,6 +36,6 @@
   },
   "homepage": "https://github.com/Blockle/blocks#readme",
   "peerDependencies": {
-    "@blockle/blocks-core": "^0.0.1"
+    "@blockle/blocks-core": "^0.20.0"
   }
 }

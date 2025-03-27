@@ -44,9 +44,9 @@
   },
   "homepage": "https://github.com/Blockle/blocks#readme",
   "peerDependencies": {
-    "@blockle/blocks-core": "^0.0.1",
-    "@blockle/blocks-react": "^0.0.1",
-    "@blockle/blocks-react-slot": "^0.0.1",
-    "@blockle/blocks-reset": "^0.0.1"
+    "@blockle/blocks-core": "^0.20.0",
+    "@blockle/blocks-react": "^0.20.0",
+    "@blockle/blocks-react-slot": "^0.20.0",
+    "@blockle/blocks-reset": "^0.20.0"
   }
 }
