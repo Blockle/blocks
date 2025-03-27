@@ -8,8 +8,11 @@
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [],
+  "snapshot": {
+    "updateInternalSnapshots": false,
+    "exclude": []
+  },
   "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
-    "onlyUpdatePeerDependentsWhenOutOfRange": true,
-    "useCalculatedVersionForSnapshots": true
+    "onlyUpdatePeerDependentsWhenOutOfRange": true
   }
 }
