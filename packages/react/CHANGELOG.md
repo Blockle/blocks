@@ -1,5 +1,11 @@
 # @blockle/blocks-react
 
+## 1.0.2
+
+### Patch Changes
+
+- 1790960: Dependency tweaks
+
 ## 1.0.1
 
 ### Patch Changes
