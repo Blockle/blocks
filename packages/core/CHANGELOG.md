@@ -1,5 +1,11 @@
 # @blockle/blocks-core
 
+## 0.21.3
+
+### Patch Changes
+
+- 1790960: Dependency tweaks
+
 ## 0.21.2
 
 ### Patch Changes

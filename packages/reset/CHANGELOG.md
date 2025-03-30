@@ -1,5 +1,11 @@
 # @blockle/blocks-reset
 
+## 0.21.2
+
+### Patch Changes
+
+- 1790960: Dependency tweaks
+
 ## 0.21.1
 
 ### Patch Changes
