@@ -1,5 +1,11 @@
 # @blockle/blocks-react
 
+## 1.0.4
+
+### Patch Changes
+
+- 3307c08: Internal peer deps to major version
+
 ## 1.0.3
 
 ### Patch Changes

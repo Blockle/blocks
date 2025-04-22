@@ -1,5 +1,11 @@
 # @blockle/blocks-react-slot
 
+## 1.0.2
+
+### Patch Changes
+
+- 3307c08: Internal peer deps to major version
+
 ## 1.0.1
 
 ### Patch Changes

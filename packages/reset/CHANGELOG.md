@@ -1,5 +1,11 @@
 # @blockle/blocks-reset
 
+## 0.21.3
+
+### Patch Changes
+
+- 3307c08: Internal peer deps to major version
+
 ## 0.21.2
 
 ### Patch Changes
