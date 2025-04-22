@@ -13,9 +13,7 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "sideEffects": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -43,7 +41,7 @@
   "peerDependencies": {
     "react": "^19",
     "react-dom": "^19",
-    "@blockle/blocks-core": "^0.21.0",
-    "@blockle/blocks-react-slot": "^1.0.0"
+    "@blockle/blocks-core": ">=0.x",
+    "@blockle/blocks-react-slot": ">=1.x"
   }
 }
