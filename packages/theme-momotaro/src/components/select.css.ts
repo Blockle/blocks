@@ -1,10 +1,10 @@
-import { makeComponentTheme, sprinkles, vars } from '@blockle/blocks-core';
+import { atoms, makeComponentTheme, vars } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 import { focusable } from './helpers.css';
 
 export const select = makeComponentTheme('select', {
   select: style([
-    sprinkles({
+    atoms({
       color: 'text',
       padding: 'large',
       backgroundColor: 'white',
@@ -28,7 +28,7 @@ export const select = makeComponentTheme('select', {
   variants: {
     variant: {
       outline: style([
-        sprinkles({
+        atoms({
           borderWidth: 'small',
           borderColor: 'primary',
         }),

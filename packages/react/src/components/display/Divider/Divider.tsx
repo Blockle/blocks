@@ -1,6 +1,6 @@
 'use client';
 
-import { type Sprinkles, classnames } from '@blockle/blocks-core';
+import { type Atoms, classnames } from '@blockle/blocks-core';
 import {
   useComponentStyleDefaultProps,
   useComponentStyles,
@@ -10,7 +10,7 @@ import * as styles from './divider.css';
 
 export type DividerProps = {
   className?: string;
-  color?: Sprinkles['backgroundColor'];
+  color?: Atoms['backgroundColor'];
   style?: React.CSSProperties;
 };
 

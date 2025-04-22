@@ -1,4 +1,4 @@
-import { makeComponentTheme, sprinkles, vars } from '@blockle/blocks-core';
+import { atoms, makeComponentTheme, vars } from '@blockle/blocks-core';
 import { createVar, style } from '@vanilla-extract/css';
 import { focusable } from './helpers.css';
 
@@ -12,7 +12,7 @@ export const slider = makeComponentTheme('slider', {
     blockSize: '20px',
   }),
   track: style([
-    sprinkles({
+    atoms({
       borderRadius: 'small',
     }),
     {

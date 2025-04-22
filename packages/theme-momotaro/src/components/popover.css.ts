@@ -1,9 +1,9 @@
-import { makeComponentTheme, sprinkles } from '@blockle/blocks-core';
+import { atoms, makeComponentTheme } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 
 export const popover = makeComponentTheme('popover', {
   base: style([
-    sprinkles({
+    atoms({
       backgroundColor: 'white',
       borderRadius: 'small',
       boxShadow: 'medium',

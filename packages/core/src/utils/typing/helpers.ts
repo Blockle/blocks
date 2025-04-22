@@ -1,6 +1,4 @@
-// import type { Sprinkles } from '../../sprinkles/sprinkles.css';
-
-import type { Sprinkles } from '../../sprinkles/sprinkles.css';
+import type { Atoms } from '../../atoms/atoms';
 
 export type AnyString = string & {};
 
@@ -34,5 +32,5 @@ export type IsUnion<T> = IsStringUnion<T> extends true
 
 export type HTMLElementProps<E extends Element> = Omit<
   React.HTMLProps<E>,
-  keyof Sprinkles | 'ref'
+  keyof Atoms | 'ref'
 >;

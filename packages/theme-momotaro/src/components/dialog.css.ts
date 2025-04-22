@@ -1,9 +1,9 @@
-import { makeComponentTheme, sprinkles } from '@blockle/blocks-core';
+import { atoms, makeComponentTheme } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 
 export const dialog = makeComponentTheme('dialog', {
   dialog: style([
-    sprinkles({
+    atoms({
       display: 'flex',
       flexDirection: 'column',
       padding: 'gutter',

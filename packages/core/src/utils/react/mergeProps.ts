@@ -1,10 +1,13 @@
 import { classnames } from '../classnames/classnames';
 import { composeRefs } from './refs';
 
-export type UknownRecord = Record<string, unknown>;
+export type UnknownRecord = Record<string, unknown>;
 
-export function mergeProps(slotProps: UknownRecord, childProps: UknownRecord) {
-  const overrideProps: UknownRecord = {};
+export function mergeProps(
+  slotProps: UnknownRecord,
+  childProps: UnknownRecord,
+) {
+  const overrideProps: UnknownRecord = {};
 
   for (const propName in childProps) {
     const slotPropValue = slotProps[propName];
@@ -27,7 +30,7 @@ export function mergeProps(slotProps: UknownRecord, childProps: UknownRecord) {
         childPropValue(...args);
         slotPropValue(...args);
       };
-    } else
+    } else {
       switch (propName) {
         case 'style': {
           overrideProps[propName] = { ...slotPropValue, ...childPropValue };
@@ -38,13 +41,17 @@ export function mergeProps(slotProps: UknownRecord, childProps: UknownRecord) {
           break;
         }
         case 'ref': {
-          overrideProps[propName] = composeRefs(slotPropValue, childPropValue);
+          overrideProps[propName] = composeRefs(
+            slotPropValue as React.Ref<unknown>,
+            childPropValue as React.Ref<unknown>,
+          );
           break;
         }
         default: {
           overrideProps[propName] = childPropValue;
         }
       }
+    }
   }
 
   return { ...slotProps, ...overrideProps };

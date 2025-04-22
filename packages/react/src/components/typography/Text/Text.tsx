@@ -1,8 +1,8 @@
 import {
   type HTMLElementProps,
-  type MarginSprinkles,
-  type PaddingSprinkles,
-  type TextSprinkles,
+  type MarginAtoms,
+  type PaddingAtoms,
+  type TextAtoms,
   classnames,
 } from '@blockle/blocks-core';
 import type React from 'react';
@@ -27,9 +27,9 @@ export type TextProps<Tag extends Tags = 'span'> = {
   children: React.ReactNode;
   ref?: React.Ref<HTMLElementTagNameMap[Tag]>;
   tag?: Tag;
-} & TextSprinkles &
-  MarginSprinkles &
-  PaddingSprinkles &
+} & TextAtoms &
+  MarginAtoms &
+  PaddingAtoms &
   HTMLElementProps<HTMLSpanElement>;
 
 export const Text = <T extends Tags = 'span'>({

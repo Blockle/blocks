@@ -1,9 +1,9 @@
-import { makeComponentTheme, sprinkles, vars } from '@blockle/blocks-core';
+import { atoms, makeComponentTheme, vars } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 
 export const input = makeComponentTheme('input', {
   input: style([
-    sprinkles({
+    atoms({
       color: 'text',
       padding: 'large',
       border: 'none',
@@ -32,7 +32,7 @@ export const input = makeComponentTheme('input', {
         boxShadow: `${vars.shadow.small}, ${vars.focus.boxShadow}`,
       },
     },
-    sprinkles({
+    atoms({
       backgroundColor: 'white',
       borderRadius: 'medium',
       boxShadow: 'medium',

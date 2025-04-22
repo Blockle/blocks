@@ -1,4 +1,4 @@
-import { makeComponentTheme, sprinkles, vars } from '@blockle/blocks-core';
+import { atoms, makeComponentTheme, vars } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 import { focusable } from './helpers.css';
 import { bounceOut } from './transitions';
@@ -26,7 +26,7 @@ export const radio = makeComponentTheme('radio', {
         },
       },
     },
-    sprinkles({
+    atoms({
       backgroundColor: 'primaryLight',
     }),
     focusable,
@@ -48,7 +48,7 @@ export const radio = makeComponentTheme('radio', {
       },
     },
   }),
-  label: sprinkles({
+  label: atoms({
     display: 'flex',
     flexDirection: 'row',
     padding: 'xsmall',

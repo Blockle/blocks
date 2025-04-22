@@ -1,4 +1,4 @@
-import { makeComponentTheme, sprinkles, vars } from '@blockle/blocks-core';
+import { atoms, makeComponentTheme, vars } from '@blockle/blocks-core';
 import { keyframes, style } from '@vanilla-extract/css';
 
 const indeterminateAnimation = keyframes({
@@ -15,7 +15,7 @@ export const progress = makeComponentTheme('progress', {
     {
       height: 8,
     },
-    sprinkles({
+    atoms({
       inlineSize: 'full',
       borderRadius: 'small',
       backgroundColor: 'textLight',

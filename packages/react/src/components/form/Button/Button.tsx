@@ -4,13 +4,13 @@ import type React from 'react';
 import { useComponentStyles } from '../../../hooks/useComponentStyles';
 
 import {
+  type Atoms,
   type ComponentThemes,
   type HTMLElementProps,
-  type MarginSprinkles,
-  type Sprinkles,
+  type MarginAtoms,
+  atoms,
   classnames,
   getAtomsAndProps,
-  sprinkles,
 } from '@blockle/blocks-core';
 import { createSlottable } from '@blockle/blocks-react-slot';
 import { Spinner } from '../../feedback/Spinner';
@@ -19,12 +19,12 @@ import * as styles from './Button.css';
 type ButtonTheme = ComponentThemes['button'];
 
 export type ButtonProps = {
-  alignSelf?: Sprinkles['alignSelf'];
+  alignSelf?: Atoms['alignSelf'];
   asChild?: boolean;
   children: React.ReactNode;
   disabled?: boolean;
   endSlot?: React.ReactNode;
-  inlineSize?: Sprinkles['inlineSize'];
+  inlineSize?: Atoms['inlineSize'];
   intent?: ButtonTheme['variants']['intent'];
   loading?: boolean;
   popovertarget?: string;
@@ -34,7 +34,7 @@ export type ButtonProps = {
   type?: 'button' | 'submit' | 'reset';
   variant?: ButtonTheme['variants']['variant'];
 } & Omit<HTMLElementProps<HTMLButtonElement>, 'size'> &
-  MarginSprinkles;
+  MarginAtoms;
 
 const [Template, Slot] = createSlottable('button');
 
@@ -73,7 +73,7 @@ export const Button: React.FC<ButtonProps> = ({
       className={classnames(
         styles.buttonReset,
         buttonClassName,
-        sprinkles(atomsProps),
+        atoms(atomsProps),
         className,
       )}
       {...otherProps}

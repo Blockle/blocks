@@ -1,4 +1,4 @@
-import { makeComponentTheme, sprinkles, vars } from '@blockle/blocks-core';
+import { atoms, makeComponentTheme, vars } from '@blockle/blocks-core';
 import { createVar, style } from '@vanilla-extract/css';
 import { focusable } from './helpers.css';
 
@@ -6,7 +6,7 @@ const activeScaleFactor = createVar();
 
 export const switchTheme = makeComponentTheme('switch', {
   base: style([
-    sprinkles({
+    atoms({
       borderRadius: 'xlarge',
       backgroundColor: 'textLight',
     }),
@@ -36,7 +36,7 @@ export const switchTheme = makeComponentTheme('switch', {
     focusable,
   ]),
   slider: style([
-    sprinkles({
+    atoms({
       borderRadius: 'xlarge',
     }),
     {

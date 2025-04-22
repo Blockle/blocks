@@ -1,4 +1,4 @@
-import { vars } from '@blockle/blocks-core';
+import { atomicProperties } from '@blockle/blocks-core';
 import type { Meta, StoryFn, StoryObj } from '@storybook/react';
 import { expect, within } from '@storybook/test';
 import { Inline, type InlineProps } from './Inline';
@@ -14,7 +14,7 @@ export default {
       name: 'gap',
       type: 'string',
       control: 'select',
-      options: Object.keys(vars.space),
+      options: Object.keys(atomicProperties.gap.values),
     },
   },
 } as Meta<typeof Inline>;

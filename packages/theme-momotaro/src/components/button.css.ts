@@ -1,6 +1,6 @@
 import { createVar, style } from '@vanilla-extract/css';
 
-import { makeComponentTheme, sprinkles, vars } from '@blockle/blocks-core';
+import { atoms, makeComponentTheme, vars } from '@blockle/blocks-core';
 import { clickable, focusRingColor } from './helpers.css';
 
 // Use css vars to share colors between variants
@@ -9,7 +9,7 @@ const hoverBackgroundColor = createVar();
 
 export const button = makeComponentTheme('button', {
   base: style([
-    sprinkles({
+    atoms({
       display: 'inline-flex',
       placeItems: 'center',
       fontSize: 'medium',
@@ -35,7 +35,7 @@ export const button = makeComponentTheme('button', {
         border: 'none',
       }),
       outline: style([
-        sprinkles({
+        atoms({
           borderWidth: 'small',
         }),
         {
@@ -52,7 +52,7 @@ export const button = makeComponentTheme('button', {
     },
     size: {
       small: style([
-        sprinkles({
+        atoms({
           paddingInline: 'large',
         }),
         {
@@ -60,7 +60,7 @@ export const button = makeComponentTheme('button', {
         },
       ]),
       medium: style([
-        sprinkles({
+        atoms({
           paddingInline: 'xlarge',
         }),
         {
@@ -68,7 +68,7 @@ export const button = makeComponentTheme('button', {
         },
       ]),
       large: style([
-        sprinkles({
+        atoms({
           paddingInline: 'xlarge',
         }),
         {

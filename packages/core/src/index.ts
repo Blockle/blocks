@@ -3,23 +3,10 @@ export type {
   ComponentThemesProps,
 } from './config/componentThemes';
 export type { ThemeTokens } from './config/themeTokens';
-export { minMediaQuery } from './css/breakpoint/breakpoint';
+export { breakpointNames, minMediaQuery } from './css/breakpoint/breakpoint';
 export { blocksLayer } from './css/layers.css';
 export { rem } from './css/rem';
 export { vars } from './css/vars.css';
-export {
-  responsiveProperties,
-  unresponsiveProperties,
-} from './sprinkles/atomicProperties';
-export type {
-  MarginSprinkles,
-  PaddingSprinkles,
-  ResponsiveDisplayFlex,
-  ResponsiveValue,
-  TextSprinkles,
-} from './sprinkles/atomTypes';
-export { getAtomsAndProps } from './sprinkles/getAtomsAndProps';
-export { sprinkles, type Sprinkles } from './sprinkles/sprinkles.css';
 export { makeComponentTheme } from './theme/makeComponentTheme';
 export type {
   ComponentTheme,
@@ -48,3 +35,9 @@ export {
   type OptionalLiteral,
   type RecordLike,
 } from './utils/typing/helpers';
+
+// Atoms
+export { atoms, type Atoms } from './atoms/atoms';
+export { atomicProperties } from './atoms/atoms.css';
+export type { MarginAtoms, PaddingAtoms, TextAtoms } from './atoms/atomTypes';
+export { getAtomsAndProps } from './atoms/getAtomsAndProps';

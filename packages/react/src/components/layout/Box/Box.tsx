@@ -1,9 +1,9 @@
 import {
+  type Atoms,
   type HTMLElementProps,
-  type Sprinkles,
+  atoms,
   classnames,
   getAtomsAndProps,
-  sprinkles,
 } from '@blockle/blocks-core';
 import { createSlottable } from '@blockle/blocks-react-slot';
 import type React from 'react';
@@ -14,7 +14,7 @@ export type BoxProps = {
   className?: string;
   ref?: React.Ref<HTMLDivElement>;
   style?: React.CSSProperties;
-} & Sprinkles &
+} & Atoms &
   HTMLElementProps<HTMLDivElement>;
 
 const [Template, Slot] = createSlottable('div');
@@ -32,7 +32,7 @@ export const Box: React.FC<BoxProps> = ({
     <Template
       ref={ref}
       asChild={asChild}
-      className={classnames(className, sprinkles(atomsProps))}
+      className={classnames(className, atoms(atomsProps))}
       {...otherProps}
     >
       <Slot>{children}</Slot>
