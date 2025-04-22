@@ -13,9 +13,7 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "sideEffects": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -39,6 +37,6 @@
   "homepage": "https://github.com/Blockle/blocks#readme",
   "peerDependencies": {
     "react": ">=19.0.0",
-    "@blockle/blocks-core": "^0.21.0"
+    "@blockle/blocks-core": ">=0.x"
   }
 }
