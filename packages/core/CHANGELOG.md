@@ -1,5 +1,11 @@
 # @blockle/blocks-core
 
+## 0.21.4
+
+### Patch Changes
+
+- 6f69819: Replaced sprinkles with custom atoms helper + implementation to enable usage of atoms function outside css.ts files
+
 ## 0.21.3
 
 ### Patch Changes
