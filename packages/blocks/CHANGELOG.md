@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 1.0.5
+
+### Patch Changes
+
+- 658404d: Side effect tweaks, defineProperties cleanup
+
 ## 1.0.4
 
 ### Patch Changes

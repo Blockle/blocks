@@ -1,9 +1,11 @@
 {
   "name": "@blockle/blocks",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Design system for React",
   "type": "module",
-  "sideEffects": ["reset.*"],
+  "sideEffects": [
+    "reset.*"
+  ],
   "exports": {
     ".": {
       "types": {
@@ -22,7 +24,9 @@
       "require": "./dist/reset.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
