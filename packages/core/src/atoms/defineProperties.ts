@@ -66,15 +66,12 @@ export function defineProperties<
   for (const property in properties) {
     const values = properties[property];
 
-    result[property] = {
-      values: {},
-    } as DeepPartial<PropertyResult<TProperties, TConditions>[typeof property]>;
-
-    const ref = result[property];
-
-    if (!ref || !ref.values) {
-      throw new Error(`Invalid property definition for ${property}`);
-    }
+    const propertyResult = {
+      values: {} as Record<
+        string,
+        { defaultClass: string; conditions?: string[] }
+      >,
+    };
 
     if (Array.isArray(values)) {
       for (const value of values) {
@@ -82,14 +79,12 @@ export function defineProperties<
           [property]: value,
         });
 
-        (
-          ref.values as Record<
-            string,
-            { defaultClass: string; conditions?: string[] } | undefined
-          >
-        )[value] = {
+        const propResult = {
           defaultClass,
-          conditions: conditions?.map((condition, i) => {
+        } as PropertyResultValue<TConditions>;
+
+        if (conditions) {
+          propResult.conditions = conditions.map((condition, i) => {
             if (i === 0 && Object.keys(condition).length === 0) {
               return defaultClass;
             }
@@ -107,14 +102,15 @@ export function defineProperties<
             throw new Error(
               `Invalid condition for ${property}: ${JSON.stringify(condition)}`,
             );
-          }),
-        };
-
-        if (!conditions && 'conditions' in ref.values) {
-          // biome-ignore lint/performance/noDelete: Only runs when building the project
-          delete ref.values.conditions;
+          });
         }
+
+        propertyResult.values[value] = propResult;
       }
+
+      result[property] = propertyResult as DeepPartial<
+        PropertyResult<TProperties, TConditions>[typeof property]
+      >;
 
       continue;
     }
@@ -124,14 +120,12 @@ export function defineProperties<
         [property]: values[value],
       });
 
-      (
-        ref.values as Record<
-          string,
-          { defaultClass: string; conditions?: string[] }
-        >
-      )[value] = {
+      const propResult = {
         defaultClass,
-        conditions: conditions?.map((condition, i) => {
+      } as PropertyResultValue<TConditions>;
+
+      if (conditions) {
+        propResult.conditions = conditions.map((condition, i) => {
           if (i === 0 && Object.keys(condition).length === 0) {
             return defaultClass;
           }
@@ -149,14 +143,15 @@ export function defineProperties<
           throw new Error(
             `Invalid condition for ${property}: ${JSON.stringify(condition)}`,
           );
-        }),
-      };
-
-      if (!conditions && 'conditions' in ref.values) {
-        // biome-ignore lint/performance/noDelete: Only runs when building the project
-        delete ref.values.conditions;
+        });
       }
+
+      propertyResult.values[value] = propResult;
     }
+
+    result[property] = propertyResult as DeepPartial<
+      PropertyResult<TProperties, TConditions>[typeof property]
+    >;
   }
 
   return result as PropertyResult<TProperties, TConditions>;
