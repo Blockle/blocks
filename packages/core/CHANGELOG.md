@@ -1,5 +1,11 @@
 # @blockle/blocks-core
 
+## 0.21.5
+
+### Patch Changes
+
+- 3307c08: Internal peer deps to major version
+
 ## 0.21.4
 
 ### Patch Changes

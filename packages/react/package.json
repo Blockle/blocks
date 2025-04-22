@@ -1,6 +1,6 @@
 {
   "name": "@blockle/blocks-react",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "React hooks and components for Blockle",
   "type": "module",
   "exports": {
@@ -13,7 +13,9 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
