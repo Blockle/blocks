@@ -1,4 +1,4 @@
-import { responsiveProperties } from '@blockle/blocks-core';
+import { atomicProperties } from '@blockle/blocks-core';
 import type { Meta, StoryFn, StoryObj } from '@storybook/react';
 import { expect, within } from '@storybook/test';
 import { Stack } from '../../layout/Stack';
@@ -10,14 +10,14 @@ export default {
   argTypes: {
     fontSize: {
       type: 'string',
-      options: Object.keys(responsiveProperties.fontSize),
+      options: Object.keys(atomicProperties.fontSize.values),
       control: {
         type: 'select',
       },
     },
     align: {
       type: 'string',
-      options: Object.keys(responsiveProperties.textAlign),
+      options: Object.keys(atomicProperties.textAlign.values),
       control: {
         type: 'select',
       },

@@ -1,8 +1,8 @@
-import { makeComponentTheme, sprinkles } from '@blockle/blocks-core';
+import { atoms, makeComponentTheme } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 
 export const tooltip = makeComponentTheme('tooltip', {
-  base: sprinkles({
+  base: atoms({
     backgroundColor: 'primary',
     padding: 'small',
   }),

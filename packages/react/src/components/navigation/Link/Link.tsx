@@ -3,7 +3,7 @@
 import {
   type ComponentThemes,
   type HTMLElementProps,
-  type MarginSprinkles,
+  type MarginAtoms,
   classnames,
 } from '@blockle/blocks-core';
 import { createSlottable } from '@blockle/blocks-react-slot';
@@ -17,7 +17,7 @@ export type LinkProps = {
   ref?: React.Ref<HTMLAnchorElement>;
   underline?: LinkTheme['variants']['underline'];
   variant?: LinkTheme['variants']['variant'];
-} & MarginSprinkles &
+} & MarginAtoms &
   HTMLElementProps<HTMLAnchorElement>;
 
 const [Template, Slot] = createSlottable('a');

@@ -1,10 +1,9 @@
 import {
   type AlignItemsMap,
+  type Atoms,
   type JustifyContentMap,
-  type MarginSprinkles,
-  type PaddingSprinkles,
-  type ResponsiveDisplayFlex,
-  type Sprinkles,
+  type MarginAtoms,
+  type PaddingAtoms,
   alignItemsMap,
   justifyContentMap,
 } from '@blockle/blocks-core';
@@ -16,11 +15,11 @@ export type InlineProps = {
   tag?: 'div' | 'ul' | 'ol' | 'nav';
   children: React.ReactNode;
   className?: string;
-  display?: ResponsiveDisplayFlex;
-  spacing: Sprinkles['gap'];
+  display?: Atoms['display'];
+  spacing: Atoms['gap'];
   style?: React.CSSProperties;
-} & MarginSprinkles &
-  PaddingSprinkles;
+} & MarginAtoms &
+  PaddingAtoms;
 
 export const Inline: React.FC<InlineProps> = ({
   alignX,

@@ -1,10 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from '@storybook/test';
 
-import {
-  responsiveProperties,
-  unresponsiveProperties,
-} from '@blockle/blocks-core';
+import { atomicProperties } from '@blockle/blocks-core';
 import { Box, type BoxProps } from './Box';
 
 export default {
@@ -13,15 +10,15 @@ export default {
   argTypes: {
     color: {
       control: 'select',
-      options: Object.keys(unresponsiveProperties.color),
+      options: Object.keys(atomicProperties.color.values),
     },
     backgroundColor: {
       control: 'select',
-      options: Object.keys(unresponsiveProperties.color),
+      options: Object.keys(atomicProperties.color.values),
     },
     padding: {
       control: 'select',
-      options: Object.keys(responsiveProperties.padding),
+      options: Object.keys(atomicProperties.padding.values),
     },
   },
 } as Meta;

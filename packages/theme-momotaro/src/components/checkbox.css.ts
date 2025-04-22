@@ -1,4 +1,4 @@
-import { makeComponentTheme, sprinkles, vars } from '@blockle/blocks-core';
+import { atoms, makeComponentTheme, vars } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 import { focusable } from './helpers.css';
 import { bounceOut } from './transitions';
@@ -25,7 +25,7 @@ export const checkbox = makeComponentTheme('checkbox', {
         },
       },
     },
-    sprinkles({
+    atoms({
       backgroundColor: 'primaryLight',
       borderRadius: 'small',
     }),
@@ -47,7 +47,7 @@ export const checkbox = makeComponentTheme('checkbox', {
       },
     },
   }),
-  label: sprinkles({
+  label: atoms({
     display: 'flex',
     flexDirection: 'row',
     padding: 'xsmall',

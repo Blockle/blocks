@@ -1,9 +1,8 @@
 import {
   type AlignItemsMap,
-  type MarginSprinkles,
-  type PaddingSprinkles,
-  type ResponsiveDisplayFlex,
-  type Sprinkles,
+  type Atoms,
+  type MarginAtoms,
+  type PaddingAtoms,
   alignItemsMap,
 } from '@blockle/blocks-core';
 import { Box } from '../Box';
@@ -13,16 +12,16 @@ export type StackProps = {
   tag?: 'div' | 'section' | 'ul' | 'ol';
   children: React.ReactNode;
   className?: string;
-  display?: ResponsiveDisplayFlex;
-  spacing: Sprinkles['gap'];
+  display?: Atoms['display'];
+  spacing: Atoms['gap'];
   style?: React.CSSProperties;
   role?: React.AriaRole;
   /**
    * Start prop is only valid when tag="ol"
    */
   start?: number;
-} & MarginSprinkles &
-  PaddingSprinkles;
+} & MarginAtoms &
+  PaddingAtoms;
 
 export const Stack: React.FC<StackProps> = ({
   tag: Tag = 'div',

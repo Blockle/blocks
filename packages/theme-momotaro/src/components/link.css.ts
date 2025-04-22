@@ -1,4 +1,4 @@
-import { makeComponentTheme, sprinkles } from '@blockle/blocks-core';
+import { atoms, makeComponentTheme } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 import { focusable } from './helpers.css';
 
@@ -32,11 +32,11 @@ export const link = makeComponentTheme('link', {
         color: 'inherit',
         fontWeight: 'inherit',
       }),
-      primary: sprinkles({
+      primary: atoms({
         color: 'primary',
         fontWeight: 'medium',
       }),
-      secondary: sprinkles({
+      secondary: atoms({
         color: 'secondary',
         fontWeight: 'medium',
       }),

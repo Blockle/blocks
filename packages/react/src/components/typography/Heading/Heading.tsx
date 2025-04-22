@@ -1,8 +1,8 @@
 import {
   type HTMLElementProps,
-  type MarginSprinkles,
-  type PaddingSprinkles,
-  type TextSprinkles,
+  type MarginAtoms,
+  type PaddingAtoms,
+  type TextAtoms,
   classnames,
 } from '@blockle/blocks-core';
 import { Box } from '../../layout/Box';
@@ -12,9 +12,9 @@ export type HeadingProps = {
   children: React.ReactNode;
   className?: string;
   level: 1 | 2 | 3 | 4 | 5 | 6;
-} & TextSprinkles &
-  MarginSprinkles &
-  PaddingSprinkles &
+} & TextAtoms &
+  MarginAtoms &
+  PaddingAtoms &
   HTMLElementProps<HTMLHeadingElement>;
 
 export const Heading: React.FC<HeadingProps> = ({

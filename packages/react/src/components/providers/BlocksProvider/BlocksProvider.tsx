@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 
-import { type Theme, classnames, sprinkles } from '@blockle/blocks-core';
+import { type Theme, atoms, classnames } from '@blockle/blocks-core';
 import { createSlottable } from '@blockle/blocks-react-slot';
 import { BlocksProviderContext } from './context';
 
@@ -34,7 +34,7 @@ export const BlocksProvider: React.FC<BlocksProviderProps> = ({
       <Template
         className={classnames(
           theme.vars,
-          sprinkles({ fontFamily: 'primary' }),
+          atoms({ fontFamily: 'primary' }),
           className,
         )}
         {...restProps}

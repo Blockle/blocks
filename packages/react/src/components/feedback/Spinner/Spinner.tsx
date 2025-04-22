@@ -2,7 +2,7 @@
 
 import {
   type ComponentThemes,
-  type MarginSprinkles,
+  type MarginAtoms,
   classnames,
 } from '@blockle/blocks-core';
 import { useComponentStyles } from '../../../hooks/useComponentStyles';
@@ -16,7 +16,7 @@ export type SpinnerProps = {
   color?: SpinnerTheme['variants']['color'];
   size?: SpinnerTheme['variants']['size'];
   style?: React.CSSProperties;
-} & MarginSprinkles;
+} & MarginAtoms;
 
 export const Spinner: React.FC<SpinnerProps> = ({
   className,

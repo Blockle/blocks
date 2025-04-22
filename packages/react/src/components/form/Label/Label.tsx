@@ -1,11 +1,11 @@
 'use client';
 
 import {
+  type Atoms,
   type ComponentThemes,
   type HTMLElementProps,
-  type Sprinkles,
+  atoms,
   classnames,
-  sprinkles,
 } from '@blockle/blocks-core';
 import { useComponentStyles } from '../../../hooks/useComponentStyles';
 
@@ -23,7 +23,7 @@ export type LabelProps = {
   children?: React.ReactNode;
   required?: boolean;
   size?: LabelTheme['variants']['size'];
-  cursor?: Sprinkles['cursor'];
+  cursor?: Atoms['cursor'];
 } & HTMLElementProps<HTMLLabelElement>;
 
 export const Label: React.FC<LabelProps> = ({
@@ -43,11 +43,7 @@ export const Label: React.FC<LabelProps> = ({
 
   return (
     <Component
-      className={classnames(
-        containerClassName,
-        className,
-        sprinkles({ cursor }),
-      )}
+      className={classnames(containerClassName, className, atoms({ cursor }))}
       {...restProps}
     >
       {children}

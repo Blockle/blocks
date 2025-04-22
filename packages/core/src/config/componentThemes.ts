@@ -1,4 +1,4 @@
-import type { Sprinkles } from '../sprinkles/sprinkles.css';
+import type { Atoms } from '../atoms/atoms';
 import type { RecordLike } from '../utils/typing/helpers';
 
 /**
@@ -28,14 +28,14 @@ export type SpinnerTheme = {
   base: string;
   variants: {
     size: 'small' | 'medium' | 'large';
-    color: Exclude<Sprinkles['color'], undefined>;
+    color: Exclude<Atoms['color'], undefined>;
   };
 };
 
 export type DividerTheme = {
   base?: string;
   variants: {
-    color: Exclude<Sprinkles['color'], undefined>;
+    color: Exclude<Atoms['color'], undefined>;
   };
 };
 

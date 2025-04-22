@@ -1,4 +1,4 @@
-type PossibleRef<T> = React.Ref<T> | undefined | unknown;
+type PossibleRef<T> = React.Ref<T> | undefined | null;
 
 function setRef<T>(ref: PossibleRef<T>, value: T) {
   if (typeof ref === 'function') {

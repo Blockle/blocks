@@ -1,8 +1,4 @@
-import {
-  responsiveProperties,
-  unresponsiveProperties,
-  vars,
-} from '@blockle/blocks-core';
+import { atomicProperties } from '@blockle/blocks-core';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from '@storybook/test';
 import { Text, type TextProps } from './Text';
@@ -18,19 +14,19 @@ export default {
       name: 'fontSize',
       type: 'string',
       control: 'select',
-      options: Object.keys(vars.fontSize),
+      options: Object.keys(atomicProperties.fontSize.values),
     },
     textAlign: {
       name: 'textAlign',
       type: 'string',
       control: 'select',
-      options: responsiveProperties.textAlign,
+      options: Object.keys(atomicProperties.textAlign.values),
     },
     lineHeight: {
       name: 'lineHeight',
       type: 'string',
       control: 'select',
-      options: Object.keys(unresponsiveProperties.lineHeight),
+      options: Object.keys(atomicProperties.lineHeight.values),
     },
   },
 } as Meta<typeof Text>;
