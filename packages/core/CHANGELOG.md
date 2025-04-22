@@ -1,5 +1,11 @@
 # @blockle/blocks-core
 
+## 0.21.6
+
+### Patch Changes
+
+- 4a55770: Fixed return value
+
 ## 0.21.5
 
 ### Patch Changes
