@@ -140,7 +140,7 @@ export function defineProperties<
             return style({
               '@media': {
                 [condition['@media']]: {
-                  [property]: value,
+                  [property]: values[value],
                 },
               },
             });
