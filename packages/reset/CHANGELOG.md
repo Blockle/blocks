@@ -1,5 +1,11 @@
 # @blockle/blocks-reset
 
+## 0.21.6
+
+### Patch Changes
+
+- c6d1a4f: side effect tweak
+
 ## 0.21.5
 
 ### Patch Changes
