@@ -3,9 +3,7 @@
   "version": "0.21.5",
   "description": "CSS reset for Blockle",
   "type": "module",
-  "sideEffects": [
-    "./dist/reset.css.*"
-  ],
+  "sideEffects": ["**/reset.css.*"],
   "exports": {
     ".": {
       "types": {
@@ -16,9 +14,7 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
