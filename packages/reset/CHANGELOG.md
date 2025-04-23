@@ -1,5 +1,11 @@
 # @blockle/blocks-reset
 
+## 0.21.5
+
+### Patch Changes
+
+- fb63926: Corrected sideEffect (crossed fingers)
+
 ## 0.21.4
 
 ### Patch Changes

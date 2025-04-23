@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 1.0.6
+
+### Patch Changes
+
+- fb63926: Corrected sideEffect (crossed fingers)
+
 ## 1.0.5
 
 ### Patch Changes

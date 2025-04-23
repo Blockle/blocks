@@ -1,6 +1,6 @@
 {
   "name": "@blockle/blocks",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Design system for React",
   "type": "module",
   "sideEffects": false,
@@ -22,7 +22,9 @@
       "require": "./dist/reset.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
