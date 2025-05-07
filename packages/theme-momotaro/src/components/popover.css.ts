@@ -13,17 +13,25 @@ export const popover = makeComponentTheme('popover', {
     {
       width: 'max-content',
       selectors: {
-        '&[data-open]': {
-          transform: 'scale(1)',
+        '&:popover-open': {
+          transform: 'translateY(0) scale(1)',
           opacity: 1,
+          // @ts-expect-error - Vanilla Extract does not support @starting-style (yet)
+          '@starting-style': {
+            transform: 'translateY(12px) scale(0.8)',
+            opacity: 0,
+          },
         },
       },
       // Apply the animation only if the user has not requested reduced motion
       '@media': {
         '(prefers-reduced-motion: no-preference)': {
-          transform: 'scale(0.95)',
-          transition: 'opacity 80ms linear, transform 80ms',
+          // Ending style
+          transform: 'translateY(12px) scale(0.8)',
           opacity: 0,
+          transitionBehavior: 'allow-discrete',
+          transitionProperty: 'opacity, transform, overlay, display',
+          transitionDuration: '100ms',
         },
       },
     },

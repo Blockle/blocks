@@ -40,3 +40,7 @@ globalStyle(':where(h1, h2, h3, h4, h5, h6)', {
 globalStyle(':where(pre)', {
   whiteSpace: 'pre-wrap',
 });
+
+globalStyle(':where([popover])', {
+  border: 'unset',
+});

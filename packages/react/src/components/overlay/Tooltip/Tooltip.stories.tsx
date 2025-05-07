@@ -23,6 +23,6 @@ export const Default: StoryObj<TooltipProps> = {
   },
 
   args: {
-    label: 'Hi there',
+    content: 'Hi there',
   },
 };

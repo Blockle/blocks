@@ -23,16 +23,16 @@ type ReactElement = React.ReactElement<
 type TooltipTheme = ComponentThemes['tooltip'];
 
 export type TooltipProps = {
-  align?: PopoverProps['align'];
+  position?: PopoverProps['position'];
   children: ReactElement;
-  label: React.ReactNode;
+  content: React.ReactNode;
   colorScheme?: TooltipTheme['variants']['colorScheme'];
 };
 
 export const Tooltip: React.FC<TooltipProps> = ({
-  align = 'top',
+  position = 'top',
   children,
-  label,
+  content,
   colorScheme,
 }) => {
   const id = useId();
@@ -44,6 +44,9 @@ export const Tooltip: React.FC<TooltipProps> = ({
     variants: { colorScheme },
   });
 
+  // Create a hook?
+  // usePointerEnterLeave
+  // useFocusEnterLeave
   useEffect(() => {
     const element = ref.current;
 
@@ -98,10 +101,10 @@ export const Tooltip: React.FC<TooltipProps> = ({
         onRequestClose={() => {
           setOpen(false);
         }}
-        align={align}
+        position={position}
         className={tooltipClassName}
       >
-        {label}
+        {content}
       </Popover>
     </>
   );

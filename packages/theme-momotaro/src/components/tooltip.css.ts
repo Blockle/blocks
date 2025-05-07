@@ -3,7 +3,6 @@ import { style } from '@vanilla-extract/css';
 
 export const tooltip = makeComponentTheme('tooltip', {
   base: atoms({
-    backgroundColor: 'primary',
     padding: 'small',
   }),
   variants: {
