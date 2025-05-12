@@ -50,7 +50,7 @@ const NestedDialog: React.FC<{ children?: React.ReactNode }> = ({
 
   return (
     <>
-      <Button onClick={() => setOpen(true)} autoFocus>
+      <Button onClick={() => setOpen(true)} alignSelf="flex-end" autoFocus>
         Open dialog
       </Button>
       <Dialog open={open} onRequestClose={() => setOpen(false)}>
@@ -61,6 +61,16 @@ const NestedDialog: React.FC<{ children?: React.ReactNode }> = ({
 };
 
 export const Default: StoryObj<DialogProps> = {
+  args: {
+    children: <>Test Dialog</>,
+    open: true,
+    onRequestClose: test.fn(() => {
+      console.log('Dialog close requested');
+    }),
+  },
+};
+
+export const Nested: StoryObj<DialogProps> = {
   render: DialogTemplate,
 
   args: {
@@ -71,14 +81,6 @@ export const Default: StoryObj<DialogProps> = {
           <Text tag="p" fontSize="small">
             This is a dialog.
           </Text>
-          <form onSubmit={(event) => event.preventDefault()}>
-            <Stack spacing="small" alignX="center">
-              {/* <Input name="firstName" label="First name" autoFocus /> */}
-              <Button type="submit" autoFocus>
-                Submit
-              </Button>
-            </Stack>
-          </form>
 
           <NestedDialog>
             One

@@ -1,40 +1,36 @@
+import { cssValueToNumber, getOriginalElementSize } from '@blockle/blocks-core';
+
 export type PopoverPositions = [x: number, y: number];
 
 export function getPopoverPosition(
-  align: 'top' | 'bottom' | 'left' | 'right',
+  position: 'top' | 'bottom' | 'left' | 'right',
   anchorRef: React.RefObject<HTMLElement | null>,
   popoverRef: React.RefObject<HTMLElement | null>,
 ): PopoverPositions {
   if (!anchorRef.current || !popoverRef.current) {
     return [0, 0];
   }
-
-  // Remove the transform to get the correct measurements
-  popoverRef.current.style.transform = 'none';
-  popoverRef.current.style.transitionDuration = '0s';
-
   // Get the measurements of the anchor and popover
   const anchorRect = anchorRef.current.getBoundingClientRect();
   const popoverRect = popoverRef.current.getBoundingClientRect();
-  let popoverStyles = getComputedStyle(popoverRef.current);
+  const popoverStyles = getComputedStyle(popoverRef.current);
 
-  const top = popoverStyles.getPropertyValue('top');
-  const left = popoverStyles.getPropertyValue('left');
-  popoverRef.current.style.left = '0';
-  popoverRef.current.style.top = '0';
+  const [popoverWidth, popoverHeight] = getOriginalElementSize(
+    popoverStyles,
+    popoverRect.width,
+    popoverRect.height,
+  );
 
-  popoverStyles = getComputedStyle(popoverRef.current);
-
-  const marginTop = Number.parseFloat(
+  const marginTop = cssValueToNumber(
     popoverStyles.getPropertyValue('margin-top'),
   );
-  const marginRight = Number.parseFloat(
+  const marginRight = cssValueToNumber(
     popoverStyles.getPropertyValue('margin-right'),
   );
-  const marginBottom = Number.parseFloat(
+  const marginBottom = cssValueToNumber(
     popoverStyles.getPropertyValue('margin-bottom'),
   );
-  const marginLeft = Number.parseFloat(
+  const marginLeft = cssValueToNumber(
     popoverStyles.getPropertyValue('margin-left'),
   );
   const marginY = marginTop + marginBottom;
@@ -47,43 +43,36 @@ export function getPopoverPosition(
 
   const anchorLeft = anchorRect.left + docScrollLeft;
   const anchorTop = anchorRect.top + docScrollTop;
-  const topPosition = anchorRect.top - (popoverRect.height + marginTop);
-  const rightPosition = anchorRect.left + anchorRect.width + popoverRect.width;
-  const bottomPosition =
-    anchorRect.top + anchorRect.height + popoverRect.height;
-  const leftPosition = anchorRect.left - popoverRect.width;
+  const topPosition = anchorRect.top - (popoverHeight + marginTop);
+  const rightPosition = anchorRect.left + anchorRect.width + popoverWidth;
+  const bottomPosition = anchorRect.top + anchorRect.height + popoverHeight;
+  const leftPosition = anchorRect.left - popoverWidth;
 
   const offsetX =
-    anchorLeft - marginLeft - (popoverRect.width - anchorRect.width) / 2;
+    anchorLeft - marginLeft - (popoverWidth - anchorRect.width) / 2;
   const offsetY =
-    anchorTop - marginTop - (popoverRect.height - anchorRect.height) / 2;
+    anchorTop - marginTop - (popoverHeight - anchorRect.height) / 2;
 
-  // Reset the transform
-  popoverRef.current.style.transform = '';
-  popoverRef.current.style.transitionDuration = '';
-  popoverRef.current.style.top = top;
-  popoverRef.current.style.left = left;
-
-  switch (align) {
+  switch (position) {
     case 'top': {
       return topPosition > 0
-        ? [offsetX, anchorTop - popoverRect.height - marginY]
+        ? [offsetX, anchorTop - popoverHeight - marginY]
         : [offsetX, anchorTop + anchorRect.height];
     }
     case 'bottom': {
       return bottomPosition < docHeight || topPosition < 0
         ? [offsetX, anchorTop + anchorRect.height]
-        : [offsetX, anchorTop - popoverRect.height - marginY];
+        : [offsetX, anchorTop - popoverHeight - marginY];
     }
     case 'left': {
       return leftPosition > docWidth || leftPosition > 0
-        ? [anchorLeft - popoverRect.width - marginX, offsetY]
+        ? [anchorLeft - popoverWidth - marginX, offsetY]
         : [anchorLeft + anchorRect.width, offsetY];
     }
     case 'right': {
       return rightPosition < docWidth || leftPosition < 0
         ? [anchorLeft + anchorRect.width, offsetY]
-        : [anchorLeft - popoverRect.width - marginX, offsetY];
+        : [anchorLeft - popoverWidth - marginX, offsetY];
     }
   }
 }

@@ -34,11 +34,12 @@ export const Dialog: React.FC<DialogProps> = ({
   size,
   ...restProps
 }) => {
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const dialogClassName = useComponentStyles('dialog', {
     dialog: true,
     variants: { size },
   });
-  const dialogRef = useRef<HTMLDialogElement>(null);
+
   const [enabled, setEnabled] = useState(true);
   const [visible, setVisible] = useState(open);
 
@@ -79,12 +80,15 @@ export const Dialog: React.FC<DialogProps> = ({
     } else if (open) {
       setVisible(true);
     } else {
-      // If the dialog has no animation duration, we need to manually hide it
+      // If the dialog has no animation duration, we hide it immediately
       if (!hasAnimationDuration(dialogRef.current)) {
         setVisible(false);
       }
 
-      dialogRef.current?.close();
+      if (dialogRef.current?.close) {
+        // Close the dialog
+        dialogRef.current.close();
+      }
     }
   }, [open, visible]);
 
@@ -106,7 +110,6 @@ export const Dialog: React.FC<DialogProps> = ({
       <DialogContext.Provider value={{ setEnabled }}>
         <dialog
           ref={dialogRef}
-          aria-modal="true"
           open={dataOpen}
           className={classnames(styles.dialog, dialogClassName, className)}
           onAnimationEnd={onAnimationEnd}

@@ -1,26 +1,22 @@
 import { composeStories } from '@storybook/react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import * as stories from './Dialog.stories';
 
 const { Default: Dialog } = composeStories(stories);
 
-describe.skip('Dialog', () => {
-  it('renders correctly when open', async () => {
+describe('Dialog', () => {
+  it('renders correctly when opened', async () => {
     render(
       <Dialog open={true} onRequestClose={vi.fn()} aria-label="Test Dialog">
         <p>Dialog Content</p>
       </Dialog>,
     );
 
-    await waitFor(() => {
-      expect(screen.getByText('Dialog Content')).toBeInTheDocument();
-    });
-
-    expect(
-      screen.getByRole('dialog', { name: 'Test Dialog' }),
-    ).toBeInTheDocument();
+    const dialog = screen.getByLabelText('Test Dialog');
+    // getByRole('dialog') is not working with showModal() api?
+    expect(dialog).toHaveRole('dialog');
   });
 
   it('does not render when closed', () => {
@@ -30,13 +26,13 @@ describe.skip('Dialog', () => {
       </Dialog>,
     );
 
-    expect(
-      screen.queryByRole('dialog', { name: 'Test Dialog' }),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText('Dialog Content')).not.toBeInTheDocument();
   });
 
   it('calls onRequestClose when clicking outside', async () => {
     const onRequestClose = vi.fn();
+    const user = userEvent.setup();
+
     render(
       <Dialog
         open={true}
@@ -47,7 +43,7 @@ describe.skip('Dialog', () => {
       </Dialog>,
     );
 
-    await userEvent.click(document.body);
+    await user.click(document.body);
     expect(onRequestClose).toHaveBeenCalled();
   });
 

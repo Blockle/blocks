@@ -5,155 +5,143 @@ import {
   classnames,
   hasAnimationDuration,
 } from '@blockle/blocks-core';
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useClickOutside } from '../../../hooks/useClickOutside/useClickOutside';
 import { useComponentStyles } from '../../../hooks/useComponentStyles';
 import { useIsomorphicLayoutEffect } from '../../../hooks/useIsomorphicLayoutEffect';
 import { useKeyboard } from '../../../hooks/useKeyboard';
-import { useLayer } from '../../../hooks/useLayer';
-import { useVisibilityState } from '../../../hooks/useVisibilityState';
 import { Box } from '../../layout/Box';
-import { Portal } from '../Portal';
 import { getPopoverPosition } from './popover-utils';
 
+export type PopoverAlign = 'top' | 'bottom' | 'left' | 'right';
+
 export type PopoverProps = {
-  // Preferred alignment of the popover, will mirror if there is not enough space
-  align?: 'top' | 'bottom' | 'left' | 'right';
   anchorElement: React.RefObject<HTMLElement | null>;
   children: React.ReactNode;
   className?: string;
   onRequestClose: () => void;
   open: boolean;
-  repositionOnScroll?: boolean;
+  position?: PopoverAlign; // TODO PopoverAlign | PopoverAlign[]; allow multiple positions
+  sticky?: boolean;
   style?: React.CSSProperties;
+  // trigger?: 'click' | 'hover' | 'focus'; // TODO: implement
 } & HTMLElementProps<HTMLDivElement>;
 
 export const Popover: React.FC<PopoverProps> = ({
-  align = 'bottom',
   anchorElement,
   children,
   className,
   onRequestClose,
   open,
-  repositionOnScroll,
+  position = 'top',
+  sticky,
   style,
   ...restProps
 }) => {
-  const layer = useLayer();
-  const [visible, hide] = useVisibilityState(open);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
   const popoverRef = useRef<HTMLDivElement>(null);
-  const containerClassName = useComponentStyles(
-    'popover',
-    { base: true },
-    false,
-  );
+  const [popoverPosition, setPopoverPosition] = useState({ x: 0, y: 0 });
+  const [visible, setVisible] = useState(open);
 
-  useLayoutEffect(() => {
-    if (!visible) {
-      return;
-    }
-
-    const position = getPopoverPosition(align, anchorElement, popoverRef);
-
-    setPosition({ x: position[0], y: position[1] });
-  }, [align, anchorElement, visible]);
-
-  useEffect(() => {
-    if (!open || !repositionOnScroll) {
-      return;
-    }
-
-    function handleResize() {
-      const position = getPopoverPosition(align, anchorElement, popoverRef);
-
-      setPosition({ x: position[0], y: position[1] });
-    }
-
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('scroll', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('scroll', handleResize);
-    };
-  }, [align, anchorElement, open, repositionOnScroll]);
-
-  // "workaround" so transition works on first render
-  useIsomorphicLayoutEffect(() => {
-    if (!open) {
-      popoverRef.current?.removeAttribute('data-open');
-      return;
-    }
-
-    let timer = requestAnimationFrame(() => {
-      timer = requestAnimationFrame(() => {
-        popoverRef.current?.setAttribute('data-open', '');
-      });
-    });
-
-    return () => {
-      cancelAnimationFrame(timer);
-    };
-  }, [open, visible]);
-
-  // Hide the popover when the animation ends
-  const onAnimationEnd = useCallback(() => {
-    if (!open) {
-      hide();
-    }
-  }, [hide, open]);
-
-  // Hide the popover immediately when the open prop changes to false
-  // and no animation is used
-  useEffect(() => {
-    if (open) {
-      return;
-    }
-
-    // If the popover has no transition, hide it immediately
-    if (!hasAnimationDuration(popoverRef.current)) {
-      hide();
-    }
-  }, [hide, open]);
+  const popoverClassName = useComponentStyles('popover', { base: true }, false);
 
   // On Escape key press, close the popover
-  useKeyboard('Escape', onRequestClose, { enabled: visible });
+  useKeyboard('Escape', onRequestClose, { enabled: open });
 
   // Close the popover when clicking outside of it
-  useClickOutside(popoverRef, onRequestClose, { enabled: visible });
+  useClickOutside(popoverRef, onRequestClose, { enabled: open });
+
+  useIsomorphicLayoutEffect(() => {
+    const element = popoverRef.current;
+
+    // Using an addional state to control the visibility of the dialog
+    if (open && visible) {
+      if (!element || typeof element.showPopover !== 'function') {
+        console.warn(
+          'Popover: showPopover method is not available on the element.',
+        );
+        return;
+      }
+
+      element.showPopover();
+
+      const [x, y] = getPopoverPosition(position, anchorElement, popoverRef);
+      setPopoverPosition({ x, y });
+    } else if (open) {
+      setVisible(true);
+    } else {
+      // If the popover has no animation duration, we hide it immediately
+      if (!hasAnimationDuration(popoverRef.current)) {
+        setVisible(false);
+      }
+
+      popoverRef.current?.hidePopover();
+    }
+  }, [open, visible]);
+
+  // Update the popover position when anchor element or position prop changes
+  useEffect(() => {
+    if (open) {
+      const [x, y] = getPopoverPosition(position, anchorElement, popoverRef);
+      setPopoverPosition({ x, y });
+    }
+  }, [open, anchorElement, position]);
+
+  // Update the popover position when the window is resized or scrolled
+  // and the popover is sticky
+  useEffect(() => {
+    if (!open || !sticky) {
+      return;
+    }
+
+    function updatePopoverPosition() {
+      const [x, y] = getPopoverPosition(position, anchorElement, popoverRef);
+
+      setPopoverPosition((prev) => {
+        // Prevent unnecessary state updates
+        if (prev.x === x && prev.y === y) {
+          return prev;
+        }
+
+        return { x, y };
+      });
+    }
+
+    window.addEventListener('resize', updatePopoverPosition);
+    window.addEventListener('scroll', updatePopoverPosition);
+
+    return () => {
+      window.removeEventListener('resize', updatePopoverPosition);
+      window.removeEventListener('scroll', updatePopoverPosition);
+    };
+  }, [position, anchorElement, open, sticky]);
+
+  const onAnimationEnd = useCallback(() => {
+    if (!open) {
+      setVisible(false);
+    }
+  }, [open]);
 
   if (!visible) {
     return null;
   }
 
-  // SSR: If the popover is open on the server, we need to render it with the open attribute
-  const dataOpen = typeof window === 'undefined' && open ? '' : undefined;
-
   return (
-    <Portal container={layer()}>
-      <Box
-        ref={popoverRef}
-        data-open={dataOpen}
-        onAnimationEnd={onAnimationEnd}
-        onTransitionEnd={onAnimationEnd}
-        className={classnames(containerClassName, className)}
-        position="absolute"
-        style={{
-          ...style,
-          left: position.x,
-          top: position.y,
-        }}
-        {...restProps}
-      >
-        {children}
-      </Box>
-    </Portal>
+    <Box
+      ref={popoverRef}
+      data-open={open ? '' : undefined}
+      popover="manual"
+      className={classnames(popoverClassName, className)}
+      position="absolute"
+      onAnimationEnd={onAnimationEnd}
+      onTransitionEnd={onAnimationEnd}
+      style={{
+        ...style,
+        left: popoverPosition.x,
+        top: popoverPosition.y,
+      }}
+      {...restProps}
+    >
+      {children}
+    </Box>
   );
 };

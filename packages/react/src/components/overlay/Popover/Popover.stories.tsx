@@ -13,6 +13,27 @@ export default {
 export const Default: StoryObj<PopoverProps> = {
   render: (props) => {
     const buttonRef = useRef<HTMLButtonElement | null>(null);
+
+    return (
+      <>
+        <Button ref={buttonRef}>Anchor element</Button>
+        <Popover {...props} anchorElement={buttonRef}>
+          {props.children}
+        </Popover>
+      </>
+    );
+  },
+  args: {
+    children: 'Popover content',
+    onRequestClose: () => {
+      // do nothing
+    },
+  },
+};
+
+export const Interactive: StoryObj<PopoverProps> = {
+  render: (props) => {
+    const buttonRef = useRef<HTMLButtonElement | null>(null);
     const [open, setOpen] = useState(props.open ?? false);
 
     return (
