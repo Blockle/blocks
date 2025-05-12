@@ -85,18 +85,6 @@ export function getOriginalElementSize(
   return [width / scaleX, height / scaleY];
 }
 
-export function getOriginalElementPosition(
-  styleDeclaration: CSSStyleDeclaration,
-  x: number,
-  y: number,
-): Vector2D {
-  const matrix2d = parseCSSTransform(styleDeclaration);
-  const scaleX = Math.sqrt(matrix2d.a * matrix2d.a + matrix2d.b * matrix2d.b);
-  const scaleY = Math.sqrt(matrix2d.c * matrix2d.c + matrix2d.d * matrix2d.d);
-
-  return [x / scaleX, y / scaleY];
-}
-
 export function cssValueToNumber(value?: string): number {
   if (!value) {
     return 0;
