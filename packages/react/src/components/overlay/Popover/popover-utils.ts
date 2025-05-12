@@ -3,7 +3,7 @@ import { cssValueToNumber, getOriginalElementSize } from '@blockle/blocks-core';
 export type PopoverPositions = [x: number, y: number];
 
 export function getPopoverPosition(
-  align: 'top' | 'bottom' | 'left' | 'right',
+  position: 'top' | 'bottom' | 'left' | 'right',
   anchorRef: React.RefObject<HTMLElement | null>,
   popoverRef: React.RefObject<HTMLElement | null>,
 ): PopoverPositions {
@@ -53,7 +53,7 @@ export function getPopoverPosition(
   const offsetY =
     anchorTop - marginTop - (popoverHeight - anchorRect.height) / 2;
 
-  switch (align) {
+  switch (position) {
     case 'top': {
       return topPosition > 0
         ? [offsetX, anchorTop - popoverHeight - marginY]
