@@ -1,5 +1,11 @@
 # @blockle/blocks-core
 
+## 0.21.8
+
+### Patch Changes
+
+- 6c05709: Popover improvements
+
 ## 0.21.7
 
 ### Patch Changes

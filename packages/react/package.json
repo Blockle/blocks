@@ -1,6 +1,6 @@
 {
   "name": "@blockle/blocks-react",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "React hooks and components for Blockle",
   "type": "module",
   "exports": {
