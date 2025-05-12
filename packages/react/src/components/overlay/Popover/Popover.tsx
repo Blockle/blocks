@@ -56,7 +56,9 @@ export const Popover: React.FC<PopoverProps> = ({
     // Using an addional state to control the visibility of the dialog
     if (open && visible) {
       if (!element || typeof element.showPopover !== 'function') {
-        console.warn('Popover: showPopover method is not available on the element.');
+        console.warn(
+          'Popover: showPopover method is not available on the element.',
+        );
         return;
       }
 
