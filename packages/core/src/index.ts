@@ -41,3 +41,11 @@ export { atoms, type Atoms } from './atoms/atoms';
 export { atomicProperties } from './atoms/atoms.css';
 export type { MarginAtoms, PaddingAtoms, TextAtoms } from './atoms/atomTypes';
 export { getAtomsAndProps } from './atoms/getAtomsAndProps';
+
+// CSS Utils
+export {
+  cssValueToNumber,
+  getCSSScale,
+  getOriginalElementSize,
+  parseCSSTransform,
+} from './css/cssMatrixUtils';

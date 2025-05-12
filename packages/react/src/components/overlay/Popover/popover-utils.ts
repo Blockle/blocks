@@ -1,70 +1,6 @@
+import { cssValueToNumber, getOriginalElementSize } from '@blockle/blocks-core';
+
 export type PopoverPositions = [x: number, y: number];
-
-const parseMatrix = (matrix: string) => {
-  if (!matrix || !matrix.startsWith('matrix')) {
-    return {
-      a: 1,
-      b: 0,
-      c: 0,
-      d: 1,
-      e: 0,
-      f: 0,
-    };
-  }
-
-  const values = matrix
-    .replace(/matrix\(|\)|\s/g, '')
-    .split(',')
-    .map((value) => Number.parseFloat(value)) as [
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-  ];
-
-  if (values.length !== 6) {
-    throw new Error(
-      'Invalid matrix string. Expected 6 values for a 2D transformation matrix.',
-    );
-  }
-
-  return {
-    a: values[0],
-    b: values[1],
-    c: values[2],
-    d: values[3],
-    e: values[4],
-    f: values[5],
-  };
-};
-
-function getScale(matrix: string): [number, number] {
-  const { a, b, c, d } = parseMatrix(matrix);
-  const scaleX = Math.sqrt(a * a + b * b);
-  const scaleY = Math.sqrt(c * c + d * d);
-  return [scaleX, scaleY];
-}
-
-function getOriginalSize(
-  matrix: string,
-  width: number,
-  height: number,
-): [number, number] {
-  const [scaleX, scaleY] = getScale(matrix);
-  return [width / scaleX, height / scaleY];
-}
-
-function parseNumericValue(value: string): number {
-  const parsedValue = Number.parseFloat(value);
-
-  if (Number.isNaN(parsedValue)) {
-    return 0;
-  }
-
-  return parsedValue;
-}
 
 export function getPopoverPosition(
   align: 'top' | 'bottom' | 'left' | 'right',
@@ -74,32 +10,27 @@ export function getPopoverPosition(
   if (!anchorRef.current || !popoverRef.current) {
     return [0, 0];
   }
-
   // Get the measurements of the anchor and popover
   const anchorRect = anchorRef.current.getBoundingClientRect();
   const popoverRect = popoverRef.current.getBoundingClientRect();
-  let popoverStyles = getComputedStyle(popoverRef.current);
+  const popoverStyles = getComputedStyle(popoverRef.current);
 
-  const transform = popoverStyles.getPropertyValue('transform');
-
-  const [popoverWidth, popoverHeight] = getOriginalSize(
-    transform,
+  const [popoverWidth, popoverHeight] = getOriginalElementSize(
+    popoverStyles,
     popoverRect.width,
     popoverRect.height,
   );
 
-  popoverStyles = getComputedStyle(popoverRef.current);
-
-  const marginTop = parseNumericValue(
+  const marginTop = cssValueToNumber(
     popoverStyles.getPropertyValue('margin-top'),
   );
-  const marginRight = parseNumericValue(
+  const marginRight = cssValueToNumber(
     popoverStyles.getPropertyValue('margin-right'),
   );
-  const marginBottom = parseNumericValue(
+  const marginBottom = cssValueToNumber(
     popoverStyles.getPropertyValue('margin-bottom'),
   );
-  const marginLeft = parseNumericValue(
+  const marginLeft = cssValueToNumber(
     popoverStyles.getPropertyValue('margin-left'),
   );
   const marginY = marginTop + marginBottom;

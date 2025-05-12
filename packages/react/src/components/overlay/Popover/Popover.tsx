@@ -93,7 +93,14 @@ export const Popover: React.FC<PopoverProps> = ({
     function updatePopoverPosition() {
       const [x, y] = getPopoverPosition(position, anchorElement, popoverRef);
 
-      setPopoverPosition({ x, y });
+      setPopoverPosition((prev) => {
+        // Prevent unnecessary state updates
+        if (prev.x === x && prev.y === y) {
+          return prev;
+        }
+
+        return { x, y };
+      });
     }
 
     window.addEventListener('resize', updatePopoverPosition);
