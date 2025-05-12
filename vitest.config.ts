@@ -9,6 +9,9 @@ export default defineConfig({
     environment: 'jsdom',
     workspace: ['packages/*'],
     include: ['**/*.{test,spec}.{ts,tsx}'],
+    coverage: {
+      exclude: ['**/dist/**', './*', './.storybook/**', '**/*.stories.tsx'],
+    },
     setupFiles: [
       resolve(__dirname, './setupTests.ts'),
       resolve(__dirname, './setupTests.storybook.ts'),

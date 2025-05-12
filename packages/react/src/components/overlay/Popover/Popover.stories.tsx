@@ -25,6 +25,9 @@ export const Default: StoryObj<PopoverProps> = {
   },
   args: {
     children: 'Popover content',
+    onRequestClose: () => {
+      // do nothing
+    },
   },
 };
 
