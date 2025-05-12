@@ -13,7 +13,7 @@ import { useKeyboard } from '../../../hooks/useKeyboard';
 import { Box } from '../../layout/Box';
 import { getPopoverPosition } from './popover-utils';
 
-export type PoperoverAlign = 'top' | 'bottom' | 'left' | 'right';
+export type PopoverAlign = 'top' | 'bottom' | 'left' | 'right';
 
 export type PopoverProps = {
   anchorElement: React.RefObject<HTMLElement | null>;
@@ -21,7 +21,7 @@ export type PopoverProps = {
   className?: string;
   onRequestClose: () => void;
   open: boolean;
-  position?: PoperoverAlign; // TODO PoperoverAlign | PoperoverAlign[]; allow multiple positions
+  position?: PopoverAlign; // TODO PopoverAlign | PopoverAlign[]; allow multiple positions
   sticky?: boolean;
   style?: React.CSSProperties;
   // trigger?: 'click' | 'hover' | 'focus'; // TODO: implement
@@ -39,7 +39,7 @@ export const Popover: React.FC<PopoverProps> = ({
   ...restProps
 }) => {
   const popoverRef = useRef<HTMLDivElement>(null);
-  const [xy, setXY] = useState({ x: 0, y: 0 });
+  const [popoverPosition, setPopoverPosition] = useState({ x: 0, y: 0 });
   const [visible, setVisible] = useState(open);
 
   const popoverClassName = useComponentStyles('popover', { base: true }, false);
@@ -62,9 +62,7 @@ export const Popover: React.FC<PopoverProps> = ({
       element.showPopover();
 
       const [x, y] = getPopoverPosition(position, anchorElement, popoverRef);
-      setXY({ x, y });
-
-      // console.log('Popover position:', x, y);
+      setPopoverPosition({ x, y });
     } else if (open) {
       setVisible(true);
     } else {
@@ -77,23 +75,33 @@ export const Popover: React.FC<PopoverProps> = ({
     }
   }, [open, visible]);
 
+  // Update the popover position when anchor element or position prop changes
+  useEffect(() => {
+    if (open) {
+      const [x, y] = getPopoverPosition(position, anchorElement, popoverRef);
+      setPopoverPosition({ x, y });
+    }
+  }, [open, anchorElement, position]);
+
+  // Update the popover position when the window is resized or scrolled
+  // and the popover is sticky
   useEffect(() => {
     if (!open || !sticky) {
       return;
     }
 
-    function handleResize() {
+    function updatePopoverPosition() {
       const [x, y] = getPopoverPosition(position, anchorElement, popoverRef);
 
-      setXY({ x, y });
+      setPopoverPosition({ x, y });
     }
 
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('scroll', handleResize);
+    window.addEventListener('resize', updatePopoverPosition);
+    window.addEventListener('scroll', updatePopoverPosition);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('scroll', handleResize);
+      window.removeEventListener('resize', updatePopoverPosition);
+      window.removeEventListener('scroll', updatePopoverPosition);
     };
   }, [position, anchorElement, open, sticky]);
 
@@ -118,8 +126,8 @@ export const Popover: React.FC<PopoverProps> = ({
       onTransitionEnd={onAnimationEnd}
       style={{
         ...style,
-        left: xy.x,
-        top: xy.y,
+        left: popoverPosition.x,
+        top: popoverPosition.y,
       }}
       {...restProps}
     >

@@ -85,7 +85,10 @@ export const Dialog: React.FC<DialogProps> = ({
         setVisible(false);
       }
 
-      dialogRef.current?.close();
+      if (dialogRef.current?.close) {
+        // Close the dialog
+        dialogRef.current.close();
+      }
     }
   }, [open, visible]);
 
@@ -107,7 +110,6 @@ export const Dialog: React.FC<DialogProps> = ({
       <DialogContext.Provider value={{ setEnabled }}>
         <dialog
           ref={dialogRef}
-          aria-modal="true"
           open={dataOpen}
           className={classnames(styles.dialog, dialogClassName, className)}
           onAnimationEnd={onAnimationEnd}

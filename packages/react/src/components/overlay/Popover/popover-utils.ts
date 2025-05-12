@@ -1,6 +1,17 @@
 export type PopoverPositions = [x: number, y: number];
 
 const parseMatrix = (matrix: string) => {
+  if (!matrix || !matrix.startsWith('matrix')) {
+    return {
+      a: 1,
+      b: 0,
+      c: 0,
+      d: 1,
+      e: 0,
+      f: 0,
+    };
+  }
+
   const values = matrix
     .replace(/matrix\(|\)|\s/g, '')
     .split(',')
@@ -45,6 +56,16 @@ function getOriginalSize(
   return [width / scaleX, height / scaleY];
 }
 
+function parseNumericValue(value: string): number {
+  const parsedValue = Number.parseFloat(value);
+
+  if (Number.isNaN(parsedValue)) {
+    return 0;
+  }
+
+  return parsedValue;
+}
+
 export function getPopoverPosition(
   align: 'top' | 'bottom' | 'left' | 'right',
   anchorRef: React.RefObject<HTMLElement | null>,
@@ -69,16 +90,16 @@ export function getPopoverPosition(
 
   popoverStyles = getComputedStyle(popoverRef.current);
 
-  const marginTop = Number.parseFloat(
+  const marginTop = parseNumericValue(
     popoverStyles.getPropertyValue('margin-top'),
   );
-  const marginRight = Number.parseFloat(
+  const marginRight = parseNumericValue(
     popoverStyles.getPropertyValue('margin-right'),
   );
-  const marginBottom = Number.parseFloat(
+  const marginBottom = parseNumericValue(
     popoverStyles.getPropertyValue('margin-bottom'),
   );
-  const marginLeft = Number.parseFloat(
+  const marginLeft = parseNumericValue(
     popoverStyles.getPropertyValue('margin-left'),
   );
   const marginY = marginTop + marginBottom;
