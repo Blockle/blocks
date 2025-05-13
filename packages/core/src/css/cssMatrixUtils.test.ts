@@ -52,6 +52,23 @@ describe('cssMatrixUtils', () => {
       });
     });
 
+    it('should parse a valid matrix transform with other ', () => {
+      const styleDeclaration = createMockStyleDeclaration({
+        transform: 'rotate(90deg) matrix(1, 0, 0, 1, 10, 20)',
+      });
+
+      const result = parseCSSTransform(styleDeclaration);
+
+      expect(result).toEqual({
+        a: 1,
+        b: 0,
+        c: 0,
+        d: 1,
+        tx: 10,
+        ty: 20,
+      });
+    });
+
     it('should throw an error for invalid matrix values', () => {
       const styleDeclaration = createMockStyleDeclaration({
         transform: 'matrix(1, 0, 0, 1, 10)',

@@ -1,4 +1,5 @@
 export type Vector2D = [x: number, y: number];
+
 export type Matrix2D = {
   a: number;
   b: number;
@@ -7,6 +8,7 @@ export type Matrix2D = {
   tx: number;
   ty: number;
 };
+
 type RawMatrix2D = [
   a: number,
   b: number,
@@ -16,12 +18,14 @@ type RawMatrix2D = [
   ty: number,
 ];
 
+const CSSMatrixValuePattern = /matrix\((.*?)\)/;
+
 export function parseCSSTransform(
   styleDeclaration: CSSStyleDeclaration,
 ): Matrix2D {
   const transform = styleDeclaration.getPropertyValue('transform');
 
-  if (!transform || transform === 'none' || !transform.startsWith('matrix(')) {
+  if (!transform || !CSSMatrixValuePattern.test(transform)) {
     if (import.meta.env.DEV) {
       console.warn(
         'Transform is not defined or is not a matrix. Returning identity matrix.',
@@ -37,8 +41,14 @@ export function parseCSSTransform(
       ty: 0,
     };
   }
-  const matrixValues = transform
-    .substring(7, transform.length - 1)
+
+  const matrixMatch = transform.match(CSSMatrixValuePattern);
+
+  if (!matrixMatch || !matrixMatch[1]) {
+    throw new Error('Invalid matrix value');
+  }
+
+  const matrixValues = matrixMatch[1]
     .split(',')
     .map((value) => cssValueToNumber(value.trim())) as RawMatrix2D;
 
