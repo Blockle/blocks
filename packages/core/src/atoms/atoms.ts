@@ -25,19 +25,41 @@ export function atoms(properties: AtomProperties): string {
       values: Record<string, { defaultClass: string; conditions: string[] }>;
     };
 
+    if (!target) {
+      if (import.meta.env.DEV) {
+        console.warn(
+          `atoms: Property "${property}" is not defined in atomicProperties.`,
+        );
+      }
+      continue;
+    }
+
     if (typeof value === 'string' || typeof value === 'number') {
       if (target.values[value] !== undefined) {
         classList.push(target.values[value].defaultClass);
       }
     } else if (Array.isArray(value)) {
       value.forEach((val, i) => {
+        const value = target.values[val];
+
         if (i === 0) {
-          if (target.values[val]) {
-            classList.push(target.values[val].defaultClass);
+          if (value) {
+            classList.push(value.defaultClass);
           }
-        } else {
-          classList.push(target.values[val]?.conditions[i] ?? '');
+          return;
         }
+
+        if (!value?.conditions[i]) {
+          if (import.meta.env.DEV) {
+            console.warn(
+              `atoms: Condition for "${property}" with value "${val}" not found.`,
+            );
+          }
+
+          return;
+        }
+
+        classList.push(value?.conditions[i]);
       });
     }
   }
