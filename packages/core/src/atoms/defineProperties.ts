@@ -4,12 +4,12 @@ import type { Properties as CSSProperties } from 'csstype';
 type DeepPartial<T> = {
   [K in keyof T]?: T[K] extends object
     ? DeepPartial<T[K]>
-    : T[K] extends any[]
+    : T[K] extends unknown[]
       ? DeepPartial<T[K][number]>[]
       : T[K];
 };
 
-type MapArray<T extends any[], V> = {
+type MapArray<T extends unknown[], V> = {
   [Index in keyof T]: V;
 };
 
@@ -28,10 +28,10 @@ type PropertyDefinition<TProperties, TConditions> = {
   conditions?: TConditions;
 };
 
-type PropertyResultValue<TConditions> = TConditions extends any[]
+type PropertyResultValue<TConditions> = TConditions extends unknown[]
   ? {
       defaultClass: string;
-      conditions: TConditions extends any[]
+      conditions: TConditions extends unknown[]
         ? MapArray<TConditions, string>
         : never;
     }
@@ -41,7 +41,7 @@ type PropertyResultValue<TConditions> = TConditions extends any[]
 
 type PropertyResult<TProperties extends Properties, TConditions> = {
   [K in keyof TProperties]: {
-    values: TProperties[K] extends any[]
+    values: TProperties[K] extends AtomicPrimitiveValue[]
       ? {
           [V in TProperties[K][number]]: PropertyResultValue<TConditions>;
         }
@@ -53,7 +53,7 @@ type PropertyResult<TProperties extends Properties, TConditions> = {
 
 export function defineProperties<
   const TProperties extends Properties,
-  const TConditions extends PropertyConditions,
+  TConditions extends PropertyConditions | undefined,
 >({
   properties,
   conditions,
@@ -81,9 +81,9 @@ export function defineProperties<
 
         const propResult = {
           defaultClass,
-        } as PropertyResultValue<TConditions>;
+        } as PropertyResultValue<unknown[]>;
 
-        if (conditions) {
+        if (isValidConditionList(conditions)) {
           propResult.conditions = conditions.map((condition, i) => {
             if (i === 0 && Object.keys(condition).length === 0) {
               return defaultClass;
@@ -122,9 +122,9 @@ export function defineProperties<
 
       const propResult = {
         defaultClass,
-      } as PropertyResultValue<TConditions>;
+      } as PropertyResultValue<unknown[]>;
 
-      if (conditions) {
+      if (isValidConditionList(conditions)) {
         propResult.conditions = conditions.map((condition, i) => {
           if (i === 0 && Object.keys(condition).length === 0) {
             return defaultClass;
@@ -155,4 +155,10 @@ export function defineProperties<
   }
 
   return result as PropertyResult<TProperties, TConditions>;
+}
+
+function isValidConditionList(
+  condition?: unknown,
+): condition is PropertyCondition[] {
+  return Array.isArray(condition) && condition.length > 0;
 }
