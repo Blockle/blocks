@@ -40,16 +40,16 @@ export function atoms(properties: AtomProperties): string {
       }
     } else if (Array.isArray(value)) {
       value.forEach((val, i) => {
-        const value = target.values[val];
+        const atomicValue = target.values[val];
 
         if (i === 0) {
-          if (value) {
-            classList.push(value.defaultClass);
+          if (atomicValue) {
+            classList.push(atomicValue.defaultClass);
           }
           return;
         }
 
-        if (!value?.conditions[i]) {
+        if (!atomicValue?.conditions[i]) {
           if (import.meta.env.DEV) {
             console.warn(
               `atoms: Condition for "${property}" with value "${val}" not found.`,
@@ -59,7 +59,7 @@ export function atoms(properties: AtomProperties): string {
           return;
         }
 
-        classList.push(value?.conditions[i]);
+        classList.push(atomicValue?.conditions[i]);
       });
     }
   }

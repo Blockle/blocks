@@ -45,7 +45,7 @@ export function parseCSSTransform(
   const matrixMatch = transform.match(CSSMatrixValuePattern);
 
   if (!matrixMatch || !matrixMatch[1]) {
-    throw new Error('Invalid matrix value');
+    throw new Error(`Invalid matrix value: ${transform}`);
   }
 
   const matrixValues = matrixMatch[1]
