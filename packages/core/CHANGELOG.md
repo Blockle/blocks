@@ -1,5 +1,12 @@
 # @blockle/blocks-core
 
+## 0.21.9
+
+### Patch Changes
+
+- 777e1ab: - Improves CSS matrix transform parsing
+  - Improves atoms type safety and error handling
+
 ## 0.21.8
 
 ### Patch Changes
