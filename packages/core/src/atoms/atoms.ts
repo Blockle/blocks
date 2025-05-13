@@ -25,8 +25,8 @@ export function atoms(properties: AtomProperties): string {
       values: Record<string, { defaultClass: string; conditions: string[] }>;
     };
 
-    if (typeof value === 'string') {
-      if (target.values[value]) {
+    if (typeof value === 'string' || typeof value === 'number') {
+      if (target.values[value] !== undefined) {
         classList.push(target.values[value].defaultClass);
       }
     } else if (Array.isArray(value)) {
