@@ -1,6 +1,6 @@
 {
   "name": "@blockle/blocks",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Design system for React",
   "type": "module",
   "sideEffects": false,

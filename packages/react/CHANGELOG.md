@@ -1,5 +1,12 @@
 # @blockle/blocks-react
 
+## 1.1.1
+
+### Patch Changes
+
+- 777e1ab: - Improves CSS matrix transform parsing
+  - Improves atoms type safety and error handling
+
 ## 1.1.0
 
 ### Minor Changes
