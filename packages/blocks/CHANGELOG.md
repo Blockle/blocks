@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 1.0.8
+
+### Patch Changes
+
+- 3bb09cc: Popover and tooltip styling improvements
+
 ## 1.0.7
 
 ### Patch Changes
