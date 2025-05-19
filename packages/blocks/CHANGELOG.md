@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 1.0.9
+
+### Patch Changes
+
+- 94f158e: Improved css reset for popover
+
 ## 1.0.8
 
 ### Patch Changes
