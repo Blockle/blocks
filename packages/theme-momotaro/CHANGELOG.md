@@ -1,5 +1,11 @@
 # @blockle/blocks-theme-momotaro
 
+## 1.0.5
+
+### Patch Changes
+
+- 3bb09cc: Popover and tooltip styling improvements
+
 ## 1.0.4
 
 ### Patch Changes
