@@ -1,5 +1,11 @@
 # @blockle/blocks-core
 
+## 0.21.10
+
+### Patch Changes
+
+- 268e57c: Atoms styles now exist on @layer
+
 ## 0.21.9
 
 ### Patch Changes
