@@ -1,5 +1,6 @@
 import { style } from '@vanilla-extract/css';
 import type { Properties as CSSProperties } from 'csstype';
+import { blocksLayer } from '../css/layers.css';
 
 type DeepPartial<T> = {
   [K in keyof T]?: T[K] extends object
@@ -76,7 +77,11 @@ export function defineProperties<
     if (Array.isArray(values)) {
       for (const value of values) {
         const defaultClass = style({
-          [property]: value,
+          '@layer': {
+            [blocksLayer]: {
+              [property]: value,
+            },
+          },
         });
 
         const propResult = {
@@ -91,9 +96,13 @@ export function defineProperties<
 
             if (typeof condition === 'object' && condition['@media']) {
               return style({
-                '@media': {
-                  [condition['@media']]: {
-                    [property]: value,
+                '@layer': {
+                  [blocksLayer]: {
+                    '@media': {
+                      [condition['@media']]: {
+                        [property]: value,
+                      },
+                    },
                   },
                 },
               });
@@ -117,7 +126,11 @@ export function defineProperties<
 
     for (const value in values) {
       const defaultClass = style({
-        [property]: values[value],
+        '@layer': {
+          [blocksLayer]: {
+            [property]: values[value],
+          },
+        },
       });
 
       const propResult = {
