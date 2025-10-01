@@ -39,7 +39,7 @@ export const select = makeComponentTheme('select', {
       solid: style({}),
     },
   },
-  icon: style({
+  icon: atoms({
     paddingInline: 'large',
   }),
   defaultVariants: {
