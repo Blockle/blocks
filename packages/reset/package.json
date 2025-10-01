@@ -3,9 +3,7 @@
   "version": "0.21.7",
   "description": "CSS reset for Blockle",
   "type": "module",
-  "sideEffects": [
-    "**/reset.css.*"
-  ],
+  "sideEffects": ["**/reset.css.*"],
   "exports": {
     ".": {
       "types": {
@@ -16,9 +14,7 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -41,5 +37,8 @@
   "homepage": "https://github.com/Blockle/blocks#readme",
   "dependencies": {
     "@vanilla-extract/css": "^1.17.1"
+  },
+  "peerDependencies": {
+    "@blockle/blocks-core": ">=0.x"
   }
 }

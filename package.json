@@ -7,8 +7,8 @@
   "author": "Niek Saarberg <n.saarberg@gmail.com>",
   "type": "module",
   "workspaces": [
-    "packages/reset",
     "packages/core",
+    "packages/reset",
     "packages/slot",
     "packages/react",
     "packages/blocks",
