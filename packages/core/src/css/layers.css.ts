@@ -1,10 +1,10 @@
 import { layer } from '@vanilla-extract/css';
 
-export const blocksLayerAtom = layer('blocks-atom');
+export const blocksLayerComponent = layer('blocks-component');
 
-export const blocksLayerComponent = layer(
-  { parent: blocksLayerAtom },
-  'blocks-component',
+export const blocksLayerAtom = layer(
+  { parent: blocksLayerComponent },
+  'blocks-atom',
 );
 
 export const blocksLayer = layer({ parent: blocksLayerAtom }, 'blockle-blocks');
