@@ -1,9 +1,9 @@
-import { blocksLayer } from '@blockle/blocks-core';
+import { blocksLayerComponent } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 
 export const heading = style({
   '@layer': {
-    [blocksLayer]: {
+    [blocksLayerComponent]: {
       margin: 0,
       padding: 0,
     },

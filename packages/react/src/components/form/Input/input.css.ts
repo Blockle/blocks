@@ -1,9 +1,9 @@
-import { blocksLayer } from '@blockle/blocks-core';
+import { blocksLayerComponent } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 
 export const input = style({
   '@layer': {
-    [blocksLayer]: {
+    [blocksLayerComponent]: {
       appearance: 'none',
       width: '100%',
       selectors: {

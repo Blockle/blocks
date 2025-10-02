@@ -1,9 +1,9 @@
-import { blocksLayer } from '@blockle/blocks-core';
+import { blocksLayerComponent } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 
 export const container = style({
   '@layer': {
-    [blocksLayer]: {
+    [blocksLayerComponent]: {
       cursor: 'pointer',
       userSelect: 'none',
       position: 'relative',
@@ -13,7 +13,7 @@ export const container = style({
 
 export const input = style({
   '@layer': {
-    [blocksLayer]: {
+    [blocksLayerComponent]: {
       opacity: 0,
       maxBlockSize: 0,
       maxInlineSize: 0,

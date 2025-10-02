@@ -7,8 +7,8 @@
   "author": "Niek Saarberg <n.saarberg@gmail.com>",
   "type": "module",
   "workspaces": [
-    "packages/reset",
     "packages/core",
+    "packages/reset",
     "packages/slot",
     "packages/react",
     "packages/blocks",
@@ -25,7 +25,7 @@
     "lint": "biome format ./packages/*/src",
     "release": "npm run build && npm run ts && npm run test && changeset publish",
     "storybook": "storybook dev -p 6006 --no-open",
-    "test": "vitest ",
+    "test": "vitest",
     "ts": "tsc --noemit --project ./tsconfig.json && npm run ts --workspaces"
   },
   "devDependencies": {
