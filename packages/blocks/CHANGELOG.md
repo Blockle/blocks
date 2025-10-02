@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 1.0.11
+
+### Patch Changes
+
+- 4c16505: Re-ordered css layers
+
 ## 1.0.10
 
 ### Patch Changes
