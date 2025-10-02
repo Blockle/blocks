@@ -1,4 +1,4 @@
-import { blocksLayerAtom } from '@blockle/blocks';
+import { blocksLayerAtom } from '@blockle/blocks-core';
 import { globalStyle } from '@vanilla-extract/css';
 
 // Must be placed before HTML so we wont override the box-sizing of the root element
