@@ -1,5 +1,11 @@
 # @blockle/blocks-reset
 
+## 0.21.8
+
+### Patch Changes
+
+- 0594680: Added css layers
+
 ## 0.21.7
 
 ### Patch Changes

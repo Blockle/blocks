@@ -1,5 +1,11 @@
 # @blockle/blocks-react
 
+## 1.1.2
+
+### Patch Changes
+
+- 0594680: Added css layers
+
 ## 1.1.1
 
 ### Patch Changes
