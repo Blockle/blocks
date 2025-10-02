@@ -1,5 +1,11 @@
 # @blockle/blocks-core
 
+## 0.21.11
+
+### Patch Changes
+
+- 0594680: Added css layers
+
 ## 0.21.10
 
 ### Patch Changes

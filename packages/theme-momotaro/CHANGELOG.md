@@ -1,5 +1,11 @@
 # @blockle/blocks-theme-momotaro
 
+## 1.0.6
+
+### Patch Changes
+
+- 0594680: Added css layers
+
 ## 1.0.5
 
 ### Patch Changes
