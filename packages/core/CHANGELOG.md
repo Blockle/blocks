@@ -1,5 +1,11 @@
 # @blockle/blocks-core
 
+## 0.22.0
+
+### Minor Changes
+
+- 6888424: ESM only, removed CJS exports / bundling
+
 ## 0.21.12
 
 ### Patch Changes

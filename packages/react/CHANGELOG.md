@@ -1,5 +1,11 @@
 # @blockle/blocks-react
 
+## 1.2.0
+
+### Minor Changes
+
+- 6888424: ESM only, removed CJS exports / bundling
+
 ## 1.1.2
 
 ### Patch Changes
