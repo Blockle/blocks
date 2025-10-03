@@ -1,8 +1,12 @@
-import { atoms, makeComponentTheme } from '@blockle/blocks-core';
+import {
+  type ThemeComponentsStyles,
+  atoms,
+  makeComponentTheme,
+} from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 import { focusable } from './helpers.css.js';
 
-export const link = makeComponentTheme('link', {
+export const link: ThemeComponentsStyles['link'] = makeComponentTheme('link', {
   base: style([
     {
       outline: 'none',
