@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Button } from '../../form/Button';
-import { Box } from '../../layout/Box';
-import { Tooltip, type TooltipProps } from './Tooltip';
+import { Button } from '../../form/Button/Button.js';
+import { Box } from '../../layout/Box/Box.js';
+import { Tooltip, type TooltipProps } from './Tooltip.js';
 
 export default {
   title: 'Overlay/Tooltip',

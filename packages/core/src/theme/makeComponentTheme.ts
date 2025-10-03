@@ -19,8 +19,8 @@
  * };
  */
 
-import type { ComponentThemes } from '../config/componentThemes';
-import type { RecordLike } from '../utils/typing/helpers';
+import type { ComponentThemes } from '../config/componentThemes.js';
+import type { RecordLike } from '../utils/typing/helpers.js';
 
 // string | number is used to define objects
 // boolean is used to define a single style

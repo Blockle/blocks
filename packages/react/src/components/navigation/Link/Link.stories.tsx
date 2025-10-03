@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import * as test from '@storybook/test';
 import { expect, userEvent, within } from '@storybook/test';
-import { Link, type LinkProps } from './Link';
+import { Link, type LinkProps } from './Link.js';
 
 export default {
   title: 'Navigation/Link',

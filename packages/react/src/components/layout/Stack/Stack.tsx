@@ -5,7 +5,7 @@ import {
   type PaddingAtoms,
   alignItemsMap,
 } from '@blockle/blocks-core';
-import { Box } from '../Box';
+import { Box } from '../Box/Box.js';
 
 export type StackProps = {
   alignX?: keyof AlignItemsMap;

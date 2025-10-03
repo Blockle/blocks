@@ -1,4 +1,4 @@
-import type { Theme } from './makeTheme';
+import type { Theme } from './makeTheme.js';
 
 // Side effect
 let _theme: Theme;

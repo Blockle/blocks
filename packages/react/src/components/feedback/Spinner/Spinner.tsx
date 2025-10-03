@@ -5,9 +5,9 @@ import {
   type MarginAtoms,
   classnames,
 } from '@blockle/blocks-core';
-import { useComponentStyles } from '../../../hooks/useComponentStyles';
+import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 
-import { Box } from '../../layout/Box';
+import { Box } from '../../layout/Box/Box.js';
 
 type SpinnerTheme = ComponentThemes['spinner'];
 

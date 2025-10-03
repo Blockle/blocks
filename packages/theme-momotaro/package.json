@@ -6,20 +6,11 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "types": {
-        "import": "./dist/index.d.mts",
-        "require": "./dist/index.d.ts"
-      },
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     }
   },
-  "files": [
-    "dist"
-  ],
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "files": ["dist"],
   "scripts": {
     "build": "vite build",
     "test": "vitest ",
@@ -41,6 +32,7 @@
     "@vanilla-extract/css": "^1.17.1"
   },
   "peerDependencies": {
-    "@blockle/blocks-core": ">=0.x"
+    "@blockle/blocks-core": "^0.21.12",
+    "@vanilla-extract/css": ">= 1.17.1"
   }
 }

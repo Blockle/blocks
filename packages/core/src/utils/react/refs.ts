@@ -1,3 +1,5 @@
+import type React from 'react';
+
 type PossibleRef<T> = React.Ref<T> | undefined | null;
 
 function setRef<T>(ref: PossibleRef<T>, value: T) {

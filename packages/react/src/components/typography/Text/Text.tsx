@@ -6,8 +6,8 @@ import {
   classnames,
 } from '@blockle/blocks-core';
 import type React from 'react';
-import { Box } from '../../layout/Box';
-import * as styles from './text.css';
+import { Box } from '../../layout/Box/Box.js';
+import * as styles from './text.css.js';
 
 type Tags =
   | 'del'

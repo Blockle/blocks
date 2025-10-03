@@ -6,12 +6,12 @@ import {
   hasAnimationDuration,
 } from '@blockle/blocks-core';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useClickOutside } from '../../../hooks/useClickOutside/useClickOutside';
-import { useComponentStyles } from '../../../hooks/useComponentStyles';
-import { useIsomorphicLayoutEffect } from '../../../hooks/useIsomorphicLayoutEffect';
-import { useKeyboard } from '../../../hooks/useKeyboard';
-import { Box } from '../../layout/Box';
-import { getPopoverPosition } from './popover-utils';
+import { useClickOutside } from '../../../hooks/useClickOutside/useClickOutside.js';
+import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
+import { useIsomorphicLayoutEffect } from '../../../hooks/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js';
+import { useKeyboard } from '../../../hooks/useKeyboard/useKeyboard.js';
+import { Box } from '../../layout/Box/Box.js';
+import { getPopoverPosition } from './popover-utils.js';
 
 export type PopoverAlign = 'top' | 'bottom' | 'left' | 'right';
 

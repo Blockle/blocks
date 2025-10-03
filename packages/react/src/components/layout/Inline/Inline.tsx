@@ -7,7 +7,7 @@ import {
   alignItemsMap,
   justifyContentMap,
 } from '@blockle/blocks-core';
-import { Box } from '../Box';
+import { Box } from '../Box/Box.js';
 
 export type InlineProps = {
   alignX?: keyof JustifyContentMap;

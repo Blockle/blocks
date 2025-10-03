@@ -1,7 +1,7 @@
 import { atomicProperties } from '@blockle/blocks-core';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from '@storybook/test';
-import { Text, type TextProps } from './Text';
+import { Text, type TextProps } from './Text.js';
 
 export default {
   title: 'Typography/Text',

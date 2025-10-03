@@ -7,7 +7,7 @@ import {
   atoms,
   classnames,
 } from '@blockle/blocks-core';
-import { useComponentStyles } from '../../../hooks/useComponentStyles';
+import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 
 type LabelTheme = ComponentThemes['label'];
 

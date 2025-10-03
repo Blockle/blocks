@@ -7,7 +7,7 @@ import {
   classnames,
 } from '@blockle/blocks-core';
 import { createSlottable } from '@blockle/blocks-react-slot';
-import { useComponentStyles } from '../../../hooks/useComponentStyles';
+import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 
 type LinkTheme = ComponentThemes['link'];
 

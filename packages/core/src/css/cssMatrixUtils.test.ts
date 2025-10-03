@@ -4,7 +4,7 @@ import {
   getCSSScale,
   getOriginalElementSize,
   parseCSSTransform,
-} from './cssMatrixUtils';
+} from './cssMatrixUtils.js';
 
 const createMockStyleDeclaration = (
   transformValues: Partial<Record<'scale' | 'transform', string>>,

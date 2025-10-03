@@ -10,8 +10,8 @@ import {
   useRef,
   useState,
 } from 'react';
-import { useComponentStyles } from '../../../hooks/useComponentStyles';
-import { Popover, type PopoverProps } from '../Popover';
+import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
+import { Popover, type PopoverProps } from '../Popover/Popover.js';
 
 type ReactElement = React.ReactElement<
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>

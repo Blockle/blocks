@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Spinner, type SpinnerProps } from './Spinner';
+import { Spinner, type SpinnerProps } from './Spinner.js';
 
 export default {
   title: 'Feedback/Spinner',

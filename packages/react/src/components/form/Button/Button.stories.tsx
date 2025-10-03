@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import * as test from '@storybook/test';
 import { expect, userEvent, within } from '@storybook/test';
 // import { Icon } from '../Icon';
-import { Button, type ButtonProps } from './Button';
+import { Button, type ButtonProps } from './Button.js';
 
 export default {
   title: 'Form/Button',

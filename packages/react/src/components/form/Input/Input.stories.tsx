@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Input, type InputProps } from './Input';
+import { Input, type InputProps } from './Input.js';
 
 export default {
   title: 'Form/Input',

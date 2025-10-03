@@ -6,14 +6,14 @@ import {
   hasAnimationDuration,
 } from '@blockle/blocks-core';
 import { useCallback, useRef, useState } from 'react';
-import { useClickOutside } from '../../../hooks/useClickOutside/useClickOutside';
-import { useComponentStyles } from '../../../hooks/useComponentStyles';
-import { useIsomorphicLayoutEffect } from '../../../hooks/useIsomorphicLayoutEffect';
-import { useKeyboard } from '../../../hooks/useKeyboard';
-import { usePreventBodyScroll } from '../../../hooks/usePreventBodyScroll';
-import { useRestoreFocus } from '../../../hooks/useRestoreFocus';
-import * as styles from './dialog.css';
-import { DialogContext, useNestedDialog } from './dialogHelper';
+import { useClickOutside } from '../../../hooks/useClickOutside/useClickOutside.js';
+import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
+import { useIsomorphicLayoutEffect } from '../../../hooks/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js';
+import { useKeyboard } from '../../../hooks/useKeyboard/useKeyboard.js';
+import { usePreventBodyScroll } from '../../../hooks/usePreventBodyScroll/usePreventBodyScroll.js';
+import { useRestoreFocus } from '../../../hooks/useRestoreFocus/useRestoreFocus.js';
+import * as styles from './dialog.css.js';
+import { DialogContext, useNestedDialog } from './dialogHelper.js';
 
 type DialogTheme = ComponentThemes['dialog'];
 

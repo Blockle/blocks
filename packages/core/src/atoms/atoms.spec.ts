@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { atoms } from './atoms';
-import { atomicProperties } from './atoms.css';
+import { atomicProperties } from './atoms.css.js';
+import { atoms } from './atoms.js';
 
 describe('atoms', () => {
   it('should find the class for a property', () => {

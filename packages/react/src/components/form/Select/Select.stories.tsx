@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from '@storybook/test';
-import { Select, type SelectProps } from './Select';
+import { Select, type SelectProps } from './Select.js';
 
 export default {
   title: 'Form/Select',

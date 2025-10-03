@@ -2,9 +2,9 @@ const colorsWithCurrentColor = { ...vars.color, currentColor: 'currentColor' };
 const size = { auto: 'auto', full: '100%', 'fit-content': 'fit-content' };
 const marginSpace = { auto: 'auto', ...vars.space };
 
-import { minMediaQuery } from '../css/breakpoint/breakpoint';
-import { vars } from '../css/vars.css';
-import { defineProperties } from './defineProperties';
+import { minMediaQuery } from '../css/breakpoint/breakpoint.js';
+import { vars } from '../css/vars.css.js';
+import { defineProperties } from './defineProperties.js';
 
 const unresponsiveAtomicProperties = defineProperties({
   properties: {

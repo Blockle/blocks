@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from '@storybook/test';
-import { VisuallyHidden, type VisuallyHiddenProps } from './VisuallyHidden';
+import { VisuallyHidden, type VisuallyHiddenProps } from './VisuallyHidden.js';
 
 const meta: Meta<typeof VisuallyHidden> = {
   title: 'Display/VisuallyHidden',

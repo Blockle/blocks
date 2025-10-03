@@ -2,7 +2,7 @@ import { composeStories } from '@storybook/react';
 import { screen } from '@testing-library/react';
 
 import { describe, expect, it } from 'vitest';
-import * as stories from './Divider.stories';
+import * as stories from './Divider.stories.js';
 
 const { Default: Divider } = composeStories(stories);
 

@@ -1,7 +1,7 @@
 import { composeStories } from '@storybook/react';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import * as stories from './Radio.stories';
+import * as stories from './Radio.stories.js';
 
 const { Default: Radio } = composeStories(stories);
 

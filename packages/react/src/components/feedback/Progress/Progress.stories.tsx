@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from '@storybook/test';
-import { Stack } from '../../layout/Stack';
-import { Text } from '../../typography/Text';
-import { Progress, type ProgressProps } from './Progress';
+import { Stack } from '../../layout/Stack/Stack.js';
+import { Text } from '../../typography/Text/Text.js';
+import { Progress, type ProgressProps } from './Progress.js';
 
 export default {
   title: 'Feedback/Progress',

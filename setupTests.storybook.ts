@@ -1,5 +1,5 @@
 import { setProjectAnnotations } from '@storybook/react';
 
-import * as globalStorybookConfig from './.storybook/preview';
+import * as globalStorybookConfig from './.storybook/preview.js';
 
 setProjectAnnotations(globalStorybookConfig);

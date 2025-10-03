@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { minMediaQuery } from './breakpoint';
+import { minMediaQuery } from './breakpoint.js';
 
 describe('minMediaQuery', () => {
   it('should return correct media query for tablet', () => {

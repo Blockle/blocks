@@ -1,4 +1,9 @@
-import { atoms, makeComponentTheme, vars } from '@blockle/blocks-core';
+import {
+  type ThemeComponentsStyles,
+  atoms,
+  makeComponentTheme,
+  vars,
+} from '@blockle/blocks-core';
 import { keyframes, style } from '@vanilla-extract/css';
 
 const indeterminateAnimation = keyframes({
@@ -10,44 +15,47 @@ const indeterminateAnimation = keyframes({
   },
 });
 
-export const progress = makeComponentTheme('progress', {
-  base: style([
-    {
-      height: 8,
-    },
-    atoms({
-      inlineSize: 'full',
-      borderRadius: 'small',
-      backgroundColor: 'textLight',
-      color: 'primary',
-      overflow: 'hidden',
-    }),
-  ]),
-  bar: style({
-    borderRadius: 'inherit',
-    '@media': {
-      '(prefers-reduced-motion: no-preference)': {
-        transition: 'transform 180ms ease-out',
+export const progress: ThemeComponentsStyles['progress'] = makeComponentTheme(
+  'progress',
+  {
+    base: style([
+      {
+        height: 8,
       },
-    },
-  }),
-  variants: {
-    indeterminate: style({
+      atoms({
+        inlineSize: 'full',
+        borderRadius: 'small',
+        backgroundColor: 'textLight',
+        color: 'primary',
+        overflow: 'hidden',
+      }),
+    ]),
+    bar: style({
+      borderRadius: 'inherit',
       '@media': {
-        // For reduce motion we show a striped pattern instead of animating
-        '(prefers-reduced-motion: reduce)': {
-          backgroundImage: `repeating-linear-gradient(
+        '(prefers-reduced-motion: no-preference)': {
+          transition: 'transform 180ms ease-out',
+        },
+      },
+    }),
+    variants: {
+      indeterminate: style({
+        '@media': {
+          // For reduce motion we show a striped pattern instead of animating
+          '(prefers-reduced-motion: reduce)': {
+            backgroundImage: `repeating-linear-gradient(
             45deg,
             transparent,
             transparent 20px,
             ${vars.color.primaryDark} 20px,
             ${vars.color.primaryDark} 40px
           )`,
+          },
+          '(prefers-reduced-motion: no-preference)': {
+            animation: `${indeterminateAnimation} 3s ease-in-out infinite`,
+          },
         },
-        '(prefers-reduced-motion: no-preference)': {
-          animation: `${indeterminateAnimation} 3s ease-in-out infinite`,
-        },
-      },
-    }),
+      }),
+    },
   },
-});
+);

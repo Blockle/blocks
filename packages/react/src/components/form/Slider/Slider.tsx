@@ -8,10 +8,10 @@ import {
 } from '@blockle/blocks-core';
 import type React from 'react';
 import { useCallback, useRef } from 'react';
-import { useComponentStyles } from '../../../hooks/useComponentStyles';
-import { useControlledValue } from '../../../hooks/useControlledValue/useControlledValue';
-import * as styles from './slider.css';
-import { usePointerProgress } from './usePointerProgress';
+import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
+import { useControlledValue } from '../../../hooks/useControlledValue/useControlledValue.js';
+import * as styles from './slider.css.js';
+import { usePointerProgress } from './usePointerProgress.js';
 
 // Supported keys for keyboard navigation of the slider
 const usableKeys = new Set([

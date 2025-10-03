@@ -5,8 +5,8 @@ import {
   type TextAtoms,
   classnames,
 } from '@blockle/blocks-core';
-import { Box } from '../../layout/Box';
-import * as styles from './heading.css';
+import { Box } from '../../layout/Box/Box.js';
+import * as styles from './heading.css.js';
 
 export type HeadingProps = {
   children: React.ReactNode;

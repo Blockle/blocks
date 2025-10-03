@@ -1,4 +1,4 @@
-import type { Atoms } from './atoms';
+import type { Atoms } from './atoms.js';
 
 export type ResponsiveValue<T> = T | [T] | [T, T] | [T, T, T] | [T, T, T, T];
 

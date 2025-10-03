@@ -1,5 +1,5 @@
-import { classnames } from '../classnames/classnames';
-import { composeRefs } from './refs';
+import { classnames } from '../classnames/classnames.js';
+import { composeRefs } from './refs.js';
 
 export type UnknownRecord = Record<string, unknown>;
 

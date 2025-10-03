@@ -1,8 +1,8 @@
 import { useRef, useState } from '@storybook/preview-api';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Button } from '../../form/Button';
-import { Box } from '../../layout/Box';
-import { Popover, type PopoverProps } from './Popover';
+import { Button } from '../../form/Button/Button.js';
+import { Box } from '../../layout/Box/Box.js';
+import { Popover, type PopoverProps } from './Popover.js';
 
 export default {
   title: 'Overlay/Popover',

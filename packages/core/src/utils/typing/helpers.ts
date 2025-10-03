@@ -1,4 +1,4 @@
-import type { Atoms } from '../../atoms/atoms';
+import type { Atoms } from '../../atoms/atoms.js';
 
 export type AnyString = string & {};
 

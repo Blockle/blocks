@@ -1,8 +1,8 @@
 'use client';
 
 import { createPortal } from 'react-dom';
-import { useTheme } from '../../../hooks/useTheme';
-import { BlocksProvider } from '../../providers/BlocksProvider';
+import { useTheme } from '../../../hooks/useTheme/useTheme.js';
+import { BlocksProvider } from '../../providers/BlocksProvider/BlocksProvider.js';
 
 export type PortalProps = {
   children: React.ReactNode;

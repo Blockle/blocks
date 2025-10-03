@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from '@storybook/test';
 import { type FC, useState } from 'react';
-import { Stack } from '../../layout/Stack';
-import { Text } from '../../typography/Text';
-import { Slider, type SliderProps } from './Slider';
+import { Stack } from '../../layout/Stack/Stack.js';
+import { Text } from '../../typography/Text/Text.js';
+import { Slider, type SliderProps } from './Slider.js';
 
 export default {
   title: 'Form/Slider',

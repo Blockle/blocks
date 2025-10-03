@@ -1,12 +1,10 @@
 'use client';
 
 import { type Atoms, classnames } from '@blockle/blocks-core';
-import {
-  useComponentStyleDefaultProps,
-  useComponentStyles,
-} from '../../../hooks/useComponentStyles';
-import { Box } from '../../layout/Box';
-import * as styles from './divider.css';
+import { useComponentStyleDefaultProps } from '../../../hooks/useComponentStyles/useComponentStyleDefaultProps.js';
+import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
+import { Box } from '../../layout/Box/Box.js';
+import * as styles from './divider.css.js';
 
 export type DividerProps = {
   className?: string;
