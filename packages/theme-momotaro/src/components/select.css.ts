@@ -1,6 +1,6 @@
 import { atoms, makeComponentTheme, vars } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
-import { focusable } from './helpers.css';
+import { focusable } from './helpers.css.js';
 
 export const select = makeComponentTheme('select', {
   select: style([

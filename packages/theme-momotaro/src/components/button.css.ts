@@ -1,7 +1,7 @@
 import { createVar, style } from '@vanilla-extract/css';
 
 import { atoms, makeComponentTheme, vars } from '@blockle/blocks-core';
-import { clickable, focusRingColor } from './helpers.css';
+import { clickable, focusRingColor } from './helpers.css.js';
 
 // Use css vars to share colors between variants
 const intentColor = createVar();

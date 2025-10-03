@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Stack } from '../../layout/Stack';
-import { Text } from '../../typography/Text';
-import { Radio, type RadioProps } from './Radio';
-import { RadioGroup } from './RadioGroup';
+import { Stack } from '../../layout/Stack/Stack.js';
+import { Text } from '../../typography/Text/Text.js';
+import { Radio, type RadioProps } from './Radio.js';
+import { RadioGroup } from './RadioGroup.js';
 
 export default {
   title: 'Form/Radio',

@@ -1,8 +1,8 @@
 import { composeStories } from '@storybook/react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import type { PopoverProps } from './Popover';
-import * as stories from './Popover.stories';
+import type { PopoverProps } from './Popover.js';
+import * as stories from './Popover.stories.js';
 
 const { Default: Popover } = composeStories(stories);
 

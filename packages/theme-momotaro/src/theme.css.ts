@@ -1,6 +1,6 @@
 import { makeTheme } from '@blockle/blocks-core';
-import { components } from './components';
-import { tokens } from './tokens.css';
+import { components } from './components/index.js';
+import { tokens } from './tokens.css.js';
 
 export const momotaro = makeTheme({
   name: 'momotaro',

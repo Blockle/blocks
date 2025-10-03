@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { Text } from './Text';
+import { Text } from './Text.js';
 
 describe('Text Component', () => {
   it('renders with default tag "span"', () => {

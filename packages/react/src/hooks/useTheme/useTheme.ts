@@ -2,7 +2,7 @@
 
 import type { Theme } from '@blockle/blocks-core';
 import { useContext } from 'react';
-import { BlocksProviderContext } from '../../components/providers/BlocksProvider/context';
+import { BlocksProviderContext } from '../../components/providers/BlocksProvider/context.js';
 
 export const useTheme = (): Theme => {
   const context = useContext(BlocksProviderContext);

@@ -1,7 +1,7 @@
 import { type HTMLElementProps, mergeProps } from '@blockle/blocks-core';
 import type React from 'react';
 import { Children, cloneElement, isValidElement } from 'react';
-import { Slot } from './Slot/Slot';
+import { Slot } from './Slot/Slot.js';
 
 type TemplateProps = {
   asChild?: boolean;

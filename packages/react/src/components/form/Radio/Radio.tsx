@@ -2,9 +2,9 @@
 
 import { type HTMLElementProps, classnames } from '@blockle/blocks-core';
 import { useId } from 'react';
-import { useComponentStyles } from '../../../hooks/useComponentStyles';
-import { Label } from '../Label';
-import * as styles from './radio.css';
+import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
+import { Label } from '../Label/Label.js';
+import * as styles from './radio.css.js';
 
 export type RadioProps = {
   children?: React.ReactNode;

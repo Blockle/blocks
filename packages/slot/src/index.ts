@@ -1,2 +1,2 @@
-export { createSlottable } from './createSlottable';
-export { Slot } from './Slot/Slot';
+export { createSlottable } from './createSlottable.js';
+export { Slot } from './Slot/Slot.js';

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from '@storybook/test';
 
 import { atomicProperties } from '@blockle/blocks-core';
-import { Box, type BoxProps } from './Box';
+import { Box, type BoxProps } from './Box.js';
 
 export default {
   title: 'Layout/Box',

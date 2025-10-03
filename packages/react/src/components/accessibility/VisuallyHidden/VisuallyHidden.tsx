@@ -1,5 +1,5 @@
 import { type HTMLElementProps, classnames } from '@blockle/blocks-core';
-import * as styles from './visually-hidden.css';
+import * as styles from './visually-hidden.css.js';
 
 export type VisuallyHiddenProps = {
   children: React.ReactNode;

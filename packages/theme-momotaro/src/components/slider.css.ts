@@ -1,6 +1,6 @@
 import { atoms, makeComponentTheme, vars } from '@blockle/blocks-core';
 import { createVar, style } from '@vanilla-extract/css';
-import { focusable } from './helpers.css';
+import { focusable } from './helpers.css.js';
 
 const trackBackground = createVar();
 const filledTrackBackground = createVar();

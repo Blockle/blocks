@@ -1,8 +1,8 @@
 import { atomicProperties } from '@blockle/blocks-core';
 import type { Meta, StoryFn, StoryObj } from '@storybook/react';
 import { expect, within } from '@storybook/test';
-import { Stack } from '../../layout/Stack';
-import { Heading, type HeadingProps } from './Heading';
+import { Stack } from '../../layout/Stack/Stack.js';
+import { Heading, type HeadingProps } from './Heading.js';
 
 export default {
   title: 'Typography/Heading',

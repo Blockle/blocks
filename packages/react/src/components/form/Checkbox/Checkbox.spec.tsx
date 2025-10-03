@@ -1,7 +1,7 @@
 import { composeStories } from '@storybook/react';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import * as stories from './Checkbox.stories';
+import * as stories from './Checkbox.stories.js';
 
 const { Default: Checkbox } = composeStories(stories);
 

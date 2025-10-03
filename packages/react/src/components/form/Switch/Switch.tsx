@@ -2,8 +2,8 @@
 
 import { type HTMLElementProps, classnames } from '@blockle/blocks-core';
 import { useCallback, useEffect, useState } from 'react';
-import { useComponentStyles } from '../../../hooks/useComponentStyles';
-import * as styles from './switch.css';
+import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
+import * as styles from './switch.css.js';
 
 export type SwitchProps = {
   onChange?: (value: boolean) => void;

@@ -3,9 +3,9 @@
 import { type HTMLElementProps, classnames } from '@blockle/blocks-core';
 import type React from 'react';
 import { useId } from 'react';
-import { useComponentStyles } from '../../../hooks/useComponentStyles';
-import { Label } from '../Label/Label';
-import * as styles from './checkbox.css';
+import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
+import { Label } from '../Label/Label.js';
+import * as styles from './checkbox.css.js';
 
 export type CheckboxProps = {
   children?: React.ReactNode;

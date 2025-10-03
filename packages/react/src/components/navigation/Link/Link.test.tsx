@@ -1,7 +1,7 @@
 import { composeStories } from '@storybook/react';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import * as stories from './Link.stories';
+import * as stories from './Link.stories.js';
 
 const { Default: Link } = composeStories(stories);
 

@@ -36,10 +36,7 @@ export function createConfig(entry?: LibraryOptions['entry']): UserConfig {
         unstable_mode: 'transform',
       }),
       dts({
-        include: ['./src/**/*.{ts,tsx}'],
-        // outDir: './dist',
-        // root: 'src',
-        // entryRoot: '/Users/niek/Projects/blockle/blocks/packages/css/src',
+        entryRoot: 'src',
       }),
     ],
     publicDir: false,

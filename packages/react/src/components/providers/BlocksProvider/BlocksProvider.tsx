@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 
 import { type Theme, atoms, classnames } from '@blockle/blocks-core';
 import { createSlottable } from '@blockle/blocks-react-slot';
-import { BlocksProviderContext } from './context';
+import { BlocksProviderContext } from './context.js';
 
 export type BlocksProviderProps = {
   children: React.ReactNode;

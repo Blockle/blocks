@@ -1,7 +1,7 @@
 import { atoms, makeComponentTheme, vars } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
-import { focusable } from './helpers.css';
-import { bounceOut } from './transitions';
+import { focusable } from './helpers.css.js';
+import { bounceOut } from './transitions.js';
 
 export const checkbox = makeComponentTheme('checkbox', {
   base: style([

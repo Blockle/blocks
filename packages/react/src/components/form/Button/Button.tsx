@@ -1,7 +1,7 @@
 'use client';
 
 import type React from 'react';
-import { useComponentStyles } from '../../../hooks/useComponentStyles';
+import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 
 import {
   type Atoms,
@@ -13,8 +13,8 @@ import {
   getAtomsAndProps,
 } from '@blockle/blocks-core';
 import { createSlottable } from '@blockle/blocks-react-slot';
-import { Spinner } from '../../feedback/Spinner';
-import * as styles from './Button.css';
+import { Spinner } from '../../feedback/Spinner/Spinner.js';
+import * as styles from './Button.css.js';
 
 type ButtonTheme = ComponentThemes['button'];
 

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Stack } from '../../layout/Stack';
-import { Input } from '../Input';
-import { Label, type LabelProps } from './Label';
+import { Stack } from '../../layout/Stack/Stack.js';
+import { Input } from '../Input/Input.js';
+import { Label, type LabelProps } from './Label.js';
 
 export default {
   title: 'Form/Label',

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Box } from '../../layout/Box';
-import { Switch, type SwitchProps } from './Switch';
+import { Box } from '../../layout/Box/Box.js';
+import { Switch, type SwitchProps } from './Switch.js';
 
 export default {
   title: 'Form/Switch',

@@ -9,11 +9,11 @@ import {
   within,
 } from '@storybook/test';
 import { useState } from 'react';
-import { Button } from '../../form/Button';
-import { Stack } from '../../layout/Stack';
-import { Heading } from '../../typography/Heading';
-import { Text } from '../../typography/Text';
-import { Dialog, type DialogProps } from './Dialog';
+import { Button } from '../../form/Button/Button.js';
+import { Stack } from '../../layout/Stack/Stack.js';
+import { Heading } from '../../typography/Heading/Heading.js';
+import { Text } from '../../typography/Text/Text.js';
+import { Dialog, type DialogProps } from './Dialog.js';
 
 export default {
   title: 'Overlay/Dialog',

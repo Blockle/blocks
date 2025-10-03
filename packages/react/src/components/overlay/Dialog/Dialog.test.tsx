@@ -2,7 +2,7 @@ import { composeStories } from '@storybook/react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
-import * as stories from './Dialog.stories';
+import * as stories from './Dialog.stories.js';
 
 const { Default: Dialog } = composeStories(stories);
 

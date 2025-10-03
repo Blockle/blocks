@@ -1,19 +1,19 @@
 import type { ThemeComponentsStyles } from '@blockle/blocks-core';
-import { button } from './button.css';
-import { checkbox } from './checkbox.css';
-import { dialog } from './dialog.css';
-import { divider } from './divider.css';
-import { input } from './input.css';
-import { label } from './label.css';
-import { link } from './link.css';
-import { popover } from './popover.css';
-import { progress } from './progress.css';
-import { radio } from './radio.css';
-import { select } from './select.css';
-import { slider } from './slider.css';
-import { spinner } from './spinner.css';
-import { switchTheme } from './switch.css';
-import { tooltip } from './tooltip.css';
+import { button } from './button.css.js';
+import { checkbox } from './checkbox.css.js';
+import { dialog } from './dialog.css.js';
+import { divider } from './divider.css.js';
+import { input } from './input.css.js';
+import { label } from './label.css.js';
+import { link } from './link.css.js';
+import { popover } from './popover.css.js';
+import { progress } from './progress.css.js';
+import { radio } from './radio.css.js';
+import { select } from './select.css.js';
+import { slider } from './slider.css.js';
+import { spinner } from './spinner.css.js';
+import { switchTheme } from './switch.css.js';
+import { tooltip } from './tooltip.css.js';
 
 export const components: ThemeComponentsStyles = {
   button,
