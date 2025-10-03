@@ -1,8 +1,8 @@
 import { createTheme } from '@vanilla-extract/css';
-import type { ThemeTokens } from '../config/themeTokens';
-import { vars } from '../css/vars.css';
-import type { ThemeComponentsStyles } from './makeComponentTheme';
-import { makeVanillaTheme } from './makeVanillaTheme';
+import type { ThemeTokens } from '../config/themeTokens.js';
+import { vars } from '../css/vars.css.js';
+import type { ThemeComponentsStyles } from './makeComponentTheme.js';
+import { makeVanillaTheme } from './makeVanillaTheme.js';
 
 type ThemeInput = {
   name: string;

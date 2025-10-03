@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { classnames } from './classnames';
+import { classnames } from './classnames.js';
 
 describe('classnames', () => {
   it('should return undefined for empty result so react doesn\'t add "class" attribute', () => {

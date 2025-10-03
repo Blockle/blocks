@@ -1,4 +1,4 @@
-import type { ThemeTokens } from '../config/themeTokens';
+import type { ThemeTokens } from '../config/themeTokens.js';
 
 export const makeVanillaTheme = (tokens: ThemeTokens) => {
   return {

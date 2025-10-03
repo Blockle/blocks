@@ -1,4 +1,4 @@
-import { atomicProperties } from './atoms.css';
+import { atomicProperties } from './atoms.css.js';
 
 export type AtomicProperties = typeof atomicProperties;
 

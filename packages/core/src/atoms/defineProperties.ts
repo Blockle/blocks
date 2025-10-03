@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
 import type { Properties as CSSProperties } from 'csstype';
-import { blocksLayerAtom } from '../css/layers.css';
+import { blocksLayerAtom } from '../css/layers.css.js';
 
 type DeepPartial<T> = {
   [K in keyof T]?: T[K] extends object

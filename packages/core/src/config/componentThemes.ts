@@ -1,5 +1,5 @@
-import type { Atoms } from '../atoms/atoms';
-import type { RecordLike } from '../utils/typing/helpers';
+import type { Atoms } from '../atoms/atoms.js';
+import type { RecordLike } from '../utils/typing/helpers.js';
 
 /**
  * Theming options for components.
