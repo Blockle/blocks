@@ -1,5 +1,16 @@
 # @blockle/blocks-theme-momotaro
 
+## 2.0.0
+
+### Minor Changes
+
+- 6888424: ESM only, removed CJS exports / bundling
+
+### Patch Changes
+
+- Updated dependencies [6888424]
+  - @blockle/blocks-core@0.22.0
+
 ## 1.0.6
 
 ### Patch Changes

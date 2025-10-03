@@ -1,5 +1,11 @@
 # @blockle/blocks-react-slot
 
+## 1.1.0
+
+### Minor Changes
+
+- 6888424: ESM only, removed CJS exports / bundling
+
 ## 1.0.2
 
 ### Patch Changes
