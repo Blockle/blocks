@@ -8,7 +8,7 @@
     "jsx": "react-jsx",
     "lib": ["es2022", "dom", "dom.iterable"],
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "moduleDetection": "force",
     "isolatedModules": true,
     "verbatimModuleSyntax": true,

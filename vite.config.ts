@@ -13,7 +13,7 @@ export function createConfig(entry?: LibraryOptions['entry']): UserConfig {
       outDir: './dist',
       lib: {
         entry: entry ?? 'src/index.ts',
-        formats: ['es', 'cjs'],
+        formats: ['es'],
       },
       rollupOptions: {
         output: {
