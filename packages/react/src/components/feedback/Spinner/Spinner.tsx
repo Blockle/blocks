@@ -31,6 +31,7 @@ export const Spinner: React.FC<SpinnerProps> = ({
 
   return (
     <Box
+      data-testid="blocks-spinner"
       color={color}
       className={classnames(spinnerClassName, className)}
       {...restProps}

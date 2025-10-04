@@ -49,6 +49,8 @@ describe('Dialog', () => {
 
   it('calls onRequestClose when pressing Escape', async () => {
     const onRequestClose = vi.fn();
+    const user = userEvent.setup();
+
     render(
       <Dialog
         open={true}
@@ -59,7 +61,7 @@ describe('Dialog', () => {
       </Dialog>,
     );
 
-    await userEvent.keyboard('{Escape}');
+    await user.keyboard('{Escape}');
     expect(onRequestClose).toHaveBeenCalled();
   });
 

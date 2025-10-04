@@ -26,7 +26,7 @@ export {
   type AlignItemsMap,
   type JustifyContentMap,
 } from './utils/flexbox/flexbox.js';
-export { getBoundValue, roundToPrecision } from './utils/math/math.js';
+export { clampAndRoundValue } from './utils/math/math.js';
 export { mergeProps } from './utils/react/mergeProps.js';
 export { composeRefs } from './utils/react/refs.js';
 export {

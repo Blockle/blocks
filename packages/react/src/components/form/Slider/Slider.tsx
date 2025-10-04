@@ -2,9 +2,8 @@
 
 import {
   type ComponentThemes,
+  clampAndRoundValue,
   classnames,
-  getBoundValue,
-  roundToPrecision,
 } from '@blockle/blocks-core';
 import type React from 'react';
 import { useCallback, useRef } from 'react';
@@ -44,8 +43,6 @@ export type SliderProps = {
   size: SliderTheme['variants']['size'];
   colorScheme: SliderTheme['variants']['colorScheme'];
   disabled?: boolean;
-  // TODO Precision?
-  precision?: number;
 };
 
 export const Slider: React.FC<SliderProps> = ({
@@ -60,7 +57,6 @@ export const Slider: React.FC<SliderProps> = ({
   size,
   colorScheme,
   disabled,
-  precision = 2,
   ...restProps
 }) => {
   const baseClass = useComponentStyles('slider', {
@@ -81,8 +77,7 @@ export const Slider: React.FC<SliderProps> = ({
     defaultValue,
     value,
     onChange,
-    transformValue: (value) =>
-      roundToPrecision(getBoundValue(value, min, max, step), precision),
+    transformValue: (value) => clampAndRoundValue(value, min, max, step),
   });
 
   usePointerProgress({
