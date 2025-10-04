@@ -1,5 +1,12 @@
 # @blockle/blocks-react
 
+## 1.3.0
+
+### Minor Changes
+
+- 218f160: Renamed getBoundValue to clampAndRoundValue and removed roundToPrecision function.
+  Removed precision prop from Slider and replaced it with step prop.
+
 ## 1.2.0
 
 ### Minor Changes
