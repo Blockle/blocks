@@ -1,20 +1,20 @@
 import { describe, it } from 'vitest';
-import { roundToPrecision } from './math.js';
+import { clampAndRoundValue } from './math.js';
 
-describe('roundToPrecision', () => {
-  it('should round to the specified precision', () => {
+describe('clampAndRoundValue', () => {
+  it('should round to the nearest step and clamp to min and max', () => {
     // Test cases
     const cases = [
-      { value: 1.2345, precision: 2, expected: 1.23 },
-      { value: 1.2355, precision: 3, expected: 1.236 },
-      { value: 1.2, precision: 0, expected: 1 },
-      { value: 1.5, precision: 0, expected: 2 },
-      { value: -1.2345, precision: 2, expected: -1.23 },
-      { value: -1.2355, precision: 2, expected: -1.24 },
+      { newValue: 5.3, min: 0, max: 10, step: 1, expected: 5 },
+      { newValue: 5.7, min: 0, max: 10, step: 1, expected: 6 },
+      { newValue: -1, min: 0, max: 10, step: 1, expected: 0 },
+      { newValue: 11, min: 0, max: 10, step: 1, expected: 10 },
+      { newValue: 5.25, min: 0, max: 10, step: 0.5, expected: 5.5 },
+      { newValue: 5.1, min: 0, max: 10, step: 0.5, expected: 5 },
     ];
 
-    cases.forEach(({ value, precision, expected }) => {
-      const result = roundToPrecision(value, precision);
+    cases.forEach(({ newValue, min, max, step, expected }) => {
+      const result = clampAndRoundValue(newValue, min, max, step);
       if (result !== expected) {
         throw new Error(`Expected ${result} to be ${expected}`);
       }

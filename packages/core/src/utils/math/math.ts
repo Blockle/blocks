@@ -1,20 +1,12 @@
-export function roundToPrecision(value: number, precision: number): number {
-  const factor = 10 ** precision;
-
-  return Math.round(value * factor) / factor;
-}
-
-export function getBoundValue(
+export function clampAndRoundValue(
   newValue: number,
   min: number,
   max: number,
   step: number,
 ): number {
   // Round to the nearest step
-  let value = Math.round(newValue / step) * step;
-  // Clamp the value to the min and max
-  value = Math.max(min, Math.min(max, value));
+  const value = Math.round(newValue / step) * step;
 
-  // Round to the desired precision
-  return value;
+  // Clamp value to the min and max
+  return Math.max(min, Math.min(max, value));
 }

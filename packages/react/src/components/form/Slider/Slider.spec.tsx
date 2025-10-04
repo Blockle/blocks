@@ -1,4 +1,5 @@
 import { composeStories } from '@storybook/react';
+import { userEvent } from '@storybook/test';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import * as stories from './Slider.stories.js';
@@ -33,10 +34,27 @@ describe('Slider', () => {
   });
 
   it('should render precision', () => {
-    render(<Slider defaultValue={1.2345567} precision={3} step={0.000001} />);
+    render(<Slider defaultValue={1.2345567} step={0.001} />);
 
     const slider = screen.getByRole('slider');
 
     expect(slider).toHaveAttribute('aria-valuenow', '1.235');
+  });
+
+  // TODO Fix me
+  it.skip('should handle keyboard events', async () => {
+    const user = userEvent.setup();
+
+    render(<Slider defaultValue={5} min={0} max={10} step={1} />);
+
+    const slider = screen.getByRole('slider');
+
+    expect(slider).toHaveAttribute('aria-valuenow', '5');
+
+    // await user.click(slider);
+    // How to trigger the event from a specific element?
+    await user.keyboard('{ArrowLeft}');
+
+    expect(slider).toHaveAttribute('aria-valuenow', '6');
   });
 });
