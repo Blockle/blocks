@@ -13,9 +13,6 @@ export const Default: StoryObj<RadioProps> = {
   render: (props) => {
     return <Radio {...props} />;
   },
-  args: {
-    children: 'Radio',
-  },
 };
 
 export const WithRadioGroup: StoryObj<RadioProps> = {

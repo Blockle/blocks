@@ -26,7 +26,6 @@ export const Default: StoryObj<SliderProps> = {
   },
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SliderWithState: FC<SliderProps> = ({ value: _value, ...props }) => {
   const [value, setValue] = useState(60);
 

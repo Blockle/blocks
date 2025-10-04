@@ -7,7 +7,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    workspace: ['packages/*'],
+    projects: ['packages/*'],
     include: ['**/*.{test,spec}.{ts,tsx}'],
     coverage: {
       exclude: ['**/dist/**', './*', './.storybook/**', '**/*.stories.tsx'],

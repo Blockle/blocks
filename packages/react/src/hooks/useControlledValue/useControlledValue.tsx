@@ -2,6 +2,10 @@
 
 import { useCallback, useEffect, useState } from 'react';
 
+function noopTransform<T>(value: T) {
+  return value;
+}
+
 type ControlledValue<T> = {
   value?: T;
   defaultValue: T;
@@ -13,14 +17,14 @@ export function useControlledValue<T>({
   defaultValue,
   value,
   onChange,
-  transformValue,
+  transformValue = noopTransform,
 }: ControlledValue<T>): [T, (value: T) => void] {
   const [internValue, setInternValue] = useState(defaultValue);
   const currentValue = (onChange ? value : internValue) ?? defaultValue;
 
   const setValue = useCallback(
     function setValue(value: T) {
-      const nextValue = transformValue ? transformValue(value) : value;
+      const nextValue = transformValue(value);
 
       if (onChange) {
         onChange(nextValue);
@@ -42,5 +46,5 @@ export function useControlledValue<T>({
     }, []);
   }
 
-  return [currentValue, setValue];
+  return [transformValue(currentValue), setValue];
 }
