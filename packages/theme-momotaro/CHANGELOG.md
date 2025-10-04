@@ -1,5 +1,12 @@
 # @blockle/blocks-theme-momotaro
 
+## 3.0.0
+
+### Patch Changes
+
+- Updated dependencies [218f160]
+  - @blockle/blocks-core@0.23.0
+
 ## 2.0.0
 
 ### Minor Changes
