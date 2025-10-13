@@ -1,4 +1,8 @@
-const colorsWithCurrentColor = { ...vars.color, currentColor: 'currentColor' };
+const colorsWithCurrentColor = {
+  ...vars.color,
+  currentColor: 'currentColor',
+  transparent: 'transparent',
+};
 const size = { auto: 'auto', full: '100%', 'fit-content': 'fit-content' };
 const marginSpace = { auto: 'auto', ...vars.space };
 

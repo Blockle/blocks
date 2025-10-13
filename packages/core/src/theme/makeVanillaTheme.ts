@@ -1,13 +1,29 @@
 import type { ThemeTokens } from '../config/themeTokens.js';
+import type { RecordToUnionPath } from '../utils/typing/helpers.js';
+
+type ColorUnion = RecordToUnionPath<ThemeTokens['color'], '-'>;
 
 export const makeVanillaTheme = (tokens: ThemeTokens) => {
+  const color = {} as Record<ColorUnion, string>;
+
+  for (const [colorName, colorValue] of Object.entries(tokens.color)) {
+    if (typeof colorValue === 'string') {
+      color[colorName as ColorUnion] = colorValue;
+      continue;
+    }
+
+    for (const [shade, shadeValue] of Object.entries(colorValue)) {
+      color[`${colorName}-${shade}` as ColorUnion] = shadeValue;
+    }
+  }
+
   return {
     space: tokens.spacing as Record<keyof typeof tokens.spacing, string>,
     borderRadius: tokens.border.radius as Record<
       keyof typeof tokens.border.radius,
       string
     >,
-    color: tokens.color as Record<keyof typeof tokens.color, string>,
+    color,
     borderWidth: tokens.border.width as Record<
       keyof typeof tokens.border.width,
       string

@@ -13,22 +13,21 @@ type BorderWidth = 'small' | 'medium' | 'large';
 type BoxShadow = 'small' | 'medium' | 'large';
 type FontSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 type LineHeight = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
-// TODO Review color naming
-type Color =
-  | 'white'
-  | 'black'
-  | 'body'
-  | 'primaryLight'
-  | 'primary'
-  | 'primaryDark'
-  | 'secondaryLight'
-  | 'secondary'
-  | 'secondaryDark'
-  | 'text'
-  | 'textLight'
-  | 'textDark'
-  | 'danger'
-  | 'link';
+
+type ColorPalette = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+
+type Color = {
+  white: string;
+  black: string;
+  primary: Record<ColorPalette, string>;
+  secondary: Record<ColorPalette, string>;
+  success: Record<ColorPalette, string>;
+  warning: Record<ColorPalette, string>;
+  danger: Record<ColorPalette, string>;
+  info: Record<ColorPalette, string>;
+  text: Record<ColorPalette, string>;
+  background: Record<ColorPalette, string>;
+};
 
 export type ThemeTokens = {
   typography: {
@@ -52,5 +51,5 @@ export type ThemeTokens = {
   focus: {
     boxShadow: string;
   };
-  color: Record<Color, string>;
+  color: Color;
 };

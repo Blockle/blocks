@@ -14,9 +14,7 @@
       "import": "./dist/reset.js"
     }
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "vite build",
     "test": "vitest ",
@@ -41,6 +39,6 @@
     "@blockle/blocks-reset": ">=0.x"
   },
   "engines": {
-    "node": ">= 20.19.0 || >= 22.12.9 || >= 24.2.0"
+    "node": ">=20.19.0 || >=22.12.9 || >=24.2.0"
   }
 }

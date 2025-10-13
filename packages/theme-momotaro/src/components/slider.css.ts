@@ -36,9 +36,9 @@ export const slider: ThemeComponentsStyles['slider'] = makeComponentTheme(
         borderRadius: '50%',
         height: '16px',
         width: '16px',
-        boxShadow: `0 0 0 0px color-mix(in srgb,  ${vars.color.primaryLight}, transparent 0%)`,
+        boxShadow: `0 0 0 0px color-mix(in srgb,  ${vars.color['primary-100']}, transparent 0%)`,
         vars: {
-          [thumbActive]: `0 0 0 8px color-mix(in srgb,  ${vars.color.primaryLight}, transparent 20%)`,
+          [thumbActive]: `0 0 0 8px color-mix(in srgb,  ${vars.color['primary-100']}, transparent 20%)`,
         },
         ':hover': {
           boxShadow: thumbActive,
@@ -69,25 +69,25 @@ export const slider: ThemeComponentsStyles['slider'] = makeComponentTheme(
       colorScheme: {
         primary: style({
           vars: {
-            [trackBackground]: vars.color.primaryLight,
-            [filledTrackBackground]: vars.color.primary,
-            [thumbBackground]: vars.color.primary,
+            [trackBackground]: vars.color['primary-100'],
+            [filledTrackBackground]: vars.color['primary-500'],
+            [thumbBackground]: vars.color['primary-500'],
           },
         }),
         secondary: style({
           vars: {
-            [trackBackground]: vars.color.primaryLight,
-            [filledTrackBackground]: vars.color.secondary,
-            [thumbBackground]: vars.color.secondary,
+            [trackBackground]: vars.color['primary-100'],
+            [filledTrackBackground]: vars.color['secondary-500'],
+            [thumbBackground]: vars.color['secondary-500'],
           },
         }),
       },
       disabled: style({
         pointerEvents: 'none',
         vars: {
-          [trackBackground]: '#c0c0c0',
-          [filledTrackBackground]: '#ccc',
-          [thumbBackground]: '#c0c0c0',
+          [trackBackground]: vars.color['background-200'],
+          [filledTrackBackground]: vars.color['background-400'],
+          [thumbBackground]: vars.color['background-400'],
         },
       }),
     },

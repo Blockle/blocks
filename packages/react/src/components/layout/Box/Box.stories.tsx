@@ -51,7 +51,7 @@ export const AsChild: StoryObj<BoxProps> = {
   },
   args: {
     asChild: true,
-    color: 'primary',
+    color: 'primary-700',
     children: (
       <a
         href="https://google.com"

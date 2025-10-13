@@ -1,13 +1,12 @@
 import type { Atoms } from '../../atoms/atoms.js';
 
 export type AnyString = string & {};
+export type RecordLike = Record<string | number, unknown>;
 
 /**
  * Suggest a type for a string literal but also allow any string.
  */
 export type OptionalLiteral<T extends string> = T | AnyString;
-
-export type RecordLike = Record<string | number, unknown>;
 
 export function isObjectLike<T extends RecordLike>(value: T): value is T {
   return typeof value === 'object' && value !== null;
@@ -34,3 +33,32 @@ export type HTMLElementProps<E extends Element> = Omit<
   React.HTMLProps<E>,
   keyof Atoms | 'ref'
 >;
+
+/**
+ * Convert a nested record type to a union of dot-separated paths.
+ *
+ * Example:
+ * ```ts
+ * type Foo = RecordToUnionPath<{
+ *   a: string;
+ *   b: { c: { d: string }; d: number };
+ *   55: {
+ *     100: string[];
+ *     200: [string];
+ *   };
+ * }>;
+ * // Result: "a" | "b.c.d" | "b.d" | "e.f" | "e.g" | "55.100" | "55.200"
+ * ```
+ */
+export type RecordToUnionPath<
+  TObject,
+  TDelimiter extends string = '.',
+> = TObject extends RecordLike
+  ? {
+      [K in keyof TObject]: TObject[K] extends RecordLike
+        ? K extends string | number
+          ? `${K}${TDelimiter}${RecordToUnionPath<TObject[K], TDelimiter>}`
+          : never
+        : K;
+    }[keyof TObject]
+  : TObject;

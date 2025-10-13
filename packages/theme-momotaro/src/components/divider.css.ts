@@ -11,7 +11,7 @@ export const divider: ThemeComponentsStyles['divider'] = makeComponentTheme(
       blockSize: 1,
     }),
     defaultVariants: {
-      color: 'textLight',
+      color: 'text-500',
     },
   },
 );
