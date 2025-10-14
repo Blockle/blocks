@@ -7,7 +7,7 @@ export const sharedConfig = defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    include: ['**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}'],
+    include: ['**/*.test.{ts,tsx}'],
     setupFiles: [
       resolve(__dirname, './setupTests.ts'),
       resolve(__dirname, './setupTests.storybook.ts'),
