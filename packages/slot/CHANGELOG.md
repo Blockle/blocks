@@ -1,5 +1,11 @@
 # @blockle/blocks-react-slot
 
+## 1.1.1
+
+### Patch Changes
+
+- e6d63b8: Renamed color tokens using color palettes
+
 ## 1.1.0
 
 ### Minor Changes

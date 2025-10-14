@@ -1,5 +1,16 @@
 # @blockle/blocks-theme-momotaro
 
+## 4.0.0
+
+### Minor Changes
+
+- e6d63b8: Renamed color tokens using color palettes
+
+### Patch Changes
+
+- Updated dependencies [e6d63b8]
+  - @blockle/blocks-core@0.24.0
+
 ## 3.0.0
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @blockle/blocks-react
 
+## 1.4.0
+
+### Minor Changes
+
+- e6d63b8: Renamed color tokens using color palettes
+
 ## 1.3.0
 
 ### Minor Changes
