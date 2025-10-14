@@ -14,7 +14,16 @@ type BoxShadow = 'small' | 'medium' | 'large';
 type FontSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 type LineHeight = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 
-type ColorPalette = '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900';
+type ColorPalette =
+  | '100'
+  | '200'
+  | '300'
+  | '400'
+  | '500'
+  | '600'
+  | '700'
+  | '800'
+  | '900';
 
 type Color = {
   white: string;
