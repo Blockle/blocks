@@ -1,6 +1,6 @@
 {
   "name": "@blockle/blocks-react",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "React hooks and components for Blockle",
   "type": "module",
   "exports": {
@@ -9,7 +9,9 @@
       "import": "./dist/index.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "scripts": {
     "build": "vite build",

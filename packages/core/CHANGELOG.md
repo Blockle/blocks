@@ -1,5 +1,11 @@
 # @blockle/blocks-core
 
+## 0.24.0
+
+### Minor Changes
+
+- e6d63b8: Renamed color tokens using color palettes
+
 ## 0.23.0
 
 ### Minor Changes
