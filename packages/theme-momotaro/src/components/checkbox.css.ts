@@ -25,15 +25,15 @@ export const checkbox: ThemeComponentsStyles['checkbox'] = makeComponentTheme(
         },
         selectors: {
           '&:hover:not(:has(input:disabled))': {
-            backgroundColor: vars.color.primaryDark,
+            backgroundColor: vars.color['primary-700'],
           },
           '&:has(input:checked)': {
-            backgroundColor: vars.color.primary,
+            backgroundColor: vars.color['primary-500'],
           },
         },
       },
       atoms({
-        backgroundColor: 'primaryLight',
+        backgroundColor: 'primary-100',
         borderRadius: 'small',
       }),
       focusable,

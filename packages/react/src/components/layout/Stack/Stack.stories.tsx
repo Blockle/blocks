@@ -35,13 +35,13 @@ export const Default: StoryObj<StackProps> = {
     spacing: ['small', 'medium', 'large'],
     children: (
       <>
-        <Box backgroundColor="danger" padding="small">
+        <Box backgroundColor="danger-700" padding="small">
           1
         </Box>
-        <Box backgroundColor="danger" padding="small">
+        <Box backgroundColor="danger-600" padding="small">
           2
         </Box>
-        <Box backgroundColor="danger" padding="small">
+        <Box backgroundColor="danger-500" padding="small">
           3
         </Box>
       </>

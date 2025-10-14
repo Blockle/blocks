@@ -25,16 +25,16 @@ export const radio: ThemeComponentsStyles['radio'] = makeComponentTheme(
           },
         },
         ':hover': {
-          backgroundColor: vars.color.primaryDark,
+          backgroundColor: vars.color['primary-700'],
         },
         selectors: {
           '&:has(input:checked):not(:hover)': {
-            backgroundColor: vars.color.primary,
+            backgroundColor: vars.color['primary-500'],
           },
         },
       },
       atoms({
-        backgroundColor: 'primaryLight',
+        backgroundColor: 'primary-100',
       }),
       focusable,
     ]),

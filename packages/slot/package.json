@@ -9,9 +9,7 @@
       "import": "./dist/index.js"
     }
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "sideEffects": false,
   "scripts": {
     "build": "vite build",
@@ -31,7 +29,7 @@
   },
   "homepage": "https://github.com/Blockle/blocks#readme",
   "peerDependencies": {
-    "react": ">= 18 || >= 19",
-    "@blockle/blocks-core": ">= 0.x"
+    "react": ">=19",
+    "@blockle/blocks-core": ">=0.x"
   }
 }

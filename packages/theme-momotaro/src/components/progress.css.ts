@@ -25,8 +25,8 @@ export const progress: ThemeComponentsStyles['progress'] = makeComponentTheme(
       atoms({
         inlineSize: 'full',
         borderRadius: 'small',
-        backgroundColor: 'textLight',
-        color: 'primary',
+        backgroundColor: 'text-200',
+        color: 'primary-500',
         overflow: 'hidden',
       }),
     ]),
@@ -47,8 +47,8 @@ export const progress: ThemeComponentsStyles['progress'] = makeComponentTheme(
             45deg,
             transparent,
             transparent 20px,
-            ${vars.color.primaryDark} 20px,
-            ${vars.color.primaryDark} 40px
+            ${vars.color['primary-700']} 20px,
+            ${vars.color['primary-700']} 40px
           )`,
           },
           '(prefers-reduced-motion: no-preference)': {

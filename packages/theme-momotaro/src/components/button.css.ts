@@ -86,15 +86,15 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
       intent: {
         neutral: style({
           vars: {
-            [intentColor]: vars.color.primary,
-            [hoverBackgroundColor]: vars.color.primaryLight,
+            [intentColor]: vars.color['primary-500'],
+            [hoverBackgroundColor]: vars.color['primary-100'],
           },
         }),
         danger: style({
           vars: {
-            [intentColor]: vars.color.danger,
-            [hoverBackgroundColor]: '#fff8f7',
-            [focusRingColor]: vars.color.danger,
+            [intentColor]: vars.color['danger-700'],
+            [hoverBackgroundColor]: vars.color['danger-200'],
+            [focusRingColor]: vars.color['danger-300'],
           },
         }),
       },
@@ -107,7 +107,7 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
         },
         style: style({
           vars: {
-            [hoverBackgroundColor]: vars.color.primaryDark,
+            [hoverBackgroundColor]: vars.color['primary-700'],
           },
         }),
       },
@@ -118,7 +118,7 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
         },
         style: style({
           vars: {
-            [hoverBackgroundColor]: '#f9b1a9',
+            [hoverBackgroundColor]: vars.color['danger-200'],
           },
         }),
       },

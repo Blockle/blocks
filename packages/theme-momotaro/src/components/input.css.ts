@@ -11,7 +11,7 @@ export const input: ThemeComponentsStyles['input'] = makeComponentTheme(
   {
     input: style([
       atoms({
-        color: 'text',
+        color: 'text-900',
         padding: 'large',
         border: 'none',
         borderRadius: 'small',
@@ -20,7 +20,7 @@ export const input: ThemeComponentsStyles['input'] = makeComponentTheme(
         outline: 'none',
         background: 'transparent',
         '::placeholder': {
-          color: vars.color.textLight,
+          color: vars.color['text-300'],
         },
         ':disabled': {},
       },
