@@ -62,3 +62,7 @@ export type RecordToUnionPath<
         : K;
     }[keyof TObject]
   : TObject;
+
+export type DeepNullable<T> = {
+  [P in keyof T]: T[P] extends RecordLike ? DeepNullable<T[P]> : T[P] | null;
+};

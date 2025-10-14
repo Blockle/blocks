@@ -7,7 +7,7 @@ export const makeVanillaTheme = (tokens: ThemeTokens) => {
   const color = {} as Record<ColorUnion, string>;
 
   for (const [colorName, colorValue] of Object.entries(tokens.color)) {
-    if (typeof colorValue === 'string') {
+    if (typeof colorValue === 'string' || colorValue === null) {
       color[colorName as ColorUnion] = colorValue;
       continue;
     }
