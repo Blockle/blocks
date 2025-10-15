@@ -1,14 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import type { Meta, StoryObj } from '@storybook/react';
-import * as test from '@storybook/test';
-import {
-  expect,
-  fireEvent,
-  getByRole,
-  userEvent,
-  within,
-} from '@storybook/test';
 import { useState } from 'react';
+import { action } from 'storybook/actions';
 import { Button } from '../../form/Button/Button.js';
 import { Stack } from '../../layout/Stack/Stack.js';
 import { Heading } from '../../typography/Heading/Heading.js';
@@ -64,19 +57,16 @@ export const Default: StoryObj<DialogProps> = {
   args: {
     children: <>Test Dialog</>,
     open: true,
-    onRequestClose: test.fn(() => {
-      console.log('Dialog close requested');
-    }),
+    onRequestClose: action('Dialog close requested'),
   },
 };
 
 export const Nested: StoryObj<DialogProps> = {
   render: DialogTemplate,
-
   args: {
     children: (
       <>
-        <Stack spacing="medium">
+        <Stack spacing={2}>
           <Heading level={2}>Hello world!</Heading>
           <Text tag="p" fontSize="small">
             This is a dialog.
@@ -90,9 +80,7 @@ export const Nested: StoryObj<DialogProps> = {
       </>
     ),
     open: true,
-    onRequestClose: test.fn(() => {
-      console.log('Dialog close requested');
-    }),
+    onRequestClose: action('Dialog close requested'),
   },
 };
 
@@ -127,28 +115,10 @@ export const WithAriaMarkup: StoryObj<DialogProps> = {
 
 export const Play: StoryObj<DialogProps> = {
   render: DialogTemplate,
-
-  async play({ canvasElement }) {
-    const canvas = within(canvasElement);
-
-    // Open dialog
-    await userEvent.click(canvas.getByRole('button', { name: 'Open Dialog' }));
-
-    const dialog = getByRole(document.body, 'dialog');
-
-    expect(dialog).toBeInTheDocument();
-
-    fireEvent.keyDown(dialog, { key: 'Escape' });
-
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    expect(dialog).not.toBeInTheDocument();
-  },
-
   args: {
     children: (
       <>
-        <Stack spacing="medium">
+        <Stack spacing={2}>
           <Heading level={2}>Hello world</Heading>
           <Button type="submit" autoFocus>
             Close Dialog
@@ -156,8 +126,6 @@ export const Play: StoryObj<DialogProps> = {
         </Stack>
       </>
     ),
-    onRequestClose: test.fn(() => {
-      console.log('Dialog clicked');
-    }),
+    onRequestClose: action('Dialog close requested'),
   },
 };

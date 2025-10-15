@@ -57,8 +57,8 @@ export const checkbox: ThemeComponentsStyles['checkbox'] = makeComponentTheme(
     label: atoms({
       display: 'flex',
       flexDirection: 'row',
-      padding: 'xsmall',
-      gap: 'medium',
+      padding: 1,
+      gap: 2,
       cursor: 'pointer',
     }),
   },

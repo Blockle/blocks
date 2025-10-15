@@ -12,7 +12,7 @@ export const input: ThemeComponentsStyles['input'] = makeComponentTheme(
     input: style([
       atoms({
         color: 'text-900',
-        padding: 'large',
+        padding: 3,
         border: 'none',
         borderRadius: 'small',
       }),

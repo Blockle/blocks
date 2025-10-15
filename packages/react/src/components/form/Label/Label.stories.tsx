@@ -19,7 +19,7 @@ export const Default: StoryObj<LabelProps> = {
 export const WithInput: StoryObj<LabelProps> = {
   render: (props) => {
     return (
-      <Stack spacing="medium">
+      <Stack spacing={2}>
         <Label {...props} />
         <Input
           name="input"

@@ -40,6 +40,7 @@ export type SliderProps = {
   'aria-labelledby'?: string;
   'aria-valuetext'?: string;
   'aria-label'?: string;
+  // TODO Size should not change width/height of the slider, but the size of the thumb / track height
   size: SliderTheme['variants']['size'];
   colorScheme: SliderTheme['variants']['colorScheme'];
   disabled?: boolean;

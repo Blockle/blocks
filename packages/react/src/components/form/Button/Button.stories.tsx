@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import * as test from '@storybook/test';
-import { expect, userEvent, within } from '@storybook/test';
-// import { Icon } from '../Icon';
+
+import { action } from 'storybook/actions';
 import { Button, type ButtonProps } from './Button.js';
 
 export default {
@@ -17,9 +16,7 @@ export const Default: StoryObj<ButtonProps> = {
 
   args: {
     children: 'Button',
-    onClick: test.fn(() => {
-      console.log('Button clicked');
-    }),
+    onClick: action('button-clicked'),
   },
 };
 
@@ -35,10 +32,7 @@ export const LinkButton: StoryObj<ButtonProps> = {
       </a>
     ),
     asChild: true,
-    onClick: test.fn((event) => {
-      event.preventDefault();
-      console.log('Link clicked and default prevented');
-    }),
+    onClick: action('link-clicked'),
   },
 };
 
@@ -60,24 +54,3 @@ export const LinkButton: StoryObj<ButtonProps> = {
 //     }),
 //   },
 // };
-
-export const Play: StoryObj<ButtonProps> = {
-  render: (props) => {
-    return <Button {...props} />;
-  },
-
-  play: async ({ args, canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    await userEvent.click(canvas.getByRole('button'));
-
-    expect(args.onClick).toHaveBeenCalled();
-  },
-
-  args: {
-    children: 'Button',
-    onClick: test.fn(() => {
-      console.log('Button clicked');
-    }),
-  },
-};

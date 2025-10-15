@@ -58,8 +58,8 @@ export const radio: ThemeComponentsStyles['radio'] = makeComponentTheme(
     label: atoms({
       display: 'flex',
       flexDirection: 'row',
-      padding: 'xsmall',
-      gap: 'medium',
+      padding: 1,
+      gap: 2,
       cursor: 'pointer',
     }),
   },

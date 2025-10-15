@@ -9,7 +9,7 @@ export const tooltip: ThemeComponentsStyles['tooltip'] = makeComponentTheme(
   'tooltip',
   {
     base: atoms({
-      padding: 'small',
+      padding: 1,
     }),
     variants: {
       colorScheme: {

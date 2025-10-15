@@ -1,15 +1,8 @@
-type FontWeight = 'regular' | 'medium' | 'strong';
-type Space =
-  | 'none'
-  | 'gutter'
-  | 'xsmall'
-  | 'small'
-  | 'medium'
-  | 'large'
-  | 'xlarge';
+type FontWeight = 'light' | 'normal' | 'medium' | 'strong' | 'bold';
+type Space = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 type Transition = 'slow' | 'normal' | 'fast';
 type BorderRadius = 'small' | 'medium' | 'large' | 'xlarge';
-type BorderWidth = 'small' | 'medium' | 'large';
+type BorderWidth = 'thin' | 'thick';
 type BoxShadow = 'small' | 'medium' | 'large';
 type FontSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 type LineHeight = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
@@ -47,7 +40,7 @@ export type ThemeTokens = {
       secondary?: string;
     };
     fontSize: Record<FontSize, number | string>;
-    fontWeight: Record<FontWeight, 400 | 500 | 600 | 700 | 800>;
+    fontWeight: Record<FontWeight, 300 |400 | 500 | 600 | 700 | 800>;
     lineHeight: Record<LineHeight, number | string>;
   };
   spacing: Record<Space, number | string>;

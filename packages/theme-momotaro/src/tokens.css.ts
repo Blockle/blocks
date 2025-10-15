@@ -9,9 +9,8 @@ export const tokens: ThemeTokens = {
       xlarge: '32px',
     },
     width: {
-      small: '1px',
-      medium: '2px',
-      large: '4px',
+      thin: '1px',
+      thick: '2px',
     },
   },
   color: {
@@ -112,16 +111,18 @@ export const tokens: ThemeTokens = {
     large: '0px 16px 24px rgba(0, 0, 0, 0.08)',
   },
   focus: {
-    boxShadow: '0 0 1px 2px #AF8EFF',
+    boxShadow: '0 0 1px 2px #7FE3F0',
   },
   spacing: {
-    none: '0px',
-    gutter: '28px',
-    xsmall: '4px',
-    small: '8px',
-    medium: '12px',
-    large: '16px',
-    xlarge: '24px',
+    0: '0px',
+    1: '4px',
+    2: '8px',
+    3: '16px',
+    4: '24px',
+    5: '32px',
+    6: '40px',
+    7: '48px',
+    8: '64px',
   },
   transition: {
     slow: '240ms',
@@ -142,9 +143,11 @@ export const tokens: ThemeTokens = {
       xlarge: rem(24),
     },
     fontWeight: {
-      regular: 400,
+      light: 300,
+      normal: 400,
       medium: 500,
       strong: 700,
+      bold: 800,
     },
     lineHeight: {
       xsmall: rem(16),

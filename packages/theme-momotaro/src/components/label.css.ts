@@ -24,7 +24,7 @@ export const label: ThemeComponentsStyles['label'] = makeComponentTheme(
       required: style({
         ':after': {
           content: '"*"',
-          marginLeft: vars.space.xsmall,
+          marginLeft: vars.space[1],
         },
       }),
     },

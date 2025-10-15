@@ -18,11 +18,11 @@ export const Default: StoryObj<RadioProps> = {
 export const WithRadioGroup: StoryObj<RadioProps> = {
   render: ({ name, value, ...props }) => {
     return (
-      <Stack spacing="medium">
+      <Stack spacing={2}>
         <Text id="radio-group">What is your favorite food?</Text>
 
         <RadioGroup aria-labelledby="radio-group">
-          <Stack spacing="small">
+          <Stack spacing={1}>
             <Radio name="radio-a" value="a" {...props}>
               Apples
             </Radio>
