@@ -1,5 +1,6 @@
 import { atomicProperties } from '@blockle/blocks-core';
 import type { Meta, StoryFn, StoryObj } from '@storybook/react';
+
 import { Inline, type InlineProps } from './Inline.js';
 
 export default {

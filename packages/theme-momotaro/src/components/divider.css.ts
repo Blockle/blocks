@@ -1,6 +1,6 @@
 import {
-  type ThemeComponentsStyles,
   makeComponentTheme,
+  type ThemeComponentsStyles,
 } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 

@@ -1,9 +1,9 @@
 import {
   type Atoms,
-  type HTMLElementProps,
   atoms,
   classnames,
   getAtomsAndProps,
+  type HTMLElementProps,
 } from '@blockle/blocks-core';
 import { createSlottable } from '@blockle/blocks-react-slot';
 import type React from 'react';

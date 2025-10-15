@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { VisuallyHidden, type VisuallyHiddenProps } from './VisuallyHidden.js';
 
 const meta: Meta<typeof VisuallyHidden> = {

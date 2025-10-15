@@ -1,7 +1,8 @@
 'use client';
 
-import { type HTMLElementProps, classnames } from '@blockle/blocks-core';
+import { classnames, type HTMLElementProps } from '@blockle/blocks-core';
 import { useCallback, useEffect, useState } from 'react';
+
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import * as styles from './switch.css.js';
 
@@ -55,8 +56,8 @@ export const Switch: React.FC<SwitchProps> = ({
 
   return (
     <>
-      {/* biome-ignore lint/a11y/useKeyWithClickEvents:
-          no tabindex needed on div, Safari needs special setting enabled for keyboard navigation.. */}
+      {/** biome-ignore lint/a11y/noStaticElementInteractions: no tabindex needed on div, Safari needs special setting enabled for keyboard navigation.. */}
+      {/** biome-ignore lint/a11y/useKeyWithClickEvents: no tabindex needed on div, Safari needs special setting enabled for keyboard navigation.. */}
       <div
         className={classnames(className, styles.container, baseClassName)}
         data-checked={isChecked}

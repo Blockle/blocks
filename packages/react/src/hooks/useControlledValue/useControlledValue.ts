@@ -44,12 +44,12 @@ export function useControlledValue<T>({
 
   // Warn if the component is in controlled mode but no value is provided
   if (!import.meta.env.PROD) {
-    // biome-ignore lint/correctness/useExhaustiveDependencies: development only
+    // biome-ignore lint/correctness/useHookAtTopLevel: false positive
     useEffect(() => {
       if (onChange && value === undefined) {
         console.error('Slider is in controlled mode but no value is provided');
       }
-    }, []);
+    }, [onChange, value]);
   }
 
   return [transformValue(currentValue), setValue];

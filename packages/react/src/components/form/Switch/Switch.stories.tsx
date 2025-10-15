@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { Box } from '../../layout/Box/Box.js';
 import { Switch, type SwitchProps } from './Switch.js';
 

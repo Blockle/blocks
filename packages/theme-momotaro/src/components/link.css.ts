@@ -1,9 +1,10 @@
 import {
-  type ThemeComponentsStyles,
   atoms,
   makeComponentTheme,
+  type ThemeComponentsStyles,
 } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
+
 import { focusable } from './helpers.css.js';
 
 export const link: ThemeComponentsStyles['link'] = makeComponentTheme('link', {

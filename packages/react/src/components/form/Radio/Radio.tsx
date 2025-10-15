@@ -1,7 +1,8 @@
 'use client';
 
-import { type HTMLElementProps, classnames } from '@blockle/blocks-core';
+import { classnames, type HTMLElementProps } from '@blockle/blocks-core';
 import { useId } from 'react';
+
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { Label } from '../Label/Label.js';
 import * as styles from './radio.css.js';

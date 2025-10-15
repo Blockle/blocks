@@ -1,10 +1,11 @@
 import {
   type AlignItemsMap,
   type Atoms,
+  alignItemsMap,
   type MarginAtoms,
   type PaddingAtoms,
-  alignItemsMap,
 } from '@blockle/blocks-core';
+
 import { Box } from '../Box/Box.js';
 
 export type StackProps = {

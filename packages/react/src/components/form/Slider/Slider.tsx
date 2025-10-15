@@ -7,6 +7,7 @@ import {
 } from '@blockle/blocks-core';
 import type React from 'react';
 import { useCallback, useRef } from 'react';
+
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { useControlledValue } from '../../../hooks/useControlledValue/useControlledValue.js';
 import * as styles from './slider.css.js';

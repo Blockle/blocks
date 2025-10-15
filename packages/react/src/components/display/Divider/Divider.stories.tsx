@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { Divider, type DividerProps } from './Divider.js';
 
 // export default {

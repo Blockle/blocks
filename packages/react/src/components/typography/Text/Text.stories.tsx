@@ -1,5 +1,6 @@
 import { atomicProperties } from '@blockle/blocks-core';
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { Text, type TextProps } from './Text.js';
 
 export default {

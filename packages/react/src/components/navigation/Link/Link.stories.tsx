@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { action } from 'storybook/actions';
+
 import { Link, type LinkProps } from './Link.js';
 
 export default {

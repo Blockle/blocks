@@ -14,6 +14,9 @@
       },
       "style": {
         "noParameterAssign": "off"
+      },
+      "correctness": {
+        "useUniqueElementIds": "off"
       }
     }
   },

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { Button } from '../../form/Button/Button.js';
 import { Box } from '../../layout/Box/Box.js';
 import { Tooltip, type TooltipProps } from './Tooltip.js';

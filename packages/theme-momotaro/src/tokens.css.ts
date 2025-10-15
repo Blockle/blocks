@@ -1,4 +1,4 @@
-import { type ThemeTokens, rem } from '@blockle/blocks-core';
+import { rem, type ThemeTokens } from '@blockle/blocks-core';
 
 export const tokens: ThemeTokens = {
   border: {

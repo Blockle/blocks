@@ -2,11 +2,12 @@
 
 import {
   type Atoms,
-  type ComponentThemes,
-  type HTMLElementProps,
   atoms,
+  type ComponentThemes,
   classnames,
+  type HTMLElementProps,
 } from '@blockle/blocks-core';
+
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 
 type LabelTheme = ComponentThemes['label'];

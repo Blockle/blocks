@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { atomicProperties } from './atoms.css.js';
 import { atoms } from './atoms.js';
 

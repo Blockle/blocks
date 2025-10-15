@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { Stack } from '../../layout/Stack/Stack.js';
 import { Input } from '../Input/Input.js';
 import { Label, type LabelProps } from './Label.js';

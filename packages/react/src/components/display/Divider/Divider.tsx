@@ -1,6 +1,7 @@
 'use client';
 
 import { type Atoms, classnames } from '@blockle/blocks-core';
+
 import { useComponentStyleDefaultProps } from '../../../hooks/useComponentStyles/useComponentStyleDefaultProps.js';
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { Box } from '../../layout/Box/Box.js';

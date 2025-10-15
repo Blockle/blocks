@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
 import { action } from 'storybook/actions';
+
 import { Button, type ButtonProps } from './Button.js';
 
 export default {

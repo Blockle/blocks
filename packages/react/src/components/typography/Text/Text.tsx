@@ -1,11 +1,12 @@
 import {
+  classnames,
   type HTMLElementProps,
   type MarginAtoms,
   type PaddingAtoms,
   type TextAtoms,
-  classnames,
 } from '@blockle/blocks-core';
 import type React from 'react';
+
 import { Box } from '../../layout/Box/Box.js';
 import * as styles from './text.css.js';
 

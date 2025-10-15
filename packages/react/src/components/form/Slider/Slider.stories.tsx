@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { type FC, useState } from 'react';
+
 import { Stack } from '../../layout/Stack/Stack.js';
 import { Text } from '../../typography/Text/Text.js';
 import { Slider, type SliderProps } from './Slider.js';

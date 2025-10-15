@@ -1,10 +1,11 @@
 import {
-  type ThemeComponentsStyles,
   atoms,
   makeComponentTheme,
+  type ThemeComponentsStyles,
   vars,
 } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
+
 import { focusable } from './helpers.css.js';
 
 export const select: ThemeComponentsStyles['select'] = makeComponentTheme(

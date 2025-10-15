@@ -1,11 +1,11 @@
-import { createVar, style } from '@vanilla-extract/css';
-
 import {
-  type ThemeComponentsStyles,
   atoms,
   makeComponentTheme,
+  type ThemeComponentsStyles,
   vars,
 } from '@blockle/blocks-core';
+import { createVar, style } from '@vanilla-extract/css';
+
 import { clickable, focusRingColor } from './helpers.css.js';
 
 // Use css vars to share colors between variants

@@ -1,4 +1,5 @@
-import { type HTMLElementProps, classnames } from '@blockle/blocks-core';
+import { classnames, type HTMLElementProps } from '@blockle/blocks-core';
+
 import * as styles from './visually-hidden.css.js';
 
 export type VisuallyHiddenProps = {

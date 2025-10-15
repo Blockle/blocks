@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useRef, useState } from 'storybook/preview-api';
+
 import { Button } from '../../form/Button/Button.js';
 import { Box } from '../../layout/Box/Box.js';
 import { Popover, type PopoverProps } from './Popover.js';
