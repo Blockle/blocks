@@ -1,7 +1,7 @@
 import {
-  type ThemeComponentsStyles,
   atoms,
   makeComponentTheme,
+  type ThemeComponentsStyles,
 } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 
@@ -13,8 +13,8 @@ export const popover: ThemeComponentsStyles['popover'] = makeComponentTheme(
         backgroundColor: 'white',
         borderRadius: 'small',
         boxShadow: 'medium',
-        padding: 'medium',
-        margin: 'small', // Space between the popover and the anchor element
+        padding: 2,
+        margin: 1, // Space between the popover and the anchor element
       }),
       {
         width: 'max-content',

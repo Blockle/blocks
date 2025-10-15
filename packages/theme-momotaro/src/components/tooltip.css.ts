@@ -1,7 +1,7 @@
 import {
-  type ThemeComponentsStyles,
   atoms,
   makeComponentTheme,
+  type ThemeComponentsStyles,
 } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 
@@ -9,7 +9,7 @@ export const tooltip: ThemeComponentsStyles['tooltip'] = makeComponentTheme(
   'tooltip',
   {
     base: atoms({
-      padding: 'small',
+      padding: 1,
     }),
     variants: {
       colorScheme: {

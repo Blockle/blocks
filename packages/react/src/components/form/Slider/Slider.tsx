@@ -7,6 +7,7 @@ import {
 } from '@blockle/blocks-core';
 import type React from 'react';
 import { useCallback, useRef } from 'react';
+
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { useControlledValue } from '../../../hooks/useControlledValue/useControlledValue.js';
 import * as styles from './slider.css.js';
@@ -40,6 +41,7 @@ export type SliderProps = {
   'aria-labelledby'?: string;
   'aria-valuetext'?: string;
   'aria-label'?: string;
+  // TODO Size should not change width/height of the slider, but the size of the thumb / track height
   size: SliderTheme['variants']['size'];
   colorScheme: SliderTheme['variants']['colorScheme'];
   disabled?: boolean;

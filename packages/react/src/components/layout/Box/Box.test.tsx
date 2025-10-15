@@ -1,10 +1,11 @@
-import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
+
+import { render, screen } from '../../../testUtils/testUtils.js';
 import { Box } from './Box.js';
 
 describe('Box', () => {
   it('should render', () => {
-    render(<Box padding={['small', 'medium', 'large']}>Box content</Box>);
+    render(<Box padding={[1, 3, 5]}>Box content</Box>);
 
     expect(screen.getByText('Box content')).toBeInTheDocument();
   });

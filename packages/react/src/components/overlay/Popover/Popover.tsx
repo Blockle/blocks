@@ -1,11 +1,12 @@
 'use client';
 
 import {
-  type HTMLElementProps,
   classnames,
+  type HTMLElementProps,
   hasAnimationDuration,
 } from '@blockle/blocks-core';
 import { useCallback, useEffect, useRef, useState } from 'react';
+
 import { useClickOutside } from '../../../hooks/useClickOutside/useClickOutside.js';
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { useIsomorphicLayoutEffect } from '../../../hooks/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js';

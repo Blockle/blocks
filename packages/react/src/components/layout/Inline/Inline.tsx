@@ -1,12 +1,13 @@
 import {
   type AlignItemsMap,
   type Atoms,
+  alignItemsMap,
   type JustifyContentMap,
+  justifyContentMap,
   type MarginAtoms,
   type PaddingAtoms,
-  alignItemsMap,
-  justifyContentMap,
 } from '@blockle/blocks-core';
+
 import { Box } from '../Box/Box.js';
 
 export type InlineProps = {

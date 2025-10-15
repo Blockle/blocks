@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { Box } from '../../layout/Box/Box.js';
 import { Switch, type SwitchProps } from './Switch.js';
 
@@ -10,7 +11,7 @@ export default {
 export const Default: StoryObj<SwitchProps> = {
   render: ({ ...props }) => {
     return (
-      <Box display="flex" gap="medium" alignItems="center">
+      <Box display="flex" gap={2} alignItems="center">
         <label htmlFor="switch">Switch label</label>
         <Switch id="switch" {...props} />
       </Box>

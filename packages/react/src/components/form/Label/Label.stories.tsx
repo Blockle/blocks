@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { Stack } from '../../layout/Stack/Stack.js';
 import { Input } from '../Input/Input.js';
 import { Label, type LabelProps } from './Label.js';
@@ -19,7 +20,7 @@ export const Default: StoryObj<LabelProps> = {
 export const WithInput: StoryObj<LabelProps> = {
   render: (props) => {
     return (
-      <Stack spacing="medium">
+      <Stack spacing={2}>
         <Label {...props} />
         <Input
           name="input"

@@ -1,10 +1,11 @@
 import {
-  type ThemeComponentsStyles,
   atoms,
   makeComponentTheme,
+  type ThemeComponentsStyles,
   vars,
 } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
+
 import { focusable } from './helpers.css.js';
 
 export const select: ThemeComponentsStyles['select'] = makeComponentTheme(
@@ -13,7 +14,7 @@ export const select: ThemeComponentsStyles['select'] = makeComponentTheme(
     select: style([
       atoms({
         color: 'text-700',
-        padding: 'large',
+        padding: 3,
         backgroundColor: 'white',
         borderRadius: 'medium',
         boxShadow: 'medium',
@@ -36,7 +37,7 @@ export const select: ThemeComponentsStyles['select'] = makeComponentTheme(
       variant: {
         outline: style([
           atoms({
-            borderWidth: 'small',
+            borderWidth: 'thin',
             borderColor: 'primary-500',
           }),
           {
@@ -47,7 +48,7 @@ export const select: ThemeComponentsStyles['select'] = makeComponentTheme(
       },
     },
     icon: atoms({
-      paddingInline: 'large',
+      paddingInline: 3,
     }),
     defaultVariants: {
       variant: 'solid',

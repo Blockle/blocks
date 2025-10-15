@@ -71,7 +71,7 @@ export type ThemeComponentsStyles = {
 };
 
 export function makeComponentTheme<T extends keyof ThemeComponentsStyles>(
-  component: T,
+  _component: T,
   componentTheme: Exclude<ThemeComponentsStyles[T], undefined>,
 ) {
   return componentTheme;

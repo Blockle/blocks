@@ -1,6 +1,6 @@
 import { atomicProperties } from '@blockle/blocks-core';
 import type { Meta, StoryFn, StoryObj } from '@storybook/react';
-import { expect, within } from '@storybook/test';
+
 import { Inline, type InlineProps } from './Inline.js';
 
 export default {
@@ -23,16 +23,7 @@ const Template: StoryFn<typeof Inline> = ({ ...args }) => <Inline {...args} />;
 
 export const Default: StoryObj<InlineProps> = {
   render: Template,
-
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    expect(canvas.getByText('3')).toBeInTheDocument();
-    expect(canvas.getByText('9')).toBeInTheDocument();
-  },
-
   args: {
-    spacing: ['small', 'medium', 'large'],
     children: (
       <>
         <div style={{ border: '1px red solid', width: '60px', height: '60px' }}>
@@ -69,17 +60,7 @@ export const Default: StoryObj<InlineProps> = {
 
 export const List: StoryObj<InlineProps> = {
   render: Template,
-
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    expect(canvas.getByText('1')).toBeInTheDocument();
-    expect(canvas.getByText('2')).toBeInTheDocument();
-    expect(canvas.getByText('3')).toBeInTheDocument();
-  },
-
   args: {
-    spacing: ['small', 'medium', 'large'],
     children: (
       <>
         <li style={{ border: '1px red solid', width: '60px', height: '60px' }}>

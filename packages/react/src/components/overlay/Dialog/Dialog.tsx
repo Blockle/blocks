@@ -6,6 +6,7 @@ import {
   hasAnimationDuration,
 } from '@blockle/blocks-core';
 import { useCallback, useRef, useState } from 'react';
+
 import { useClickOutside } from '../../../hooks/useClickOutside/useClickOutside.js';
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { useIsomorphicLayoutEffect } from '../../../hooks/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js';
@@ -106,19 +107,17 @@ export const Dialog: React.FC<DialogProps> = ({
   const dataOpen = typeof window === 'undefined' && open ? true : undefined;
 
   return (
-    <>
-      <DialogContext.Provider value={{ setEnabled }}>
-        <dialog
-          ref={dialogRef}
-          open={dataOpen}
-          className={classnames(styles.dialog, dialogClassName, className)}
-          onAnimationEnd={onAnimationEnd}
-          onTransitionEnd={onAnimationEnd}
-          {...restProps}
-        >
-          {children}
-        </dialog>
-      </DialogContext.Provider>
-    </>
+    <DialogContext.Provider value={{ setEnabled }}>
+      <dialog
+        ref={dialogRef}
+        open={dataOpen}
+        className={classnames(styles.dialog, dialogClassName, className)}
+        onAnimationEnd={onAnimationEnd}
+        onTransitionEnd={onAnimationEnd}
+        {...restProps}
+      >
+        {children}
+      </dialog>
+    </DialogContext.Provider>
   );
 };

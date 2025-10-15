@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { clampAndRoundValue } from './math.js';
 
 describe('clampAndRoundValue', () => {

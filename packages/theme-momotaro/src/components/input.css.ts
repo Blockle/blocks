@@ -1,7 +1,7 @@
 import {
-  type ThemeComponentsStyles,
   atoms,
   makeComponentTheme,
+  type ThemeComponentsStyles,
   vars,
 } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
@@ -12,7 +12,7 @@ export const input: ThemeComponentsStyles['input'] = makeComponentTheme(
     input: style([
       atoms({
         color: 'text-900',
-        padding: 'large',
+        padding: 3,
         border: 'none',
         borderRadius: 'small',
       }),

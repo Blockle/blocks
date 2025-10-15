@@ -1,11 +1,11 @@
-import { createVar, style } from '@vanilla-extract/css';
-
 import {
-  type ThemeComponentsStyles,
   atoms,
   makeComponentTheme,
+  type ThemeComponentsStyles,
   vars,
 } from '@blockle/blocks-core';
+import { createVar, style } from '@vanilla-extract/css';
+
 import { clickable, focusRingColor } from './helpers.css.js';
 
 // Use css vars to share colors between variants
@@ -23,7 +23,7 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
         borderRadius: 'medium',
         fontWeight: 'medium',
         // Space between `startSlot | children | endSlot`
-        gap: 'small',
+        gap: 2,
       }),
       {
         selectors: {
@@ -43,7 +43,7 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
         }),
         outline: style([
           atoms({
-            borderWidth: 'small',
+            borderWidth: 'thin',
           }),
           {
             color: intentColor,
@@ -60,7 +60,7 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
       size: {
         small: style([
           atoms({
-            paddingInline: 'large',
+            paddingInline: 3,
           }),
           {
             height: 40,
@@ -68,7 +68,7 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
         ]),
         medium: style([
           atoms({
-            paddingInline: 'xlarge',
+            paddingInline: 4,
           }),
           {
             height: 56,
@@ -76,7 +76,7 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
         ]),
         large: style([
           atoms({
-            paddingInline: 'xlarge',
+            paddingInline: 4,
           }),
           {
             height: 72,

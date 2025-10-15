@@ -2,11 +2,11 @@
 
 import {
   type ComponentThemes,
-  type MarginAtoms,
   classnames,
+  type MarginAtoms,
 } from '@blockle/blocks-core';
-import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 
+import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { Box } from '../../layout/Box/Box.js';
 
 type SpinnerTheme = ComponentThemes['spinner'];

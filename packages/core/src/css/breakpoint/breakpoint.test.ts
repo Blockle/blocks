@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { minMediaQuery } from './breakpoint.js';
 
 describe('minMediaQuery', () => {

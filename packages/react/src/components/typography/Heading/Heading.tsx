@@ -1,10 +1,11 @@
 import {
+  classnames,
   type HTMLElementProps,
   type MarginAtoms,
   type PaddingAtoms,
   type TextAtoms,
-  classnames,
 } from '@blockle/blocks-core';
+
 import { Box } from '../../layout/Box/Box.js';
 import * as styles from './heading.css.js';
 

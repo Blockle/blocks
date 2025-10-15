@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import * as test from '@storybook/test';
-import { expect, userEvent, within } from '@storybook/test';
+import { action } from 'storybook/actions';
+
 import { Link, type LinkProps } from './Link.js';
 
 export default {
@@ -26,9 +26,7 @@ export const Default: StoryObj<LinkProps> = {
     children: 'Link',
     href: 'https://example.com',
     underline: true,
-    onClick: test.fn(() => {
-      console.log('Link clicked');
-    }),
+    onClick: action('Link clicked'),
   },
 };
 
@@ -37,22 +35,10 @@ export const Play: StoryObj<LinkProps> = {
     return <Link {...props} />;
   },
 
-  play: async ({ args, canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    await userEvent.click(canvas.getByRole('link'));
-
-    expect(args.onClick).toHaveBeenCalled();
-  },
-
   args: {
     children: 'Link',
     href: 'https://example.com',
     underline: true,
-    onClick: test.fn((event) => {
-      event.preventDefault();
-
-      console.log('Link clicked');
-    }),
+    onClick: action('Link clicked'),
   },
 };

@@ -10,13 +10,14 @@ import {
   useRef,
   useState,
 } from 'react';
+
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { Popover, type PopoverProps } from '../Popover/Popover.js';
 
 type ReactElement = React.ReactElement<
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: necessary for dynamic element types
   any,
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: necessary for dynamic element types
   string | React.JSXElementConstructor<any>
 >;
 

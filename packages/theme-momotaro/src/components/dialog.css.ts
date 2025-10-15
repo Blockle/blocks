@@ -1,7 +1,7 @@
 import {
-  type ThemeComponentsStyles,
   atoms,
   makeComponentTheme,
+  type ThemeComponentsStyles,
 } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 
@@ -12,7 +12,7 @@ export const dialog: ThemeComponentsStyles['dialog'] = makeComponentTheme(
       atoms({
         display: 'flex',
         flexDirection: 'column',
-        padding: 'gutter',
+        padding: 5,
         border: 'none',
         overflow: 'auto',
         borderRadius: 'medium',
@@ -28,9 +28,9 @@ export const dialog: ThemeComponentsStyles['dialog'] = makeComponentTheme(
           '&[open]': {
             transform: 'translate(0, 0)',
             opacity: 1,
-            // @ts-expect-error - Vanilla Extract does not support @starting-style (yet)
+            // @ts-expect-error - typings does not support @starting-style (yet)
             '@starting-style': {
-              transform: 'translate(0, -120px)',
+              transform: 'translate(0, -120px) scale(0.95)',
               opacity: 0,
             },
           },
@@ -45,7 +45,7 @@ export const dialog: ThemeComponentsStyles['dialog'] = makeComponentTheme(
         '@media': {
           '(prefers-reduced-motion: no-preference)': {
             // Ending style
-            transform: 'translate(0, -120px)',
+            transform: 'translate(0, -120px) scale(0.95)',
             opacity: 0,
             transitionBehavior: 'allow-discrete',
             transitionProperty: 'opacity, transform, overlay, display',

@@ -1,6 +1,7 @@
 import type { Theme } from '@blockle/blocks-core';
 import { render } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
+
 import { BlocksProvider } from './BlocksProvider.js';
 import { BlocksProviderContext } from './context.js';
 

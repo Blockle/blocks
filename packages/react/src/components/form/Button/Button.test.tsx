@@ -1,6 +1,7 @@
 import { composeStories } from '@storybook/react';
-import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
+
+import { render, screen } from '../../../testUtils/testUtils.js';
 import * as stories from './Button.stories.js';
 
 const { Default: Button } = composeStories(stories);

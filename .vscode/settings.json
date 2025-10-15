@@ -1,9 +1,8 @@
 {
   "editor.defaultFormatter": "biomejs.biome",
   "editor.codeActionsOnSave": {
-    "quickfix.biome": "explicit",
     "source.organizeImports.biome": "explicit",
-    "source.organizeImports": "always"
+    "source.fixAll.biome": "explicit"
   },
   "typescript.preferences.importModuleSpecifier": "relative",
   "prettier.enable": false,

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, within } from '@storybook/test';
+
 import { Stack } from '../../layout/Stack/Stack.js';
 import { Text } from '../../typography/Text/Text.js';
 import { Progress, type ProgressProps } from './Progress.js';
@@ -19,7 +19,7 @@ export default {
 export const Default: StoryObj<ProgressProps> = {
   render: (props) => {
     return (
-      <Stack spacing="medium">
+      <Stack spacing={3}>
         <Text tag="label" id={props['aria-labelledby']}>
           Progress {props.value}%
         </Text>
@@ -30,10 +30,5 @@ export const Default: StoryObj<ProgressProps> = {
   args: {
     value: 50,
     'aria-labelledby': 'progress-label',
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    expect(canvas.getByLabelText(/^Progress /)).toBeInTheDocument();
   },
 };

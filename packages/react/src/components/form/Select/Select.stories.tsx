@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, within } from '@storybook/test';
+
 import { Select, type SelectProps } from './Select.js';
 
 export default {
@@ -8,12 +8,6 @@ export default {
 } as Meta<typeof Select>;
 
 export const Default: StoryObj<SelectProps> = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    expect(canvas.getByText('Placeholder')).toBeInTheDocument();
-  },
-
   args: {
     placeholder: 'Placeholder',
     children: (

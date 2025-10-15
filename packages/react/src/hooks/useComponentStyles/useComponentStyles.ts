@@ -5,6 +5,7 @@ import type {
   ComponentThemes,
   ComponentThemesProps,
 } from '@blockle/blocks-core';
+
 import { useTheme } from '../useTheme/useTheme.js';
 
 type VariantValue = string | boolean | number;

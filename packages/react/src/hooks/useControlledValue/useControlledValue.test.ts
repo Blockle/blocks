@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react';
 import { act } from 'react';
 import { describe, expect, it, vi } from 'vitest';
+
 import { useControlledValue } from './useControlledValue.js';
 
 describe('useControlledValue', () => {

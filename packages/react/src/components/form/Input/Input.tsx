@@ -1,13 +1,13 @@
 'use client';
 
-import { useId } from 'react';
-import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
-
 import {
+  classnames,
   type HTMLElementProps,
   type OptionalLiteral,
-  classnames,
 } from '@blockle/blocks-core';
+import { useId } from 'react';
+
+import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { Box } from '../../layout/Box/Box.js';
 import * as styles from './input.css.js';
 

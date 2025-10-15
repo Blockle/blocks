@@ -1,6 +1,7 @@
 import { type HTMLElementProps, mergeProps } from '@blockle/blocks-core';
 import type React from 'react';
 import { Children, cloneElement, isValidElement } from 'react';
+
 import { Slot } from './Slot/Slot.js';
 
 type TemplateProps = {
@@ -36,8 +37,7 @@ export function createSlottable<T extends keyof HTMLElementTagNameMap>(
   >,
   Slot: typeof Slot,
 ] {
-  // Cast as any to avoid TS errors when using <Tag />
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: necessary for dynamic tag names
   const Tag = defaultElement as any;
 
   type Element = HTMLElementTagNameMap[T];

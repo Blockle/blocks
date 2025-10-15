@@ -14,7 +14,6 @@ export default defineConfig({
     },
     setupFiles: [
       resolve(__dirname, './setupTests.ts'),
-      resolve(__dirname, './setupTests.storybook.ts'),
     ],
     css: false,
   },

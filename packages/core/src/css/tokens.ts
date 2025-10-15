@@ -28,9 +28,11 @@ export const tokens: DeepNullable<ThemeTokens> = {
       xlarge: null,
     },
     fontWeight: {
-      regular: null,
+      light: null,
+      normal: null,
       medium: null,
       strong: null,
+      bold: null,
     },
     lineHeight: {
       xsmall: null,
@@ -41,13 +43,15 @@ export const tokens: DeepNullable<ThemeTokens> = {
     },
   },
   spacing: {
-    none: null,
-    gutter: null,
-    xsmall: null,
-    small: null,
-    medium: null,
-    large: null,
-    xlarge: null,
+    0: null,
+    1: null,
+    2: null,
+    3: null,
+    4: null,
+    5: null,
+    6: null,
+    7: null,
+    8: null,
   },
   transition: {
     slow: null,
@@ -62,9 +66,8 @@ export const tokens: DeepNullable<ThemeTokens> = {
       xlarge: null,
     },
     width: {
-      small: null,
-      medium: null,
-      large: null,
+      thin: null,
+      thick: null,
     },
   },
   shadow: {
