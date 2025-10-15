@@ -1,4 +1,4 @@
-import { makeTheme } from "@blockle/blocks-core";
+import { makeTheme } from '@blockle/blocks-core';
 
 const colorPalette = {
   100: '#f7fafc',
@@ -17,7 +17,7 @@ export const testingTheme = makeTheme({
   components: {},
   tokens: {
     border: {
-      radius: { small: '4px', medium: '8px', large: '12px', xlarge: '16px'},
+      radius: { small: '4px', medium: '8px', large: '12px', xlarge: '16px' },
       width: { thin: '1px', thick: '2px' },
     },
     color: {
@@ -85,4 +85,4 @@ export const testingTheme = makeTheme({
       fast: 'all 0.1s ease-in-out',
     },
   },
-})
+});

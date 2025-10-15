@@ -25,7 +25,7 @@ export const Default: StoryObj<LinkProps> = {
     children: 'Link',
     href: 'https://example.com',
     underline: true,
-    onClick: action('Link clicked')
+    onClick: action('Link clicked'),
   },
 };
 

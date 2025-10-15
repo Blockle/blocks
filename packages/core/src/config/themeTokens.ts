@@ -40,7 +40,7 @@ export type ThemeTokens = {
       secondary?: string;
     };
     fontSize: Record<FontSize, number | string>;
-    fontWeight: Record<FontWeight, 300 |400 | 500 | 600 | 700 | 800>;
+    fontWeight: Record<FontWeight, 300 | 400 | 500 | 600 | 700 | 800>;
     lineHeight: Record<LineHeight, number | string>;
   };
   spacing: Record<Space, number | string>;
