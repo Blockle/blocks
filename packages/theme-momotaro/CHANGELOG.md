@@ -1,5 +1,16 @@
 # @blockle/blocks-theme-momotaro
 
+## 5.0.0
+
+### Minor Changes
+
+- e991dbb: Renamed theming tokens
+
+### Patch Changes
+
+- Updated dependencies [e991dbb]
+  - @blockle/blocks-core@0.25.0
+
 ## 4.0.0
 
 ### Minor Changes

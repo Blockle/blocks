@@ -1,5 +1,11 @@
 # @blockle/blocks-core
 
+## 0.25.0
+
+### Minor Changes
+
+- e991dbb: Renamed theming tokens
+
 ## 0.24.0
 
 ### Minor Changes

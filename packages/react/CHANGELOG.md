@@ -1,5 +1,11 @@
 # @blockle/blocks-react
 
+## 1.5.0
+
+### Minor Changes
+
+- e991dbb: Renamed theming tokens
+
 ## 1.4.0
 
 ### Minor Changes
