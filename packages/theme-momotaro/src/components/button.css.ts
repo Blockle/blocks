@@ -71,7 +71,7 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
             paddingInline: 4,
           }),
           {
-            height: 56,
+            height: 48,
           },
         ]),
         large: style([
@@ -79,7 +79,7 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
             paddingInline: 4,
           }),
           {
-            height: 72,
+            height: 56,
           },
         ]),
       },

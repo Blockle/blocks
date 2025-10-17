@@ -22,14 +22,14 @@ export const select: ThemeComponentsStyles['select'] = makeComponentTheme(
       {
         border: 'none',
         outline: 'none',
-        minHeight: 56,
+        minHeight: 48,
         transitionDuration: vars.transition.fast,
-        transitionProperty: 'box-shadow',
-        ':focus-within': {
-          outline: '2px solid transparent',
-          outlineOffset: '2px',
-          boxShadow: `${vars.shadow.small}, ${vars.focus.boxShadow}`,
-        },
+        transitionProperty: 'outline',
+        // ':focus-within': {
+        //   outline: '2px solid transparent',
+        //   outlineOffset: '2px',
+        //   boxShadow: `${vars.shadow.small}, ${vars.focus.boxShadow}`,
+        // },
       },
       focusable,
     ]),

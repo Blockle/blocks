@@ -6,44 +6,43 @@ import {
 } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 
+import { focusable } from './helpers.css.js';
+
 export const input: ThemeComponentsStyles['input'] = makeComponentTheme(
   'input',
   {
     input: style([
       atoms({
         color: 'text-900',
-        padding: 3,
         border: 'none',
-        borderRadius: 'small',
+        backgroundColor: 'transparent',
       }),
       {
+        borderRadius: 'inherit',
         outline: 'none',
-        background: 'transparent',
         '::placeholder': {
-          color: vars.color['text-300'],
+          color: vars.color['text-600'],
         },
         ':disabled': {},
       },
     ]),
     container: style([
       {
-        minHeight: 56,
+        minHeight: 48,
         '@media': {
           '(prefers-reduced-motion: no-preference)': {
             transition: `box-shadow ${vars.transition.fast}`,
           },
         },
-        ':focus-within': {
-          outline: '2px solid transparent',
-          outlineOffset: '2px',
-          boxShadow: `${vars.shadow.small}, ${vars.focus.boxShadow}`,
-        },
       },
       atoms({
+        paddingInline: 3,
+        paddingBlock: 2,
         backgroundColor: 'white',
         borderRadius: 'medium',
         boxShadow: 'medium',
       }),
+      focusable,
     ]),
   },
 );
