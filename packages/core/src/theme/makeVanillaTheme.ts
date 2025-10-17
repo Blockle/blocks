@@ -1,7 +1,12 @@
 import type { ThemeTokens } from '../config/themeTokens.js';
 import type { RecordToUnionPath } from '../utils/typing/helpers.js';
 
-type ColorUnion = RecordToUnionPath<ThemeTokens['color'], '-'>;
+const ColorDelimiter = '-' as const;
+
+type ColorUnion = RecordToUnionPath<
+  ThemeTokens['color'],
+  typeof ColorDelimiter
+>;
 
 export const makeVanillaTheme = (tokens: ThemeTokens) => {
   const color = {} as Record<ColorUnion, string>;
@@ -13,7 +18,7 @@ export const makeVanillaTheme = (tokens: ThemeTokens) => {
     }
 
     for (const [shade, shadeValue] of Object.entries(colorValue)) {
-      color[`${colorName}-${shade}` as ColorUnion] = shadeValue;
+      color[`${colorName}${ColorDelimiter}${shade}` as ColorUnion] = shadeValue;
     }
   }
 
