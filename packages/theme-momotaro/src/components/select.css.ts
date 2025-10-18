@@ -25,7 +25,7 @@ export const select: ThemeComponentsStyles['select'] = makeComponentTheme(
         outline: 'none',
         minHeight: 40,
         transitionDuration: vars.transition.fast,
-        transitionProperty: 'outline',
+        transitionProperty: 'outline-color, outline-offset',
         // ':focus-within': {
         //   outline: '2px solid transparent',
         //   outlineOffset: '2px',
