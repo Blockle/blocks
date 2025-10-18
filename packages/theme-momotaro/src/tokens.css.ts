@@ -3,10 +3,10 @@ import { rem, type ThemeTokens } from '@blockle/blocks-core';
 export const tokens: ThemeTokens = {
   border: {
     radius: {
-      small: '4px',
-      medium: '8px',
-      large: '16px',
-      xlarge: '32px',
+      1: '4px',
+      2: '8px',
+      3: '16px',
+      4: '32px',
     },
     width: {
       thin: '1px',
@@ -114,7 +114,6 @@ export const tokens: ThemeTokens = {
     boxShadow: '0 0 1px 2px #7FE3F0',
   },
   spacing: {
-    0: '0px',
     1: '4px',
     2: '8px',
     3: '16px',

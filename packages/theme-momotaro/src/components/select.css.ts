@@ -14,22 +14,23 @@ export const select: ThemeComponentsStyles['select'] = makeComponentTheme(
     select: style([
       atoms({
         color: 'text-700',
-        padding: 3,
+        paddingInline: 3,
+        paddingBlock: 1,
         backgroundColor: 'white',
-        borderRadius: 'medium',
+        borderRadius: 2,
         boxShadow: 'medium',
       }),
       {
         border: 'none',
         outline: 'none',
-        minHeight: 56,
+        minHeight: 40,
         transitionDuration: vars.transition.fast,
-        transitionProperty: 'box-shadow',
-        ':focus-within': {
-          outline: '2px solid transparent',
-          outlineOffset: '2px',
-          boxShadow: `${vars.shadow.small}, ${vars.focus.boxShadow}`,
-        },
+        transitionProperty: 'outline-color, outline-offset',
+        // ':focus-within': {
+        //   outline: '2px solid transparent',
+        //   outlineOffset: '2px',
+        //   boxShadow: `${vars.shadow.small}, ${vars.focus.boxShadow}`,
+        // },
       },
       focusable,
     ]),

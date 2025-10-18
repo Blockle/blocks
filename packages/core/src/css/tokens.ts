@@ -43,7 +43,6 @@ export const tokens: DeepNullable<ThemeTokens> = {
     },
   },
   spacing: {
-    0: null,
     1: null,
     2: null,
     3: null,
@@ -60,10 +59,10 @@ export const tokens: DeepNullable<ThemeTokens> = {
   },
   border: {
     radius: {
-      small: null,
-      medium: null,
-      large: null,
-      xlarge: null,
+      1: null,
+      2: null,
+      3: null,
+      4: null,
     },
     width: {
       thin: null,

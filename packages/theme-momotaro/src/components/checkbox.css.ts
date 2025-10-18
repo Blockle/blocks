@@ -35,7 +35,7 @@ export const checkbox: ThemeComponentsStyles['checkbox'] = makeComponentTheme(
       },
       atoms({
         backgroundColor: 'primary-100',
-        borderRadius: 'small',
+        borderRadius: 1,
       }),
       focusable,
     ]),

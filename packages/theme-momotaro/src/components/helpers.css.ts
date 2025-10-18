@@ -9,15 +9,14 @@ export const focusRingColor = createVar();
  * focus transition to work correctly.
  */
 export const focusable = style({
-  '@media': {
-    '(prefers-reduced-motion: no-preference)': {
-      transition: `box-shadow ${vars.transition.fast}`,
-    },
-  },
+  // '@media': {
+  //   '(prefers-reduced-motion: no-preference)': {
+  //     transition: `outline ${vars.transition.fast}`,
+  //   },
+  // },
   ':focus-visible': {
-    outline: '2px solid transparent',
+    outline: '2px solid #AF8EFF',
     outlineOffset: '2px',
-    boxShadow: `0 0 1px 2px ${fallbackVar(focusRingColor, '#AF8EFF')}`,
   },
   selectors: {
     '&:disabled, &[disabled]': {
@@ -26,9 +25,9 @@ export const focusable = style({
       pointerEvents: 'none',
     },
     '&:has(input:focus-visible)': {
-      outline: '2px solid transparent',
+      outline: '2px solid #AF8EFF',
       outlineOffset: '2px',
-      boxShadow: vars.focus.boxShadow,
+      // boxShadow: vars.focus.boxShadow,
     },
     '&:has(input:disabled)': {
       opacity: 0.5,

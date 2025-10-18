@@ -20,7 +20,7 @@
   "scripts": {
     "build-storybook": "storybook build",
     "dev": "turbo build -- --watch",
-    "build": "turbo build",
+    "build": "turbo build --force",
     "changeset": "changeset",
     "coverage": "vitest run --coverage",
     "format": "biome check ./packages/*/src --write",

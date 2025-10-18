@@ -20,10 +20,11 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
         display: 'inline-flex',
         placeItems: 'center',
         fontSize: 'medium',
-        borderRadius: 'medium',
+        borderRadius: 2,
         fontWeight: 'medium',
         // Space between `startSlot | children | endSlot`
         gap: 2,
+        paddingBlock: 1,
       }),
       {
         selectors: {
@@ -63,7 +64,7 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
             paddingInline: 3,
           }),
           {
-            height: 40,
+            minHeight: 40,
           },
         ]),
         medium: style([
@@ -71,7 +72,7 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
             paddingInline: 4,
           }),
           {
-            height: 56,
+            minHeight: 48,
           },
         ]),
         large: style([
@@ -79,7 +80,7 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
             paddingInline: 4,
           }),
           {
-            height: 72,
+            minHeight: 56,
           },
         ]),
       },
