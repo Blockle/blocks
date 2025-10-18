@@ -17,7 +17,7 @@ export const testingTheme = makeTheme({
   components: {},
   tokens: {
     border: {
-      radius: { small: '4px', medium: '8px', large: '12px', xlarge: '16px' },
+      radius: { 1: '4px', 2: '8px', 3: '12px', 4: '16px' },
       width: { thin: '1px', thick: '2px' },
     },
     color: {
@@ -41,7 +41,6 @@ export const testingTheme = makeTheme({
       large: '0 10px 15px rgba(0, 0, 0, 0.15)',
     },
     spacing: {
-      0: '0px',
       1: '4px',
       2: '8px',
       3: '16px',

@@ -1,7 +1,7 @@
 type FontWeight = 'light' | 'normal' | 'medium' | 'strong' | 'bold';
-type Space = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+type Space = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 type Transition = 'slow' | 'normal' | 'fast';
-type BorderRadius = 'small' | 'medium' | 'large' | 'xlarge';
+type BorderRadius = 1 | 2 | 3 | 4;
 type BorderWidth = 'thin' | 'thick';
 type BoxShadow = 'small' | 'medium' | 'large';
 type FontSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';

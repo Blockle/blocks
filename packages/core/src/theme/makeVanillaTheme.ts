@@ -1,5 +1,5 @@
 import type { ThemeTokens } from '../config/themeTokens.js';
-import type { RecordToUnionPath } from '../utils/typing/helpers.js';
+import type { RecordLike, RecordToUnionPath } from '../utils/typing/helpers.js';
 
 const ColorDelimiter = '-' as const;
 
@@ -7,6 +7,13 @@ type ColorUnion = RecordToUnionPath<
   ThemeTokens['color'],
   typeof ColorDelimiter
 >;
+
+function addZeroToken<T extends RecordLike>(obj: T) {
+  return {
+    0: '0px',
+    ...obj,
+  } as Record<keyof T | 0, string>;
+}
 
 export const makeVanillaTheme = (tokens: ThemeTokens) => {
   const color = {} as Record<ColorUnion, string>;
@@ -23,11 +30,11 @@ export const makeVanillaTheme = (tokens: ThemeTokens) => {
   }
 
   return {
-    space: tokens.spacing as Record<keyof typeof tokens.spacing, string>,
-    borderRadius: tokens.border.radius as Record<
-      keyof typeof tokens.border.radius,
-      string
-    >,
+    space: addZeroToken(tokens.spacing),
+    borderRadius: addZeroToken({
+      ...tokens.border.radius,
+      full: '9999px',
+    }),
     color,
     borderWidth: tokens.border.width as Record<
       keyof typeof tokens.border.width,

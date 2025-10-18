@@ -15,7 +15,7 @@ export const dialog: ThemeComponentsStyles['dialog'] = makeComponentTheme(
         padding: 5,
         border: 'none',
         overflow: 'auto',
-        borderRadius: 'medium',
+        borderRadius: 2,
         boxShadow: 'large',
       }),
       {

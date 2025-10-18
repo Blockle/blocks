@@ -21,7 +21,7 @@ export const slider: ThemeComponentsStyles['slider'] = makeComponentTheme(
     }),
     track: style([
       atoms({
-        borderRadius: 'small',
+        borderRadius: 1,
       }),
       {
         blockSize: '4px',

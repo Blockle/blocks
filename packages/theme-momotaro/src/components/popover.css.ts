@@ -11,7 +11,7 @@ export const popover: ThemeComponentsStyles['popover'] = makeComponentTheme(
     base: style([
       atoms({
         backgroundColor: 'white',
-        borderRadius: 'small',
+        borderRadius: 1,
         boxShadow: 'medium',
         padding: 2,
         margin: 1, // Space between the popover and the anchor element

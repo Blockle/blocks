@@ -28,7 +28,8 @@ export const input: ThemeComponentsStyles['input'] = makeComponentTheme(
     ]),
     container: style([
       {
-        minHeight: 48,
+        minHeight: 40,
+        backgroundColor: 'white',
         '@media': {
           '(prefers-reduced-motion: no-preference)': {
             transition: `box-shadow ${vars.transition.fast}`,
@@ -39,7 +40,7 @@ export const input: ThemeComponentsStyles['input'] = makeComponentTheme(
         paddingInline: 3,
         paddingBlock: 2,
         backgroundColor: 'white',
-        borderRadius: 'medium',
+        borderRadius: 2,
         boxShadow: 'medium',
       }),
       focusable,

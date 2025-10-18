@@ -55,4 +55,6 @@ export function hideErrorsInTest(strings: (string | RegExp)[]): void {
 hideErrorsInTest([
   // Without theming we just return empty class name, so ignore these warnings in test environment
   /^Component .+ is not defined in the theme$/,
+  /^atoms: Property ".+" is not defined in atomicProperties.$/,
+  /^atoms: Condition for ".+" with value ".+" not found.$/,
 ]);

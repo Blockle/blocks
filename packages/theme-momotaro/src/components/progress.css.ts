@@ -24,7 +24,7 @@ export const progress: ThemeComponentsStyles['progress'] = makeComponentTheme(
       },
       atoms({
         inlineSize: 'full',
-        borderRadius: 'small',
+        borderRadius: 1,
         backgroundColor: 'text-200',
         color: 'primary-500',
         overflow: 'hidden',

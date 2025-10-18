@@ -15,7 +15,7 @@ export const switchTheme: ThemeComponentsStyles['switch'] = makeComponentTheme(
   {
     base: style([
       atoms({
-        borderRadius: 'xlarge',
+        borderRadius: 4,
         backgroundColor: 'text-200',
       }),
       {
@@ -45,7 +45,7 @@ export const switchTheme: ThemeComponentsStyles['switch'] = makeComponentTheme(
     ]),
     slider: style([
       atoms({
-        borderRadius: 'xlarge',
+        borderRadius: 'full',
       }),
       {
         width: 24,

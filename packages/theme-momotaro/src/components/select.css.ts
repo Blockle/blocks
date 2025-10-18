@@ -14,15 +14,16 @@ export const select: ThemeComponentsStyles['select'] = makeComponentTheme(
     select: style([
       atoms({
         color: 'text-700',
-        padding: 3,
+        paddingInline: 3,
+        paddingBlock: 1,
         backgroundColor: 'white',
-        borderRadius: 'medium',
+        borderRadius: 2,
         boxShadow: 'medium',
       }),
       {
         border: 'none',
         outline: 'none',
-        minHeight: 48,
+        minHeight: 40,
         transitionDuration: vars.transition.fast,
         transitionProperty: 'outline',
         // ':focus-within': {
