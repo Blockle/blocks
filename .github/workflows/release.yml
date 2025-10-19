@@ -32,3 +32,25 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Update peerDependencies in Version PR
+        if: steps.changesets.outputs.hasChangesets == 'true' && steps.changesets.outputs.pullRequestNumber
+        run: |
+          # Checkout the version PR branch
+          git fetch origin pull/${{ steps.changesets.outputs.pullRequestNumber }}/head:version-pr
+          git checkout version-pr
+
+          # Update peer dependencies
+          npm run update-peer-deps
+
+          # Check if there are changes and commit them
+          if ! git diff --quiet packages/*/package.json; then
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git add packages/*/package.json
+            git commit -m "chore: update peerDependencies to match new versions"
+            git push origin version-pr
+            echo "✅ Updated peerDependencies in version PR #${{ steps.changesets.outputs.pullRequestNumber }}"
+          else
+            echo "✅ peerDependencies are already up to date"
+          fi
