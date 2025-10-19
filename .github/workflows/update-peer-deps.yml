@@ -2,44 +2,44 @@ name: Update PeerDependencies
 
 on:
   pull_request:
-    paths:
-      - "packages/*/package.json"
-      - ".changeset/*.md"
+    # Only run on PRs that might be version PRs created by changesets
+    types: [opened, synchronize]
+    branches:
+      - main
 
 jobs:
   update-peer-deps:
+    # Only run if this looks like a changesets version PR
+    if: contains(github.event.pull_request.title, 'Version Packages') || contains(github.event.pull_request.body, 'changesets')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           ref: ${{ github.event.pull_request.head.ref }}
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
 
-      - run: npm ci
-      - run: npm run build
+      - name: Install dependencies
+        run: npm ci
 
       - name: Update peerDependencies
         run: npm run update-peer-deps
 
-      - name: Check for changes
-        id: changes
+      - name: Check for changes and commit
         run: |
-          if git diff --quiet packages/*/package.json; then
-            echo "changed=false" >> $GITHUB_OUTPUT
+          if ! git diff --quiet packages/*/package.json; then
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git add packages/*/package.json
+            git commit -m "chore: update peerDependencies to match new versions"
+            git push
+            echo "✅ Updated peerDependencies in version PR"
           else
-            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "✅ peerDependencies are already up to date"
           fi
-
-      - name: Commit changes
-        if: steps.changes.outputs.changed == 'true'
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add packages/*/package.json
-          git commit -m "chore: update peerDependencies to match current versions"
-          git push
