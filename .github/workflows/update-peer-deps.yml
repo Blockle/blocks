@@ -1,0 +1,43 @@
+name: Update PeerDependencies
+
+on:
+  pull_request:
+    paths:
+      - "packages/*/package.json"
+      - ".changeset/*.md"
+
+jobs:
+  update-peer-deps:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: Update peerDependencies
+        run: npm run update-peer-deps
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet packages/*/package.json; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit changes
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add packages/*/package.json
+          git commit -m "chore: update peerDependencies to match current versions"
+          git push

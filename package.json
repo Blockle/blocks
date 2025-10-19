@@ -29,7 +29,8 @@
     "release": "npm run build && npm run ts && npm run test && changeset publish",
     "storybook": "storybook dev -p 6006 --no-open",
     "test": "vitest",
-    "ts": "tsc --noemit --project ./tsconfig.json && npm run ts --workspaces"
+    "ts": "tsc --noemit --project ./tsconfig.json && npm run ts --workspaces",
+    "update-peer-deps": "node scripts/update-peer-deps.js"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.2.6",
@@ -51,6 +52,7 @@
     "@vitest/ui": "^3.2.4",
     "autoprefixer": "^10.4.21",
     "cross-env": "^10.1.0",
+    "glob": "^11.0.0",
     "jsdom": "^27.0.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
