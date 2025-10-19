@@ -1,5 +1,5 @@
 import { vars } from '@blockle/blocks-core';
-import { createVar, fallbackVar, style } from '@vanilla-extract/css';
+import { createVar, style } from '@vanilla-extract/css';
 
 export const focusRingColor = createVar();
 
@@ -15,7 +15,7 @@ export const focusable = style({
   //   },
   // },
   ':focus-visible': {
-    outline: '2px solid #AF8EFF',
+    outline: `2px solid ${vars.color['primary-300']}`,
     outlineOffset: '2px',
   },
   selectors: {
@@ -25,9 +25,8 @@ export const focusable = style({
       pointerEvents: 'none',
     },
     '&:has(input:focus-visible)': {
-      outline: '2px solid #AF8EFF',
+      outline: `2px solid ${vars.color['primary-300']}`,
       outlineOffset: '2px',
-      // boxShadow: vars.focus.boxShadow,
     },
     '&:has(input:disabled)': {
       opacity: 0.5,
