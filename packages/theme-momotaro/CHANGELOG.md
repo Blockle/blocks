@@ -1,5 +1,11 @@
 # @blockle/blocks-theme-momotaro
 
+## 6.0.1
+
+### Patch Changes
+
+- c829c1a: Focus tweaks
+
 ## 6.0.0
 
 ### Major Changes

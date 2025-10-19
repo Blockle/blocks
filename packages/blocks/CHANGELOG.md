@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 2.0.1
+
+### Patch Changes
+
+- c829c1a: Focus tweaks
+
 ## 2.0.0
 
 ### Major Changes

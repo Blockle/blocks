@@ -1,5 +1,11 @@
 # @blockle/blocks-core
 
+## 1.0.1
+
+### Patch Changes
+
+- 3e8926c: git gu
+
 ## 1.0.0
 
 ### Major Changes
