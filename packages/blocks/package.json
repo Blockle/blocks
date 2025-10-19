@@ -35,10 +35,10 @@
   },
   "homepage": "https://github.com/Blockle/blocks#readme",
   "peerDependencies": {
-    "@blockle/blocks-core": ">=0.x",
-    "@blockle/blocks-react": ">=1.x",
-    "@blockle/blocks-react-slot": ">=1.x",
-    "@blockle/blocks-reset": ">=0.x"
+    "@blockle/blocks-core": ">=1.0.x",
+    "@blockle/blocks-react": ">=2.0.x",
+    "@blockle/blocks-react-slot": ">=1.1.x",
+    "@blockle/blocks-reset": ">=0.22.x"
   },
   "engines": {
     "node": ">=20.19.0 || >=22.12.9 || >=24.2.0"
