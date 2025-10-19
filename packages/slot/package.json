@@ -32,6 +32,6 @@
   "homepage": "https://github.com/Blockle/blocks#readme",
   "peerDependencies": {
     "react": ">=19",
-    "@blockle/blocks-core": ">=0.x"
+    "@blockle/blocks-core": ">=1.0.x"
   }
 }
