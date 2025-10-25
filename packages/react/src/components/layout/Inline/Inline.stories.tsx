@@ -1,5 +1,5 @@
 import { atomicProperties } from '@blockle/blocks-core';
-import type { Meta, StoryFn, StoryObj } from '@storybook/react';
+import type { Meta, StoryFn, StoryObj } from '@storybook/react-vite';
 
 import { Inline, type InlineProps } from './Inline.js';
 
