@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Stack } from '../../layout/Stack/Stack.js';
 import { Text } from '../../typography/Text/Text.js';
