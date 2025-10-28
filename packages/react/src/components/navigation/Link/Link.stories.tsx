@@ -29,16 +29,3 @@ export const Default: StoryObj<LinkProps> = {
     onClick: action('Link clicked'),
   },
 };
-
-export const Play: StoryObj<LinkProps> = {
-  render: (props) => {
-    return <Link {...props} />;
-  },
-
-  args: {
-    children: 'Link',
-    href: 'https://example.com',
-    underline: true,
-    onClick: action('Link clicked'),
-  },
-};

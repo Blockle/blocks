@@ -112,20 +112,3 @@ export const WithAriaMarkup: StoryObj<DialogProps> = {
     );
   },
 };
-
-export const Play: StoryObj<DialogProps> = {
-  render: DialogTemplate,
-  args: {
-    children: (
-      <>
-        <Stack spacing={2}>
-          <Heading level={2}>Hello world</Heading>
-          <Button type="submit" autoFocus>
-            Close Dialog
-          </Button>
-        </Stack>
-      </>
-    ),
-    onRequestClose: action('Dialog close requested'),
-  },
-};

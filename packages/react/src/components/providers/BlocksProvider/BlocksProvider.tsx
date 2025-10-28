@@ -16,6 +16,10 @@ export type BlocksProviderProps = {
 
 const [Template, Slot] = createSlottable('div');
 
+/**
+ * Renders a div - unless asChild is true -
+ * Provides Blocks theming context to its children.
+ */
 export const BlocksProvider: React.FC<BlocksProviderProps> = ({
   children,
   theme,
