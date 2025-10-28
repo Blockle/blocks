@@ -17,6 +17,7 @@
     "moduleResolution": "nodenext",
     "sourceMap": true,
     "declaration": true,
+    "declarationMap": true,
     "composite": true,
     "jsx": "react-jsx",
     "lib": ["es2022", "dom", "dom.iterable"],
