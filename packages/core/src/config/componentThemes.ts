@@ -5,6 +5,13 @@ import type { RecordLike } from '../utils/typing/helpers.js';
  * Theming options for components.
  */
 
+export type AlertTheme = {
+  base: string;
+  variants: {
+    intent: 'info' | 'success' | 'danger';
+  };
+};
+
 export type ButtonTheme = {
   base: string;
   variants: {
@@ -16,26 +23,12 @@ export type ButtonTheme = {
   };
 };
 
-export type LinkTheme = {
+export type CheckboxTheme = {
   base: string;
+  icon: string;
+  label: string;
   variants: {
-    variant: 'inherit' | 'primary' | 'secondary';
-    underline: boolean;
-  };
-};
-
-export type SpinnerTheme = {
-  base: string;
-  variants: {
-    size: 'small' | 'medium' | 'large';
-    color: Exclude<Atoms['color'], undefined>;
-  };
-};
-
-export type DividerTheme = {
-  base?: string;
-  variants: {
-    color: Exclude<Atoms['color'], undefined>;
+    required: boolean;
   };
 };
 
@@ -43,6 +36,13 @@ export type DialogTheme = {
   dialog: string;
   variants: {
     size: 'small' | 'medium' | 'large';
+  };
+};
+
+export type DividerTheme = {
+  base?: string;
+  variants: {
+    color: Exclude<Atoms['color'], undefined>;
   };
 };
 
@@ -56,21 +56,6 @@ export type InputTheme = {
   };
 };
 
-export type CheckboxTheme = {
-  base: string;
-  icon: string;
-  label: string;
-  variants: {
-    required: boolean;
-  };
-};
-
-export type RadioTheme = {
-  base: string;
-  icon: string;
-  label: string;
-};
-
 export type LabelTheme = {
   base: string;
   variants: {
@@ -79,21 +64,22 @@ export type LabelTheme = {
   };
 };
 
-export type ProgressTheme = {
+export type LinkTheme = {
   base: string;
-  bar: string;
   variants: {
-    indeterminate: boolean;
+    variant: 'inherit' | 'primary' | 'secondary';
+    underline: boolean;
   };
-};
-
-export type SwitchTheme = {
-  base: string;
-  slider: string;
 };
 
 export type PopoverTheme = {
   base: string;
+};
+
+export type RadioTheme = {
+  base: string;
+  icon: string;
+  label: string;
 };
 
 export type SelectTheme = {
@@ -117,6 +103,27 @@ export type SliderTheme = {
   };
 };
 
+export type SpinnerTheme = {
+  base: string;
+  variants: {
+    size: 'small' | 'medium' | 'large';
+    color: Exclude<Atoms['color'], undefined>;
+  };
+};
+
+export type SwitchTheme = {
+  base: string;
+  slider: string;
+};
+
+export type ProgressTheme = {
+  base: string;
+  bar: string;
+  variants: {
+    indeterminate: boolean;
+  };
+};
+
 export type TooltipTheme = {
   base: string;
   variants: {
@@ -125,6 +132,7 @@ export type TooltipTheme = {
 };
 
 export type ComponentThemes = {
+  alert: AlertTheme;
   button: ButtonTheme;
   checkbox: CheckboxTheme;
   dialog: DialogTheme;
