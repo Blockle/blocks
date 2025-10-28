@@ -1,7 +1,11 @@
 import type { StorybookConfig } from '@storybook/react-vite';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
-import { dirname, join } from 'node:path';
 import { mergeConfig } from 'vite';
+
+import { createRequire } from 'node:module';
+import { dirname, join } from 'node:path';
+
+const require = createRequire(import.meta.url);
 
 const config: StorybookConfig = {
   async viteFinal(config) {
