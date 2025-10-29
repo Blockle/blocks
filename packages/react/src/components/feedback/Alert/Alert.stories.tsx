@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { action } from 'storybook/actions';
 
 import { Alert, type AlertProps } from './Alert.js';
 
@@ -15,5 +16,7 @@ export const Default: StoryObj<AlertProps> = {
 
   args: {
     children: 'This is an alert message.',
+    open: true,
+    onRequestClose: action('onRequestClose'),
   },
 };
