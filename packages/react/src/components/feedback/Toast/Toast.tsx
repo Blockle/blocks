@@ -29,7 +29,7 @@ export const Toast: React.FC<ToastProps> = ({
     throw new Error('Toast must be used within a ToastProvider');
   }
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: The dependencies are correct as is.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: The dependencies are correct
   useEffect(() => {
     if (open) {
       context.add({
@@ -42,11 +42,14 @@ export const Toast: React.FC<ToastProps> = ({
     } else {
       context.remove(toastId);
     }
+  }, [duration, intent, open, children, onRequestClose]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: The dependencies are correct
+  useEffect(() => {
     return () => {
       context.remove(toastId);
     };
-  }, [duration, intent, open]);
+  }, []);
 
   return null;
 };

@@ -10,15 +10,18 @@ export default {
   title: 'Feedback/Toast',
   component: Toast,
   argTypes: {},
+  decorators: [
+    (Story) => (
+      <ToastProvider>
+        <Story />
+      </ToastProvider>
+    ),
+  ],
 } as Meta;
 
 export const Default: StoryObj<ToastProps> = {
   render: (props) => {
-    return (
-      <ToastProvider>
-        <Toast {...props} />
-      </ToastProvider>
-    );
+    return <Toast {...props} />;
   },
 
   args: {
@@ -35,7 +38,7 @@ const ToastPlayground: FC = () => {
   };
 
   return (
-    <ToastProvider>
+    <>
       <Button
         onClick={() =>
           setToasts((prev) => [...prev, (Math.random() * 100_000) >> 0])
@@ -55,7 +58,7 @@ const ToastPlayground: FC = () => {
           This is toast #{id}
         </Toast>
       ))}
-    </ToastProvider>
+    </>
   );
 };
 

@@ -11,4 +11,5 @@ export const container = style({
   animationDuration: '300ms',
   animationTimingFunction: 'ease-out',
   backgroundColor: vars.color['primary-400'],
+  height: 'fit-content',
 });

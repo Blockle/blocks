@@ -24,6 +24,13 @@ function makeTransition(transition: () => void) {
 
 export type ToastProviderProps = {
   children?: React.ReactNode;
+  position?:
+    | 'bottom-left'
+    | 'bottom-center'
+    | 'bottom-right'
+    | 'top-left'
+    | 'top-center'
+    | 'top-right';
 };
 
 export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
@@ -37,8 +44,27 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
     }
 
     function addToast(toast: Toast) {
+      const match = toasts.findIndex(({ id }) => id === toast.id) !== -1;
+
+      function updateState(prev: Toast[]) {
+        const match = prev.findIndex(({ id }) => id === toast.id) !== -1;
+
+        if (match) {
+          return prev.map((item) => (item.id === toast.id ? toast : item));
+        }
+
+        return [...prev, toast];
+      }
+
+      // If the toast already exists, update it instead of adding a new one
+      // without the use of view transitions
+      if (match) {
+        setToasts(updateState);
+        return;
+      }
+
       makeTransition(() => {
-        setToasts((prev) => [toast, ...prev]);
+        setToasts(updateState);
       });
 
       if (toast.duration) {
