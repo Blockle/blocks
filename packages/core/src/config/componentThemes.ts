@@ -8,7 +8,7 @@ import type { RecordLike } from '../utils/typing/helpers.js';
 export type AlertTheme = {
   base: string;
   variants: {
-    intent: 'info' | 'success' | 'danger';
+    intent: 'error' | 'info' | 'success' | 'warning';
   };
 };
 
@@ -124,6 +124,13 @@ export type ProgressTheme = {
   };
 };
 
+export type ToastTheme = {
+  base: string;
+  variants: {
+    intent: 'neutral' | 'error' | 'info' | 'success' | 'warning';
+  };
+};
+
 export type TooltipTheme = {
   base: string;
   variants: {
@@ -147,6 +154,7 @@ export type ComponentThemes = {
   slider: SliderTheme;
   spinner: SpinnerTheme;
   switch: SwitchTheme;
+  toast: ToastTheme;
   tooltip: TooltipTheme;
 };
 

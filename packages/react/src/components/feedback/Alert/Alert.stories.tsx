@@ -14,7 +14,6 @@ export const Default: StoryObj<AlertProps> = {
   },
 
   args: {
-    title: 'Alert Title',
     children: 'This is an alert message.',
   },
 };

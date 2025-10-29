@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { VisuallyHidden, type VisuallyHiddenProps } from './VisuallyHidden.js';
 
 const meta: Meta<typeof VisuallyHidden> = {
-  title: 'Display/VisuallyHidden',
+  title: 'Accessibility/VisuallyHidden',
   component: VisuallyHidden,
 };
 
