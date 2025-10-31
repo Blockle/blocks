@@ -15,6 +15,7 @@ import { select } from './select.css.js';
 import { slider } from './slider.css.js';
 import { spinner } from './spinner.css.js';
 import { switchTheme } from './switch.css.js';
+import { textarea } from './textarea.css.js';
 import { tooltip } from './tooltip.css.js';
 
 export const components: ThemeComponentsStyles = {
@@ -34,4 +35,5 @@ export const components: ThemeComponentsStyles = {
   spinner,
   switch: switchTheme,
   tooltip,
+  textarea,
 };

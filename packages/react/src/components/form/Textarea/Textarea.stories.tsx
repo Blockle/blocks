@@ -18,6 +18,6 @@ export const Default: StoryObj<TextareaProps> = {
     );
   },
   args: {
-    onChange: (value) => console.log('onChange', value),
+    placeholder: 'Type your text here...',
   },
 };

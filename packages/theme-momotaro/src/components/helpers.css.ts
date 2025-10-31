@@ -24,11 +24,11 @@ export const focusable = style({
       cursor: 'auto',
       pointerEvents: 'none',
     },
-    '&:has(input:focus-visible)': {
+    '&:has(:focus-visible)': {
       outline: `2px solid ${vars.color['primary-300']}`,
       outlineOffset: '2px',
     },
-    '&:has(input:disabled)': {
+    '&:has(:disabled)': {
       opacity: 0.5,
       cursor: 'auto',
     },

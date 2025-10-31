@@ -51,8 +51,6 @@ export type InputTheme = {
   input: string;
   variants: {
     variant: 'solid' | 'outline'; // TODO Review naming
-    disabled: boolean;
-    required: boolean;
   };
 };
 
@@ -74,6 +72,14 @@ export type LinkTheme = {
 
 export type PopoverTheme = {
   base: string;
+};
+
+export type ProgressTheme = {
+  base: string;
+  bar: string;
+  variants: {
+    indeterminate: boolean;
+  };
 };
 
 export type RadioTheme = {
@@ -116,12 +122,9 @@ export type SwitchTheme = {
   slider: string;
 };
 
-export type ProgressTheme = {
-  base: string;
-  bar: string;
-  variants: {
-    indeterminate: boolean;
-  };
+export type TextareaTheme = {
+  container: string;
+  input: string;
 };
 
 export type ToastTheme = {
@@ -154,6 +157,7 @@ export type ComponentThemes = {
   slider: SliderTheme;
   spinner: SpinnerTheme;
   switch: SwitchTheme;
+  textarea: TextareaTheme;
   toast: ToastTheme;
   tooltip: TooltipTheme;
 };

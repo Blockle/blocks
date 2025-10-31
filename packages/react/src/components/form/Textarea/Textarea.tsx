@@ -3,6 +3,8 @@
 import { classnames, type HTMLElementProps } from '@blockle/blocks-core';
 
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
+import { Box } from '../../layout/Box/Box.js';
+import * as styles from './Textarea.css.js';
 
 export type TextareaProps = {
   value: string;
@@ -14,30 +16,21 @@ export const Textarea: React.FC<TextareaProps> = ({
   value,
   ...restProps
 }) => {
-  // const containerClassName = useComponentStyles(
-  //   'input',
-  //   { container: true },
-  //   false,
-  // );
-  const inputClassName = useComponentStyles('input', {
-    container: true,
-    input: true,
-  });
+  const containerClassName = useComponentStyles(
+    'textarea',
+    { container: true },
+    false,
+  );
+  const inputClassName = useComponentStyles('textarea', { input: true });
 
   return (
-    <textarea
-      ref={ref}
-      value={value}
-      className={classnames(inputClassName)}
-      style={{
-        resize: 'none',
-        fieldSizing: 'content',
-        maxHeight: 100,
-        padding: 4,
-        // minheight 2 lines
-        minHeight: 'calc(3em + 8px)',
-      }}
-      {...restProps}
-    />
+    <Box className={containerClassName}>
+      <textarea
+        ref={ref}
+        value={value}
+        className={classnames(styles.textarea, inputClassName)}
+        {...restProps}
+      />
+    </Box>
   );
 };
