@@ -1,9 +1,9 @@
-import { blocksLayerComponent } from '@blockle/blocks-core';
+import { layers } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 
 export const wrapper = style({
   '@layer': {
-    [blocksLayerComponent]: {
+    [layers.molecule]: {
       position: 'relative',
     },
   },
@@ -11,7 +11,7 @@ export const wrapper = style({
 
 export const select = style({
   '@layer': {
-    [blocksLayerComponent]: {
+    [layers.molecule]: {
       appearance: 'none',
       inlineSize: '100%',
     },
@@ -20,7 +20,7 @@ export const select = style({
 
 export const icon = style({
   '@layer': {
-    [blocksLayerComponent]: {
+    [layers.molecule]: {
       position: 'absolute',
       right: 0,
       top: 0,

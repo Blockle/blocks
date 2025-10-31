@@ -1,9 +1,9 @@
-import { blocksLayerComponent } from '@blockle/blocks-core';
+import { layers } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 
 export const container = style({
   '@layer': {
-    [blocksLayerComponent]: {
+    [layers.molecule]: {
       position: 'relative',
       writingMode: 'horizontal-tb',
     },
@@ -12,7 +12,7 @@ export const container = style({
 
 export const containerVertical = style({
   '@layer': {
-    [blocksLayerComponent]: {
+    [layers.molecule]: {
       writingMode: 'vertical-lr',
     },
   },
@@ -20,7 +20,7 @@ export const containerVertical = style({
 
 export const track = style({
   '@layer': {
-    [blocksLayerComponent]: {
+    [layers.molecule]: {
       cursor: 'pointer',
       position: 'absolute',
       inlineSize: '100%',
@@ -37,7 +37,7 @@ export const track = style({
 
 export const filledTrack = style({
   '@layer': {
-    [blocksLayerComponent]: {
+    [layers.molecule]: {
       position: 'absolute',
       blockSize: '100%',
       borderRadius: 'inherit',
@@ -52,7 +52,7 @@ export const filledTrack = style({
 
 export const thumb = style({
   '@layer': {
-    [blocksLayerComponent]: {
+    [layers.molecule]: {
       cursor: 'pointer',
       position: 'absolute',
       blockSize: '100%',

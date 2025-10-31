@@ -1,9 +1,9 @@
-import { blocksLayerComponent } from '@blockle/blocks-core';
+import { layers } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 
 export const dialog = style({
   '@layer': {
-    [blocksLayerComponent]: {
+    [layers.molecule]: {
       position: 'fixed',
       inset: 0,
       border: 'none',

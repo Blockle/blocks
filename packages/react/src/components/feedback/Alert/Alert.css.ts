@@ -1,9 +1,9 @@
-import { blocksLayerComponent } from '@blockle/blocks-core';
+import { layers } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 
 export const closeButton = style({
   '@layer': {
-    [blocksLayerComponent]: {
+    [layers.organism]: {
       color: 'currentColor',
     },
   },
