@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 
 import { Box } from '../../layout/Box/Box.js';
@@ -35,51 +35,54 @@ export type ToastProviderProps = {
 
 export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
+  const toastsRef = useRef<Toast[]>(toasts);
+  toastsRef.current = toasts;
 
-  const contextValue = useMemo<ToastContextType>(() => {
-    function removeToast(id: string) {
-      makeTransition(() => {
-        setToasts((prev) => prev.filter((toast) => toast.id !== id));
-      });
-    }
+  const removeToast = useCallback((id: string) => {
+    makeTransition(() => {
+      setToasts((prev) => prev.filter((toast) => toast.id !== id));
+    });
+  }, []);
 
-    function addToast(toast: Toast) {
-      const match = toasts.findIndex(({ id }) => id === toast.id) !== -1;
+  const addToast = useCallback((toast: Toast) => {
+    const toasts = toastsRef.current;
+    const match = toasts.findIndex(({ id }) => id === toast.id) !== -1;
 
-      function updateState(prev: Toast[]) {
-        const match = prev.findIndex(({ id }) => id === toast.id) !== -1;
+    function updateState(prev: Toast[]) {
+      const match = prev.findIndex(({ id }) => id === toast.id) !== -1;
 
-        if (match) {
-          return prev.map((item) => (item.id === toast.id ? toast : item));
-        }
-
-        return [...prev, toast];
-      }
-
-      // If the toast already exists, update it instead of adding a new one
-      // without the use of view transitions
       if (match) {
-        setToasts(updateState);
-        return;
+        return prev.map((item) => (item.id === toast.id ? toast : item));
       }
 
-      makeTransition(() => {
-        setToasts(updateState);
-      });
-
-      if (toast.duration) {
-        setTimeout(() => {
-          toast.onRequestClose();
-        }, toast.duration);
-      }
+      return [...prev, toast];
     }
 
-    return {
-      toasts,
+    // If the toast already exists, update it instead of adding a new one
+    // without the use of view transitions
+    if (match) {
+      setToasts(updateState);
+      return;
+    }
+
+    makeTransition(() => {
+      setToasts(updateState);
+    });
+
+    if (toast.duration) {
+      setTimeout(() => {
+        toast.onRequestClose();
+      }, toast.duration);
+    }
+  }, []);
+
+  const contextValue = useMemo<ToastContextType>(
+    () => ({
       add: addToast,
       remove: removeToast,
-    };
-  }, [toasts]);
+    }),
+    [addToast, removeToast],
+  );
 
   return (
     <>

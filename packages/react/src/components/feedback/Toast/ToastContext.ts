@@ -9,7 +9,6 @@ export type Toast = {
 export type ToastContextType = {
   add: (toast: Toast) => void;
   remove: (id: string) => void;
-  toasts: Toast[];
 };
 
 import { createContext } from 'react';
