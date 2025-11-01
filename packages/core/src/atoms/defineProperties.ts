@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 import type { Properties as CSSProperties } from 'csstype';
 
-import { blocksLayerAtom } from '../css/layers.css.js';
+import { layers } from '../css/layers.css.js';
 
 type DeepPartial<T> = {
   [K in keyof T]?: T[K] extends object
@@ -79,7 +79,7 @@ export function defineProperties<
       for (const value of values) {
         const defaultClass = style({
           '@layer': {
-            [blocksLayerAtom]: {
+            [layers.atom]: {
               [property]: value,
             },
           },
@@ -98,7 +98,7 @@ export function defineProperties<
             if (typeof condition === 'object' && condition['@media']) {
               return style({
                 '@layer': {
-                  [blocksLayerAtom]: {
+                  [layers.atom]: {
                     '@media': {
                       [condition['@media']]: {
                         [property]: value,
@@ -128,7 +128,7 @@ export function defineProperties<
     for (const value in values) {
       const defaultClass = style({
         '@layer': {
-          [blocksLayerAtom]: {
+          [layers.atom]: {
             [property]: values[value],
           },
         },

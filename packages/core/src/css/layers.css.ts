@@ -1,13 +1,13 @@
 import { layer } from '@vanilla-extract/css';
 
-export const blocksLayerAtom = layer('blocks-atom');
+const organismLayer = layer('blockle-organism');
+const moleculeLayer = layer({ parent: organismLayer }, 'blockle-molecule');
+const atomLayer = layer({ parent: moleculeLayer }, 'blockle-atom');
+const resetLayer = layer({ parent: atomLayer }, 'blockle-reset');
 
-export const blocksLayerComponent = layer(
-  { parent: blocksLayerAtom },
-  'blocks-component',
-);
-
-export const blocksLayer = layer(
-  { parent: blocksLayerComponent },
-  'blockle-blocks',
-);
+export const layers = {
+  reset: resetLayer,
+  atom: atomLayer,
+  molecule: moleculeLayer,
+  organism: organismLayer,
+} as const;

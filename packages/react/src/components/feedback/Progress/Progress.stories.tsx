@@ -19,7 +19,7 @@ export default {
 export const Default: StoryObj<ProgressProps> = {
   render: (props) => {
     return (
-      <Stack spacing={3}>
+      <Stack gap={3}>
         <Text tag="label" id={props['aria-labelledby']}>
           Progress {props.value}%
         </Text>

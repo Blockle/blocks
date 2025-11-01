@@ -20,11 +20,7 @@ export {
   getOriginalElementSize,
   parseCSSTransform,
 } from './css/cssMatrixUtils.js';
-export {
-  blocksLayer,
-  blocksLayerAtom,
-  blocksLayerComponent,
-} from './css/layers.css.js';
+export { layers } from './css/layers.css.js';
 export { rem } from './css/rem.js';
 export { vars } from './css/vars.css.js';
 export type {

@@ -36,6 +36,7 @@ export type ButtonProps = {
 } & Omit<HTMLElementProps<HTMLButtonElement>, 'size'> &
   MarginAtoms;
 
+// Default props? Like type=button
 const [Template, Slot] = createSlottable('button');
 
 export const Button: React.FC<ButtonProps> = ({

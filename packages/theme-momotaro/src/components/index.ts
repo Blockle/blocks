@@ -1,5 +1,6 @@
 import type { ThemeComponentsStyles } from '@blockle/blocks-core';
 
+import { alert } from './alert.css.js';
 import { button } from './button.css.js';
 import { checkbox } from './checkbox.css.js';
 import { dialog } from './dialog.css.js';
@@ -14,9 +15,11 @@ import { select } from './select.css.js';
 import { slider } from './slider.css.js';
 import { spinner } from './spinner.css.js';
 import { switchTheme } from './switch.css.js';
+import { textarea } from './textarea.css.js';
 import { tooltip } from './tooltip.css.js';
 
 export const components: ThemeComponentsStyles = {
+  alert,
   button,
   checkbox,
   dialog,
@@ -32,4 +35,5 @@ export const components: ThemeComponentsStyles = {
   spinner,
   switch: switchTheme,
   tooltip,
+  textarea,
 };

@@ -19,6 +19,7 @@ const unresponsiveAtomicProperties = defineProperties({
     borderColor: colorsWithCurrentColor,
     borderRadius: vars.borderRadius,
     borderWidth: vars.borderWidth,
+    borderStyle: ['solid', 'dashed', 'dotted', 'double', 'none'],
     boxShadow: vars.shadow,
     color: colorsWithCurrentColor,
     cursor: ['auto', 'pointer'],

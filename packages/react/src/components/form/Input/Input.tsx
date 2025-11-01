@@ -5,7 +5,6 @@ import {
   type HTMLElementProps,
   type OptionalLiteral,
 } from '@blockle/blocks-core';
-import { useId } from 'react';
 
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { Box } from '../../layout/Box/Box.js';
@@ -20,6 +19,7 @@ export type InputProps = {
   type?: OptionalLiteral<
     'email' | 'number' | 'password' | 'tel' | 'text' | 'url'
   >;
+  helperText?: string;
 } & Omit<HTMLElementProps<HTMLInputElement>, 'type'>;
 
 export const Input: React.FC<InputProps> = ({
@@ -32,7 +32,6 @@ export const Input: React.FC<InputProps> = ({
   type = 'text',
   ...restProps
 }) => {
-  const id = useId();
   const containerClassName = useComponentStyles(
     'input',
     { container: true },
@@ -50,7 +49,6 @@ export const Input: React.FC<InputProps> = ({
         {startSlot}
 
         <input
-          id={id}
           ref={ref}
           name={name}
           type={type}
@@ -62,7 +60,7 @@ export const Input: React.FC<InputProps> = ({
         {endSlot}
       </Box>
 
-      {/* <Text>Input error</Text> */}
+      {/* <Text>{helperText}</Text> */}
     </Box>
   );
 };

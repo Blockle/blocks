@@ -35,7 +35,7 @@ export const Default: StoryObj<HeadingProps> = {
 };
 
 const TemplateAllHeadings: StoryFn<typeof Heading> = (args) => (
-  <Stack spacing={2}>
+  <Stack gap={2}>
     <Heading {...args} level={1}>
       Heading 1
     </Heading>

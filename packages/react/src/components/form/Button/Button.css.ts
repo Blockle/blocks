@@ -1,9 +1,9 @@
-import { blocksLayerComponent } from '@blockle/blocks-core';
+import { layers } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 
 export const buttonReset = style({
   '@layer': {
-    [blocksLayerComponent]: {
+    [layers.reset]: {
       all: 'unset',
       cursor: 'pointer',
     },

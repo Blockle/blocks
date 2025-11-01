@@ -22,7 +22,7 @@ const SliderWithState: FC<SliderProps> = ({ value: _value, ...props }) => {
   const [value, setValue] = useState(60);
 
   return (
-    <Stack spacing={2}>
+    <Stack gap={2}>
       <Slider value={value} onChange={(value) => setValue(value)} {...props} />
       <Text>Value: {value}</Text>
     </Stack>

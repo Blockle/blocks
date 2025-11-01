@@ -66,7 +66,7 @@ export const Nested: StoryObj<DialogProps> = {
   args: {
     children: (
       <>
-        <Stack spacing={2}>
+        <Stack gap={2}>
           <Heading level={2}>Hello world!</Heading>
           <Text tag="p" fontSize="small">
             This is a dialog.
