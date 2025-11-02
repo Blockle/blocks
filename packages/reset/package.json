@@ -1,6 +1,6 @@
 {
   "name": "@blockle/blocks-reset",
-  "version": "0.22.0",
+  "version": "0.23.0",
   "description": "CSS reset for Blockle",
   "type": "module",
   "sideEffects": [

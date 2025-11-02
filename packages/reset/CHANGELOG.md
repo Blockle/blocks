@@ -1,5 +1,11 @@
 # @blockle/blocks-reset
 
+## 0.23.0
+
+### Minor Changes
+
+- 1ecada6: Added Textarea and NumericInput. Renamed Input to TextInput
+
 ## 0.22.0
 
 ### Minor Changes
