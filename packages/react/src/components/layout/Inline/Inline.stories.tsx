@@ -7,12 +7,11 @@ export default {
   title: 'Layout/Inline',
   component: Inline,
   args: {
-    gap: 'small',
+    gap: 2,
   },
   argTypes: {
     gap: {
       name: 'gap',
-      type: 'string',
       control: 'select',
       options: Object.keys(atomicProperties.gap.values),
     },

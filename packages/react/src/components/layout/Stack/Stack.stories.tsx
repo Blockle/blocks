@@ -8,10 +8,10 @@ export default {
   title: 'Layout/Stack',
   component: Stack,
   args: {
-    spacing: 1,
+    gap: 2,
   },
   argTypes: {
-    spacing: {
+    gap: {
       name: 'gap',
       type: 'string',
       control: 'select',

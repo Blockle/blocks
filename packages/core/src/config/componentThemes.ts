@@ -5,6 +5,13 @@ import type { RecordLike } from '../utils/typing/helpers.js';
  * Theming options for components.
  */
 
+export type AlertTheme = {
+  base: string;
+  variants: {
+    intent: 'error' | 'info' | 'success' | 'warning';
+  };
+};
+
 export type ButtonTheme = {
   base: string;
   variants: {
@@ -13,46 +20,6 @@ export type ButtonTheme = {
     size: 'small' | 'medium' | 'large';
     loading: boolean;
     disabled: boolean;
-  };
-};
-
-export type LinkTheme = {
-  base: string;
-  variants: {
-    variant: 'inherit' | 'primary' | 'secondary';
-    underline: boolean;
-  };
-};
-
-export type SpinnerTheme = {
-  base: string;
-  variants: {
-    size: 'small' | 'medium' | 'large';
-    color: Exclude<Atoms['color'], undefined>;
-  };
-};
-
-export type DividerTheme = {
-  base?: string;
-  variants: {
-    color: Exclude<Atoms['color'], undefined>;
-  };
-};
-
-export type DialogTheme = {
-  dialog: string;
-  variants: {
-    size: 'small' | 'medium' | 'large';
-  };
-};
-
-export type InputTheme = {
-  container: string;
-  input: string;
-  variants: {
-    variant: 'solid' | 'outline'; // TODO Review naming
-    disabled: boolean;
-    required: boolean;
   };
 };
 
@@ -65,10 +32,25 @@ export type CheckboxTheme = {
   };
 };
 
-export type RadioTheme = {
+export type DialogTheme = {
+  dialog: string;
+  variants: {
+    size: 'small' | 'medium' | 'large';
+  };
+};
+
+export type DividerTheme = {
+  base?: string;
+  variants: {
+    color: Exclude<Atoms['color'], undefined>;
+  };
+};
+
+export type IconTheme = {
   base: string;
-  icon: string;
-  label: string;
+  variants: {
+    size: 'small' | 'medium' | 'large';
+  };
 };
 
 export type LabelTheme = {
@@ -79,6 +61,18 @@ export type LabelTheme = {
   };
 };
 
+export type LinkTheme = {
+  base: string;
+  variants: {
+    variant: 'inherit' | 'primary' | 'secondary';
+    underline: boolean;
+  };
+};
+
+export type PopoverTheme = {
+  base: string;
+};
+
 export type ProgressTheme = {
   base: string;
   bar: string;
@@ -87,13 +81,10 @@ export type ProgressTheme = {
   };
 };
 
-export type SwitchTheme = {
+export type RadioTheme = {
   base: string;
-  slider: string;
-};
-
-export type PopoverTheme = {
-  base: string;
+  icon: string;
+  label: string;
 };
 
 export type SelectTheme = {
@@ -117,6 +108,39 @@ export type SliderTheme = {
   };
 };
 
+export type SpinnerTheme = {
+  base: string;
+  variants: {
+    size: 'small' | 'medium' | 'large';
+    color: Exclude<Atoms['color'], undefined>;
+  };
+};
+
+export type SwitchTheme = {
+  base: string;
+  slider: string;
+};
+
+export type TextareaTheme = {
+  container: string;
+  input: string;
+};
+
+export type TextInputTheme = {
+  container: string;
+  input: string;
+  variants: {
+    variant: 'solid' | 'outline'; // TODO Review naming
+  };
+};
+
+export type ToastTheme = {
+  base: string;
+  variants: {
+    intent: 'neutral' | 'error' | 'info' | 'success' | 'warning';
+  };
+};
+
 export type TooltipTheme = {
   base: string;
   variants: {
@@ -125,11 +149,12 @@ export type TooltipTheme = {
 };
 
 export type ComponentThemes = {
+  alert: AlertTheme;
   button: ButtonTheme;
   checkbox: CheckboxTheme;
   dialog: DialogTheme;
   divider: DividerTheme;
-  input: InputTheme;
+  icon: IconTheme;
   label: LabelTheme;
   link: LinkTheme;
   popover: PopoverTheme;
@@ -139,6 +164,9 @@ export type ComponentThemes = {
   slider: SliderTheme;
   spinner: SpinnerTheme;
   switch: SwitchTheme;
+  textarea: TextareaTheme;
+  textInput: TextInputTheme;
+  toast: ToastTheme;
   tooltip: TooltipTheme;
 };
 

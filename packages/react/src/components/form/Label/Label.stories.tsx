@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Stack } from '../../layout/Stack/Stack.js';
-import { Input } from '../Input/Input.js';
+import { TextInput } from '../TextInput/TextInput.js';
 import { Label, type LabelProps } from './Label.js';
 
 export default {
@@ -20,9 +20,9 @@ export const Default: StoryObj<LabelProps> = {
 export const WithInput: StoryObj<LabelProps> = {
   render: (props) => {
     return (
-      <Stack spacing={2}>
+      <Stack gap={2}>
         <Label {...props} />
-        <Input
+        <TextInput
           name="input"
           defaultValue="Blep"
           type="text"

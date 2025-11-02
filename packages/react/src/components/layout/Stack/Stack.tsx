@@ -14,7 +14,7 @@ export type StackProps = {
   children: React.ReactNode;
   className?: string;
   display?: Atoms['display'];
-  spacing: Atoms['gap'];
+  gap: Atoms['gap'];
   style?: React.CSSProperties;
   role?: React.AriaRole;
   /**
@@ -28,7 +28,7 @@ export const Stack: React.FC<StackProps> = ({
   tag: Tag = 'div',
   display = 'flex',
   children,
-  spacing,
+  gap,
   alignX,
   ...restProps
 }) => {
@@ -40,7 +40,7 @@ export const Stack: React.FC<StackProps> = ({
     <Box
       asChild
       display={display}
-      gap={spacing}
+      gap={gap}
       flexDirection="column"
       alignItems={alignX ? alignItemsMap[alignX] : undefined}
       {...restProps}
