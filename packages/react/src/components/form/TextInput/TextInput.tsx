@@ -8,10 +8,11 @@ import {
 
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { Box } from '../../layout/Box/Box.js';
-import * as styles from './input.css.js';
+import * as styles from './TextInput.css.js';
 
-export type InputProps = {
+export type TextInputProps = {
   className?: string;
+  inputClassName?: string;
   endSlot?: React.ReactNode;
   name: string;
   ref?: React.Ref<HTMLInputElement>;
@@ -19,11 +20,12 @@ export type InputProps = {
   type?: OptionalLiteral<
     'email' | 'number' | 'password' | 'tel' | 'text' | 'url'
   >;
-  helperText?: string;
+  // helperText?: string;
 } & Omit<HTMLElementProps<HTMLInputElement>, 'type'>;
 
-export const Input: React.FC<InputProps> = ({
+export const TextInput: React.FC<TextInputProps> = ({
   className,
+  inputClassName,
   endSlot,
   name,
   placeholder,
@@ -32,19 +34,19 @@ export const Input: React.FC<InputProps> = ({
   type = 'text',
   ...restProps
 }) => {
-  const containerClassName = useComponentStyles(
-    'input',
+  const containerStyles = useComponentStyles(
+    'textInput',
     { container: true },
     false,
   );
-  const inputClassName = useComponentStyles('input', { input: true });
+  const inputStyles = useComponentStyles('textInput', { input: true });
 
   return (
     <Box>
       <Box
         display="flex"
         alignItems="center"
-        className={classnames(containerClassName, className)}
+        className={classnames(containerStyles, className)}
       >
         {startSlot}
 
@@ -53,7 +55,7 @@ export const Input: React.FC<InputProps> = ({
           name={name}
           type={type}
           placeholder={placeholder}
-          className={classnames(styles.input, inputClassName)}
+          className={classnames(styles.input, inputStyles, inputClassName)}
           {...restProps}
         />
 

@@ -53,14 +53,6 @@ export type IconTheme = {
   };
 };
 
-export type InputTheme = {
-  container: string;
-  input: string;
-  variants: {
-    variant: 'solid' | 'outline'; // TODO Review naming
-  };
-};
-
 export type LabelTheme = {
   base: string;
   variants: {
@@ -134,6 +126,14 @@ export type TextareaTheme = {
   input: string;
 };
 
+export type TextInputTheme = {
+  container: string;
+  input: string;
+  variants: {
+    variant: 'solid' | 'outline'; // TODO Review naming
+  };
+};
+
 export type ToastTheme = {
   base: string;
   variants: {
@@ -155,7 +155,6 @@ export type ComponentThemes = {
   dialog: DialogTheme;
   divider: DividerTheme;
   icon: IconTheme;
-  input: InputTheme;
   label: LabelTheme;
   link: LinkTheme;
   popover: PopoverTheme;
@@ -166,6 +165,7 @@ export type ComponentThemes = {
   spinner: SpinnerTheme;
   switch: SwitchTheme;
   textarea: TextareaTheme;
+  textInput: TextInputTheme;
   toast: ToastTheme;
   tooltip: TooltipTheme;
 };

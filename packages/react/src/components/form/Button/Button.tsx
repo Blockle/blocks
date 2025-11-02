@@ -36,7 +36,6 @@ export type ButtonProps = {
 } & Omit<HTMLElementProps<HTMLButtonElement>, 'size'> &
   MarginAtoms;
 
-// Default props? Like type=button
 const [Template, Slot] = createSlottable('button');
 
 export const Button: React.FC<ButtonProps> = ({
@@ -50,6 +49,7 @@ export const Button: React.FC<ButtonProps> = ({
   ref,
   size,
   startSlot,
+  type = 'button',
   variant,
   ...restProps
 }) => {
@@ -77,6 +77,9 @@ export const Button: React.FC<ButtonProps> = ({
         atoms(atomsProps),
         className,
       )}
+      // Do not pass type attribute if using asChild
+      // Could lead to invalid HTML
+      type={asChild ? undefined : type}
       {...otherProps}
     >
       {startSlot && <div>{startSlot}</div>}

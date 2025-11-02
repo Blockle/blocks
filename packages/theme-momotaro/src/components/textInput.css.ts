@@ -8,24 +8,9 @@ import { style } from '@vanilla-extract/css';
 
 import { focusable } from './helpers.css.js';
 
-export const input: ThemeComponentsStyles['input'] = makeComponentTheme(
-  'input',
+export const textInput: ThemeComponentsStyles['textInput'] = makeComponentTheme(
+  'textInput',
   {
-    input: style([
-      atoms({
-        color: 'text-900',
-        border: 'none',
-        backgroundColor: 'transparent',
-      }),
-      {
-        borderRadius: 'inherit',
-        outline: 'none',
-        '::placeholder': {
-          color: vars.color['text-600'],
-        },
-        ':disabled': {},
-      },
-    ]),
     container: style([
       {
         minHeight: 40,
@@ -37,13 +22,30 @@ export const input: ThemeComponentsStyles['input'] = makeComponentTheme(
         },
       },
       atoms({
+        display: 'flex',
         paddingInline: 3,
         paddingBlock: 2,
         backgroundColor: 'white',
         borderRadius: 2,
         boxShadow: 'medium',
+        // Space between `startSlot | children | endSlot`
+        gap: 2,
       }),
       focusable,
+    ]),
+    input: style([
+      atoms({
+        color: 'text-900',
+        border: 'none',
+        backgroundColor: 'transparent',
+      }),
+      {
+        outline: 'none',
+        '::placeholder': {
+          color: vars.color['text-600'],
+        },
+        ':disabled': {},
+      },
     ]),
   },
 );

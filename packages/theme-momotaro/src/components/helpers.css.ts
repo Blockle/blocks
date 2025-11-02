@@ -24,7 +24,7 @@ export const focusable = style({
       cursor: 'auto',
       pointerEvents: 'none',
     },
-    '&:has(:focus-visible)': {
+    '&:has(:focus-visible:not(button))': {
       outline: `2px solid ${vars.color['primary-300']}`,
       outlineOffset: '2px',
     },

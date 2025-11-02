@@ -30,8 +30,11 @@ export {
   Checkbox,
   type CheckboxProps,
 } from './components/form/Checkbox/Checkbox.js';
-export { Input, type InputProps } from './components/form/Input/Input.js';
 export { Label, type LabelProps } from './components/form/Label/Label.js';
+export {
+  NumericInput,
+  type NumericInputProps,
+} from './components/form/NumericInput/NumericInput.js';
 export { Radio, type RadioProps } from './components/form/Radio/Radio.js';
 export { Select, type SelectProps } from './components/form/Select/Select.js';
 export { Slider, type SliderProps } from './components/form/Slider/Slider.js';
@@ -40,6 +43,10 @@ export {
   Textarea,
   type TextareaProps,
 } from './components/form/Textarea/Textarea.js';
+export {
+  TextInput,
+  type TextInputProps,
+} from './components/form/TextInput/TextInput.js';
 // layout
 export { Box, type BoxProps } from './components/layout/Box/Box.js';
 export { Inline, type InlineProps } from './components/layout/Inline/Inline.js';

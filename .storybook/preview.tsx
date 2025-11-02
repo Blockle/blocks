@@ -1,6 +1,7 @@
 import { momotaro } from '@blockle/blocks-theme-momotaro';
 import '@blockle/blocks/reset';
 import type { Decorator, Preview } from '@storybook/react-vite';
+
 // Relative `BlocksProvider` import for tests to also work correctly
 import { BlocksProvider } from '../packages/react/src/components/providers/BlocksProvider/BlocksProvider.js';
 
