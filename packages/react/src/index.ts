@@ -36,6 +36,10 @@ export { Radio, type RadioProps } from './components/form/Radio/Radio.js';
 export { Select, type SelectProps } from './components/form/Select/Select.js';
 export { Slider, type SliderProps } from './components/form/Slider/Slider.js';
 export { Switch, type SwitchProps } from './components/form/Switch/Switch.js';
+export {
+  Textarea,
+  type TextareaProps,
+} from './components/form/Textarea/Textarea.js';
 // layout
 export { Box, type BoxProps } from './components/layout/Box/Box.js';
 export { Inline, type InlineProps } from './components/layout/Inline/Inline.js';
