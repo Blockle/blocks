@@ -1,14 +1,9 @@
 import { layers } from '@blockle/blocks-core';
 import { globalStyle } from '@vanilla-extract/css';
 
-// Must be placed before HTML so we wont override the box-sizing of the root element
 globalStyle(':where(*, *::before, *::after)', {
-  '@layer': {
-    [layers.reset]: {
-      boxSizing: 'inherit',
-      WebkitTapHighlightColor: 'transparent',
-    },
-  },
+  boxSizing: 'inherit',
+  WebkitTapHighlightColor: 'transparent',
 });
 
 globalStyle(':where(html)', {
