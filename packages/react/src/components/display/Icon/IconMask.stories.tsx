@@ -1,7 +1,8 @@
 import { atomicProperties } from '@blockle/blocks-core';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { createIconMask, IconMask, type IconMaskProps } from './IconMask.js';
+import { createIconMask } from './createIconMask.js';
+import { IconMask, type IconMaskProps } from './IconMask.js';
 
 const exampleIcons = [
   'academic-cap',
@@ -18,6 +19,7 @@ function getIconUrl(name: Icons): string {
   return `/heroicons/outline/${name}.svg`;
 }
 
+// Create a HeroIcon component with the icon URL resolver
 const HeroIcon = createIconMask(getIconUrl);
 
 export default {
@@ -52,5 +54,7 @@ export const Hero: StoryObj<typeof HeroIcon> = {
       control: 'select',
       options: exampleIcons,
     },
+    // @ts-expect-error src not in typing, but exists in runtime
+    src: { table: { disable: true } },
   },
 };

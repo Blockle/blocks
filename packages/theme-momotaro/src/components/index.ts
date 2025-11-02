@@ -5,6 +5,7 @@ import { button } from './button.css.js';
 import { checkbox } from './checkbox.css.js';
 import { dialog } from './dialog.css.js';
 import { divider } from './divider.css.js';
+import { icon } from './icon.css.js';
 import { input } from './input.css.js';
 import { label } from './label.css.js';
 import { link } from './link.css.js';
@@ -24,6 +25,7 @@ export const components: ThemeComponentsStyles = {
   checkbox,
   dialog,
   divider,
+  icon,
   input,
   label,
   link,
@@ -34,6 +36,6 @@ export const components: ThemeComponentsStyles = {
   slider,
   spinner,
   switch: switchTheme,
-  tooltip,
   textarea,
+  tooltip,
 };

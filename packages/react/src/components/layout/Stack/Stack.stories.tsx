@@ -8,7 +8,7 @@ export default {
   title: 'Layout/Stack',
   component: Stack,
   args: {
-    gap: 1,
+    gap: 2,
   },
   argTypes: {
     gap: {

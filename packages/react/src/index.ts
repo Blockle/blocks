@@ -10,6 +10,11 @@ export {
   Divider,
   type DividerProps,
 } from './components/display/Divider/Divider.js';
+export { createIconMask } from './components/display/Icon/createIconMask.js';
+export {
+  IconMask,
+  type IconMaskProps,
+} from './components/display/Icon/IconMask.js';
 // feedback
 export {
   Progress,

@@ -46,6 +46,13 @@ export type DividerTheme = {
   };
 };
 
+export type IconTheme = {
+  base: string;
+  variants: {
+    size: 'small' | 'medium' | 'large';
+  };
+};
+
 export type InputTheme = {
   container: string;
   input: string;
@@ -147,6 +154,7 @@ export type ComponentThemes = {
   checkbox: CheckboxTheme;
   dialog: DialogTheme;
   divider: DividerTheme;
+  icon: IconTheme;
   input: InputTheme;
   label: LabelTheme;
   link: LinkTheme;

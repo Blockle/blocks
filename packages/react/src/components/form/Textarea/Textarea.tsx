@@ -9,6 +9,7 @@ import * as styles from './Textarea.css.js';
 export type TextareaProps = {
   value: string;
   ref: React.RefObject<HTMLTextAreaElement>;
+  // helperText: React.ReactNode;
 } & HTMLElementProps<HTMLTextAreaElement>;
 
 export const Textarea: React.FC<TextareaProps> = ({
