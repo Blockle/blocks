@@ -32,7 +32,7 @@ export const Default: StoryObj<ToastProps> = {
   },
 
   args: {
-    children: 'This is an toast message.',
+    children: 'This is a toast message.',
     open: true,
     onRequestClose: action('onRequestClose'),
   },
