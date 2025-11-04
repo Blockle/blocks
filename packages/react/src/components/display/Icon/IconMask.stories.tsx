@@ -16,7 +16,7 @@ const exampleIcons = [
 type Icons = (typeof exampleIcons)[number];
 
 function getIconUrl(name: Icons): string {
-  return `/heroicons/outline/${name}.svg`;
+  return `./heroicons/outline/${name}.svg`;
 }
 
 // Create a HeroIcon component with the icon URL resolver

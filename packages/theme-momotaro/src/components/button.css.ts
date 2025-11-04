@@ -125,7 +125,7 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
       },
     ],
     defaultVariants: {
-      size: 'small',
+      size: 'medium',
       variant: 'solid',
       intent: 'neutral',
     },
