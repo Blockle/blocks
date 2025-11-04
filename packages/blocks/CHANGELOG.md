@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 2.2.1
+
+### Patch Changes
+
+- 230cfcb: Fixed ToastProvider when using ssr
+
 ## 2.2.0
 
 ### Minor Changes
