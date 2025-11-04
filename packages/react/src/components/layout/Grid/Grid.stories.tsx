@@ -31,8 +31,8 @@ export const Default: StoryObj<GridProps> = {
         <GridItem size={4}>Item 2</GridItem>
         <GridItem size={4}>Item 3</GridItem>
 
-        <GridItem size={4}>Item 4</GridItem>
-        <GridItem size={8}>Item 5</GridItem>
+        <GridItem size={[0, 4]}>Item 4</GridItem>
+        <GridItem size={[12, 8]}>Item 5</GridItem>
 
         <GridItem size={2}>Item 6</GridItem>
         <GridItem size={8}>Item 7</GridItem>
