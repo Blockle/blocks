@@ -1,5 +1,11 @@
 # @blockle/blocks-theme-momotaro
 
+## 6.2.0
+
+### Minor Changes
+
+- af1dcd9: Exports Alert, Skeleton, Toast and Popover
+
 ## 6.1.0
 
 ### Minor Changes
