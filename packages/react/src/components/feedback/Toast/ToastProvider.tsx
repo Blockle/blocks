@@ -99,16 +99,15 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
         padding={2}
       >
         <Stack gap={2}>
-          {toasts.map((toast) => (
+          {toasts.map(({ id, children }) => (
             <div
-              key={toast.id}
+              key={id}
               className={styles.container}
               style={{
-                viewTransitionName: `toast-${toast.id}`,
+                viewTransitionName: `toast-${id}`,
               }}
-              role="alert"
             >
-              {toast.children}
+              {children}
             </div>
           ))}
         </Stack>

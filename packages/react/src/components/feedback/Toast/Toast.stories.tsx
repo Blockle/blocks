@@ -3,6 +3,7 @@ import { type FC, useState } from 'react';
 import { action } from 'storybook/actions';
 
 import { Button } from '../../form/Button/Button.js';
+import { Alert } from '../Alert/Alert.js';
 import { Toast, type ToastProps } from './Toast.js';
 import { ToastProvider } from './ToastProvider.js';
 
@@ -20,8 +21,14 @@ export default {
 } as Meta;
 
 export const Default: StoryObj<ToastProps> = {
-  render: (props) => {
-    return <Toast {...props} />;
+  render: ({ children, ...restProps }) => {
+    return (
+      <Toast {...restProps}>
+        <Alert open intent="success" onRequestClose={restProps.onRequestClose}>
+          {children}
+        </Alert>
+      </Toast>
+    );
   },
 
   args: {
@@ -52,10 +59,11 @@ const ToastPlayground: FC = () => {
           key={id}
           open
           onRequestClose={onRequestClose(id)}
-          duration={3000 + Math.random() * 3000}
-          intent="success"
+          // duration={30000 + Math.random() * 3000}
         >
-          This is toast #{id}
+          <Alert open onRequestClose={onRequestClose(id)} intent="success">
+            This is toast
+          </Alert>
         </Toast>
       ))}
     </>

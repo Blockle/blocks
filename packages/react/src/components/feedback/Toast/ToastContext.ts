@@ -1,6 +1,5 @@
 export type Toast = {
   id: string;
-  intent: 'neutral' | 'success' | 'error' | 'warning' | 'info';
   duration?: number;
   onRequestClose: () => void;
   children?: React.ReactNode;

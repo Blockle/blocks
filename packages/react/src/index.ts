@@ -15,15 +15,28 @@ export {
   IconMask,
   type IconMaskProps,
 } from './components/display/Icon/IconMask.js';
+export {
+  Alert,
+  type AlertProps,
+} from './components/feedback/Alert/Alert.js';
 // feedback
 export {
   Progress,
   type ProgressProps,
 } from './components/feedback/Progress/Progress.js';
 export {
+  Skeleton,
+  type SkeletonProps,
+} from './components/feedback/Skeleton/Skeleton.js';
+export {
   Spinner,
   type SpinnerProps,
 } from './components/feedback/Spinner/Spinner.js';
+export { Toast, type ToastProps } from './components/feedback/Toast/Toast.js';
+export {
+  ToastProvider,
+  type ToastProviderProps,
+} from './components/feedback/Toast/ToastProvider.js';
 // form
 export { Button, type ButtonProps } from './components/form/Button/Button.js';
 export {
@@ -58,6 +71,10 @@ export {
   Dialog,
   type DialogProps,
 } from './components/overlay/Dialog/Dialog.js';
+export {
+  Popover,
+  type PopoverProps,
+} from './components/overlay/Popover/Popover.js';
 export {
   Portal,
   type PortalProps,
