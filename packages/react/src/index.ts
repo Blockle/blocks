@@ -32,11 +32,14 @@ export {
   Spinner,
   type SpinnerProps,
 } from './components/feedback/Spinner/Spinner.js';
-export { Toast, type ToastProps } from './components/feedback/Toast/Toast.js';
 export {
   ToastProvider,
   type ToastProviderProps,
 } from './components/feedback/Toast/ToastProvider.js';
+export {
+  type ToastProps,
+  useToast,
+} from './components/feedback/Toast/useToast.js';
 // form
 export { Button, type ButtonProps } from './components/form/Button/Button.js';
 export {

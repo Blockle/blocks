@@ -1,15 +1,17 @@
+import { createContext } from 'react';
+
+import type { AlertProps } from '../Alert/Alert.js';
+
 export type Toast = {
   id: string;
   duration?: number;
-  onRequestClose: () => void;
   children?: React.ReactNode;
+  intent?: AlertProps['intent'];
 };
 
 export type ToastContextType = {
   add: (toast: Toast) => void;
   remove: (id: string) => void;
 };
-
-import { createContext } from 'react';
 
 export const ToastContext = createContext<ToastContextType | null>(null);

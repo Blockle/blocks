@@ -5,6 +5,7 @@ import { flushSync } from 'react-dom';
 
 import { Box } from '../../layout/Box/Box.js';
 import { Stack } from '../../layout/Stack/Stack.js';
+import { Alert } from '../Alert/Alert.js';
 import * as styles from './Toast.css.js';
 import {
   type Toast,
@@ -72,8 +73,11 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
     });
 
     if (toast.duration) {
+      const toastId = toast.id;
       setTimeout(() => {
-        toast.onRequestClose();
+        makeTransition(() => {
+          setToasts((prev) => prev.filter((toast) => toast.id !== toastId));
+        });
       }, toast.duration);
     }
   }, []);
@@ -101,16 +105,20 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
         padding={2}
       >
         <Stack gap={2}>
-          {toasts.map(({ id, children }) => (
-            <div
+          {toasts.map(({ id, children, intent }) => (
+            <Alert
+              intent={intent}
               key={id}
               className={styles.container}
               style={{
                 viewTransitionName: `toast-${id}`,
               }}
+              onRequestClose={() => {
+                removeToast(id);
+              }}
             >
               {children}
-            </div>
+            </Alert>
           ))}
         </Stack>
       </Box>

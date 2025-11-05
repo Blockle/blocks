@@ -1,6 +1,10 @@
 'use client';
 
-import { type ComponentThemes, classnames } from '@blockle/blocks-core';
+import {
+  type ComponentThemes,
+  classnames,
+  type HTMLElementProps,
+} from '@blockle/blocks-core';
 
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { Button } from '../../form/Button/Button.js';
@@ -10,17 +14,18 @@ import * as styles from './Alert.css.js';
 type AlertTheme = ComponentThemes['alert'];
 
 export type AlertProps = {
-  intent?: AlertTheme['variants']['intent'];
   children?: React.ReactNode;
-  open?: boolean;
+  intent?: AlertTheme['variants']['intent'];
   onRequestClose?: () => void;
-};
+  ref?: React.RefObject<HTMLDivElement>;
+} & HTMLElementProps<HTMLDivElement>;
 
 export const Alert: React.FC<AlertProps> = ({
   intent = 'info',
   children,
-  open,
   onRequestClose,
+  className,
+  ...restProps
 }) => {
   const containerClassName = useComponentStyles('alert', {
     base: true,
@@ -33,17 +38,14 @@ export const Alert: React.FC<AlertProps> = ({
   // const Icon = icons?.[intent] ?? null;
   // <Icon />
 
-  if (!open) {
-    return null;
-  }
-
   return (
     <Box
       role="alert"
-      className={classnames(containerClassName)}
+      className={classnames(containerClassName, className)}
       display="flex"
       alignItems="center"
       justifyContent="space-between"
+      {...restProps}
     >
       <div>{children}</div>
 
@@ -61,9 +63,9 @@ export const Alert: React.FC<AlertProps> = ({
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
           <path d="M18 6l-12 12" />
