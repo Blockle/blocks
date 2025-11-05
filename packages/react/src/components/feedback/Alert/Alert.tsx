@@ -10,17 +10,21 @@ import * as styles from './Alert.css.js';
 type AlertTheme = ComponentThemes['alert'];
 
 export type AlertProps = {
-  intent?: AlertTheme['variants']['intent'];
   children?: React.ReactNode;
-  open?: boolean;
+  className?: string;
+  intent?: AlertTheme['variants']['intent'];
   onRequestClose?: () => void;
+  ref?: React.RefObject<HTMLDivElement>;
+  style?: React.CSSProperties;
 };
 
 export const Alert: React.FC<AlertProps> = ({
   intent = 'info',
   children,
-  open,
   onRequestClose,
+  className,
+  ref,
+  style,
 }) => {
   const containerClassName = useComponentStyles('alert', {
     base: true,
@@ -33,14 +37,12 @@ export const Alert: React.FC<AlertProps> = ({
   // const Icon = icons?.[intent] ?? null;
   // <Icon />
 
-  if (!open) {
-    return null;
-  }
-
   return (
     <Box
+      ref={ref}
       role="alert"
-      className={classnames(containerClassName)}
+      className={classnames(containerClassName, className)}
+      style={style}
       display="flex"
       alignItems="center"
       justifyContent="space-between"
