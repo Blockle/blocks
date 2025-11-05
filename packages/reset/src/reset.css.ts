@@ -7,10 +7,10 @@ globalStyle(':where(*, *::before, *::after)', {
 });
 
 globalStyle(':where(html)', {
+  boxSizing: 'border-box',
   '@layer': {
     [layers.reset]: {
       lineHeight: 1.5,
-      boxSizing: 'border-box',
       WebkitFontSmoothing: 'antialiased',
     },
   },
