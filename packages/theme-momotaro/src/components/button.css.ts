@@ -64,7 +64,7 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
             paddingInline: 3,
           }),
           {
-            minHeight: 32,
+            minHeight: 40,
           },
         ]),
         medium: style([
