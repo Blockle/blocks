@@ -34,7 +34,7 @@
     "version": "changeset version && node scripts/post-version-hook.js"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.3.2",
+    "@biomejs/biome": "^2.3.5",
     "@changesets/cli": "^2.29.7",
     "@storybook/addon-a11y": "^10.0.5",
     "@storybook/addon-links": "^10.0.5",
