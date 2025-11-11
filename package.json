@@ -15,7 +15,8 @@
     "packages/slot",
     "packages/react",
     "packages/blocks",
-    "packages/theme-momotaro"
+    "packages/theme-momotaro",
+    "packages/theme-preline"
   ],
   "scripts": {
     "build-storybook": "storybook build",

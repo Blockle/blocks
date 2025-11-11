@@ -1,0 +1,45 @@
+import { vars } from '@blockle/blocks-core';
+import { createVar, style } from '@vanilla-extract/css';
+
+export const focusRingColor = createVar();
+
+/**
+ * NOTE: When the original element has a transition, make sure to include
+ * `box-shadow ${vars.transition.fast}` in the transition property for the
+ * focus transition to work correctly.
+ */
+export const focusable = style({
+  // '@media': {
+  //   '(prefers-reduced-motion: no-preference)': {
+  //     transition: `outline ${vars.transition.fast}`,
+  //   },
+  // },
+  ':focus-visible': {
+    outline: `2px solid ${vars.color['primary-300']}`,
+    outlineOffset: '2px',
+  },
+  selectors: {
+    '&:disabled, &[disabled]': {
+      opacity: 0.5,
+      cursor: 'auto',
+      pointerEvents: 'none',
+    },
+    '&:has(:focus-visible:not(button))': {
+      outline: `2px solid ${vars.color['primary-300']}`,
+      outlineOffset: '2px',
+    },
+    '&:has(:disabled)': {
+      opacity: 0.5,
+      cursor: 'auto',
+    },
+  },
+});
+
+export const clickable = style([
+  focusable,
+  {
+    ':active': {
+      transform: 'scale(0.975)',
+    },
+  },
+]);
