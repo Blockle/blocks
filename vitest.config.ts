@@ -15,6 +15,5 @@ export default defineConfig({
       exclude: ['**/dist/**', './*', './.storybook/**', '**/*.stories.tsx'],
     },
     setupFiles: [resolve(__dirname, './setupTests.ts')],
-    css: false,
   },
 });
