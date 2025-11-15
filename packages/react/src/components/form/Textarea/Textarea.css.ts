@@ -8,7 +8,6 @@ export const textarea = style({
       minHeight: 'inherit',
       resize: 'none',
       display: 'block',
-      // @ts-expect-error Property is not yet supported in all browsers
       fieldSizing: 'content',
     },
   },
