@@ -45,12 +45,15 @@ describe('clampAndRoundValue', () => {
         expected: 5,
         description: 'rounds to nearest half step (down)',
       },
-    ])(
-      '$description: clampAndRoundValue($newValue, $min, $max, $step) = $expected',
-      ({ newValue, min, max, step, expected }) => {
-        expect(clampAndRoundValue(newValue, min, max, step)).toBe(expected);
-      },
-    );
+    ])('$description: clampAndRoundValue($newValue, $min, $max, $step) = $expected', ({
+      newValue,
+      min,
+      max,
+      step,
+      expected,
+    }) => {
+      expect(clampAndRoundValue(newValue, min, max, step)).toBe(expected);
+    });
   });
 
   describe('clamping behavior', () => {
@@ -87,12 +90,15 @@ describe('clampAndRoundValue', () => {
         expected: 8,
         description: 'clamps to maximum after rounding',
       },
-    ])(
-      '$description: clampAndRoundValue($newValue, $min, $max, $step) = $expected',
-      ({ newValue, min, max, step, expected }) => {
-        expect(clampAndRoundValue(newValue, min, max, step)).toBe(expected);
-      },
-    );
+    ])('$description: clampAndRoundValue($newValue, $min, $max, $step) = $expected', ({
+      newValue,
+      min,
+      max,
+      step,
+      expected,
+    }) => {
+      expect(clampAndRoundValue(newValue, min, max, step)).toBe(expected);
+    });
   });
 
   describe('edge cases', () => {
