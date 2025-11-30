@@ -103,7 +103,7 @@ export const Responsive: StoryObj<GridProps> = {
         </GridItem>
 
         <GridItem asChild colSpan={4} rowSpan={[2, 1]}>
-          <ContentBlock>colSpan=[6, 10, 2], rowSpan=[2, 1]</ContentBlock>
+          <ContentBlock>colSpan=4, rowSpan=[2, 1]</ContentBlock>
         </GridItem>
         <GridItem asChild colSpan={8}>
           <ContentBlock>colSpan=8</ContentBlock>
