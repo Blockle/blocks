@@ -4,6 +4,7 @@ export { type Atoms, atoms } from './atoms/atoms.js';
 export type {
   MarginAtoms,
   PaddingAtoms,
+  ResponsiveValue,
   TextAtoms,
 } from './atoms/atomTypes.js';
 export { getAtomsAndProps } from './atoms/getAtomsAndProps.js';
@@ -41,6 +42,10 @@ export {
 export { clampAndRoundValue } from './utils/math/math.js';
 export { mergeProps } from './utils/react/mergeProps.js';
 export { composeRefs } from './utils/react/refs.js';
+export {
+  createResponsiveStyles,
+  getResponsiveStyle,
+} from './utils/styles/responsiveStyles.js';
 export {
   type AnyString,
   type HTMLElementProps,

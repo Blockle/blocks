@@ -1,8 +1,46 @@
-export type GridItemProps = {
-  children?: React.ReactNode;
-  size: number; // TODO Should be response array too
-};
+import {
+  classnames,
+  getResponsiveStyle,
+  type HTMLElementProps,
+  type ResponsiveValue,
+} from '@blockle/blocks-core';
+import { createSlottable } from '@blockle/blocks-react-slot';
 
-export const GridItem: React.FC<GridItemProps> = ({ children, size }) => {
-  return <div style={{ width: `${(size / 12) * 100}%` }}>{children}</div>;
+import * as styles from './Grid.css.js';
+
+export type GridItemProps = {
+  asChild?: boolean;
+  colSpan: ResponsiveValue<keyof typeof styles.responsiveColSpanStyles>;
+  ref?: React.Ref<HTMLDivElement>;
+  rowSpan?: ResponsiveValue<keyof typeof styles.responsiveRowSpanStyles>;
+} & Omit<HTMLElementProps<HTMLDivElement>, 'colSpan' | 'rowSpan'>;
+
+const [Template, Slot] = createSlottable('div');
+
+export const GridItem: React.FC<GridItemProps> = ({
+  children,
+  className,
+  colSpan,
+  rowSpan,
+  asChild,
+  ...restProps
+}) => {
+  const colSpanClass = getResponsiveStyle(
+    styles.responsiveColSpanStyles,
+    colSpan,
+  );
+  const rowSpanClass = getResponsiveStyle(
+    styles.responsiveRowSpanStyles,
+    rowSpan,
+  );
+
+  return (
+    <Template
+      asChild={asChild}
+      className={classnames(colSpanClass, rowSpanClass, className)}
+      {...restProps}
+    >
+      <Slot>{children}</Slot>
+    </Template>
+  );
 };
