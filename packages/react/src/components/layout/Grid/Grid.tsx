@@ -1,6 +1,7 @@
 import type { Atoms } from '@blockle/blocks-core';
 
 import { Box } from '../Box/Box.js';
+import * as styles from './Grid.css.js';
 
 export type GridProps = {
   gap?: Atoms['gap'];
@@ -10,15 +11,15 @@ export type GridProps = {
 };
 
 export const Grid: React.FC<GridProps> = ({
-  gap = 0,
-  rowGap = 0,
-  columnGap = 0,
+  gap,
+  rowGap,
+  columnGap,
   children,
 }) => {
   return (
     <Box
-      display="flex"
-      flexWrap="wrap"
+      display="grid"
+      className={styles.grid}
       gap={gap}
       rowGap={rowGap}
       columnGap={columnGap}
