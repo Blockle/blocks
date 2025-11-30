@@ -23,7 +23,7 @@ export const GridItem: React.FC<GridItemProps> = ({
   colSpan,
   rowSpan,
   asChild,
-  ref,
+  ...restProps
 }) => {
   const colSpanClass = getResponsiveStyle(
     styles.responsiveColSpanStyles,
@@ -36,9 +36,9 @@ export const GridItem: React.FC<GridItemProps> = ({
 
   return (
     <Template
-      ref={ref}
       asChild={asChild}
       className={classnames(colSpanClass, rowSpanClass, className)}
+      {...restProps}
     >
       <Slot>{children}</Slot>
     </Template>
