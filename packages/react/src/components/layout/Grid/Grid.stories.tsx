@@ -40,13 +40,13 @@ export const Default: StoryObj<GridProps> = {
     return (
       <Grid {...props}>
         <GridItem asChild colSpan={2}>
-          <ContentBlock>ColSpan=2</ContentBlock>
+          <ContentBlock>colSpan=2</ContentBlock>
         </GridItem>
         <GridItem asChild colSpan={6}>
-          <ContentBlock>ColSpan=6</ContentBlock>
+          <ContentBlock>colSpan=6</ContentBlock>
         </GridItem>
         <GridItem asChild colSpan={4}>
-          <ContentBlock>ColSpan=4</ContentBlock>
+          <ContentBlock>colSpan=4</ContentBlock>
         </GridItem>
       </Grid>
     );
@@ -61,13 +61,13 @@ export const RowSpan: StoryObj<GridProps> = {
     return (
       <Grid {...props}>
         <GridItem asChild colSpan={4} rowSpan={2}>
-          <ContentBlock>ColSpan=4, RowSpan=2</ContentBlock>
+          <ContentBlock>colSpan=4, rowSpan=2</ContentBlock>
         </GridItem>
         <GridItem asChild colSpan={4}>
-          <ContentBlock>ColSpan=4</ContentBlock>
+          <ContentBlock>colSpan=4</ContentBlock>
         </GridItem>
         <GridItem asChild colSpan={4}>
-          <ContentBlock>ColSpan=4</ContentBlock>
+          <ContentBlock>colSpan=4</ContentBlock>
         </GridItem>
 
         <GridItem asChild colSpan={8}>
@@ -96,21 +96,21 @@ export const Responsive: StoryObj<GridProps> = {
     return (
       <Grid {...props}>
         <GridItem asChild colSpan={[6, 2, 10]}>
-          <ContentBlock>ColSpan=[6, 2, 10]</ContentBlock>
+          <ContentBlock>colSpan=[6, 2, 10]</ContentBlock>
         </GridItem>
         <GridItem asChild colSpan={[6, 10, 2]}>
-          <ContentBlock>ColSpan=[6, 10, 2]</ContentBlock>
+          <ContentBlock>colSpan=[6, 10, 2]</ContentBlock>
         </GridItem>
 
         <GridItem asChild colSpan={4} rowSpan={[2, 1]}>
-          <ContentBlock>ColSpan=[6, 10, 2], RowSpan=[2, 1]</ContentBlock>
+          <ContentBlock>colSpan=[6, 10, 2], rowSpan=[2, 1]</ContentBlock>
         </GridItem>
         <GridItem asChild colSpan={8}>
-          <ContentBlock>ColSpan=8</ContentBlock>
+          <ContentBlock>colSpan=8</ContentBlock>
         </GridItem>
 
         <GridItem asChild colSpan={[8, 12]}>
-          <ContentBlock>ColSpan=[8, 12]</ContentBlock>
+          <ContentBlock>colSpan=[8, 12]</ContentBlock>
         </GridItem>
       </Grid>
     );
