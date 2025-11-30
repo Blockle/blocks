@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 2.3.1
+
+### Patch Changes
+
+- 88f83bd: CSS Grid with responsive span props
+
 ## 2.3.0
 
 ### Minor Changes
