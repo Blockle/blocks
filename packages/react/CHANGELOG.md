@@ -1,5 +1,11 @@
 # @blockle/blocks-react
 
+## 2.4.0
+
+### Minor Changes
+
+- 88f83bd: CSS Grid with responsive span props
+
 ## 2.3.0
 
 ### Minor Changes
