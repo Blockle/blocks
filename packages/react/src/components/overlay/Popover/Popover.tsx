@@ -16,6 +16,8 @@ import { getPopoverPosition } from './popover-utils.js';
 
 export type PopoverAlign = 'top' | 'bottom' | 'left' | 'right';
 
+// TODO Refactor with CSS anchor positioning
+
 export type PopoverProps = {
   anchorElement: React.RefObject<HTMLElement | null>;
   children: React.ReactNode;

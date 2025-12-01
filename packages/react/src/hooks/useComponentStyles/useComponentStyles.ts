@@ -10,6 +10,7 @@ import { useTheme } from '../useTheme/useTheme.js';
 
 type VariantValue = string | boolean | number;
 
+// TODO Helper should come from core package
 export function useComponentStyles<T extends keyof ComponentThemesProps>(
   name: T,
   props: ComponentThemesProps[T],

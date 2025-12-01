@@ -49,7 +49,7 @@ export const Button: React.FC<ButtonProps> = ({
   ref,
   size,
   startSlot,
-  type = 'button',
+  type,
   variant,
   ...restProps
 }) => {
@@ -66,6 +66,14 @@ export const Button: React.FC<ButtonProps> = ({
 
   const [atomsProps, otherProps] = getAtomsAndProps(restProps);
 
+  if (import.meta.env.DEV) {
+    if (asChild && type !== undefined) {
+      console.warn(
+        'Button: The `type` prop is ignored when using `asChild`. Please set the `type` prop on the child component instead.',
+      );
+    }
+  }
+
   return (
     <Template
       ref={ref}
@@ -77,9 +85,8 @@ export const Button: React.FC<ButtonProps> = ({
         atoms(atomsProps),
         className,
       )}
-      // Do not pass type attribute if using asChild
-      // Could lead to invalid HTML
-      type={asChild ? undefined : type}
+      // Do not pass type attribute if using asChild since child component may not support it
+      type={asChild ? undefined : (type ?? 'button')}
       {...otherProps}
     >
       {startSlot && <div>{startSlot}</div>}

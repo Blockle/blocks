@@ -14,7 +14,27 @@ const colorPalette = {
 
 export const testingTheme = makeTheme({
   name: 'testing',
-  components: {},
+  components: {
+    alert: { base: '' },
+    button: { base: '' },
+    checkbox: { base: '', icon: '', label: '' },
+    dialog: { dialog: '' },
+    divider: { base: '' },
+    icon: { base: '' },
+    label: { base: '' },
+    link: { base: '' },
+    popover: { base: '' },
+    progress: { bar: '', base: '' },
+    radio: { base: '', icon: '', label: '' },
+    select: { icon: '', select: '' },
+    slider: { base: '', thumb: '', track: '', filledTrack: '' },
+    spinner: { base: '' },
+    switch: { base: '', slider: '' },
+    textarea: { container: '', input: '' },
+    textInput: { container: '', input: '' },
+    toast: { base: '' },
+    tooltip: { base: '' },
+  },
   tokens: {
     border: {
       radius: { 1: '4px', 2: '8px', 3: '12px', 4: '16px' },

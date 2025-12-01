@@ -17,6 +17,7 @@ export type IsStringUnion<T> = T extends string
     ? false
     : true
   : false;
+
 export type IsNumberUnion<T> = T extends number
   ? number extends T
     ? false
@@ -31,7 +32,7 @@ export type IsUnion<T> = IsStringUnion<T> extends true
 
 export type HTMLElementProps<E extends Element> = Omit<
   React.HTMLProps<E>,
-  keyof Atoms | 'ref'
+  keyof Atoms
 >;
 
 /**
