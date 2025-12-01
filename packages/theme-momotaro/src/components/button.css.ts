@@ -77,7 +77,7 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
         ]),
         large: style([
           atoms({
-            paddingInline: 4,
+            paddingInline: 5,
           }),
           {
             minHeight: 56,
