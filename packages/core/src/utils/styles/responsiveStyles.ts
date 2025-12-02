@@ -2,7 +2,6 @@ import { type StyleRule, style } from '@vanilla-extract/css';
 
 import type { ResponsiveValue } from '../../atoms/atomTypes.js';
 import { minMediaQuery } from '../../css/breakpoint/breakpoint.js';
-import { layers } from '../../css/layers.css.js';
 import { classnames } from '../classnames/classnames.js';
 
 type ResponsiveStyle<TKeys extends string | number> = Record<
@@ -13,7 +12,7 @@ type ResponsiveStyle<TKeys extends string | number> = Record<
 export function createResponsiveStyles<const TKeys extends string | number>(
   keys: TKeys[],
   styles: (key: TKeys) => StyleRule,
-  layer = layers.molecule,
+  layer: string,
 ): ResponsiveStyle<TKeys> {
   const responsiveStyles = {} as ResponsiveStyle<TKeys>;
 

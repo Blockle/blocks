@@ -22,7 +22,6 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
         fontSize: 'medium',
         borderRadius: 2,
         fontWeight: 'medium',
-        // Space between `startSlot | children | endSlot`
         gap: 2,
         paddingBlock: 1,
       }),

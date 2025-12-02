@@ -24,29 +24,24 @@ export default {
   },
 } as Meta;
 
-const ContentBlock: React.FC<{ children: React.ReactNode }> = ({
-  children,
-  ...restProps
-}) => {
-  return (
-    <Box padding={2} backgroundColor="primary-200" {...restProps}>
-      {children}
-    </Box>
-  );
-};
-
 export const Default: StoryObj<GridProps> = {
   render(props) {
     return (
       <Grid {...props}>
         <GridItem asChild colSpan={2}>
-          <ContentBlock>colSpan=2</ContentBlock>
+          <Box padding={2} backgroundColor="primary-200">
+            colSpan=2
+          </Box>
         </GridItem>
         <GridItem asChild colSpan={6}>
-          <ContentBlock>colSpan=6</ContentBlock>
+          <Box padding={2} backgroundColor="primary-200">
+            colSpan=6
+          </Box>
         </GridItem>
         <GridItem asChild colSpan={4}>
-          <ContentBlock>colSpan=4</ContentBlock>
+          <Box padding={2} backgroundColor="primary-200">
+            colSpan=4
+          </Box>
         </GridItem>
       </Grid>
     );
@@ -61,27 +56,41 @@ export const RowSpan: StoryObj<GridProps> = {
     return (
       <Grid {...props}>
         <GridItem asChild colSpan={4} rowSpan={2}>
-          <ContentBlock>colSpan=4, rowSpan=2</ContentBlock>
+          <Box padding={2} backgroundColor="primary-200">
+            colSpan=4, rowSpan=2
+          </Box>
         </GridItem>
         <GridItem asChild colSpan={4}>
-          <ContentBlock>colSpan=4</ContentBlock>
+          <Box padding={2} backgroundColor="primary-200">
+            colSpan=4
+          </Box>
         </GridItem>
         <GridItem asChild colSpan={4}>
-          <ContentBlock>colSpan=4</ContentBlock>
+          <Box padding={2} backgroundColor="primary-200">
+            colSpan=4
+          </Box>
         </GridItem>
 
         <GridItem asChild colSpan={8}>
-          <ContentBlock>colSpan=8</ContentBlock>
+          <Box padding={2} backgroundColor="primary-200">
+            colSpan=8
+          </Box>
         </GridItem>
 
         <GridItem asChild colSpan={2}>
-          <ContentBlock>colSpan=2</ContentBlock>
+          <Box padding={2} backgroundColor="primary-200">
+            colSpan=2
+          </Box>
         </GridItem>
         <GridItem asChild colSpan={8}>
-          <ContentBlock>colSpan=8</ContentBlock>
+          <Box padding={2} backgroundColor="primary-200">
+            colSpan=8
+          </Box>
         </GridItem>
         <GridItem asChild colSpan={2}>
-          <ContentBlock>colSpan=2</ContentBlock>
+          <Box padding={2} backgroundColor="primary-200">
+            colSpan=2
+          </Box>
         </GridItem>
       </Grid>
     );
@@ -96,21 +105,31 @@ export const Responsive: StoryObj<GridProps> = {
     return (
       <Grid {...props}>
         <GridItem asChild colSpan={[6, 2, 10]}>
-          <ContentBlock>colSpan=[6, 2, 10]</ContentBlock>
+          <Box padding={2} backgroundColor="primary-200">
+            colSpan=[6, 2, 10]
+          </Box>
         </GridItem>
         <GridItem asChild colSpan={[6, 10, 2]}>
-          <ContentBlock>colSpan=[6, 10, 2]</ContentBlock>
+          <Box padding={2} backgroundColor="primary-200">
+            colSpan=[6, 10, 2]
+          </Box>
         </GridItem>
 
         <GridItem asChild colSpan={4} rowSpan={[2, 1]}>
-          <ContentBlock>colSpan=4, rowSpan=[2, 1]</ContentBlock>
+          <Box padding={2} backgroundColor="primary-200">
+            colSpan=4, rowSpan=[2, 1]
+          </Box>
         </GridItem>
         <GridItem asChild colSpan={8}>
-          <ContentBlock>colSpan=8</ContentBlock>
+          <Box padding={2} backgroundColor="primary-200">
+            colSpan=8
+          </Box>
         </GridItem>
 
         <GridItem asChild colSpan={[8, 12]}>
-          <ContentBlock>colSpan=[8, 12]</ContentBlock>
+          <Box padding={2} backgroundColor="primary-200">
+            colSpan=[8, 12]
+          </Box>
         </GridItem>
       </Grid>
     );

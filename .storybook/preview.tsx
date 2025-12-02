@@ -18,7 +18,12 @@ export const decorators = [withProviders];
 const preview: Preview = {
   decorators,
   parameters: {
-    controls: { expanded: false },
+    controls: {
+      expanded: false,
+    },
+    docs: {
+      codePanel: true,
+    },
   },
 };
 

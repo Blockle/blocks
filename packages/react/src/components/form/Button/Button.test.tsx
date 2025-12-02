@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '../../../testUtils/testUtils.js';
 import * as stories from './Button.stories.js';
 
-const { Default: Button } = composeStories(stories);
+const { Primary: Button } = composeStories(stories);
 
 describe('Button', () => {
   it('should render', () => {
