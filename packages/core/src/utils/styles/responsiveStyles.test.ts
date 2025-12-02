@@ -21,7 +21,7 @@ describe('responsiveStyles', () => {
       const keys = ['small', 'medium', 'large'];
       const stylesFn = (key: string) => ({ fontSize: key });
 
-      const result = createResponsiveStyles(keys, stylesFn);
+      const result = createResponsiveStyles(keys, stylesFn, 'test-layer');
 
       expect(result).toHaveProperty('small');
       expect(result).toHaveProperty('medium');
@@ -33,7 +33,7 @@ describe('responsiveStyles', () => {
       const keys: 'test'[] = ['test'];
       const stylesFn = (key: 'test') => ({ color: key });
 
-      const result = createResponsiveStyles(keys, stylesFn);
+      const result = createResponsiveStyles(keys, stylesFn, 'test-layer');
 
       expect(result.test).toBeDefined();
       expect(result.test[0]).toBeDefined();
@@ -47,6 +47,7 @@ describe('responsiveStyles', () => {
     const mockStyles = createResponsiveStyles(
       ['small', 'medium', 'large'],
       (key) => ({ padding: key }),
+      'test-layer',
     );
 
     it('should return undefined for undefined value', () => {
