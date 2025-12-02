@@ -1,15 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
-import { Button, type ButtonProps } from './Button.js';
+import { Button } from './Button.js';
 
-export default {
+const meta = {
   title: 'Form/Button',
   component: Button,
   argTypes: {},
-} as Meta;
+} satisfies Meta<typeof Button>;
+export default meta;
 
-export const Default: StoryObj<ButtonProps> = {
+type Story = StoryObj<typeof meta>;
+
+export const Primary: Story = {
   render: (props) => {
     return <Button {...props} />;
   },
@@ -20,7 +23,7 @@ export const Default: StoryObj<ButtonProps> = {
   },
 };
 
-export const LinkButton: StoryObj<ButtonProps> = {
+export const LinkButton: Story = {
   render: (props) => {
     return <Button {...props} />;
   },

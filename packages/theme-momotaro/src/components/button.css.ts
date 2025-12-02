@@ -22,7 +22,6 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
         fontSize: 'medium',
         borderRadius: 2,
         fontWeight: 'medium',
-        // Space between `startSlot | children | endSlot`
         gap: 2,
         paddingBlock: 1,
       }),
@@ -77,7 +76,7 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
         ]),
         large: style([
           atoms({
-            paddingInline: 4,
+            paddingInline: 5,
           }),
           {
             minHeight: 56,
@@ -87,7 +86,7 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
       intent: {
         neutral: style({
           vars: {
-            [intentColor]: vars.color['primary-500'],
+            [intentColor]: vars.color['primary-600'],
             [hoverBackgroundColor]: vars.color['primary-100'],
           },
         }),

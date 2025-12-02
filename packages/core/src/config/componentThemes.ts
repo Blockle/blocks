@@ -118,7 +118,7 @@ export type SpinnerTheme = {
 
 export type SwitchTheme = {
   base: string;
-  slider: string;
+  slider: string; // Rename to thumb?
 };
 
 export type TextareaTheme = {

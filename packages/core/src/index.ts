@@ -22,7 +22,7 @@ export {
   parseCSSTransform,
 } from './css/cssMatrixUtils.js';
 export { layers } from './css/layers.css.js';
-export { rem } from './css/rem.js';
+export { pixelsToRem } from './css/pixelsToRem.js';
 export { vars } from './css/vars.css.js';
 export type {
   ComponentTheme,

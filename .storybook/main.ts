@@ -1,3 +1,4 @@
+// This file has been automatically migrated to valid ESM format by Storybook.
 import type { StorybookConfig } from '@storybook/react-vite';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import { mergeConfig } from 'vite';
@@ -14,21 +15,28 @@ const config: StorybookConfig = {
       plugins: [vanillaExtractPlugin()],
     });
   },
+
   staticDirs: ['./public'],
+
   stories: [
     '../packages/**/*.mdx',
     '../packages/**/*.stories.@(js|jsx|ts|tsx)',
   ],
+
   framework: {
     name: getAbsolutePath('@storybook/react-vite'),
     options: {},
   },
+
   typescript: {
     reactDocgen: 'react-docgen-typescript',
   },
+
   core: {
     disableWhatsNewNotifications: true,
   },
+
+  addons: ['@storybook/addon-a11y', '@storybook/addon-docs'],
 };
 export default config;
 

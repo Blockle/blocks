@@ -1,4 +1,4 @@
-import { rem, type ThemeTokens } from '@blockle/blocks-core';
+import { pixelsToRem, type ThemeTokens } from '@blockle/blocks-core';
 
 export const tokens: ThemeTokens = {
   border: {
@@ -135,11 +135,11 @@ export const tokens: ThemeTokens = {
       secondary: '"Rubik", sans-serif',
     },
     fontSize: {
-      xsmall: rem(12),
-      small: rem(14),
-      medium: rem(16),
-      large: rem(20),
-      xlarge: rem(24),
+      xsmall: pixelsToRem(12),
+      small: pixelsToRem(14),
+      medium: pixelsToRem(16),
+      large: pixelsToRem(20),
+      xlarge: pixelsToRem(24),
     },
     fontWeight: {
       light: 300,
@@ -149,11 +149,11 @@ export const tokens: ThemeTokens = {
       bold: 800,
     },
     lineHeight: {
-      xsmall: rem(16),
-      small: rem(20),
-      medium: rem(24),
-      large: rem(28),
-      xlarge: rem(32),
+      xsmall: pixelsToRem(16),
+      small: pixelsToRem(20),
+      medium: pixelsToRem(24),
+      large: pixelsToRem(28),
+      xlarge: pixelsToRem(32),
     },
   },
 };

@@ -72,7 +72,6 @@ const responsiveAtomicProperties = defineProperties({
     alignItems: ['stretch', 'center', 'flex-start', 'flex-end'],
     alignSelf: ['stretch', 'center', 'flex-start', 'flex-end'],
     placeItems: ['stretch', 'center', 'flex-start', 'flex-end'],
-    columnGap: vars.space,
     display: [
       'none',
       'flex',
@@ -90,6 +89,8 @@ const responsiveAtomicProperties = defineProperties({
     flexWrap: ['nowrap', 'wrap'],
     fontSize: vars.fontSize,
     gap: vars.space,
+    columnGap: vars.space,
+    rowGap: vars.space,
     justifyContent: [
       'flex-start',
       'flex-end',
@@ -112,7 +113,6 @@ const responsiveAtomicProperties = defineProperties({
     paddingInlineEnd: vars.space,
     paddingInlineStart: vars.space,
     position: ['relative', 'fixed', 'absolute', 'sticky', 'static'],
-    rowGap: vars.space,
   },
 });
 

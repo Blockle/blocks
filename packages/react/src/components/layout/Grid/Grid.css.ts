@@ -1,4 +1,4 @@
-import { createResponsiveStyles } from '@blockle/blocks-core';
+import { createResponsiveStyles, layers } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 
 export const grid = style({
@@ -10,6 +10,7 @@ export const responsiveColSpanStyles = createResponsiveStyles(
   (value) => ({
     gridColumn: `span ${value} / span ${value}`,
   }),
+  layers.molecule,
 );
 
 export const responsiveRowSpanStyles = createResponsiveStyles(
@@ -17,4 +18,5 @@ export const responsiveRowSpanStyles = createResponsiveStyles(
   (value) => ({
     gridRow: `span ${value} / span ${value}`,
   }),
+  layers.molecule,
 );
