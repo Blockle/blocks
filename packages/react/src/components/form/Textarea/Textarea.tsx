@@ -19,7 +19,7 @@ export const Textarea: React.FC<TextareaProps> = ({
 }) => {
   const containerClassName = useComponentStyles(
     'textarea',
-    { container: true },
+    { base: true },
     false,
   );
   const inputClassName = useComponentStyles('textarea', { input: true });

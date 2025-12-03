@@ -27,7 +27,7 @@ export const textarea: ThemeComponentsStyles['textarea'] = makeComponentTheme(
         ':disabled': {},
       },
     ]),
-    container: style([
+    base: style([
       {
         overflow: 'auto',
         minHeight: 96,
