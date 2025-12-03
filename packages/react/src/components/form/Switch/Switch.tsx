@@ -22,7 +22,7 @@ export const Switch: React.FC<SwitchProps> = ({
   const [isChecked, setIsChecked] = useState<boolean>(
     defaultChecked || checked || false,
   );
-  const baseClassName = useComponentStyles('switch', { base: true });
+  const baseClassName = useComponentStyles('switch', { root: true });
   const thumbClassName = useComponentStyles('switch', { thumb: true }, false);
 
   useEffect(() => {

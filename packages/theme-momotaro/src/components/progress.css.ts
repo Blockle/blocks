@@ -18,7 +18,7 @@ const indeterminateAnimation = keyframes({
 export const progress: ThemeComponentsStyles['progress'] = makeComponentTheme(
   'progress',
   {
-    base: style([
+    root: style([
       {
         height: 8,
       },

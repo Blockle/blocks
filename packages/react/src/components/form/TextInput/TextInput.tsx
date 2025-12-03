@@ -36,7 +36,7 @@ export const TextInput: React.FC<TextInputProps> = ({
 }) => {
   const containerStyles = useComponentStyles(
     'textInput',
-    { base: true },
+    { root: true },
     false,
   );
   const inputStyles = useComponentStyles('textInput', { input: true });

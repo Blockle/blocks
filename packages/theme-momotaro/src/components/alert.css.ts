@@ -7,7 +7,7 @@ import {
 export const alert: ThemeComponentsStyles['alert'] = makeComponentTheme(
   'alert',
   {
-    base: atoms({
+    root: atoms({
       borderWidth: 'thin',
       borderStyle: 'solid',
       padding: 2,

@@ -45,7 +45,7 @@ const tokens: ThemeTokens = {
 };
 
 const button = makeComponentTheme('button', {
-  base: style({
+  root: style({
     ...
   }),
   variants: {

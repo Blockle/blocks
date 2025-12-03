@@ -55,7 +55,7 @@ export const Button: React.FC<ButtonProps> = ({
   ...restProps
 }) => {
   const buttonClassName = useComponentStyles('button', {
-    base: true,
+    root: true,
     variants: {
       variant,
       intent,

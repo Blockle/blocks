@@ -8,7 +8,7 @@ import { style } from '@vanilla-extract/css';
 import { focusable } from './helpers.css.js';
 
 export const link: ThemeComponentsStyles['link'] = makeComponentTheme('link', {
-  base: style([
+  root: style([
     {
       outline: 'none',
       border: 'none',

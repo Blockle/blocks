@@ -33,7 +33,7 @@ export const Link: React.FC<LinkProps> = ({
   ...restProps
 }) => {
   const linkClassName = useComponentStyles('link', {
-    base: true,
+    root: true,
     variants: { variant, underline },
   });
 

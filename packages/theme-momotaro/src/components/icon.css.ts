@@ -6,7 +6,7 @@ import {
 import { style } from '@vanilla-extract/css';
 
 export const icon: ThemeComponentsStyles['icon'] = makeComponentTheme('icon', {
-  base: '',
+  root: '',
   variants: {
     size: {
       xsmall: style({

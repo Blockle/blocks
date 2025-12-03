@@ -41,7 +41,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
   const [open, setOpen] = useState(false);
 
   const tooltipClassName = useComponentStyles('tooltip', {
-    base: true,
+    root: true,
     variants: { colorScheme },
   });
 

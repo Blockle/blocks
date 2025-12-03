@@ -28,7 +28,7 @@ export const Select: React.FC<SelectProps> = ({
   ref,
   ...restProps
 }) => {
-  const wrapperClassName = useComponentStyles('select', { base: true }, false);
+  const wrapperClassName = useComponentStyles('select', { root: true }, false);
   const selectClassName = useComponentStyles('select', {
     select: true,
     variants: { variant },

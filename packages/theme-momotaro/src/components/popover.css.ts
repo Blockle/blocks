@@ -8,7 +8,7 @@ import { style } from '@vanilla-extract/css';
 export const popover: ThemeComponentsStyles['popover'] = makeComponentTheme(
   'popover',
   {
-    base: style([
+    root: style([
       atoms({
         backgroundColor: 'white',
         borderRadius: 1,

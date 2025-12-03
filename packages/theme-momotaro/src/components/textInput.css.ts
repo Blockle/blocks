@@ -11,7 +11,7 @@ import { focusable } from './helpers.css.js';
 export const textInput: ThemeComponentsStyles['textInput'] = makeComponentTheme(
   'textInput',
   {
-    base: style([
+    root: style([
       {
         minHeight: 40,
         backgroundColor: 'white',

@@ -17,14 +17,14 @@ type ColorScheme = 'primary' | 'secondary';
  */
 
 export type AlertTheme = {
-  base: string;
+  root: string;
   variants: {
     intent: AlertIntent;
   };
 };
 
 export type ButtonTheme = {
-  base: string;
+  root: string;
   variants: {
     variant: ButtonVariant;
     intent: 'primary' | 'secondary' | 'danger' | 'success';
@@ -35,7 +35,7 @@ export type ButtonTheme = {
 };
 
 export type CheckboxTheme = {
-  base: string;
+  root: string;
   icon: string;
   label: string;
   variants: {
@@ -51,21 +51,21 @@ export type DialogTheme = {
 };
 
 export type DividerTheme = {
-  base?: string;
+  root?: string;
   variants: {
     color: Exclude<Atoms['color'], undefined>;
   };
 };
 
 export type IconTheme = {
-  base: string;
+  root: string;
   variants: {
     size: IconSize;
   };
 };
 
 export type LabelTheme = {
-  base: string;
+  root: string;
   variants: {
     size: Size;
     required: boolean;
@@ -73,7 +73,7 @@ export type LabelTheme = {
 };
 
 export type LinkTheme = {
-  base: string;
+  root: string;
   variants: {
     variant: LinkVariant;
     underline: boolean;
@@ -81,11 +81,11 @@ export type LinkTheme = {
 };
 
 export type PopoverTheme = {
-  base: string;
+  root: string;
 };
 
 export type ProgressTheme = {
-  base: string;
+  root: string;
   bar: string;
   variants: {
     indeterminate: boolean;
@@ -93,13 +93,13 @@ export type ProgressTheme = {
 };
 
 export type RadioTheme = {
-  base: string;
+  root: string;
   icon: string;
   label: string;
 };
 
 export type SelectTheme = {
-  base?: string;
+  root?: string;
   select: string;
   icon: string;
   variants: {
@@ -108,7 +108,7 @@ export type SelectTheme = {
 };
 
 export type SliderTheme = {
-  base: string;
+  root: string;
   track: string;
   filledTrack: string;
   thumb: string;
@@ -120,7 +120,7 @@ export type SliderTheme = {
 };
 
 export type SpinnerTheme = {
-  base: string;
+  root: string;
   variants: {
     size: Size;
     color: Exclude<Atoms['color'], undefined>;
@@ -128,17 +128,17 @@ export type SpinnerTheme = {
 };
 
 export type SwitchTheme = {
-  base: string;
+  root: string;
   thumb: string;
 };
 
 export type TextareaTheme = {
-  base: string;
+  root: string;
   input: string;
 };
 
 export type TextInputTheme = {
-  base: string;
+  root: string;
   input: string;
   variants: {
     variant: InputVariant;
@@ -146,14 +146,14 @@ export type TextInputTheme = {
 };
 
 export type ToastTheme = {
-  base: string;
+  root: string;
   variants: {
     intent: ToastIntent;
   };
 };
 
 export type TooltipTheme = {
-  base: string;
+  root: string;
   variants: {
     colorScheme: ColorScheme;
   };

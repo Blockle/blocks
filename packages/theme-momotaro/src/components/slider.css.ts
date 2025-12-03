@@ -16,7 +16,7 @@ const thumbActive = createVar();
 export const slider: ThemeComponentsStyles['slider'] = makeComponentTheme(
   'slider',
   {
-    base: style({
+    root: style({
       blockSize: '20px',
     }),
     track: style([

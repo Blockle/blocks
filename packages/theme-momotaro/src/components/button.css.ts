@@ -15,7 +15,7 @@ const hoverBackgroundColor = createVar();
 export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
   'button',
   {
-    base: style([
+    root: style([
       atoms({
         display: 'inline-flex',
         placeItems: 'center',

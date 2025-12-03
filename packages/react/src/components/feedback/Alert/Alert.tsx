@@ -28,7 +28,7 @@ export const Alert: React.FC<AlertProps> = ({
   ...restProps
 }) => {
   const containerClassName = useComponentStyles('alert', {
-    base: true,
+    root: true,
     variants: { intent },
   });
 
