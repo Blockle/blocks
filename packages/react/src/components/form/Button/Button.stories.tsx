@@ -20,6 +20,7 @@ export const Primary: Story = {
   args: {
     children: 'Button',
     onClick: action('button-clicked'),
+    startSlot: '🚀',
   },
 };
 

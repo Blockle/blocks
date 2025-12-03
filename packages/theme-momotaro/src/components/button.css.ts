@@ -84,10 +84,24 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
         ]),
       },
       intent: {
-        neutral: style({
+        primary: style({
           vars: {
             [intentColor]: vars.color['primary-600'],
             [hoverBackgroundColor]: vars.color['primary-100'],
+          },
+        }),
+        secondary: style({
+          vars: {
+            [intentColor]: vars.color['secondary-600'],
+            [hoverBackgroundColor]: vars.color['secondary-100'],
+            [focusRingColor]: vars.color['secondary-300'],
+          },
+        }),
+        success: style({
+          vars: {
+            [intentColor]: vars.color['success-600'],
+            [hoverBackgroundColor]: vars.color['success-100'],
+            [focusRingColor]: vars.color['success-300'],
           },
         }),
         danger: style({
@@ -103,7 +117,7 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
       {
         variants: {
           variant: 'solid',
-          intent: 'neutral',
+          intent: 'primary',
         },
         style: style({
           vars: {
@@ -126,7 +140,7 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
     defaultVariants: {
       size: 'medium',
       variant: 'solid',
-      intent: 'neutral',
+      intent: 'primary',
     },
   },
 );

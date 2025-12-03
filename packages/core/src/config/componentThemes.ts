@@ -16,7 +16,7 @@ export type ButtonTheme = {
   base: string;
   variants: {
     variant: 'solid' | 'outline' | 'ghost';
-    intent: 'neutral' | 'danger';
+    intent: 'primary' | 'secondary' | 'danger' | 'success';
     size: 'small' | 'medium' | 'large';
     loading: boolean;
     disabled: boolean;
