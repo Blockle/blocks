@@ -1,5 +1,14 @@
 # @blockle/blocks
 
+## 2.3.3
+
+### Patch Changes
+
+- 03182b7: Renamed base → root across all component themes for consistency
+  Updated typography tokens: primary → heading, secondary → mono
+  Converted shadow values from semantic (small, medium, large) to numeric scale (1-5)
+  Enhanced button variants: added secondary and success options
+
 ## 2.3.2
 
 ### Patch Changes
