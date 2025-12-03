@@ -49,7 +49,7 @@ export type DividerTheme = {
 export type IconTheme = {
   base: string;
   variants: {
-    size: 'small' | 'medium' | 'large';
+    size: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
   };
 };
 
@@ -118,7 +118,7 @@ export type SpinnerTheme = {
 
 export type SwitchTheme = {
   base: string;
-  slider: string; // Rename to thumb?
+  thumb: string;
 };
 
 export type TextareaTheme = {

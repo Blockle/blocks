@@ -29,7 +29,7 @@ export const testingTheme = makeTheme({
     select: { icon: '', select: '' },
     slider: { base: '', thumb: '', track: '', filledTrack: '' },
     spinner: { base: '' },
-    switch: { base: '', slider: '' },
+    switch: { base: '', thumb: '' },
     textarea: { container: '', input: '' },
     textInput: { container: '', input: '' },
     toast: { base: '' },
@@ -56,9 +56,11 @@ export const testingTheme = makeTheme({
       boxShadow: '0 0 0 3px rgba(66, 153, 225, 0.6)',
     },
     shadow: {
-      small: '0 1px 2px rgba(0, 0, 0, 0.05)',
-      medium: '0 4px 6px rgba(0, 0, 0, 0.1)',
-      large: '0 10px 15px rgba(0, 0, 0, 0.15)',
+      1: '0 1px 2px rgba(0, 0, 0, 0.05)',
+      2: '0 4px 6px rgba(0, 0, 0, 0.1)',
+      3: '0 10px 15px rgba(0, 0, 0, 0.15)',
+      4: '0 16px 24px rgba(0, 0, 0, 0.08)',
+      5: '0 24px 32px rgba(0, 0, 0, 0.08)',
     },
     spacing: {
       1: '4px',
@@ -73,8 +75,8 @@ export const testingTheme = makeTheme({
     typography: {
       fontFamily: {
         body: 'Arial, sans-serif',
-        primary: 'Arial, sans-serif',
-        secondary: 'Georgia, serif',
+        heading: 'Arial, sans-serif',
+        mono: 'Georgia, serif',
       },
       fontSize: {
         xsmall: '12px',

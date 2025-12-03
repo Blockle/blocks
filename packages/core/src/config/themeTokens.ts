@@ -34,10 +34,9 @@ type Color = {
 export type ThemeTokens = {
   typography: {
     fontFamily: {
-      // Review naming
       body?: string;
-      primary?: string;
-      secondary?: string;
+      heading?: string;
+      mono?: string;
     };
     fontSize: Record<FontSize, number | string>;
     fontWeight: Record<FontWeight, 300 | 400 | 500 | 600 | 700 | 800>;
@@ -49,7 +48,7 @@ export type ThemeTokens = {
     radius: Record<BorderRadius, number | string>;
     width: Record<BorderWidth, number | string>;
   };
-  shadow: Record<BoxShadow, string>;
+  shadow: Record<1 | 2 | 3 | 4 | 5, string>;
   focus: {
     boxShadow: string;
   };

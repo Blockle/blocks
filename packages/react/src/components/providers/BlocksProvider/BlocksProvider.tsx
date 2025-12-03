@@ -38,7 +38,7 @@ export const BlocksProvider: React.FC<BlocksProviderProps> = ({
       <Template
         className={classnames(
           theme.vars,
-          atoms({ fontFamily: 'primary' }),
+          atoms({ fontFamily: 'body' }),
           className,
         )}
         {...restProps}

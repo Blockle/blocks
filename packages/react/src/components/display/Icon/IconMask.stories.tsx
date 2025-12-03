@@ -9,8 +9,11 @@ function getIconUrl(name: HeroIconName): string {
   return `/heroicons/outline/${name}.svg`;
 }
 
-// Create a HeroIcon component with the icon URL resolver
-const HeroIcon = createIconMask(getIconUrl);
+// Create a HeroIcon component with the `getIconUrl` URL resolver
+/**
+ * EXPORTED ONLY FOR DEMO PURPOSES
+ */
+export const HeroIcon = createIconMask(getIconUrl);
 
 export default {
   title: 'Display/IconMask',

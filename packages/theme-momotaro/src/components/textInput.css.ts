@@ -27,7 +27,7 @@ export const textInput: ThemeComponentsStyles['textInput'] = makeComponentTheme(
         paddingBlock: 2,
         backgroundColor: 'white',
         borderRadius: 2,
-        boxShadow: 'medium',
+        boxShadow: 2,
         // Space between `startSlot | children | endSlot`
         gap: 2,
       }),

@@ -43,7 +43,7 @@ export const textarea: ThemeComponentsStyles['textarea'] = makeComponentTheme(
         paddingBlock: 2,
         backgroundColor: 'white',
         borderRadius: 2,
-        boxShadow: 'medium',
+        boxShadow: 2,
       }),
       focusable,
     ]),

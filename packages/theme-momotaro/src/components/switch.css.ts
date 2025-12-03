@@ -43,7 +43,7 @@ export const switchTheme: ThemeComponentsStyles['switch'] = makeComponentTheme(
       },
       focusable,
     ]),
-    slider: style([
+    thumb: style([
       atoms({
         borderRadius: 'full',
       }),

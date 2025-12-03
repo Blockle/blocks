@@ -18,7 +18,7 @@ export const select: ThemeComponentsStyles['select'] = makeComponentTheme(
         paddingBlock: 1,
         backgroundColor: 'white',
         borderRadius: 2,
-        boxShadow: 'medium',
+        boxShadow: 2,
       }),
       {
         border: 'none',

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
+import { HeroIcon } from '../../display/Icon/IconMask.stories.js';
 import { Button } from './Button.js';
 
 const meta = {
@@ -14,13 +15,17 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   render: (props) => {
-    return <Button {...props} />;
+    return (
+      <Button
+        {...props}
+        startSlot={<HeroIcon name="academic-cap" size="small" />}
+      />
+    );
   },
 
   args: {
     children: 'Button',
     onClick: action('button-clicked'),
-    startSlot: '🚀',
   },
 };
 

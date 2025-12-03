@@ -1,5 +1,6 @@
 import {
   makeComponentTheme,
+  pixelsToRem,
   type ThemeComponentsStyles,
 } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
@@ -8,14 +9,20 @@ export const icon: ThemeComponentsStyles['icon'] = makeComponentTheme('icon', {
   base: '',
   variants: {
     size: {
+      xsmall: style({
+        minWidth: pixelsToRem(12),
+      }),
       small: style({
-        minWidth: '1rem',
+        minWidth: pixelsToRem(16),
       }),
       medium: style({
-        minWidth: '2rem',
+        minWidth: pixelsToRem(32),
       }),
       large: style({
-        minWidth: '3rem',
+        minWidth: pixelsToRem(48),
+      }),
+      xlarge: style({
+        minWidth: pixelsToRem(64),
       }),
     },
   },
