@@ -3,7 +3,7 @@ type Space = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 type Transition = 'slow' | 'normal' | 'fast';
 type BorderRadius = 1 | 2 | 3 | 4;
 type BorderWidth = 'thin' | 'thick';
-type BoxShadow = 'small' | 'medium' | 'large';
+type BoxShadow = 1 | 2 | 3 | 4 | 5;
 type FontSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 type LineHeight = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 
@@ -48,7 +48,7 @@ export type ThemeTokens = {
     radius: Record<BorderRadius, number | string>;
     width: Record<BorderWidth, number | string>;
   };
-  shadow: Record<1 | 2 | 3 | 4 | 5, string>;
+  shadow: Record<BoxShadow, string>;
   focus: {
     boxShadow: string;
   };
