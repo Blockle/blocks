@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
-import { Button } from './Button.js';
 import { HeroIcon } from '../../display/Icon/IconMask.stories.js';
+import { Button } from './Button.js';
 
 const meta = {
   title: 'Form/Button',
