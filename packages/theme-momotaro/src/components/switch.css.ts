@@ -13,7 +13,7 @@ const activeScaleFactor = createVar();
 export const switchTheme: ThemeComponentsStyles['switch'] = makeComponentTheme(
   'switch',
   {
-    base: style([
+    root: style([
       atoms({
         borderRadius: 4,
         backgroundColor: 'text-200',
@@ -43,7 +43,7 @@ export const switchTheme: ThemeComponentsStyles['switch'] = makeComponentTheme(
       },
       focusable,
     ]),
-    slider: style([
+    thumb: style([
       atoms({
         borderRadius: 'full',
       }),

@@ -1,30 +1,41 @@
 import type { Atoms } from '../atoms/atoms.js';
 import type { RecordLike } from '../utils/typing/helpers.js';
 
+// Shared variant type definitions
+type Intent = 'error' | 'info' | 'success' | 'warning';
+type AlertIntent = Intent;
+type ToastIntent = 'neutral' | Intent;
+type ButtonVariant = 'solid' | 'outline' | 'ghost';
+type InputVariant = 'solid' | 'outline';
+type LinkVariant = 'inherit' | 'primary' | 'secondary';
+type Size = 'small' | 'medium' | 'large';
+type IconSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
+type ColorScheme = 'primary' | 'secondary';
+
 /**
  * Theming options for components.
  */
 
 export type AlertTheme = {
-  base: string;
+  root: string;
   variants: {
-    intent: 'error' | 'info' | 'success' | 'warning';
+    intent: AlertIntent;
   };
 };
 
 export type ButtonTheme = {
-  base: string;
+  root: string;
   variants: {
-    variant: 'solid' | 'outline' | 'ghost';
-    intent: 'neutral' | 'danger';
-    size: 'small' | 'medium' | 'large';
+    variant: ButtonVariant;
+    intent: 'primary' | 'secondary' | 'danger' | 'success';
+    size: Size;
     loading: boolean;
     disabled: boolean;
   };
 };
 
 export type CheckboxTheme = {
-  base: string;
+  root: string;
   icon: string;
   label: string;
   variants: {
@@ -35,46 +46,46 @@ export type CheckboxTheme = {
 export type DialogTheme = {
   dialog: string;
   variants: {
-    size: 'small' | 'medium' | 'large';
+    size: Size;
   };
 };
 
 export type DividerTheme = {
-  base?: string;
+  root?: string;
   variants: {
     color: Exclude<Atoms['color'], undefined>;
   };
 };
 
 export type IconTheme = {
-  base: string;
+  root: string;
   variants: {
-    size: 'small' | 'medium' | 'large';
+    size: IconSize;
   };
 };
 
 export type LabelTheme = {
-  base: string;
+  root: string;
   variants: {
-    size: 'small' | 'medium' | 'large';
+    size: Size;
     required: boolean;
   };
 };
 
 export type LinkTheme = {
-  base: string;
+  root: string;
   variants: {
-    variant: 'inherit' | 'primary' | 'secondary';
+    variant: LinkVariant;
     underline: boolean;
   };
 };
 
 export type PopoverTheme = {
-  base: string;
+  root: string;
 };
 
 export type ProgressTheme = {
-  base: string;
+  root: string;
   bar: string;
   variants: {
     indeterminate: boolean;
@@ -82,69 +93,69 @@ export type ProgressTheme = {
 };
 
 export type RadioTheme = {
-  base: string;
+  root: string;
   icon: string;
   label: string;
 };
 
 export type SelectTheme = {
-  wrapper?: string;
+  root?: string;
   select: string;
   icon: string;
   variants: {
-    variant: 'solid' | 'outline';
+    variant: InputVariant;
   };
 };
 
 export type SliderTheme = {
-  base: string;
+  root: string;
   track: string;
   filledTrack: string;
   thumb: string;
   variants: {
-    size: 'small' | 'medium' | 'large';
-    colorScheme: 'primary' | 'secondary';
+    size: Size;
+    colorScheme: ColorScheme;
     disabled: boolean;
   };
 };
 
 export type SpinnerTheme = {
-  base: string;
+  root: string;
   variants: {
-    size: 'small' | 'medium' | 'large';
+    size: Size;
     color: Exclude<Atoms['color'], undefined>;
   };
 };
 
 export type SwitchTheme = {
-  base: string;
-  slider: string; // Rename to thumb?
+  root: string;
+  thumb: string;
 };
 
 export type TextareaTheme = {
-  container: string;
+  root: string;
   input: string;
 };
 
 export type TextInputTheme = {
-  container: string;
+  root: string;
   input: string;
   variants: {
-    variant: 'solid' | 'outline'; // TODO Review naming
+    variant: InputVariant;
   };
 };
 
 export type ToastTheme = {
-  base: string;
+  root: string;
   variants: {
-    intent: 'neutral' | 'error' | 'info' | 'success' | 'warning';
+    intent: ToastIntent;
   };
 };
 
 export type TooltipTheme = {
-  base: string;
+  root: string;
   variants: {
-    colorScheme: 'primary' | 'secondary';
+    colorScheme: ColorScheme;
   };
 };
 

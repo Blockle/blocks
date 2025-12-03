@@ -3,7 +3,7 @@ type Space = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 type Transition = 'slow' | 'normal' | 'fast';
 type BorderRadius = 1 | 2 | 3 | 4;
 type BorderWidth = 'thin' | 'thick';
-type BoxShadow = 'small' | 'medium' | 'large';
+type BoxShadow = 1 | 2 | 3 | 4 | 5;
 type FontSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 type LineHeight = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 
@@ -34,10 +34,9 @@ type Color = {
 export type ThemeTokens = {
   typography: {
     fontFamily: {
-      // Review naming
       body?: string;
-      primary?: string;
-      secondary?: string;
+      heading?: string;
+      mono?: string;
     };
     fontSize: Record<FontSize, number | string>;
     fontWeight: Record<FontWeight, 300 | 400 | 500 | 600 | 700 | 800>;

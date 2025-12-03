@@ -22,8 +22,8 @@ export const Switch: React.FC<SwitchProps> = ({
   const [isChecked, setIsChecked] = useState<boolean>(
     defaultChecked || checked || false,
   );
-  const baseClassName = useComponentStyles('switch', { base: true });
-  const sliderClassName = useComponentStyles('switch', { slider: true }, false);
+  const baseClassName = useComponentStyles('switch', { root: true });
+  const thumbClassName = useComponentStyles('switch', { thumb: true }, false);
 
   useEffect(() => {
     if (checked !== undefined) {
@@ -79,7 +79,7 @@ export const Switch: React.FC<SwitchProps> = ({
           onChange={onChangeHandler}
           {...restProps}
         />
-        <div className={sliderClassName} data-checked={isChecked} />
+        <div className={thumbClassName} data-checked={isChecked} />
       </div>
     </>
   );

@@ -29,7 +29,7 @@ export const Default: StoryObj<HeadingProps> = {
   args: {
     children:
       'Lorem Ipsum is simply dummy Heading of the printing and typesetting industry.',
-    fontFamily: 'primary',
+    fontFamily: 'heading',
     level: 1,
   },
 };

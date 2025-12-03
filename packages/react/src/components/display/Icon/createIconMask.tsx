@@ -7,7 +7,9 @@ type CreateIconMaskProps<TName extends string> = Omit<IconMaskProps, 'src'> & {
 export const createIconMask = <TName extends string>(
   getIconUrl: (name: TName) => string,
 ) => {
-  return ({ name, ...props }: CreateIconMaskProps<TName>) => {
+  const CustomIconMask = ({ name, ...props }: CreateIconMaskProps<TName>) => {
     return <IconMask {...props} src={getIconUrl(name)} />;
   };
+
+  return CustomIconMask;
 };

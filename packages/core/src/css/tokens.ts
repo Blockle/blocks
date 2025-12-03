@@ -14,11 +14,12 @@ const colorPalette = {
 } as const;
 
 export const tokens: DeepNullable<ThemeTokens> = {
+  // mode: 'light', ??
   typography: {
     fontFamily: {
       body: null,
-      primary: null,
-      secondary: null,
+      heading: null,
+      mono: null,
     },
     fontSize: {
       xsmall: null,
@@ -70,9 +71,11 @@ export const tokens: DeepNullable<ThemeTokens> = {
     },
   },
   shadow: {
-    small: null,
-    medium: null,
-    large: null,
+    1: null,
+    2: null,
+    3: null,
+    4: null,
+    5: null,
   },
   focus: {
     boxShadow: null,

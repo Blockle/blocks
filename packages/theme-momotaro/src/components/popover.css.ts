@@ -8,11 +8,11 @@ import { style } from '@vanilla-extract/css';
 export const popover: ThemeComponentsStyles['popover'] = makeComponentTheme(
   'popover',
   {
-    base: style([
+    root: style([
       atoms({
         backgroundColor: 'white',
         borderRadius: 1,
-        boxShadow: 'medium',
+        boxShadow: 2,
         padding: 2,
         margin: 1, // Space between the popover and the anchor element
       }),

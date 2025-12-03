@@ -27,7 +27,7 @@ export const textarea: ThemeComponentsStyles['textarea'] = makeComponentTheme(
         ':disabled': {},
       },
     ]),
-    container: style([
+    root: style([
       {
         overflow: 'auto',
         minHeight: 96,
@@ -43,7 +43,7 @@ export const textarea: ThemeComponentsStyles['textarea'] = makeComponentTheme(
         paddingBlock: 2,
         backgroundColor: 'white',
         borderRadius: 2,
-        boxShadow: 'medium',
+        boxShadow: 2,
       }),
       focusable,
     ]),

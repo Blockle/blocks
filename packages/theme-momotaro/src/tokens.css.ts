@@ -106,9 +106,11 @@ export const tokens: ThemeTokens = {
     },
   },
   shadow: {
-    small: '0px 4px 8px rgba(0, 0, 0, 0.08)',
-    medium: '0px 8px 16px rgba(0, 0, 0, 0.08)',
-    large: '0px 16px 24px rgba(0, 0, 0, 0.08)',
+    1: '0px 4px 8px rgba(0, 0, 0, 0.08)',
+    2: '0px 8px 16px rgba(0, 0, 0, 0.08)',
+    3: '0px 16px 24px rgba(0, 0, 0, 0.08)',
+    4: '0px 24px 32px rgba(0, 0, 0, 0.08)',
+    5: '0px 32px 40px rgba(0, 0, 0, 0.08)',
   },
   focus: {
     boxShadow: '0 0 1px 2px #7FE3F0',
@@ -131,8 +133,8 @@ export const tokens: ThemeTokens = {
   typography: {
     fontFamily: {
       body: '"Rubik", sans-serif',
-      primary: '"Rubik", sans-serif',
-      secondary: '"Rubik", sans-serif',
+      heading: '"Rubik", sans-serif',
+      mono: '"Rubik", monospace',
     },
     fontSize: {
       xsmall: pixelsToRem(12),

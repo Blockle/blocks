@@ -34,7 +34,7 @@ export const Progress: React.FC<ProgressProps> = ({
   const containerClassName = useComponentStyles(
     'progress',
     {
-      base: true,
+      root: true,
     },
     false,
   );

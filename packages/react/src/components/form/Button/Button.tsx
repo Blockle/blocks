@@ -14,6 +14,7 @@ import type React from 'react';
 
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { Spinner } from '../../feedback/Spinner/Spinner.js';
+import { Box } from '../../layout/Box/Box.js';
 import * as styles from './Button.css.js';
 
 type ButtonTheme = ComponentThemes['button'];
@@ -54,7 +55,7 @@ export const Button: React.FC<ButtonProps> = ({
   ...restProps
 }) => {
   const buttonClassName = useComponentStyles('button', {
-    base: true,
+    root: true,
     variants: {
       variant,
       intent,
@@ -89,10 +90,10 @@ export const Button: React.FC<ButtonProps> = ({
       type={asChild ? undefined : (type ?? 'button')}
       {...otherProps}
     >
-      {startSlot && <div>{startSlot}</div>}
+      {startSlot && <Box display="inline-flex">{startSlot}</Box>}
       {loading && <Spinner size={size} />}
       <Slot>{children}</Slot>
-      {endSlot && <div>{endSlot}</div>}
+      {endSlot && <Box display="inline-flex">{endSlot}</Box>}
     </Template>
   );
 };

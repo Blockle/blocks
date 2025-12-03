@@ -62,7 +62,7 @@ export const Slider: React.FC<SliderProps> = ({
   ...restProps
 }) => {
   const baseClass = useComponentStyles('slider', {
-    base: true,
+    root: true,
     variants: { size, colorScheme, disabled },
   });
   const trackClass = useComponentStyles('slider', { track: true }, false);

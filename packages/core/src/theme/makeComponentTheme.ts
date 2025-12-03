@@ -2,7 +2,7 @@
  * Helper generic to convert a component theme to a styles object
  *
  * export type ThemeIn = {
- *  base: string;
+ *  root: string;
  *  variants: {
  *    intent: 'neutral' | 'danger';
  *    level?: 1 | 2;
@@ -10,7 +10,7 @@
  *  };
  * };
  * export type ThemeOut = {
- *  base: string;
+ *  root: string;
  *  variants: {
  *    intent: Record<'neutral' | 'danger', string>;
  *    level?: Record<1 | 2, string>;

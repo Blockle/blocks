@@ -8,7 +8,7 @@ import { style } from '@vanilla-extract/css';
 export const tooltip: ThemeComponentsStyles['tooltip'] = makeComponentTheme(
   'tooltip',
   {
-    base: atoms({
+    root: atoms({
       padding: 1,
     }),
     variants: {

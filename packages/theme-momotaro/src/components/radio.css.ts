@@ -12,7 +12,7 @@ import { bounceOut } from './transitions.js';
 export const radio: ThemeComponentsStyles['radio'] = makeComponentTheme(
   'radio',
   {
-    base: style([
+    root: style([
       {
         display: 'flex',
         alignItems: 'center',

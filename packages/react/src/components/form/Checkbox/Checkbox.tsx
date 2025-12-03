@@ -26,7 +26,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
 }) => {
   const containerClassName = useComponentStyles(
     'checkbox',
-    { base: true },
+    { root: true },
     false,
   );
   const iconClassName = useComponentStyles('checkbox', { icon: true }, false);

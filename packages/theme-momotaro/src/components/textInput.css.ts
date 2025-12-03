@@ -11,7 +11,7 @@ import { focusable } from './helpers.css.js';
 export const textInput: ThemeComponentsStyles['textInput'] = makeComponentTheme(
   'textInput',
   {
-    container: style([
+    root: style([
       {
         minHeight: 40,
         backgroundColor: 'white',
@@ -27,7 +27,7 @@ export const textInput: ThemeComponentsStyles['textInput'] = makeComponentTheme(
         paddingBlock: 2,
         backgroundColor: 'white',
         borderRadius: 2,
-        boxShadow: 'medium',
+        boxShadow: 2,
         // Space between `startSlot | children | endSlot`
         gap: 2,
       }),

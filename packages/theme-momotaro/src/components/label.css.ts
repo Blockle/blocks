@@ -8,7 +8,7 @@ import { style } from '@vanilla-extract/css';
 export const label: ThemeComponentsStyles['label'] = makeComponentTheme(
   'label',
   {
-    base: style({}),
+    root: style({}),
     variants: {
       size: {
         small: style({

@@ -6,7 +6,7 @@ import {
 } from '@blockle/blocks-core';
 import { createVar, style } from '@vanilla-extract/css';
 
-import { clickable, focusRingColor } from './helpers.css.js';
+import { clickable } from './helpers.css.js';
 
 // Use css vars to share colors between variants
 const intentColor = createVar();
@@ -15,7 +15,7 @@ const hoverBackgroundColor = createVar();
 export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
   'button',
   {
-    base: style([
+    root: style([
       atoms({
         display: 'inline-flex',
         placeItems: 'center',
@@ -84,17 +84,28 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
         ]),
       },
       intent: {
-        neutral: style({
+        primary: style({
           vars: {
             [intentColor]: vars.color['primary-600'],
             [hoverBackgroundColor]: vars.color['primary-100'],
+          },
+        }),
+        secondary: style({
+          vars: {
+            [intentColor]: vars.color['secondary-600'],
+            [hoverBackgroundColor]: vars.color['secondary-100'],
+          },
+        }),
+        success: style({
+          vars: {
+            [intentColor]: vars.color['success-600'],
+            [hoverBackgroundColor]: vars.color['success-100'],
           },
         }),
         danger: style({
           vars: {
             [intentColor]: vars.color['danger-700'],
             [hoverBackgroundColor]: vars.color['danger-200'],
-            [focusRingColor]: vars.color['danger-300'],
           },
         }),
       },
@@ -103,7 +114,7 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
       {
         variants: {
           variant: 'solid',
-          intent: 'neutral',
+          intent: 'primary',
         },
         style: style({
           vars: {
@@ -126,7 +137,7 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
     defaultVariants: {
       size: 'medium',
       variant: 'solid',
-      intent: 'neutral',
+      intent: 'primary',
     },
   },
 );

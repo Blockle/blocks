@@ -45,7 +45,7 @@ export const Popover: React.FC<PopoverProps> = ({
   const [popoverPosition, setPopoverPosition] = useState({ x: 0, y: 0 });
   const [visible, setVisible] = useState(open);
 
-  const popoverClassName = useComponentStyles('popover', { base: true }, false);
+  const popoverClassName = useComponentStyles('popover', { root: true }, false);
 
   // On Escape key press, close the popover
   useKeyboard('Escape', onRequestClose, { enabled: open });

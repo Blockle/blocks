@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
+import { HeroIcon } from '../../display/Icon/IconMask.stories.js';
 import { Button } from './Button.js';
 
 const meta = {
@@ -39,21 +40,14 @@ export const LinkButton: Story = {
   },
 };
 
-// export const WithIcon: StoryObj<ButtonProps> = {
-//   render: (props) => {
-//     return (
-//       <Stack gap="medium">
-//         <Button startSlot={<Icon icon="star" />} {...props} />
-//         <Button endSlot={<Icon icon="star" />} {...props} />
-//         <Button startSlot={<Icon icon="star" />} endSlot={<Icon icon="star" />} {...props} />
-//       </Stack>
-//     );
-//   },
+export const Icons: Story = {
+  render: (props) => {
+    return <Button {...props} />;
+  },
 
-//   args: {
-//     children: 'Button',
-//     onClick: jest.fn(() => {
-//       console.log('Button clicked');
-//     }),
-//   },
-// };
+  args: {
+    children: 'Button with icons',
+    startSlot: <HeroIcon name="academic-cap" size="small" />,
+    endSlot: <HeroIcon name="arrow-right" size="small" />,
+  },
+};

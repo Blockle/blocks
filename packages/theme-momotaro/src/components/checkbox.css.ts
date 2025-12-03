@@ -12,7 +12,7 @@ import { bounceOut } from './transitions.js';
 export const checkbox: ThemeComponentsStyles['checkbox'] = makeComponentTheme(
   'checkbox',
   {
-    base: style([
+    root: style([
       {
         display: 'flex',
         alignItems: 'center',

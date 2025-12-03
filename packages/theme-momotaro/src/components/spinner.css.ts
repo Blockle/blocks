@@ -16,7 +16,7 @@ const spinAnimation = keyframes({
 export const spinner: ThemeComponentsStyles['spinner'] = makeComponentTheme(
   'spinner',
   {
-    base: style({
+    root: style({
       aspectRatio: '1 / 1',
       overflow: 'hidden',
       borderRadius: '50%',

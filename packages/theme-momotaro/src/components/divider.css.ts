@@ -7,7 +7,7 @@ import { style } from '@vanilla-extract/css';
 export const divider: ThemeComponentsStyles['divider'] = makeComponentTheme(
   'divider',
   {
-    base: style({
+    root: style({
       blockSize: 1,
     }),
     defaultVariants: {
