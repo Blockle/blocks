@@ -27,7 +27,7 @@ export type ButtonTheme = {
   root: string;
   variants: {
     variant: ButtonVariant;
-    intent: 'primary' | 'secondary' | 'danger' | 'success';
+    intent: 'neutral' | 'primary' | 'secondary' | 'danger' | 'success';
     size: Size;
     loading: boolean;
     disabled: boolean;

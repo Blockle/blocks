@@ -21,14 +21,15 @@ type ColorPalette =
 type Color = {
   white: string;
   black: string;
+  background: Record<ColorPalette, string>;
+  danger: Record<ColorPalette, string>;
+  info: Record<ColorPalette, string>;
+  neutral: Record<ColorPalette, string>;
   primary: Record<ColorPalette, string>;
   secondary: Record<ColorPalette, string>;
   success: Record<ColorPalette, string>;
-  warning: Record<ColorPalette, string>;
-  danger: Record<ColorPalette, string>;
-  info: Record<ColorPalette, string>;
   text: Record<ColorPalette, string>;
-  background: Record<ColorPalette, string>;
+  warning: Record<ColorPalette, string>;
 };
 
 export type ThemeTokens = {

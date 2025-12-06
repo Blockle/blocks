@@ -104,6 +104,17 @@ export const tokens: ThemeTokens = {
       800: '#1A1A1A',
       900: '#0D0D0D',
     },
+    neutral: {
+      100: '#F7F7F7',
+      200: '#E1E1E1',
+      300: '#CFCFCF',
+      400: '#B1B1B1',
+      500: '#9E9E9E',
+      600: '#7E7E7E',
+      700: '#5E5E5E',
+      800: '#3C3C3C',
+      900: '#1A1A1A',
+    },
   },
   shadow: {
     1: '0px 4px 8px rgba(0, 0, 0, 0.08)',
