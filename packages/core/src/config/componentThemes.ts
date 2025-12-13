@@ -57,6 +57,13 @@ export type DividerTheme = {
   };
 };
 
+export type DrawerTheme = {
+  root?: string;
+  variants: {
+    placement: 'left' | 'right' | 'top' | 'bottom';
+  };
+};
+
 export type IconTheme = {
   root: string;
   variants: {
@@ -165,6 +172,7 @@ export type ComponentThemes = {
   checkbox: CheckboxTheme;
   dialog: DialogTheme;
   divider: DividerTheme;
+  drawer: DrawerTheme;
   icon: IconTheme;
   label: LabelTheme;
   link: LinkTheme;

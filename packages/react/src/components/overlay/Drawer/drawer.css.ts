@@ -8,10 +8,11 @@ export const drawer = style({
       border: 'none',
       margin: 0,
       // unset default dialog styles
-      maxHeight: 'unset',
-      maxWidth: 'unset',
+      maxHeight: '100%',
+      maxWidth: '100%',
       left: 'unset',
       top: 'unset',
+      overflow: 'auto',
       '::backdrop': {
         // Remove pointer event to prevent clicks on the backdrop
         // and make it easier to check if the click was outside the dialog

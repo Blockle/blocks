@@ -6,6 +6,7 @@ import {
 import { useCallback, useRef, useState } from 'react';
 
 import { useClickOutside } from '../../../hooks/useClickOutside/useClickOutside.js';
+import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { useIsomorphicLayoutEffect } from '../../../hooks/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js';
 import { useKeyboard } from '../../../hooks/useKeyboard/useKeyboard.js';
 import { usePreventBodyScroll } from '../../../hooks/usePreventBodyScroll/usePreventBodyScroll.js';
@@ -27,6 +28,11 @@ export const Drawer: React.FC<DrawerProps> = ({
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [visible, setVisible] = useState(open);
+
+  const rootClassName = useComponentStyles('drawer', {
+    root: true,
+    variants: { placement },
+  });
 
   // SSR: If the dialog is open on the server, we need to render it with the open attribute
   const dataOpen = typeof window === 'undefined' && open ? true : undefined;
@@ -88,7 +94,11 @@ export const Drawer: React.FC<DrawerProps> = ({
     <dialog
       ref={dialogRef}
       open={dataOpen}
-      className={classnames(styles.drawer, styles.placement[placement])}
+      className={classnames(
+        styles.drawer,
+        styles.placement[placement],
+        rootClassName,
+      )}
       onAnimationEnd={onAnimationEnd}
       onTransitionEnd={onAnimationEnd}
       {...restProps}
