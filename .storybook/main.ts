@@ -36,7 +36,7 @@ const config: StorybookConfig = {
     disableWhatsNewNotifications: true,
   },
 
-  addons: ['@storybook/addon-a11y', '@storybook/addon-docs'],
+  addons: [getAbsolutePath("@storybook/addon-a11y"), getAbsolutePath("@storybook/addon-docs")],
 };
 export default config;
 
