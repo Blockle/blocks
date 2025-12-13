@@ -58,7 +58,7 @@ export const Drawer: React.FC<DrawerProps> = ({
   useKeyboard('Escape', onEscape, { enabled: open });
 
   useIsomorphicLayoutEffect(() => {
-    // Using an addional state to control the visibility of the dialog
+    // Using an additional state to control the visibility of the dialog
     if (open && visible) {
       if (!dialogRef.current || !dialogRef.current.showModal) {
         return;
