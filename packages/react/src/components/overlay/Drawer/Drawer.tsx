@@ -37,7 +37,7 @@ export const Drawer: React.FC<DrawerProps> = ({
   // SSR: If the dialog is open on the server, we need to render it with the open attribute
   const dataOpen = typeof window === 'undefined' && open ? true : undefined;
 
-  // Diable hook for nested dialogs, top level dialog already handles this
+  // Disable hook for nested dialogs, top level dialog already handles this
   usePreventBodyScroll(open);
 
   // Close the dialog when clicking outside of it
