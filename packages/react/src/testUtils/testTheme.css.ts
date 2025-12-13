@@ -51,6 +51,7 @@ export const testingTheme = makeTheme({
       info: colorPalette,
       text: colorPalette,
       background: colorPalette,
+      neutral: colorPalette,
     },
     focus: {
       boxShadow: '0 0 0 3px rgba(66, 153, 225, 0.6)',

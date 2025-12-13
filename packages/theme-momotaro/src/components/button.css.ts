@@ -84,6 +84,12 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
         ]),
       },
       intent: {
+        neutral: style({
+          vars: {
+            [intentColor]: vars.color['neutral-800'],
+            [hoverBackgroundColor]: vars.color['neutral-200'],
+          },
+        }),
         primary: style({
           vars: {
             [intentColor]: vars.color['primary-600'],

@@ -75,6 +75,10 @@ export {
   type DialogProps,
 } from './components/overlay/Dialog/Dialog.js';
 export {
+  Drawer,
+  type DrawerProps,
+} from './components/overlay/Drawer/Drawer.js';
+export {
   Popover,
   type PopoverProps,
 } from './components/overlay/Popover/Popover.js';

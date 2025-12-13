@@ -91,5 +91,6 @@ export const tokens: DeepNullable<ThemeTokens> = {
     info: colorPalette,
     background: colorPalette,
     text: colorPalette,
+    neutral: colorPalette,
   },
 };

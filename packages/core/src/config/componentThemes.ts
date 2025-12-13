@@ -27,7 +27,7 @@ export type ButtonTheme = {
   root: string;
   variants: {
     variant: ButtonVariant;
-    intent: 'primary' | 'secondary' | 'danger' | 'success';
+    intent: 'neutral' | 'primary' | 'secondary' | 'danger' | 'success';
     size: Size;
     loading: boolean;
     disabled: boolean;
@@ -54,6 +54,13 @@ export type DividerTheme = {
   root?: string;
   variants: {
     color: Exclude<Atoms['color'], undefined>;
+  };
+};
+
+export type DrawerTheme = {
+  root?: string;
+  variants: {
+    placement: 'left' | 'right' | 'top' | 'bottom';
   };
 };
 
@@ -165,6 +172,7 @@ export type ComponentThemes = {
   checkbox: CheckboxTheme;
   dialog: DialogTheme;
   divider: DividerTheme;
+  drawer: DrawerTheme;
   icon: IconTheme;
   label: LabelTheme;
   link: LinkTheme;
