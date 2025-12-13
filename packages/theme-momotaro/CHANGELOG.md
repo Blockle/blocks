@@ -1,5 +1,11 @@
 # @blockle/blocks-theme-momotaro
 
+## 6.2.3
+
+### Patch Changes
+
+- 8c094b8: Drawer prototype
+
 ## 6.2.2
 
 ### Patch Changes

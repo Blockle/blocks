@@ -1,5 +1,11 @@
 # @blockle/blocks-react
 
+## 2.4.3
+
+### Patch Changes
+
+- 8c094b8: Drawer prototype
+
 ## 2.4.2
 
 ### Patch Changes
