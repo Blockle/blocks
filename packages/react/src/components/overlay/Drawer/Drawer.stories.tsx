@@ -8,11 +8,11 @@ export default {
   title: 'Overlay/Drawer',
   component: Drawer,
   argTypes: {
-    variant: {
+    placement: {
       control: 'radio',
-      options: ['primary', 'secondary', 'inherit'],
+      options: ['left', 'right', 'top', 'bottom'],
     },
-    underline: {
+    open: {
       control: 'boolean',
     },
   },
