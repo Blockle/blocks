@@ -1,5 +1,11 @@
 # @blockle/blocks-react-slot
 
+## 1.1.2
+
+### Patch Changes
+
+- 8c094b8: Drawer prototype
+
 ## 1.1.1
 
 ### Patch Changes

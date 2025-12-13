@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 2.3.4
+
+### Patch Changes
+
+- 8c094b8: Drawer prototype
+
 ## 2.3.3
 
 ### Patch Changes

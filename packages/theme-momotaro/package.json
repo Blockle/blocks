@@ -1,6 +1,6 @@
 {
   "name": "@blockle/blocks-theme-momotaro",
-  "version": "6.2.2",
+  "version": "6.2.3",
   "description": "Momotaro theme for Blocks",
   "type": "module",
   "sideEffects": false,
