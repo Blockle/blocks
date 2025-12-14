@@ -1,2 +1,1 @@
-# @blockle/theme
-
+# @blockle/blocks-core
