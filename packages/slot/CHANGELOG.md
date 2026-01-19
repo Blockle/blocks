@@ -1,5 +1,11 @@
 # @blockle/blocks-react-slot
 
+## 1.1.3
+
+### Patch Changes
+
+- ccb1694: Test release
+
 ## 1.1.2
 
 ### Patch Changes

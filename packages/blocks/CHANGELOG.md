@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 2.3.5
+
+### Patch Changes
+
+- ccb1694: Test release
+
 ## 2.3.4
 
 ### Patch Changes

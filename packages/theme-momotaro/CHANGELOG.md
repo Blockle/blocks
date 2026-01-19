@@ -1,5 +1,11 @@
 # @blockle/blocks-theme-momotaro
 
+## 6.2.4
+
+### Patch Changes
+
+- ccb1694: Test release
+
 ## 6.2.3
 
 ### Patch Changes
