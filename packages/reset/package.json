@@ -40,5 +40,9 @@
   },
   "peerDependencies": {
     "@blockle/blocks-core": ">=1.2.x"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }
