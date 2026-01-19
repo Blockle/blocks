@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 2.3.6
+
+### Patch Changes
+
+- 3628152: Publish test
+
 ## 2.3.5
 
 ### Patch Changes
