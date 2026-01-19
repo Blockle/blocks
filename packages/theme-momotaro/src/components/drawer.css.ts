@@ -19,7 +19,6 @@ export const drawer: ThemeComponentsStyles['drawer'] = makeComponentTheme(
           '&[open]': {
             transform: 'translate(0, 0)',
             opacity: 1,
-            // @ts-expect-error - typings does not support @starting-style (yet)
             '@starting-style': {
               transform: startingTransform,
               opacity: 0,

@@ -22,7 +22,6 @@ export const popover: ThemeComponentsStyles['popover'] = makeComponentTheme(
           '&:popover-open': {
             transform: 'translateY(0) scale(1)',
             opacity: 1,
-            // @ts-expect-error - Vanilla Extract does not support @starting-style (yet)
             '@starting-style': {
               transform: 'translateY(12px) scale(0.8)',
               opacity: 0,
