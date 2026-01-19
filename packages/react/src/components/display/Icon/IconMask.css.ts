@@ -1,8 +1,13 @@
+import { layers } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 
 export const iconMask = style({
-  aspectRatio: '1 / 1',
-  maskSize: '100%',
-  display: 'inline-block',
-  backgroundColor: 'currentcolor',
+  '@layer': {
+    [layers.molecule]: {
+      aspectRatio: '1 / 1',
+      maskSize: '100%',
+      display: 'inline-block',
+      backgroundColor: 'currentcolor',
+    },
+  },
 });

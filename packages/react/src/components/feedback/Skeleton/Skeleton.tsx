@@ -4,6 +4,7 @@ import { Box } from '../../layout/Box/Box.js';
 import * as styles from './Skeleton.css.js';
 
 export type SkeletonProps = {
+  ref?: React.Ref<HTMLDivElement>;
   height?: string | number;
   circle?: boolean;
   className?: string;
@@ -12,6 +13,7 @@ export type SkeletonProps = {
 };
 
 export const Skeleton: React.FC<SkeletonProps> = ({
+  ref,
   height,
   circle = false,
   className,
@@ -20,6 +22,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({
 }) => {
   return (
     <Box
+      ref={ref}
       className={classnames(styles.skeleton, className)}
       borderRadius={circle ? 'full' : borderRadius}
       backgroundColor={backgroundColor}

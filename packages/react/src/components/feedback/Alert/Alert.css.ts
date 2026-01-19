@@ -3,7 +3,7 @@ import { style } from '@vanilla-extract/css';
 
 export const closeButton = style({
   '@layer': {
-    [layers.organism]: {
+    [layers.molecule]: {
       color: 'currentColor',
     },
   },
