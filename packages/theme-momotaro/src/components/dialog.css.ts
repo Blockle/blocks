@@ -28,7 +28,6 @@ export const dialog: ThemeComponentsStyles['dialog'] = makeComponentTheme(
           '&[open]': {
             transform: 'translate(0, 0)',
             opacity: 1,
-            // @ts-expect-error - typings does not support @starting-style (yet)
             '@starting-style': {
               transform: 'translate(0, -120px) scale(0.95)',
               opacity: 0,
