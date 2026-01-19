@@ -1,5 +1,11 @@
 # @blockle/blocks-react
 
+## 2.4.6
+
+### Patch Changes
+
+- f7a6061: CSS specificity improvements
+
 ## 2.4.5
 
 ### Patch Changes
