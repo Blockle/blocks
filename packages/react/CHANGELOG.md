@@ -1,5 +1,11 @@
 # @blockle/blocks-react
 
+## 2.4.4
+
+### Patch Changes
+
+- ccb1694: Test release
+
 ## 2.4.3
 
 ### Patch Changes

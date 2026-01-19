@@ -1,5 +1,11 @@
 # @blockle/blocks-reset
 
+## 0.24.1
+
+### Patch Changes
+
+- ccb1694: Test release
+
 ## 0.24.0
 
 ### Minor Changes

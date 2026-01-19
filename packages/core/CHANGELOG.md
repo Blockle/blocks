@@ -1,5 +1,11 @@
 # @blockle/blocks-core
 
+## 1.2.4
+
+### Patch Changes
+
+- ccb1694: Test release
+
 ## 1.2.3
 
 ### Patch Changes
