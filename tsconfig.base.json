@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "outDir": "./dist",
-    "esModuleInterop": true,
+    "esModuleInterop": false,
     "skipLibCheck": true,
     "target": "esnext",
     "allowJs": false,
@@ -21,7 +21,7 @@
     "composite": true,
     "jsx": "react-jsx",
     "lib": ["es2022", "dom", "dom.iterable"],
-    "types": ["@testing-library/jest-dom", "vite/client"]
+    "types": ["@testing-library/jest-dom"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
