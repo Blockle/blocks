@@ -1,5 +1,11 @@
 # @blockle/blocks-react
 
+## 2.4.5
+
+### Patch Changes
+
+- 6129679: Peer dependency correction
+
 ## 2.4.4
 
 ### Patch Changes
