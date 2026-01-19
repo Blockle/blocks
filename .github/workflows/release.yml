@@ -26,6 +26,8 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_READ_TOKEN }}
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
