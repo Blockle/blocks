@@ -1,5 +1,11 @@
 # @blockle/blocks-core
 
+## 1.2.5
+
+### Patch Changes
+
+- f7a6061: CSS specificity improvements
+
 ## 1.2.4
 
 ### Patch Changes
