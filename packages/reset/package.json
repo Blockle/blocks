@@ -27,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/Blockle/blocks.git"
+    "url": "git+https://github.com/Blockle/blocks.git"
   },
   "author": "Niek Saarberg <n.saarberg@gmail.com>",
   "license": "MIT",
