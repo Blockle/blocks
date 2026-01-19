@@ -4,6 +4,12 @@ import { glob } from 'glob';
 
 import { readFileSync, writeFileSync } from 'node:fs';
 
+// Define external peer dependencies and their desired version ranges
+const externalPeerDeps = new Map([
+  ['react', '>=19.1.0'],
+  ['react-dom', '>=19.1.0'],
+]);
+
 /**
  * Automatically updates peerDependencies in all packages to match current versions
  */
@@ -45,6 +51,17 @@ async function updatePeerDependencies() {
           const currentVersion = packages.get(depName);
           const [majorVersion, minorVersion] = currentVersion.split('.');
           const newRange = `>=${majorVersion}.${minorVersion}.x`;
+
+          if (currentRange !== newRange) {
+            console.log(`🔄 ${packageName}:`);
+            console.log(`  ${depName}: ${currentRange} → ${newRange}`);
+            newPeerDeps[depName] = newRange;
+            hasChanges = true;
+          }
+        }
+
+        if (externalPeerDeps.has(depName)) {
+          const newRange = externalPeerDeps.get(depName);
 
           if (currentRange !== newRange) {
             console.log(`🔄 ${packageName}:`);
