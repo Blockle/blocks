@@ -3,7 +3,7 @@ import { style } from '@vanilla-extract/css';
 
 export const heading = style({
   '@layer': {
-    [layers.molecule]: {
+    [layers.reset]: {
       margin: 0,
       padding: 0,
     },

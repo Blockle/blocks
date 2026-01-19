@@ -1,3 +1,4 @@
+import { layers } from '@blockle/blocks-core';
 import { keyframes, style } from '@vanilla-extract/css';
 
 const pulse = keyframes({
@@ -7,13 +8,17 @@ const pulse = keyframes({
 });
 
 export const skeleton = style({
-  minHeight: '24px',
-  '@media': {
-    'screen and (prefers-reduced-motion: no-preference)': {
-      animationName: pulse,
-      animationDuration: '3s',
-      animationTimingFunction: 'ease-in-out',
-      animationIterationCount: 'infinite',
+  '@layer': {
+    [layers.molecule]: {
+      minHeight: '24px',
+      '@media': {
+        'screen and (prefers-reduced-motion: no-preference)': {
+          animationName: pulse,
+          animationDuration: '3s',
+          animationTimingFunction: 'ease-in-out',
+          animationIterationCount: 'infinite',
+        },
+      },
     },
   },
 });

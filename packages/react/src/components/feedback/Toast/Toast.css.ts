@@ -1,3 +1,4 @@
+import { layers } from '@blockle/blocks-core';
 import { keyframes, style } from '@vanilla-extract/css';
 
 const toastEnter = keyframes({
@@ -6,8 +7,12 @@ const toastEnter = keyframes({
 });
 
 export const container = style({
-  animationName: toastEnter,
-  animationDuration: '240ms',
-  animationTimingFunction: 'ease-out',
-  height: 'fit-content',
+  '@layer': {
+    [layers.molecule]: {
+      animationName: toastEnter,
+      animationDuration: '240ms',
+      animationTimingFunction: 'ease-out',
+      height: 'fit-content',
+    },
+  },
 });
