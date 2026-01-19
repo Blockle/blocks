@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 2.3.7
+
+### Patch Changes
+
+- 6129679: Peer dependency correction
+
 ## 2.3.6
 
 ### Patch Changes
