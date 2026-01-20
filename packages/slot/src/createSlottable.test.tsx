@@ -88,6 +88,25 @@ describe('createSlottable', () => {
 
       expect(container.firstChild).toBeNull();
     });
+
+    it('should forward refs when using asChild with noSlot', () => {
+      const [Template] = createSlottable('div');
+      const templateRef = vi.fn();
+      const childRef = vi.fn();
+
+      render(
+        <Template asChild noSlot ref={templateRef} className="parent">
+          <a href="#?" ref={childRef} className="child">
+            Link
+          </a>
+        </Template>,
+      );
+
+      expect(templateRef).toHaveBeenCalled();
+      expect(childRef).toHaveBeenCalled();
+      // Both refs should receive the same element
+      expect(templateRef).toHaveBeenCalledWith(childRef.mock.calls[0][0]);
+    });
   });
 
   describe('Template with asChild and Slot', () => {
