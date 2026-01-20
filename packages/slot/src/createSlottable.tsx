@@ -8,6 +8,7 @@ type TemplateProps = {
   asChild?: boolean;
   children?: React.ReactNode;
   ref?: React.Ref<Element>;
+  noSlot?: boolean;
 };
 
 /**
@@ -46,17 +47,41 @@ export function createSlottable<T extends keyof HTMLElementTagNameMap>(
   const Template: React.FC<TemplateProps & HTMLProps> = ({
     asChild,
     children,
-    ref,
+    noSlot,
     ...rootProps
   }) => {
     // Return default element
     if (!asChild) {
-      const tagProps = { ref, ...rootProps };
-
-      return <Tag {...tagProps}>{children}</Tag>;
+      return <Tag {...rootProps}>{children}</Tag>;
     }
 
     const childrenArray = Children.toArray(children);
+
+    if (noSlot) {
+      if (childrenArray.length !== 1) {
+        if (!import.meta.env.PROD) {
+          console.error('When using asChild, exactly one child is required');
+        }
+
+        return null;
+      }
+
+      const child = childrenArray[0];
+
+      if (!isValidElement(child)) {
+        if (!import.meta.env.PROD) {
+          console.error(
+            'When using asChild with noSlot, the single child must be a valid React element',
+          );
+        }
+        return null;
+      }
+
+      return cloneElement(
+        child,
+        mergeProps(rootProps, child.props as Record<string, unknown>),
+      );
+    }
 
     // Find Slot element
     const slotIndex = childrenArray.findIndex((child) => {

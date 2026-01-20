@@ -17,7 +17,7 @@ export type BoxProps = {
 } & Atoms &
   HTMLElementProps<HTMLDivElement>;
 
-const [Template, Slot] = createSlottable('div');
+const [Template] = createSlottable('div');
 
 export const Box: React.FC<BoxProps> = ({
   asChild,
@@ -33,9 +33,10 @@ export const Box: React.FC<BoxProps> = ({
       ref={ref}
       asChild={asChild}
       className={classnames(className, atoms(atomsProps))}
+      noSlot
       {...otherProps}
     >
-      <Slot>{children}</Slot>
+      {children}
     </Template>
   );
 };
