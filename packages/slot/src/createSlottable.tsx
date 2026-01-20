@@ -69,6 +69,11 @@ export function createSlottable<T extends keyof HTMLElementTagNameMap>(
       const child = childrenArray[0];
 
       if (!isValidElement(child)) {
+        if (!import.meta.env.PROD) {
+          console.error(
+            'When using asChild with noSlot, the single child must be a valid React element',
+          );
+        }
         return null;
       }
 
