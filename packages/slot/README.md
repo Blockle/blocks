@@ -188,4 +188,3 @@ Directly merges props with the single child element:
 - **Accessibility**: Allow semantic HTML while maintaining component styling and behavior
 - **Link Components**: Create button-styled links without nesting interactive elements
 - **Headless UI**: Separate component logic from rendering
-- **TypeScript**: More performant than polymorphic components when only prop merging is needed
