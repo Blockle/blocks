@@ -1,5 +1,13 @@
 # @blockle/blocks
 
+## 2.3.9
+
+### Patch Changes
+
+- 4c08c52: - Added `noSlot` prop to Template component returned by `createSlottable`, enabling direct prop merging with a single child element when using the `asChild` pattern without requiring a Slot component
+  - Improved Slot component type safety by allowing `children` to be optional
+  - Updated Box component to use the new `noSlot` prop pattern for simplified implementation
+
 ## 2.3.8
 
 ### Patch Changes
