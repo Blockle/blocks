@@ -60,7 +60,7 @@ export function createSlottable<T extends keyof HTMLElementTagNameMap>(
     if (noSlot) {
       if (childrenArray.length !== 1) {
         if (!import.meta.env.PROD) {
-          console.error('When using asChild, one child is required');
+          console.error('When using asChild, exactly one child is required');
         }
 
         return null;

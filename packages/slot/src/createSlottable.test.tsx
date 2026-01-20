@@ -74,7 +74,7 @@ describe('createSlottable', () => {
 
       expect(container.firstChild).toBeNull();
       expect(consoleErrorSpy).toHaveBeenCalledWith(
-        'When using asChild, one child is required',
+        'When using asChild, exactly one child is required',
       );
     });
 
