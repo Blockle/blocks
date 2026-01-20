@@ -181,15 +181,6 @@ Directly merges props with the single child element:
 // Renders: <a href="#" class="parent child">Link</a>
 ```
 
-## Error Handling
-
-The package provides helpful error messages in development mode:
-
-- "When using asChild, one child is required" - When using `noSlot` with multiple children
-- "Template: No Slot provided" - When using `asChild` without a Slot component
-- "When using asChild, at least one child is required" - When Slot has no children
-- "When using asChild, only one child is allowed" - When Slot has multiple children
-
 ## Use Cases
 
 - **Polymorphic Components**: Create components that can render as different elements
