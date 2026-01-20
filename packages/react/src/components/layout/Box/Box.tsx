@@ -33,9 +33,10 @@ export const Box: React.FC<BoxProps> = ({
       ref={ref}
       asChild={asChild}
       className={classnames(className, atoms(atomsProps))}
+      noSlot
       {...otherProps}
     >
-      <Slot>{children}</Slot>
+      {children}
     </Template>
   );
 };
