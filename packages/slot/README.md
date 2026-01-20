@@ -108,7 +108,7 @@ const Container = ({ children, asChild, ...props }) => {
 }
 
 // Direct prop merging without Slot component
-<Container asChild noSlot className="wrapper">
+<Container asChild className="wrapper">
   <section className="content">Hello</section>
 </Container>
 // Renders: <section class="container wrapper content">Hello</section>
