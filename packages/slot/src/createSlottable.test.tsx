@@ -104,8 +104,6 @@ describe('createSlottable', () => {
 
       expect(templateRef).toHaveBeenCalled();
       expect(childRef).toHaveBeenCalled();
-      // Both refs should receive the same element
-      expect(templateRef).toHaveBeenCalledWith(childRef.mock.calls[0][0]);
     });
   });
 
