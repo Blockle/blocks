@@ -17,7 +17,7 @@ export type BoxProps = {
 } & Atoms &
   HTMLElementProps<HTMLDivElement>;
 
-const [Template, Slot] = createSlottable('div');
+const [Template] = createSlottable('div');
 
 export const Box: React.FC<BoxProps> = ({
   asChild,
