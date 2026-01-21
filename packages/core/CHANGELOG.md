@@ -1,5 +1,11 @@
 # @blockle/blocks-core
 
+## 1.2.6
+
+### Patch Changes
+
+- 9df99ee: Divider added size variants, children and alignment
+
 ## 1.2.5
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 2.3.10
+
+### Patch Changes
+
+- 9df99ee: Divider added size variants, children and alignment
+
 ## 2.3.9
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @blockle/blocks-react
 
+## 2.5.1
+
+### Patch Changes
+
+- 9df99ee: Divider added size variants, children and alignment
+
 ## 2.5.0
 
 ### Minor Changes
