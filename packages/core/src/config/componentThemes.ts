@@ -53,7 +53,7 @@ export type DialogTheme = {
 export type DividerTheme = {
   root?: string;
   variants: {
-    color: Exclude<Atoms['color'], undefined>;
+    size: 1 | 2 | 3;
   };
 };
 
