@@ -12,7 +12,8 @@ import { Box } from '../../layout/Box/Box.js';
 import * as styles from './divider.css.js';
 
 function getVanillaVarName(variable: string | undefined) {
-  return (variable ?? '').replace(/var\((.+)\)/, '$1');
+  // In test environment, CSS variables are undefined, so we return a placeholder for now
+  return (variable ?? 'var(--test-var)').replace(/var\((.+)\)/, '$1');
 }
 
 const dividerColorVarName = getVanillaVarName(styles.dividerColorVar);
