@@ -9,7 +9,6 @@ export const divider = style({
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      textAlign: 'right',
       clear: 'both',
       minBlockSize: '1px',
       ':empty': {
@@ -28,10 +27,10 @@ export const divider = style({
         backgroundColor: dividerColorVar,
       },
       selectors: {
-        '&[data-align="start"]:before': {
+        '&[data-alignment="start"]:before': {
           maxInlineSize: '3rem',
         },
-        '&[data-align="end"]:after': {
+        '&[data-alignment="end"]:after': {
           maxInlineSize: '3rem',
         },
       },

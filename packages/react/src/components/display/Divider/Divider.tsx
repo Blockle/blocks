@@ -48,7 +48,7 @@ export const Divider: React.FC<DividerProps> = ({
       inlineSize="full"
       gap={gap}
       className={classnames(className, dividerClass, styles.divider)}
-      data-align={alignment}
+      data-alignment={alignment}
       style={{
         [dividerColorVarName]: color ? vars.color[color] : 'currentColor',
       }}
