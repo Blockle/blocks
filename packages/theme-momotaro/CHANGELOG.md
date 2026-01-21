@@ -1,5 +1,11 @@
 # @blockle/blocks-theme-momotaro
 
+## 6.2.5
+
+### Patch Changes
+
+- 9df99ee: Divider added size variants, children and alignment
+
 ## 6.2.4
 
 ### Patch Changes
