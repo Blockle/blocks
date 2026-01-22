@@ -1,11 +1,8 @@
-import { composeStories } from '@storybook/react';
 import { userEvent } from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 
 import { render, screen } from '../../../testUtils/testUtils.js';
-import * as stories from './Slider.stories.js';
-
-const { Default: Slider } = composeStories(stories);
+import { Slider } from './Slider.js';
 
 describe('Slider', () => {
   it('should render', () => {

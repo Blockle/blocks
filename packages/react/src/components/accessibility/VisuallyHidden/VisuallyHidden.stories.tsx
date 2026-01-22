@@ -1,18 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import preview from '../../../../../../.storybook/preview.js';
+import { VisuallyHidden } from './VisuallyHidden.js';
 
-import { VisuallyHidden, type VisuallyHiddenProps } from './VisuallyHidden.js';
-
-const meta: Meta<typeof VisuallyHidden> = {
+const meta = preview.meta({
   title: 'Accessibility/VisuallyHidden',
   component: VisuallyHidden,
-};
+});
 
-export default meta;
-
-type Story = StoryObj<VisuallyHiddenProps>;
-
-export const Default: Story = {
+export const Default = meta.story({
   args: {
-    children: 'This text is visually hidden',
+    children: 'This text is visually hidden but accessible to screen readers.',
   },
-};
+});

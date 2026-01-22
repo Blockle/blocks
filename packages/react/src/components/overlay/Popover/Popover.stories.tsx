@@ -1,17 +1,17 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import { action } from 'storybook/actions';
 import { useRef, useState } from 'storybook/preview-api';
 
+import preview from '../../../../../../.storybook/preview.js';
 import { Button } from '../../form/Button/Button.js';
 import { Box } from '../../layout/Box/Box.js';
-import { Popover, type PopoverProps } from './Popover.js';
+import { Popover } from './Popover.js';
 
-export default {
+const meta = preview.meta({
   title: 'Overlay/Popover',
   component: Popover,
-  argTypes: {},
-} as Meta;
+});
 
-export const Default: StoryObj<PopoverProps> = {
+export const Default = meta.story({
   render: (props) => {
     const buttonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -26,13 +26,14 @@ export const Default: StoryObj<PopoverProps> = {
   },
   args: {
     children: 'Popover content',
-    onRequestClose: () => {
-      // do nothing
-    },
+    onRequestClose: action('onRequestClose'),
+    // biome-ignore lint/suspicious/noExplicitAny: ref is added in render function
+    anchorElement: null as any,
+    open: true,
   },
-};
+});
 
-export const Interactive: StoryObj<PopoverProps> = {
+export const Interactive = meta.story({
   render: (props) => {
     const buttonRef = useRef<HTMLButtonElement | null>(null);
     const [open, setOpen] = useState(props.open ?? false);
@@ -67,5 +68,9 @@ export const Interactive: StoryObj<PopoverProps> = {
         </ul>
       </div>
     ),
+    onRequestClose: action('onRequestClose'),
+    // biome-ignore lint/suspicious/noExplicitAny: ref is added in render function
+    anchorElement: null as any,
+    open: true,
   },
-};
+});

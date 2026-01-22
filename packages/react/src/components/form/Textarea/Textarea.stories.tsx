@@ -1,14 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-
+import preview from '../../../../../../.storybook/preview.js';
 import { Stack } from '../../layout/Stack/Stack.js';
-import { Textarea, type TextareaProps } from './Textarea.js';
+import { Textarea } from './Textarea.js';
 
-export default {
+const meta = preview.meta({
   title: 'Form/Textarea',
   component: Textarea,
-} as Meta;
+});
 
-export const Default: StoryObj<TextareaProps> = {
+export const Default = meta.story({
   render: ({ ...props }) => {
     return (
       <Stack gap={2}>
@@ -18,6 +17,7 @@ export const Default: StoryObj<TextareaProps> = {
     );
   },
   args: {
+    name: 'textarea',
     placeholder: 'Type your text here...',
   },
-};
+});

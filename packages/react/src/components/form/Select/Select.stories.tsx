@@ -1,13 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import preview from '../../../../../../.storybook/preview.js';
+import { Select } from './Select.js';
 
-import { Select, type SelectProps } from './Select.js';
-
-export default {
+const meta = preview.meta({
   title: 'Form/Select',
   component: Select,
-} as Meta<typeof Select>;
+});
 
-export const Default: StoryObj<SelectProps> = {
+export const Default = meta.story({
   args: {
     placeholder: 'Placeholder',
     children: (
@@ -18,4 +17,4 @@ export const Default: StoryObj<SelectProps> = {
       </>
     ),
   },
-};
+});

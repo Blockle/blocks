@@ -1,20 +1,15 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-
+import preview from '../../../../../../.storybook/preview.js';
 import { Heading } from '../../typography/Heading/Heading.js';
-import { Divider, type DividerProps } from './Divider.js';
+import { Divider } from './Divider.js';
 
-const meta: Meta<typeof Divider> = {
+const meta = preview.meta({
   title: 'Display/Divider',
   component: Divider,
-};
+});
 
-export default meta;
+export const Default = meta.story();
 
-type Story = StoryObj<DividerProps>;
-
-export const Default: Story = {};
-
-export const WithText: Story = {
+export const WithText = meta.story({
   render: (args) => (
     <Divider {...args}>
       <Heading level={3}>Section 1</Heading>
@@ -23,4 +18,4 @@ export const WithText: Story = {
   args: {
     alignment: 'start',
   },
-};
+});

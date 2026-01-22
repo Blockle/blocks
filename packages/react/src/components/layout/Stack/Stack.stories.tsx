@@ -1,15 +1,12 @@
 import { atomicProperties } from '@blockle/blocks-core';
-import type { Meta, StoryFn, StoryObj } from '@storybook/react-vite';
 
+import preview from '../../../../../../.storybook/preview.js';
 import { Box } from '../Box/Box.js';
-import { Stack, type StackProps } from './Stack.js';
+import { Stack } from './Stack.js';
 
-export default {
+const meta = preview.meta({
   title: 'Layout/Stack',
   component: Stack,
-  args: {
-    gap: 2,
-  },
   argTypes: {
     gap: {
       name: 'gap',
@@ -18,13 +15,11 @@ export default {
       options: Object.keys(atomicProperties.gap.values),
     },
   },
-} as Meta<typeof Stack>;
+});
 
-const Template: StoryFn<typeof Stack> = ({ ...args }) => <Stack {...args} />;
-
-export const Default: StoryObj<StackProps> = {
-  render: Template,
+export const Default = meta.story({
   args: {
+    gap: 2,
     children: (
       <>
         <Box backgroundColor="danger-700" padding={2}>
@@ -39,11 +34,11 @@ export const Default: StoryObj<StackProps> = {
       </>
     ),
   },
-};
+});
 
-export const List: StoryObj<StackProps> = {
-  render: Template,
+export const List = meta.story({
   args: {
+    gap: 2,
     children: (
       <>
         <li style={{ border: '1px red solid', width: '60px', height: '60px' }}>
@@ -59,4 +54,4 @@ export const List: StoryObj<StackProps> = {
     ),
     tag: 'ol',
   },
-};
+});

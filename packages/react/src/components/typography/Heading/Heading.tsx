@@ -12,7 +12,7 @@ import * as styles from './heading.css.js';
 export type HeadingProps = {
   children: React.ReactNode;
   className?: string;
-  level: 1 | 2 | 3 | 4 | 5 | 6;
+  level?: 1 | 2 | 3 | 4 | 5 | 6;
 } & TextAtoms &
   MarginAtoms &
   PaddingAtoms &

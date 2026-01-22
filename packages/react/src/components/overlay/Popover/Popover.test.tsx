@@ -1,4 +1,3 @@
-import { composeStories } from '@storybook/react';
 import { userEvent } from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -8,10 +7,7 @@ import {
   screen,
   waitFor,
 } from '../../../testUtils/testUtils.js';
-import type { PopoverProps } from './Popover.js';
-import * as stories from './Popover.stories.js';
-
-const { Default: Popover } = composeStories(stories);
+import { Popover, type PopoverProps } from './Popover.js';
 
 describe('Popover', () => {
   const defaultProps: PopoverProps = {
@@ -23,11 +19,13 @@ describe('Popover', () => {
 
   it('should not render when open is false', () => {
     render(<Popover {...defaultProps} />);
+
     expect(screen.queryByText('Popover Content')).toBeNull();
   });
 
   it('should render when open is true', () => {
     render(<Popover {...defaultProps} open />);
+
     expect(screen.getByText('Popover Content')).toBeInTheDocument();
   });
 

@@ -7,6 +7,7 @@ describe('Text Component', () => {
   it('renders with default tag "span"', () => {
     const { container } = render(<Text>Default Text</Text>);
     const spanElement = container.querySelector('span');
+
     expect(spanElement).toBeInTheDocument();
     expect(spanElement).toHaveTextContent('Default Text');
   });
@@ -14,6 +15,7 @@ describe('Text Component', () => {
   it('renders with a custom tag when "tag" prop is provided', () => {
     const { container } = render(<Text tag="p">Paragraph Text</Text>);
     const pElement = container.querySelector('p');
+
     expect(pElement).toBeInTheDocument();
     expect(pElement).toHaveTextContent('Paragraph Text');
   });
@@ -25,6 +27,7 @@ describe('Text Component', () => {
       </Text>,
     );
     const strongElement = container.querySelector('strong');
+
     expect(strongElement).toBeInTheDocument();
     expect(strongElement).toHaveTextContent('Strong Text');
   });
@@ -34,12 +37,15 @@ describe('Text Component', () => {
       <Text className="custom-class">Text with Class</Text>,
     );
     const spanElement = container.querySelector('span');
+
     expect(spanElement).toHaveClass('custom-class');
   });
 
   it('forwards refs correctly', () => {
     const ref: { current: HTMLElement | null } = { current: null };
+
     render(<Text ref={ref}>Text with Ref</Text>);
+
     expect(ref.current).not.toBeNull();
     expect(ref.current?.tagName).toBe('SPAN');
   });

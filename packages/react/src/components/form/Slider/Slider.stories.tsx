@@ -1,22 +1,22 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
 import { type FC, useState } from 'react';
 
+import preview from '../../../../../../.storybook/preview.js';
 import { Stack } from '../../layout/Stack/Stack.js';
 import { Text } from '../../typography/Text/Text.js';
 import { Slider, type SliderProps } from './Slider.js';
 
-export default {
+const meta = preview.meta({
   title: 'Form/Slider',
   component: Slider,
-} as Meta<typeof Slider>;
+});
 
-export const Default: StoryObj<SliderProps> = {
+export const Default = meta.story({
   args: {
     'aria-label': 'How happy are you today?',
     min: 0,
     max: 10,
   },
-};
+});
 
 const SliderWithState: FC<SliderProps> = ({ value: _value, ...props }) => {
   const [value, setValue] = useState(60);
@@ -29,7 +29,7 @@ const SliderWithState: FC<SliderProps> = ({ value: _value, ...props }) => {
   );
 };
 
-export const WithState: StoryObj<SliderProps> = {
+export const WithState = meta.story({
   render(props) {
     return <SliderWithState {...props} />;
   },
@@ -39,9 +39,9 @@ export const WithState: StoryObj<SliderProps> = {
     min: 0,
     max: 100,
   },
-};
+});
 
-export const WithStepSize: StoryObj<SliderProps> = {
+export const WithStepSize = meta.story({
   render(props) {
     return <SliderWithState {...props} />;
   },
@@ -52,4 +52,4 @@ export const WithStepSize: StoryObj<SliderProps> = {
     max: 100,
     step: 10,
   },
-};
+});

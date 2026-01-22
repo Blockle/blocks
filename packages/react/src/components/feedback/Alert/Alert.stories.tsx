@@ -1,15 +1,15 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
-import { Alert, type AlertProps } from './Alert.js';
+import preview from '../../../../../../.storybook/preview.js';
+import { Alert } from './Alert.js';
 
-export default {
+const meta = preview.meta({
   title: 'Feedback/Alert',
   component: Alert,
   argTypes: {},
-} as Meta;
+});
 
-export const Default: StoryObj<AlertProps> = {
+export const Default = meta.story({
   render: (props) => {
     return <Alert {...props} />;
   },
@@ -19,4 +19,4 @@ export const Default: StoryObj<AlertProps> = {
     open: true,
     onRequestClose: action('onRequestClose'),
   },
-};
+});

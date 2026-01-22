@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import preview from '../../../../../../.storybook/preview.js';
+import { TextInput } from './TextInput.js';
 
-import { TextInput, type TextInputProps } from './TextInput.js';
-
-export default {
+const meta = preview.meta({
   title: 'Form/TextInput',
   component: TextInput,
-} as Meta<typeof TextInput>;
+});
 
-export const Default: StoryObj<TextInputProps> = {
+export const Default = meta.story({
   args: {
+    name: 'text-input',
     placeholder: 'Placeholder',
   },
-};
+});

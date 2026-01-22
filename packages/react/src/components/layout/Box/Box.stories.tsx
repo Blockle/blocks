@@ -1,9 +1,9 @@
 import { atomicProperties } from '@blockle/blocks-core';
-import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Box, type BoxProps } from './Box.js';
+import preview from '../../../../../../.storybook/preview.js';
+import { Box } from './Box.js';
 
-export default {
+const meta = preview.meta({
   title: 'Layout/Box',
   component: Box,
   argTypes: {
@@ -20,21 +20,15 @@ export default {
       options: Object.keys(atomicProperties.padding.values),
     },
   },
-} as Meta;
+});
 
-export const Default: StoryObj<BoxProps> = {
-  render(props) {
-    return <Box {...props} />;
-  },
+export const Default = meta.story({
   args: {
     children: 'Box contents',
   },
-};
+});
 
-export const AsChild: StoryObj<BoxProps> = {
-  render(props) {
-    return <Box {...props} />;
-  },
+export const AsChild = meta.story({
   args: {
     asChild: true,
     color: 'primary-700',
@@ -52,4 +46,4 @@ export const AsChild: StoryObj<BoxProps> = {
       </a>
     ),
   },
-};
+});

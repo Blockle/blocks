@@ -1,17 +1,15 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-
+import preview from '../../../../../../.storybook/preview.js';
 import { Button } from '../../form/Button/Button.js';
 import { Box } from '../../layout/Box/Box.js';
-import { Tooltip, type TooltipProps } from './Tooltip.js';
+import { Tooltip } from './Tooltip.js';
 
-export default {
+const meta = preview.meta({
   title: 'Overlay/Tooltip',
   component: Tooltip,
-  argTypes: {},
-} as Meta;
+});
 
-export const Default: StoryObj<TooltipProps> = {
-  render(props) {
+export const Default = meta.story({
+  render({ children, ...props }) {
     return (
       <Box style={{ height: 1000, width: 1000 }}>
         <Box style={{ marginTop: 240, marginLeft: 240 }}>
@@ -24,6 +22,7 @@ export const Default: StoryObj<TooltipProps> = {
   },
 
   args: {
+    children: <i>ignored prop</i>,
     content: 'Hi there',
   },
-};
+});

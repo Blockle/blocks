@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
-import { Link, type LinkProps } from './Link.js';
+import preview from '../../../../../../.storybook/preview.js';
+import { Link } from './Link.js';
 
-export default {
+const meta = preview.meta({
   title: 'Navigation/Link',
   component: Link,
   argTypes: {
@@ -15,17 +15,13 @@ export default {
       control: 'boolean',
     },
   },
-} as Meta;
+});
 
-export const Default: StoryObj<LinkProps> = {
-  render: (props) => {
-    return <Link {...props} />;
-  },
-
+export const Default = meta.story({
   args: {
     children: 'Link',
     href: 'https://example.com',
     underline: true,
     onClick: action('Link clicked'),
   },
-};
+});

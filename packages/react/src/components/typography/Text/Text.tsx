@@ -31,7 +31,7 @@ export type TextProps<Tag extends Tags = 'span'> = {
 } & TextAtoms &
   MarginAtoms &
   PaddingAtoms &
-  HTMLElementProps<HTMLSpanElement>;
+  Omit<HTMLElementProps<HTMLSpanElement>, 'children' | 'ref'>;
 
 export const Text = <T extends Tags = 'span'>({
   asChild,

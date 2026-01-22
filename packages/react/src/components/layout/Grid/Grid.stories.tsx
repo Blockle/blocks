@@ -1,11 +1,11 @@
 import { atomicProperties } from '@blockle/blocks-core';
-import type { Meta, StoryObj } from '@storybook/react-vite';
 
+import preview from '../../../../../../.storybook/preview.js';
 import { Box } from '../Box/Box.js';
-import { Grid, type GridProps } from './Grid.js';
+import { Grid } from './Grid.js';
 import { GridItem } from './GridItem.js';
 
-export default {
+const meta = preview.meta({
   title: 'Layout/Grid',
   component: Grid,
   argTypes: {
@@ -22,9 +22,9 @@ export default {
       options: Object.keys(atomicProperties.columnGap.values),
     },
   },
-} as Meta;
+});
 
-export const Default: StoryObj<GridProps> = {
+export const Default = meta.story({
   render(props) {
     return (
       <Grid {...props}>
@@ -49,9 +49,9 @@ export const Default: StoryObj<GridProps> = {
   args: {
     gap: 2,
   },
-};
+});
 
-export const RowSpan: StoryObj<GridProps> = {
+export const RowSpan = meta.story({
   render(props) {
     return (
       <Grid {...props}>
@@ -98,9 +98,9 @@ export const RowSpan: StoryObj<GridProps> = {
   args: {
     gap: 2,
   },
-};
+});
 
-export const Responsive: StoryObj<GridProps> = {
+export const Responsive = meta.story({
   render(props) {
     return (
       <Grid {...props}>
@@ -137,4 +137,4 @@ export const Responsive: StoryObj<GridProps> = {
   args: {
     gap: 2,
   },
-};
+});
