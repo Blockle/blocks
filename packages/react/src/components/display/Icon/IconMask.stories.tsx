@@ -7,7 +7,7 @@ function getIconUrl(name: HeroIconName): string {
 }
 
 const meta = preview.meta({
-  title: 'Components/Icon/IconMask',
+  title: 'Display/IconMask',
   component: IconMask,
 });
 
