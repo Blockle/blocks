@@ -24,6 +24,7 @@ export {
 export { layers } from './css/layers.css.js';
 export { pixelsToRem } from './css/pixelsToRem.js';
 export { vars } from './css/vars.css.js';
+export { getComponentStyles } from './theme/getComponentStyles.js';
 export type {
   ComponentTheme,
   ThemeComponentsStyles,
