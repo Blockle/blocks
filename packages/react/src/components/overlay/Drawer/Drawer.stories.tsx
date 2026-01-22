@@ -1,10 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
+import { action } from 'storybook/actions';
 
+import preview from '../../../../../../.storybook/preview.js';
 import { Button } from '../../form/Button/Button.js';
-import { Drawer, type DrawerProps } from './Drawer.js';
+import { Drawer } from './Drawer.js';
 
-export default {
+const meta = preview.meta({
   title: 'Overlay/Drawer',
   component: Drawer,
   argTypes: {
@@ -16,9 +17,9 @@ export default {
       control: 'boolean',
     },
   },
-} as Meta;
+});
 
-export const Default: StoryObj<DrawerProps> = {
+export const Default = meta.story({
   render: (props) => {
     const [open, setOpen] = useState(props.open ?? false);
 
@@ -36,5 +37,7 @@ export const Default: StoryObj<DrawerProps> = {
 
   args: {
     children: 'Drawer',
+    open: true,
+    onRequestClose: action('Drawer close requested'),
   },
-};
+});

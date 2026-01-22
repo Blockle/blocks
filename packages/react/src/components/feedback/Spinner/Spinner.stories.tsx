@@ -1,14 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import preview from '../../../../../../.storybook/preview.js';
+import { Spinner } from './Spinner.js';
 
-import { Spinner, type SpinnerProps } from './Spinner.js';
-
-export default {
+const meta = preview.meta({
   title: 'Feedback/Spinner',
   component: Spinner,
-} as Meta;
+});
 
-export const Default: StoryObj<SpinnerProps> = {
-  render: (props) => {
-    return <Spinner {...props} />;
-  },
-};
+export const Default = meta.story();

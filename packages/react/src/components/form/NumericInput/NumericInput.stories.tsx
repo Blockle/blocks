@@ -1,17 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import preview from '../../../../../../.storybook/preview.js';
+import { NumericInput } from './NumericInput.js';
 
-import { NumericInput, type NumericInputProps } from './NumericInput.js';
-
-export default {
+const meta = preview.meta({
   title: 'Form/NumericInput',
   component: NumericInput,
-} as Meta;
+});
 
-export const Default: StoryObj<NumericInputProps> = {
-  render: (props) => {
-    return <NumericInput {...props} />;
-  },
+export const Default = meta.story({
   args: {
-    defaultValue: '123',
+    name: 'number-input',
   },
-};
+});

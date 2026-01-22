@@ -1,14 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-
+import preview from '../../../../../../.storybook/preview.js';
 import { Box } from '../../layout/Box/Box.js';
-import { Switch, type SwitchProps } from './Switch.js';
+import { Switch } from './Switch.js';
 
-export default {
+const meta = preview.meta({
   title: 'Form/Switch',
   component: Switch,
-} as Meta;
+});
 
-export const Default: StoryObj<SwitchProps> = {
+export const Default = meta.story({
   render: ({ ...props }) => {
     return (
       <Box display="flex" gap={2} alignItems="center">
@@ -20,4 +19,4 @@ export const Default: StoryObj<SwitchProps> = {
   args: {
     onChange: (value) => console.log('onChange', value),
   },
-};
+});

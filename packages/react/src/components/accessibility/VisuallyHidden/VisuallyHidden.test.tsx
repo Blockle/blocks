@@ -1,10 +1,7 @@
-import { composeStories } from '@storybook/react';
 import { describe, expect, it } from 'vitest';
 
 import { render, screen } from '../../../testUtils/testUtils.js';
-import * as stories from './VisuallyHidden.stories.js';
-
-const { Default: VisuallyHidden } = composeStories(stories);
+import { VisuallyHidden } from './VisuallyHidden.js';
 
 describe('VisuallyHidden', () => {
   it('should render with storybook', () => {

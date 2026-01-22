@@ -1,34 +1,22 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
-import { HeroIcon } from '../../display/Icon/IconMask.stories.js';
+import preview from '../../../../../../.storybook/preview.js';
+import { HeroIcon } from '../../display/Icon/exampleIconMask.js';
 import { Button } from './Button.js';
 
-const meta = {
+const meta = preview.meta({
   title: 'Form/Button',
   component: Button,
-  argTypes: {},
-} satisfies Meta<typeof Button>;
-export default meta;
+});
 
-type Story = StoryObj<typeof meta>;
-
-export const Primary: Story = {
-  render: (props) => {
-    return <Button {...props} />;
-  },
-
+export const Primary = meta.story({
   args: {
     children: 'Button',
     onClick: action('button-clicked'),
   },
-};
+});
 
-export const LinkButton: Story = {
-  render: (props) => {
-    return <Button {...props} />;
-  },
-
+export const LinkButton = meta.story({
   args: {
     children: (
       <a href="https://google.com" target="_blank" rel="noreferrer">
@@ -38,16 +26,12 @@ export const LinkButton: Story = {
     asChild: true,
     onClick: action('link-clicked'),
   },
-};
+});
 
-export const Icons: Story = {
-  render: (props) => {
-    return <Button {...props} />;
-  },
-
+export const Icons = meta.story({
   args: {
     children: 'Button with icons',
     startSlot: <HeroIcon name="academic-cap" size="small" />,
     endSlot: <HeroIcon name="arrow-right" size="small" />,
   },
-};
+});

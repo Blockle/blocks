@@ -6,7 +6,7 @@ import { TextInput, type TextInputProps } from '../TextInput/TextInput.js';
 import * as styles from './NumericInput.css.js';
 
 export type NumericInputProps = {
-  value: number | string;
+  value?: number | string;
   min?: number;
   max?: number;
   step?: number;

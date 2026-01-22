@@ -1,22 +1,21 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-
+import preview from '../../../../../../.storybook/preview.js';
 import { Stack } from '../../layout/Stack/Stack.js';
 import { Text } from '../../typography/Text/Text.js';
-import { Radio, type RadioProps } from './Radio.js';
+import { Radio } from './Radio.js';
 import { RadioGroup } from './RadioGroup.js';
 
-export default {
+const meta = preview.meta({
   title: 'Form/Radio',
   component: Radio,
-} as Meta;
-
-export const Default: StoryObj<RadioProps> = {
-  render: (props) => {
-    return <Radio {...props} />;
+  args: {
+    name: 'radio',
+    value: 'option1',
   },
-};
+});
 
-export const WithRadioGroup: StoryObj<RadioProps> = {
+export const Default = meta.story();
+
+export const WithRadioGroup = meta.story({
   render: ({ name, value, ...props }) => {
     return (
       <Stack gap={2}>
@@ -38,4 +37,4 @@ export const WithRadioGroup: StoryObj<RadioProps> = {
       </Stack>
     );
   },
-};
+});

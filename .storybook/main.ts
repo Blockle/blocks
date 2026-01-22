@@ -1,45 +1,25 @@
-// This file has been automatically migrated to valid ESM format by Storybook.
-import type { StorybookConfig } from '@storybook/react-vite';
+import { defineMain } from '@storybook/react-vite/node';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import { mergeConfig } from 'vite';
 
-import { createRequire } from 'node:module';
-import { dirname, join } from 'node:path';
-
-const require = createRequire(import.meta.url);
-
-const config: StorybookConfig = {
+export default defineMain({
+  framework: '@storybook/react-vite',
+  stories: [
+    '../packages/**/*.mdx',
+    '../packages/**/*.stories.@(js|jsx|ts|tsx)',
+  ],
   async viteFinal(config) {
     return mergeConfig(config, {
       base: './',
       plugins: [vanillaExtractPlugin()],
     });
   },
-
-  staticDirs: ['./public'],
-
-  stories: [
-    '../packages/**/*.mdx',
-    '../packages/**/*.stories.@(js|jsx|ts|tsx)',
-  ],
-
-  framework: {
-    name: getAbsolutePath('@storybook/react-vite'),
-    options: {},
-  },
-
   typescript: {
     reactDocgen: 'react-docgen-typescript',
   },
-
+  staticDirs: ['./public'],
   core: {
     disableWhatsNewNotifications: true,
   },
-
-  addons: [getAbsolutePath("@storybook/addon-a11y"), getAbsolutePath("@storybook/addon-docs")],
-};
-export default config;
-
-function getAbsolutePath(value: string): string {
-  return dirname(require.resolve(join(value, 'package.json')));
-}
+  addons: ['@storybook/addon-a11y', '@storybook/addon-docs'],
+});

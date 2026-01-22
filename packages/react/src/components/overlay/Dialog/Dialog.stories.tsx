@@ -1,20 +1,20 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { action } from 'storybook/actions';
 
+import preview from '../../../../../../.storybook/preview.js';
 import { Button } from '../../form/Button/Button.js';
 import { Stack } from '../../layout/Stack/Stack.js';
 import { Heading } from '../../typography/Heading/Heading.js';
 import { Text } from '../../typography/Text/Text.js';
 import { Dialog, type DialogProps } from './Dialog.js';
 
-export default {
+const meta = preview.meta({
   title: 'Overlay/Dialog',
   component: Dialog,
   argTypes: {},
-} as Meta;
+});
 
-const DialogTemplate: StoryObj<DialogProps>['render'] = (props) => {
+const DialogTemplate = (props: DialogProps) => {
   const [open, setOpen] = useState(props.open ?? false);
 
   return (
@@ -53,15 +53,15 @@ const NestedDialog: React.FC<{ children?: React.ReactNode }> = ({
   );
 };
 
-export const Default: StoryObj<DialogProps> = {
+export const Default = meta.story({
   args: {
     children: <>Test Dialog</>,
     open: true,
     onRequestClose: action('Dialog close requested'),
   },
-};
+});
 
-export const Nested: StoryObj<DialogProps> = {
+export const Nested = meta.story({
   render: DialogTemplate,
   args: {
     children: (
@@ -82,9 +82,9 @@ export const Nested: StoryObj<DialogProps> = {
     open: true,
     onRequestClose: action('Dialog close requested'),
   },
-};
+});
 
-export const WithAriaMarkup: StoryObj<DialogProps> = {
+export const WithAriaMarkup = meta.story({
   render() {
     const [open, setOpen] = useState(false);
 
@@ -111,4 +111,4 @@ export const WithAriaMarkup: StoryObj<DialogProps> = {
       </>
     );
   },
-};
+});

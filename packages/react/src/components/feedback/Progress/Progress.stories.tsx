@@ -1,10 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-
+import preview from '../../../../../../.storybook/preview.js';
 import { Stack } from '../../layout/Stack/Stack.js';
 import { Text } from '../../typography/Text/Text.js';
-import { Progress, type ProgressProps } from './Progress.js';
+import { Progress } from './Progress.js';
 
-export default {
+const meta = preview.meta({
   title: 'Feedback/Progress',
   component: Progress,
   argTypes: {
@@ -14,9 +13,11 @@ export default {
       control: { type: 'range', min: 0, max: 100, step: 1 },
     },
   },
-} as Meta;
+});
 
-export const Default: StoryObj<ProgressProps> = {
+export const Default = meta.story();
+
+export const LabelledBy = meta.story({
   render: (props) => {
     return (
       <Stack gap={3}>
@@ -31,4 +32,4 @@ export const Default: StoryObj<ProgressProps> = {
     value: 50,
     'aria-labelledby': 'progress-label',
   },
-};
+});

@@ -1,20 +1,17 @@
-import { composeStories } from '@storybook/react';
 import { describe, expect, it } from 'vitest';
 
 import { render, screen } from '../../../testUtils/testUtils.js';
-import * as stories from './Checkbox.stories.js';
-
-const { Default: Checkbox } = composeStories(stories);
+import { Checkbox } from './Checkbox.js';
 
 describe('Checkbox', () => {
   it('should render with storybook', () => {
-    render(<Checkbox />);
+    render(<Checkbox name="checkbox" />);
 
     expect(screen.getByRole('checkbox')).toBeInTheDocument();
   });
 
   it('should render with a label when children are provided', () => {
-    render(<Checkbox>My checkbox</Checkbox>);
+    render(<Checkbox name="checkbox">My checkbox</Checkbox>);
 
     expect(
       screen.getByRole('checkbox', {

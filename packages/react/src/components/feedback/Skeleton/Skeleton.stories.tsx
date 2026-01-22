@@ -1,17 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import preview from '../../../../../../.storybook/preview.js';
+import { Skeleton } from './Skeleton.js';
 
-import { Skeleton, type SkeletonProps } from './Skeleton.js';
-
-export default {
+const meta = preview.meta({
   title: 'Feedback/Skeleton',
   component: Skeleton,
-  argTypes: {},
-} as Meta;
+});
 
-export const Default: StoryObj<SkeletonProps> = {
-  render: (props) => {
-    return <Skeleton {...props} />;
-  },
-
-  args: {},
-};
+export const Default = meta.story();

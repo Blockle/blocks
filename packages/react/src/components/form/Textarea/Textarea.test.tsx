@@ -1,10 +1,7 @@
-import { composeStories } from '@storybook/react';
 import { describe, expect, it } from 'vitest';
 
 import { render, screen } from '../../../testUtils/testUtils.js';
-import * as stories from './Textarea.stories.js';
-
-const { Default: Textarea } = composeStories(stories);
+import { Textarea } from './Textarea.js';
 
 describe('Textarea', () => {
   it('should render with storybook', () => {

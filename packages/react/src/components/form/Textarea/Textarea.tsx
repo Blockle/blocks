@@ -7,8 +7,8 @@ import { Box } from '../../layout/Box/Box.js';
 import * as styles from './Textarea.css.js';
 
 export type TextareaProps = {
-  value: string;
-  ref: React.RefObject<HTMLTextAreaElement>;
+  value?: string;
+  ref?: React.RefObject<HTMLTextAreaElement>;
   // helperText: React.ReactNode;
 } & HTMLElementProps<HTMLTextAreaElement>;
 

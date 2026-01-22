@@ -1,14 +1,11 @@
 import { atomicProperties } from '@blockle/blocks-core';
-import type { Meta, StoryFn, StoryObj } from '@storybook/react-vite';
 
-import { Inline, type InlineProps } from './Inline.js';
+import preview from '../../../../../../.storybook/preview.js';
+import { Inline } from './Inline.js';
 
-export default {
+const meta = preview.meta({
   title: 'Layout/Inline',
   component: Inline,
-  args: {
-    gap: 2,
-  },
   argTypes: {
     gap: {
       name: 'gap',
@@ -16,13 +13,11 @@ export default {
       options: Object.keys(atomicProperties.gap.values),
     },
   },
-} as Meta<typeof Inline>;
+});
 
-const Template: StoryFn<typeof Inline> = ({ ...args }) => <Inline {...args} />;
-
-export const Default: StoryObj<InlineProps> = {
-  render: Template,
+export const Default = meta.story({
   args: {
+    gap: 2,
     children: (
       <>
         <div style={{ border: '1px red solid', width: '60px', height: '60px' }}>
@@ -55,11 +50,11 @@ export const Default: StoryObj<InlineProps> = {
       </>
     ),
   },
-};
+});
 
-export const List: StoryObj<InlineProps> = {
-  render: Template,
+export const List = meta.story({
   args: {
+    gap: 2,
     children: (
       <>
         <li style={{ border: '1px red solid', width: '60px', height: '60px' }}>
@@ -75,4 +70,4 @@ export const List: StoryObj<InlineProps> = {
     ),
     tag: 'ol',
   },
-};
+});

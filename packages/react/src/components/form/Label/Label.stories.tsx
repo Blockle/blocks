@@ -1,30 +1,27 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-
+import preview from '../../../../../../.storybook/preview.js';
 import { Stack } from '../../layout/Stack/Stack.js';
 import { TextInput } from '../TextInput/TextInput.js';
-import { Label, type LabelProps } from './Label.js';
+import { Label } from './Label.js';
 
-export default {
+const meta = preview.meta({
   title: 'Form/Label',
   component: Label,
-} as Meta;
+});
 
-export const Default: StoryObj<LabelProps> = {
-  render: (props) => {
-    return <Label {...props} />;
-  },
+export const Default = meta.story({
   args: {
     children: 'Label text',
   },
-};
-export const WithInput: StoryObj<LabelProps> = {
+});
+
+export const WithInput = meta.story({
   render: (props) => {
     return (
       <Stack gap={2}>
         <Label {...props} />
         <TextInput
           name="input"
-          defaultValue="Blep"
+          defaultValue="input"
           type="text"
           id={props.htmlFor}
         />
@@ -35,4 +32,4 @@ export const WithInput: StoryObj<LabelProps> = {
     children: 'Label text',
     htmlFor: 'input',
   },
-};
+});

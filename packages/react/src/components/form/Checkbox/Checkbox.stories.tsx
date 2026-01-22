@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import preview from '../../../../../../.storybook/preview.js';
+import { Checkbox } from './Checkbox.js';
 
-import { Checkbox, type CheckboxProps } from './Checkbox.js';
-
-export default {
+const meta = preview.meta({
   title: 'Form/Checkbox',
   component: Checkbox,
-} as Meta;
+});
 
-export const Default: StoryObj<CheckboxProps> = {
-  render: (props) => {
-    return <Checkbox {...props} />;
+export const Default = meta.story({
+  args: {
+    name: 'checkbox',
+    children: 'Checkbox Label',
   },
-};
+});

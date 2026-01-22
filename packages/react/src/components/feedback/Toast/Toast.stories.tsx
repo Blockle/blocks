@@ -1,14 +1,29 @@
-import type { Meta } from '@storybook/react-vite';
-import type { FC } from 'react';
-
+import preview from '../../../../../../.storybook/preview.js';
 import { Button } from '../../form/Button/Button.js';
 import type { Toast } from './ToastContext.js';
 import { ToastProvider } from './ToastProvider.js';
 import { useToast } from './useToast.js';
 
-export default {
+const meta = preview.meta({
   title: 'Feedback/Toast',
-  component: () => null,
+  render: ({ intent, duration, children }: Omit<Toast, 'id'>) => {
+    const { showToast } = useToast();
+
+    return (
+      <Button
+        size="medium"
+        onClick={() => {
+          showToast({
+            duration,
+            children: children || 'This is a toast message',
+            intent,
+          });
+        }}
+      >
+        Show Toast
+      </Button>
+    );
+  },
   argTypes: {
     intent: {
       control: 'select',
@@ -30,23 +45,12 @@ export default {
       </ToastProvider>
     ),
   ],
-} as Meta;
+});
 
-export const Default: FC<Toast> = ({ intent, duration, children }) => {
-  const { showToast } = useToast();
-
-  return (
-    <Button
-      size="medium"
-      onClick={() => {
-        showToast({
-          duration,
-          children: children || 'This is a toast message',
-          intent,
-        });
-      }}
-    >
-      Show Toast
-    </Button>
-  );
-};
+export const Default = meta.story({
+  args: {
+    intent: 'info',
+    duration: 3000,
+    children: 'This is a toast message',
+  },
+});

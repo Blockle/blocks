@@ -1,14 +1,11 @@
 import { atomicProperties } from '@blockle/blocks-core';
-import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Text, type TextProps } from './Text.js';
+import preview from '../../../../../../.storybook/preview.js';
+import { Text } from './Text.js';
 
-export default {
+const meta = preview.meta({
   title: 'Typography/Text',
   component: Text,
-  args: {
-    fontSize: 'small',
-  },
   argTypes: {
     fontSize: {
       name: 'fontSize',
@@ -29,13 +26,12 @@ export default {
       options: Object.keys(atomicProperties.lineHeight.values),
     },
   },
-} as Meta<typeof Text>;
+});
 
-export const Default: StoryObj<TextProps> = {
+export const Default = meta.story({
   args: {
+    ref: null,
     children:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-    fontFamily: 'body',
-    tag: 'span',
   },
-};
+});
