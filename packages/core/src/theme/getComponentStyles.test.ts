@@ -233,4 +233,142 @@ describe('getComponentStyles', () => {
 
     expect(result).toBe('');
   });
+
+  it('should apply compound variants with default variants', () => {
+    const themeWithCompound = {
+      components: {
+        button: {
+          root: 'btn-base',
+          variants: {
+            size: { small: 'btn-sm', large: 'btn-lg' },
+            intent: { primary: 'btn-primary', secondary: 'btn-secondary' },
+          },
+          defaultVariants: { size: 'small', intent: 'primary' },
+          compoundVariants: [
+            {
+              variants: { size: 'small', intent: 'primary' },
+              style: 'btn-small-primary',
+            },
+          ],
+        },
+      },
+    } satisfies Partial<Theme> as unknown as Theme;
+
+    const result = getComponentStyles(themeWithCompound, 'button', {});
+
+    expect(result).toBe('btn-sm btn-primary btn-small-primary');
+  });
+
+  it('should handle multiple compound variants', () => {
+    const themeWithMultipleCompound = {
+      components: {
+        button: {
+          root: 'btn-base',
+          variants: {
+            size: { small: 'btn-sm', large: 'btn-lg' },
+            intent: { primary: 'btn-primary', secondary: 'btn-secondary' },
+            disabled: 'btn-disabled',
+          },
+          compoundVariants: [
+            {
+              variants: { size: 'small', intent: 'primary' },
+              style: 'btn-small-primary',
+            },
+            {
+              variants: { intent: 'primary', disabled: true },
+              style: 'btn-primary-disabled',
+            },
+          ],
+        },
+      },
+    } satisfies Partial<Theme> as unknown as Theme;
+
+    const result = getComponentStyles(themeWithMultipleCompound, 'button', {
+      variants: { size: 'small', intent: 'primary', disabled: true },
+    });
+
+    expect(result).toBe(
+      'btn-sm btn-primary btn-disabled btn-small-primary btn-primary-disabled',
+    );
+  });
+
+  it('should handle multiple root boolean props', () => {
+    const themeWithMultipleRoots = {
+      components: {
+        button: {
+          root: 'btn-base',
+          fullWidth: 'btn-full-width',
+          elevated: 'btn-elevated',
+        },
+      },
+    } as unknown as Theme;
+
+    const result = getComponentStyles(themeWithMultipleRoots, 'button', {
+      root: true,
+      fullWidth: true,
+      elevated: true,
+    } as Record<string, boolean>);
+
+    expect(result).toBe('btn-base btn-full-width btn-elevated');
+  });
+
+  it('should ignore false boolean props', () => {
+    const themeWithBooleans = {
+      components: {
+        button: {
+          root: 'btn-base',
+          fullWidth: 'btn-full-width',
+          elevated: 'btn-elevated',
+        },
+      },
+    } as unknown as Theme;
+
+    const result = getComponentStyles(themeWithBooleans, 'button', {
+      root: true,
+      fullWidth: false,
+      elevated: true,
+    } as Record<string, boolean>);
+
+    expect(result).toBe('btn-base btn-elevated');
+  });
+
+  it('should handle non-existent variant values gracefully', () => {
+    const result = getComponentStyles(testTheme, 'button', {
+      variants: { size: 'medium' as unknown as 'small' | 'large' },
+    });
+
+    expect(result).toBe('');
+  });
+
+  it('should combine all features: root, variants, defaults, and compound', () => {
+    const complexTheme = {
+      components: {
+        button: {
+          root: 'btn-base',
+          fullWidth: 'btn-full-width',
+          variants: {
+            size: { small: 'btn-sm', large: 'btn-lg' },
+            intent: { primary: 'btn-primary', secondary: 'btn-secondary' },
+          },
+          defaultVariants: { intent: 'secondary' },
+          compoundVariants: [
+            {
+              variants: { size: 'small', intent: 'primary' },
+              style: 'btn-small-primary',
+            },
+          ],
+        },
+      },
+    } as unknown as Theme;
+
+    const result = getComponentStyles(complexTheme, 'button', {
+      root: true,
+      fullWidth: true,
+      variants: { size: 'small', intent: 'primary' },
+    } as Record<string, boolean | { size: string; intent: string }>);
+
+    expect(result).toBe(
+      'btn-base btn-full-width btn-sm btn-primary btn-small-primary',
+    );
+  });
 });

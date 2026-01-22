@@ -1,11 +1,5 @@
-import type {
-  ComponentThemes,
-  ComponentThemesProps,
-} from '../config/componentThemes.js';
+import type { ComponentThemesProps } from '../config/componentThemes.js';
 import type { Theme } from '../theme/makeTheme.js';
-import type { ComponentTheme } from './makeComponentTheme.js';
-
-type VariantValue = string | boolean | number;
 
 export function getComponentStyles<T extends keyof ComponentThemesProps>(
   theme: Theme,
@@ -17,69 +11,52 @@ export function getComponentStyles<T extends keyof ComponentThemesProps>(
 
   if (!component) {
     console.warn(`Component ${name} is not defined in the theme`);
-
     return '';
   }
 
   const classNames: string[] = [];
-  const variants = styleProps.variants ?? {};
-  const variantsWithDefaults = { ...variants } as Record<string, VariantValue>;
+  const variants = styleProps.variants;
+  const componentVariants = component.variants;
 
-  // Apply root styles, root styles props are always boolean values
+  // Apply root styles (boolean props)
   for (const key in styleProps) {
     const value = styleProps[key];
 
-    if (typeof value === 'boolean' && value) {
-      classNames.push(
-        // biome-ignore lint/suspicious/noExplicitAny: type assertion
-        (component as unknown as ComponentTheme<any>)[key] as string,
-      );
+    if (value === true) {
+      const className = (component as Record<string, string>)[key];
+
+      if (className) {
+        classNames.push(className);
+      }
     }
   }
 
-  // No variants for component, return base styles
-  if (!component.variants) {
+  // No variants for component, return early
+  if (!componentVariants) {
     return classNames.join(' ');
   }
 
-  // Apply default variants
-  const { defaultVariants } = component;
+  const defaultVariants = useDefaultVariants ? component.defaultVariants : null;
 
-  if (useDefaultVariants && defaultVariants) {
-    const keys = Object.keys(defaultVariants) as string[];
+  for (const key in componentVariants) {
+    const variantValue = variants?.[key] ?? defaultVariants?.[key];
 
-    for (const key of keys) {
-      if (variantsWithDefaults[key] === undefined && defaultVariants[key]) {
-        variantsWithDefaults[key] = defaultVariants[key] as VariantValue;
+    if (variantValue === undefined) continue;
+
+    const variantConfig = componentVariants[key];
+
+    if (typeof variantValue === 'boolean') {
+      if (variantValue && typeof variantConfig === 'string') {
+        classNames.push(variantConfig);
       }
-    }
-  }
+    } else {
+      const className = (variantConfig as Record<string, string>)[
+        variantValue as string
+      ];
 
-  // Apply variant styles
-  const keys = Object.keys(variantsWithDefaults) as string[];
-  const componentVariants = component.variants as Record<string, string>;
-
-  for (const key of keys) {
-    const value = variantsWithDefaults[key as string];
-
-    if (value === undefined || componentVariants[key] === undefined) {
-      continue;
-    }
-
-    if (typeof value === 'boolean') {
-      if (value && componentVariants[key]) {
-        classNames.push(componentVariants[key]);
+      if (className) {
+        classNames.push(className);
       }
-      continue;
-    }
-
-    // String union variants
-    const variant = (
-      componentVariants[key] as unknown as Record<string, string>
-    )[value];
-
-    if (variant) {
-      classNames.push(variant);
     }
   }
 
@@ -88,19 +65,17 @@ export function getComponentStyles<T extends keyof ComponentThemesProps>(
 
   if (compoundVariants) {
     for (const compoundVariant of compoundVariants) {
-      const keys = Object.keys(
-        compoundVariant.variants,
-      ) as (keyof ComponentThemes[T])[];
+      let matches = true;
 
-      const matches = keys.every((key) => {
-        const value = variantsWithDefaults[key as string];
+      for (const key in compoundVariant.variants) {
+        const expectedValue = compoundVariant.variants[key];
+        const actualValue = variants?.[key] ?? defaultVariants?.[key];
 
-        if (value === undefined) {
-          return false;
+        if (actualValue !== expectedValue) {
+          matches = false;
+          break;
         }
-
-        return value === compoundVariant.variants[key as string];
-      });
+      }
 
       if (matches) {
         classNames.push(compoundVariant.style);
