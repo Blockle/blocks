@@ -23,5 +23,6 @@
   },
   "[markdown]": {
     "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
-  }
+  },
+  "testing.automaticallyOpenTestResults": "neverOpen"
 }
