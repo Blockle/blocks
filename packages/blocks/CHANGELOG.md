@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 2.3.11
+
+### Patch Changes
+
+- b9c393d: Refactored the useComponentStyles hook to delegate all style computation logic to the new getComponentStyles utility, removing the duplicate implementation and simplifying the hook code.
+
 ## 2.3.10
 
 ### Patch Changes
