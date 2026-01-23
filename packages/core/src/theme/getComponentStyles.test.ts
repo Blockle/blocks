@@ -210,7 +210,7 @@ describe('getComponentStyles', () => {
     expect(result).toBe('btn-lg btn-primary');
   });
 
-  it('should return empty string when component has no variants defined', () => {
+  it('should return root styles when component has no variants defined', () => {
     const simpleTheme = {
       components: {
         button: {
