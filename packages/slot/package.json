@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/Blockle/blocks#readme",
   "peerDependencies": {
-    "@blockle/blocks-core": ">=1.2.x",
+    "@blockle/blocks-core": ">=1.3.x",
     "react": ">=19.1.0"
   },
   "publishConfig": {

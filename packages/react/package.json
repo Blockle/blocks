@@ -34,8 +34,8 @@
     "@vanilla-extract/css": "^1.18.0"
   },
   "peerDependencies": {
-    "@blockle/blocks-core": ">=1.2.x",
-    "@blockle/blocks-react-slot": ">=1.1.x",
+    "@blockle/blocks-core": ">=1.3.x",
+    "@blockle/blocks-react-slot": ">=1.2.x",
     "@vanilla-extract/css": "^1.18.0",
     "react": ">=19.1.0",
     "react-dom": ">=19.1.0"
