@@ -86,8 +86,7 @@ export const Button: React.FC<ButtonProps> = ({
         atoms(atomsProps),
         className,
       )}
-      // Do not pass type attribute if using asChild since child component may not support it
-      type={asChild ? undefined : (type ?? 'button')}
+      type={asChild ? type : (type ?? 'button')}
       {...otherProps}
     >
       {startSlot && <Box display="inline-flex">{startSlot}</Box>}

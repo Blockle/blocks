@@ -19,7 +19,7 @@ export const focusable = style({
     outlineOffset: '2px',
   },
   selectors: {
-    '&:disabled, &[disabled]': {
+    '&:disabled, &[disabled], &[aria-disabled="true"]': {
       opacity: 0.5,
       cursor: 'auto',
       pointerEvents: 'none',
