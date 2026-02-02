@@ -59,6 +59,17 @@ describe('Button', () => {
     expect(linkElement).toHaveAttribute('href', '/test');
   });
 
+  it('should not set default type attribute when asChild is true', () => {
+    render(
+      <Button asChild>
+        <a href="/test">Link Button</a>
+      </Button>,
+    );
+
+    const linkElement = screen.getByText('Link Button');
+    expect(linkElement).not.toHaveAttribute('type');
+  });
+
   it('should log a warning when a type is provided while using asChild', () => {
     const consoleWarnSpy = vi
       .spyOn(console, 'warn')
