@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 2.3.12
+
+### Patch Changes
+
+- 4d39467: Button update type handling for asChild prop
+
 ## 2.3.11
 
 ### Patch Changes
