@@ -1,5 +1,11 @@
 # @blockle/blocks-react
 
+## 2.5.4
+
+### Patch Changes
+
+- 7f10490: Allow more atoms to be passed to "IconMask" component.
+
 ## 2.5.3
 
 ### Patch Changes
