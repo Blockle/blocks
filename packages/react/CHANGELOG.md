@@ -1,5 +1,11 @@
 # @blockle/blocks-react
 
+## 2.5.6
+
+### Patch Changes
+
+- 3cfe06f: IconMask display fix
+
 ## 2.5.5
 
 ### Patch Changes
