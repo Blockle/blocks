@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 2.3.14
+
+### Patch Changes
+
+- 92f24d5: IconMask css display can now be set
+
 ## 2.3.13
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @blockle/blocks-react
 
+## 2.5.5
+
+### Patch Changes
+
+- 92f24d5: IconMask css display can now be set
+
 ## 2.5.4
 
 ### Patch Changes
