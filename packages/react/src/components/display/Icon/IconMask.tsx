@@ -40,7 +40,7 @@ export const IconMask: React.FC<IconMaskProps> = ({
     <span
       role="presentation"
       className={classnames(
-        atoms({ color, ...atomsProps }),
+        atoms({ color, display, ...atomsProps }),
         styles.iconMask,
         iconClassName,
         className,
