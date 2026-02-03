@@ -6,7 +6,6 @@ export const iconMask = style({
     [layers.molecule]: {
       aspectRatio: '1 / 1',
       maskSize: '100%',
-      display: 'inline-block',
       backgroundColor: 'currentcolor',
     },
   },
