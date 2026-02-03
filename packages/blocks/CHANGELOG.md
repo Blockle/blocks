@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 2.3.15
+
+### Patch Changes
+
+- 3cfe06f: IconMask display fix
+
 ## 2.3.14
 
 ### Patch Changes
