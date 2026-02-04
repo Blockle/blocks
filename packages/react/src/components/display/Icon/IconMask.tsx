@@ -28,7 +28,7 @@ export const IconMask: React.FC<IconMaskProps> = ({
   src,
   size,
   style,
-  display = 'inline-block',
+  display = 'block',
   ...restProps
 }) => {
   const [atomsProps, otherProps] = getAtomsAndProps(restProps);
@@ -46,7 +46,7 @@ export const IconMask: React.FC<IconMaskProps> = ({
         className,
       )}
       style={{
-        mask: `url(${src}) no-repeat center`,
+        maskImage: `url(${src})`,
         ...style,
       }}
       {...otherProps}
