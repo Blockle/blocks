@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 2.3.16
+
+### Patch Changes
+
+- c879057: <Flex />
+
 ## 2.3.15
 
 ### Patch Changes
