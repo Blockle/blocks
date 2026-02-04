@@ -6,7 +6,8 @@ export const dialog = style({
     [layers.molecule]: {
       position: 'fixed',
       inset: 0,
-      border: 'none',
+      // Center the dialog
+      margin: 'auto',
       '::backdrop': {
         // Remove pointer event to prevent clicks on the backdrop
         // and make it easier to check if the click was outside the dialog
