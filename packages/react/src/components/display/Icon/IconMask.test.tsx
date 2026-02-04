@@ -16,7 +16,7 @@ describe('IconMask', () => {
     const { container } = render(<IconMask src="test-icon.svg" />);
     const span = container.querySelector('span');
 
-    expect(span).toHaveStyle({ mask: 'url(test-icon.svg) no-repeat center' });
+    expect(span).toHaveStyle({ maskImage: 'url(test-icon.svg)' });
   });
 
   it('applies custom className', () => {
@@ -45,14 +45,13 @@ describe('IconMask', () => {
   });
 
   it('merges custom style with mask style', () => {
-    const customStyle = { opacity: 0.5 };
     const { container } = render(
-      <IconMask src="icon.svg" style={customStyle} />,
+      <IconMask src="icon.svg" style={{ opacity: 0.5 }} />,
     );
     const span = container.querySelector('span');
 
     expect(span).toHaveStyle({
-      mask: 'url(icon.svg) no-repeat center',
+      maskImage: 'url(icon.svg)',
       opacity: 0.5,
     });
   });

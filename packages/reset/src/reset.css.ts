@@ -1,58 +1,35 @@
 import { layers } from '@blockle/blocks-core';
 import { globalStyle } from '@vanilla-extract/css';
 
-globalStyle(':where(*, *::before, *::after)', {
-  boxSizing: 'inherit',
-  WebkitTapHighlightColor: 'transparent',
+globalStyle(':where(*,:after,:before,::backdrop)', {
+  '@layer': {
+    [layers.reset]: {
+      boxSizing: 'inherit',
+      border: '0 none',
+      margin: 0,
+      padding: 0,
+    },
+  },
 });
 
-globalStyle(':where(html)', {
+globalStyle(':where(html,:host)', {
   boxSizing: 'border-box',
   '@layer': {
     [layers.reset]: {
       lineHeight: 1.5,
       WebkitFontSmoothing: 'antialiased',
+      WebkitTapHighlightColor: 'transparent',
     },
   },
 });
 
-globalStyle(':where(body)', {
-  '@layer': {
-    [layers.reset]: {
-      margin: 0,
-      padding: 0,
-      fontFamily: 'Calibri, sans-serif',
-    },
-  },
-});
-
-globalStyle(':where(button, input, optgroup, select, textarea)', {
+globalStyle(':where(button,input,select,optgroup,textarea)', {
   '@layer': {
     [layers.reset]: {
       fontFamily: 'inherit',
       fontSize: '100%',
       lineHeight: 'inherit',
-      margin: 0,
-      padding: 0,
-    },
-  },
-});
-
-globalStyle(':where(p, ul, ol, pre, blockquote)', {
-  '@layer': {
-    [layers.reset]: {
-      margin: 0,
-      padding: 0,
-    },
-  },
-});
-
-globalStyle(':where(h1, h2, h3, h4, h5, h6)', {
-  '@layer': {
-    [layers.reset]: {
-      margin: 0,
-      padding: 0,
-      fontSize: 'inherit',
+      color: 'inherit',
     },
   },
 });
@@ -65,10 +42,20 @@ globalStyle(':where(pre)', {
   },
 });
 
-globalStyle(':where([popover])', {
+globalStyle(':where(h1,h2,h3,h4,h5,h6)', {
   '@layer': {
     [layers.reset]: {
-      border: 'unset',
+      fontSize: 'inherit',
+      fontWeight: 'inherit',
+    },
+  },
+});
+
+globalStyle(':where(a)', {
+  '@layer': {
+    [layers.reset]: {
+      color: 'inherit',
+      textDecoration: 'inherit',
     },
   },
 });

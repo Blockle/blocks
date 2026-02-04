@@ -8,13 +8,17 @@ import * as styles from './Textarea.css.js';
 
 export type TextareaProps = {
   value?: string;
-  ref?: React.RefObject<HTMLTextAreaElement>;
+  /**
+   * If true, the textarea will grow in height to fit its content.
+   */
+  grow?: boolean;
   // helperText: React.ReactNode;
 } & HTMLElementProps<HTMLTextAreaElement>;
 
 export const Textarea: React.FC<TextareaProps> = ({
   ref,
   value,
+  grow,
   ...restProps
 }) => {
   const containerClassName = useComponentStyles(
@@ -29,7 +33,11 @@ export const Textarea: React.FC<TextareaProps> = ({
       <textarea
         ref={ref}
         value={value}
-        className={classnames(styles.textarea, inputClassName)}
+        className={classnames(
+          styles.textarea,
+          grow && styles.fieldSizingEnabled,
+          inputClassName,
+        )}
         {...restProps}
       />
     </Box>

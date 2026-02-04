@@ -8,7 +8,10 @@ export const textarea = style({
       minHeight: 'inherit',
       resize: 'none',
       display: 'block',
-      fieldSizing: 'content',
     },
   },
+});
+
+export const fieldSizingEnabled = style({
+  fieldSizing: 'content',
 });
