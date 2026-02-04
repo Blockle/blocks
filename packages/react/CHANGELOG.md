@@ -1,5 +1,11 @@
 # @blockle/blocks-react
 
+## 2.6.1
+
+### Patch Changes
+
+- 3bd1c36: Introducing grow for TextArea and css reset improvements
+
 ## 2.6.0
 
 ### Minor Changes
