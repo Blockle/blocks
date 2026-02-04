@@ -1,5 +1,12 @@
 # @blockle/blocks
 
+## 2.3.19
+
+### Patch Changes
+
+- 6b5d527: Remove 'all: unset' from buttonReset style
+- 5c710a7: Center dialog
+
 ## 2.3.18
 
 ### Patch Changes
