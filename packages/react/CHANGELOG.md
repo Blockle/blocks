@@ -1,5 +1,11 @@
 # @blockle/blocks-react
 
+## 2.6.2
+
+### Patch Changes
+
+- 766d998: Remove 'all: unset' from buttonReset style
+
 ## 2.6.1
 
 ### Patch Changes
