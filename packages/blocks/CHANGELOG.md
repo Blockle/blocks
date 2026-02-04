@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 2.3.17
+
+### Patch Changes
+
+- 3bd1c36: Introducing grow for TextArea and css reset improvements
+
 ## 2.3.16
 
 ### Patch Changes
