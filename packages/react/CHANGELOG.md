@@ -1,5 +1,11 @@
 # @blockle/blocks-react
 
+## 2.6.0
+
+### Minor Changes
+
+- c879057: <Flex />
+
 ## 2.5.6
 
 ### Patch Changes
