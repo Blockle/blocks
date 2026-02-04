@@ -1,9 +1,9 @@
 import { layer } from '@vanilla-extract/css';
 
+const resetLayer = layer('blockle-reset');
+const atomLayer = layer('blockle-atom');
+const moleculeLayer = layer('blockle-molecule');
 const organismLayer = layer('blockle-organism');
-const moleculeLayer = layer({ parent: organismLayer }, 'blockle-molecule');
-const atomLayer = layer({ parent: moleculeLayer }, 'blockle-atom');
-const resetLayer = layer({ parent: atomLayer }, 'blockle-reset');
 
 export const layers = {
   reset: resetLayer,
