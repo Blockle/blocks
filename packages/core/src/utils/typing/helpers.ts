@@ -68,3 +68,11 @@ export type RecordToUnionPath<
 export type DeepNullable<T> = {
   [P in keyof T]: T[P] extends RecordLike ? DeepNullable<T[P]> : T[P] | null;
 };
+
+export type Defined<T> = Exclude<T, undefined>;
+
+export type DeepExclude<T extends RecordLike, U = undefined> = {
+  [P in keyof T]: T[P] extends RecordLike
+    ? DeepExclude<T[P], U>
+    : Exclude<T[P], U>;
+};

@@ -1,4 +1,4 @@
-type FontWeight = 'light' | 'normal' | 'medium' | 'strong' | 'bold';
+type FontWeight = 'regular' | 'medium' | 'bold';
 type Space = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 type Transition = 'slow' | 'normal' | 'fast';
 type BorderRadius = 1 | 2 | 3 | 4;
@@ -50,6 +50,7 @@ export type ThemeTokens = {
     width: Record<BorderWidth, number | string>;
   };
   shadow: Record<BoxShadow, string>;
+  // Could be replaced by outline?
   focus: {
     boxShadow: string;
   };
