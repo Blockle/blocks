@@ -1,5 +1,12 @@
 # @blockle/blocks
 
+## 2.3.20
+
+### Patch Changes
+
+- 269d397: Allow most html attributes for base components
+- 02b716a: Refactor layer definitions to remove parent-child relationships
+
 ## 2.3.19
 
 ### Patch Changes

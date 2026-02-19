@@ -1,5 +1,11 @@
 # @blockle/blocks-react
 
+## 2.6.4
+
+### Patch Changes
+
+- 269d397: Allow most html attributes for base components
+
 ## 2.6.3
 
 ### Patch Changes
