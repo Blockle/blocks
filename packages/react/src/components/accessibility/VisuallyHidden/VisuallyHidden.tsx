@@ -4,7 +4,6 @@ import * as styles from './visually-hidden.css.js';
 
 export type VisuallyHiddenProps = {
   children: React.ReactNode;
-  asChild?: boolean;
 } & HTMLElementProps<HTMLSpanElement>;
 
 export const VisuallyHidden: React.FC<VisuallyHiddenProps> = ({

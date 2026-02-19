@@ -1,6 +1,6 @@
 'use client';
 
-import { classnames } from '@blockle/blocks-core';
+import { classnames, type HTMLElementProps } from '@blockle/blocks-core';
 import type React from 'react';
 
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
@@ -10,23 +10,23 @@ export type ProgressProps = {
   'aria-label'?: string;
   'aria-labelledby'?: string;
   'aria-valuetext'?: string;
-  className?: string;
   indeterminate?: boolean;
   // TODO - add support for min
   max?: number;
-  style?: React.CSSProperties;
   /**
    * The value of the progress bar, between 0 and max=100.
    */
   value?: number;
-  ref?: React.Ref<HTMLDivElement>;
-};
+} & Omit<
+  HTMLElementProps<HTMLDivElement>,
+  // Set by the component
+  'role' | 'aria-valuenow' | 'aria-valuemin' | 'aria-valuemax'
+>;
 
 export const Progress: React.FC<ProgressProps> = ({
   className,
   indeterminate,
   max = 100,
-  ref,
   value = 0,
   ...restProps
 }) => {
@@ -46,7 +46,6 @@ export const Progress: React.FC<ProgressProps> = ({
 
   return (
     <Box
-      ref={ref}
       className={classnames(containerClassName, className)}
       overflow="hidden"
       role="progressbar"

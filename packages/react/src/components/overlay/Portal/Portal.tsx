@@ -11,10 +11,10 @@ export type PortalProps = {
 };
 
 export const Portal: React.FC<PortalProps> = ({ children, container }) => {
-  const context = useTheme();
+  const currentTheme = useTheme();
 
   return createPortal(
-    <BlocksProvider theme={context}>{children}</BlocksProvider>,
+    <BlocksProvider theme={currentTheme}>{children}</BlocksProvider>,
     container || document.body,
   );
 };

@@ -12,7 +12,6 @@ export type BoxProps = {
   asChild?: boolean;
   children?: React.ReactNode;
   className?: string;
-  ref?: React.Ref<HTMLDivElement>;
   style?: React.CSSProperties;
 } & Atoms &
   HTMLElementProps<HTMLDivElement>;
@@ -23,14 +22,12 @@ export const Box: React.FC<BoxProps> = ({
   asChild,
   className,
   children,
-  ref,
   ...restProps
 }) => {
   const [atomsProps, otherProps] = getAtomsAndProps(restProps);
 
   return (
     <Template
-      ref={ref}
       asChild={asChild}
       className={classnames(className, atoms(atomsProps))}
       noSlot

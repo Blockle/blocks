@@ -11,7 +11,6 @@ import * as styles from './checkbox.css.js';
 export type CheckboxProps = {
   children?: React.ReactNode;
   name: string;
-  ref?: React.Ref<HTMLInputElement>;
   required?: boolean;
 } & HTMLElementProps<HTMLInputElement>;
 
@@ -20,7 +19,6 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   className,
   id,
   name,
-  ref,
   required,
   ...restProps
 }) => {
@@ -39,7 +37,6 @@ export const Checkbox: React.FC<CheckboxProps> = ({
       className={classnames(styles.container, containerClassName, className)}
     >
       <input
-        ref={ref}
         type="checkbox"
         name={name}
         id={inputId}

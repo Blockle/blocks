@@ -4,6 +4,7 @@ import {
   type ComponentThemes,
   classnames,
   getAtomsAndProps,
+  type HTMLElementProps,
   type MarginAtoms,
 } from '@blockle/blocks-core';
 import type React from 'react';
@@ -14,13 +15,12 @@ import * as styles from './IconMask.css.js';
 type IconTheme = ComponentThemes['icon'];
 
 export type IconMaskProps = {
-  className?: string;
   color?: Atoms['color'];
   display?: Atoms['display'];
   size?: IconTheme['variants']['size'];
   src: string;
-  style?: React.CSSProperties;
-} & MarginAtoms;
+} & MarginAtoms &
+  Omit<HTMLElementProps<HTMLSpanElement>, 'color' | 'display'>;
 
 export const IconMask: React.FC<IconMaskProps> = ({
   className,

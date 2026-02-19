@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { render, screen } from '../../../testUtils/testUtils.js';
 import * as styles from './Textarea.css.js';
@@ -17,7 +17,7 @@ describe('Textarea', () => {
   });
 
   it('should render with provided value', () => {
-    render(<Textarea value="Test content" />);
+    render(<Textarea value="Test content" onChange={vi.fn()} />);
 
     expect(screen.getByRole('textbox')).toHaveValue('Test content');
   });

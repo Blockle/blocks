@@ -11,7 +11,6 @@ import * as styles from './Grid.css.js';
 export type GridItemProps = {
   asChild?: boolean;
   colSpan: ResponsiveValue<keyof typeof styles.responsiveColSpanStyles>;
-  ref?: React.Ref<HTMLDivElement>;
   rowSpan?: ResponsiveValue<keyof typeof styles.responsiveRowSpanStyles>;
 } & Omit<HTMLElementProps<HTMLDivElement>, 'colSpan' | 'rowSpan'>;
 

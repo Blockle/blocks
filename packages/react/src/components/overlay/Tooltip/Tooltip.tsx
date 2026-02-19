@@ -1,6 +1,10 @@
 'use client';
 
-import { type ComponentThemes, composeRefs } from '@blockle/blocks-core';
+import {
+  type ComponentThemes,
+  composeRefs,
+  type HTMLElementProps,
+} from '@blockle/blocks-core';
 import {
   Children,
   cloneElement,
@@ -28,7 +32,7 @@ export type TooltipProps = {
   children: ReactElement;
   content: React.ReactNode;
   colorScheme?: TooltipTheme['variants']['colorScheme'];
-};
+} & Omit<HTMLElementProps<HTMLDivElement>, 'ref' | 'children'>;
 
 export const Tooltip: React.FC<TooltipProps> = ({
   position = 'top',

@@ -15,11 +15,10 @@ type LinkTheme = ComponentThemes['link'];
 export type LinkProps = {
   asChild?: boolean;
   children?: React.ReactNode;
-  ref?: React.Ref<HTMLAnchorElement>;
   underline?: LinkTheme['variants']['underline'];
   variant?: LinkTheme['variants']['variant'];
-} & MarginAtoms &
-  HTMLElementProps<HTMLAnchorElement>;
+} & HTMLElementProps<HTMLAnchorElement> &
+  MarginAtoms;
 
 const [Template, Slot] = createSlottable('a');
 
@@ -27,7 +26,6 @@ export const Link: React.FC<LinkProps> = ({
   asChild,
   children,
   className,
-  ref,
   underline,
   variant,
   ...restProps
@@ -40,7 +38,6 @@ export const Link: React.FC<LinkProps> = ({
   return (
     <Template
       asChild={asChild}
-      ref={ref}
       className={classnames(className, linkClassName)}
       {...restProps}
     >

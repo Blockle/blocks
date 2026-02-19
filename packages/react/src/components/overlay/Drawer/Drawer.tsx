@@ -16,7 +16,6 @@ export type DrawerProps = {
   open: boolean;
   onRequestClose: () => void;
   placement?: keyof typeof styles.placement;
-  children?: React.ReactNode;
 } & HTMLElementProps<HTMLDialogElement>;
 
 export const Drawer: React.FC<DrawerProps> = ({
