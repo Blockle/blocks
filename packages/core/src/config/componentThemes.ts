@@ -64,6 +64,13 @@ export type DrawerTheme = {
   };
 };
 
+export type HeadingTheme = {
+  root?: string;
+  variants: {
+    variant: 'title' | 'subtitle';
+  };
+};
+
 export type IconTheme = {
   root: string;
   variants: {
@@ -139,6 +146,13 @@ export type SwitchTheme = {
   thumb: string;
 };
 
+export type TextTheme = {
+  root?: string;
+  variants: {
+    variant: 'paragraph' | 'label';
+  };
+};
+
 export type TextareaTheme = {
   root: string;
   input: string;
@@ -173,6 +187,7 @@ export type ComponentThemes = {
   dialog: DialogTheme;
   divider: DividerTheme;
   drawer: DrawerTheme;
+  heading: HeadingTheme;
   icon: IconTheme;
   label: LabelTheme;
   link: LinkTheme;
@@ -183,6 +198,7 @@ export type ComponentThemes = {
   slider: SliderTheme;
   spinner: SpinnerTheme;
   switch: SwitchTheme;
+  text: TextTheme;
   textarea: TextareaTheme;
   textInput: TextInputTheme;
   toast: ToastTheme;

@@ -1,4 +1,5 @@
 import {
+  type ComponentThemes,
   classnames,
   type HTMLElementProps,
   type MarginAtoms,
@@ -7,8 +8,11 @@ import {
 } from '@blockle/blocks-core';
 import type React from 'react';
 
+import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { Box } from '../../layout/Box/Box.js';
 import * as styles from './text.css.js';
+
+type TextTheme = ComponentThemes['text'];
 
 type Tags =
   | 'del'
@@ -28,6 +32,7 @@ export type TextProps<Tag extends Tags = 'span'> = {
   children: React.ReactNode;
   ref?: React.Ref<HTMLElementTagNameMap[Tag]>;
   tag?: Tag;
+  variant?: TextTheme['variants']['variant'];
 } & TextAtoms &
   MarginAtoms &
   PaddingAtoms &
@@ -39,12 +44,22 @@ export const Text = <T extends Tags = 'span'>({
   className,
   ref,
   tag,
+  variant,
   ...restProps
 }: TextProps<T>) => {
   const Component = (tag ?? 'span') as Tags;
+  const textClassName = useComponentStyles('text', {
+    variants: {
+      variant,
+    },
+  });
 
   return (
-    <Box asChild className={classnames(styles.text, className)} {...restProps}>
+    <Box
+      asChild
+      className={classnames(styles.text, textClassName, className)}
+      {...restProps}
+    >
       {asChild ? (
         children
       ) : (
