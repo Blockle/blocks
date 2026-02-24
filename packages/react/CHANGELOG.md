@@ -1,5 +1,11 @@
 # @blockle/blocks-react
 
+## 2.6.5
+
+### Patch Changes
+
+- 51589bb: Using "appearance: none" instead of "all: unset"
+
 ## 2.6.4
 
 ### Patch Changes

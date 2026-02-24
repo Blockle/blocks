@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 2.3.21
+
+### Patch Changes
+
+- 51589bb: Using "appearance: none" instead of "all: unset"
+
 ## 2.3.20
 
 ### Patch Changes
