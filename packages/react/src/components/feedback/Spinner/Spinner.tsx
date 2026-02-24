@@ -15,7 +15,7 @@ type SpinnerTheme = ComponentThemes['spinner'];
 export type SpinnerProps = {
   color?: SpinnerTheme['variants']['color'];
   size?: SpinnerTheme['variants']['size'];
-} & HTMLElementProps<HTMLDivElement> &
+} & Omit<HTMLElementProps<HTMLDivElement>, 'size'> &
   MarginAtoms;
 
 export const Spinner: React.FC<SpinnerProps> = ({

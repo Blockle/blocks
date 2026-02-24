@@ -17,7 +17,7 @@ export const input = style({
   opacity: 0,
   '@layer': {
     [layers.molecule]: {
-      all: 'unset',
+      appearance: 'none',
     },
   },
 });
