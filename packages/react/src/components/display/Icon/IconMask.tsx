@@ -20,7 +20,7 @@ export type IconMaskProps = {
   size?: IconTheme['variants']['size'];
   src: string;
 } & MarginAtoms &
-  Omit<HTMLElementProps<HTMLSpanElement>, 'color' | 'display'>;
+  Omit<HTMLElementProps<HTMLSpanElement>, 'color' | 'display' | 'size'>;
 
 export const IconMask: React.FC<IconMaskProps> = ({
   className,
