@@ -86,6 +86,7 @@ export const Nested = meta.story({
 
 export const WithAriaMarkup = meta.story({
   render() {
+    // biome-ignore lint/correctness/useHookAtTopLevel: This is a story, so it should be fine to use hooks here.
     const [open, setOpen] = useState(false);
 
     return (
