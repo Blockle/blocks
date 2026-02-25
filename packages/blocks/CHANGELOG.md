@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 2.3.22
+
+### Patch Changes
+
+- 7f660d5: fix getComponentStyles when using defaults
+
 ## 2.3.21
 
 ### Patch Changes
