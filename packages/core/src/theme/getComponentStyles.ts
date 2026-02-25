@@ -31,11 +31,6 @@ export function getComponentStyles<T extends keyof ComponentThemesProps>(
     }
   }
 
-  // No variants for component, return early
-  if (!componentVariants) {
-    return classNames.join(' ');
-  }
-
   const defaultVariants = useDefaultVariants ? component.defaultVariants : null;
 
   for (const key in componentVariants) {
