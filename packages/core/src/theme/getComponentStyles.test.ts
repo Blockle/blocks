@@ -47,14 +47,6 @@ describe('getComponentStyles', () => {
     expect(result).toBe('btn-sm');
   });
 
-  it('should apply multiple variant styles', () => {
-    const result = getComponentStyles(testTheme, 'button', {
-      variants: { size: 'large' },
-    });
-
-    expect(result).toBe('btn-lg');
-  });
-
   it('should combine root and variant styles', () => {
     const result = getComponentStyles(testTheme, 'button', {
       root: true,
@@ -332,7 +324,7 @@ describe('getComponentStyles', () => {
     expect(result).toBe('btn-base btn-elevated');
   });
 
-  it('should handle non-existent variant values gracefully', () => {
+  it('should return empty string for non-existent variant values', () => {
     const result = getComponentStyles(testTheme, 'button', {
       variants: { size: 'medium' as unknown as 'small' | 'large' },
     });
@@ -370,5 +362,124 @@ describe('getComponentStyles', () => {
     expect(result).toBe(
       'btn-base btn-full-width btn-sm btn-primary btn-small-primary',
     );
+  });
+
+  it('should return empty string when no style props provided', () => {
+    const result = getComponentStyles(testTheme, 'button', {});
+
+    expect(result).toBe('');
+  });
+
+  it('should ignore variants when component has no variants defined', () => {
+    const minimalTheme = {
+      components: {
+        button: {
+          root: 'btn-base',
+          variants: {},
+        },
+      },
+    } satisfies Partial<Theme> as unknown as Theme;
+
+    const result = getComponentStyles(minimalTheme, 'button', {
+      root: true,
+      variants: { size: 'small' },
+    });
+
+    expect(result).toBe('btn-base');
+  });
+
+  it('should handle compound variants with partial match from defaults', () => {
+    const themeWithCompound = {
+      components: {
+        button: {
+          root: 'btn-base',
+          variants: {
+            size: { small: 'btn-sm', large: 'btn-lg' },
+            intent: { primary: 'btn-primary', secondary: 'btn-secondary' },
+          },
+          defaultVariants: { intent: 'primary' },
+          compoundVariants: [
+            {
+              variants: { size: 'small', intent: 'primary' },
+              style: 'btn-small-primary',
+            },
+          ],
+        },
+      },
+    } satisfies Partial<Theme> as unknown as Theme;
+
+    const result = getComponentStyles(themeWithCompound, 'button', {
+      variants: { size: 'small' },
+    });
+
+    expect(result).toBe('btn-sm btn-primary btn-small-primary');
+  });
+
+  it('should handle empty compoundVariants array', () => {
+    const themeWithEmptyCompound = {
+      components: {
+        button: {
+          root: 'btn-base',
+          variants: {
+            size: { small: 'btn-sm', large: 'btn-lg' },
+          },
+          compoundVariants: [],
+        },
+      },
+    } satisfies Partial<Theme> as unknown as Theme;
+
+    const result = getComponentStyles(themeWithEmptyCompound, 'button', {
+      variants: { size: 'small' },
+    });
+
+    expect(result).toBe('btn-sm');
+  });
+
+  it('should prioritize provided variants over default variants in compound matching', () => {
+    const themeWithCompound = {
+      components: {
+        button: {
+          root: 'btn-base',
+          variants: {
+            size: { small: 'btn-sm', large: 'btn-lg' },
+            intent: { primary: 'btn-primary', secondary: 'btn-secondary' },
+          },
+          defaultVariants: { size: 'large', intent: 'secondary' },
+          compoundVariants: [
+            {
+              variants: { size: 'small', intent: 'primary' },
+              style: 'btn-small-primary',
+            },
+          ],
+        },
+      },
+    } satisfies Partial<Theme> as unknown as Theme;
+
+    const result = getComponentStyles(themeWithCompound, 'button', {
+      variants: { size: 'small', intent: 'primary' },
+    });
+
+    expect(result).toBe('btn-sm btn-primary btn-small-primary');
+  });
+
+  it('should handle mixed string and boolean variants', () => {
+    const mixedTheme = {
+      components: {
+        button: {
+          root: 'btn-base',
+          variants: {
+            size: { small: 'btn-sm', large: 'btn-lg' },
+            disabled: 'btn-disabled',
+            loading: 'btn-loading',
+          },
+        },
+      },
+    } satisfies Partial<Theme> as unknown as Theme;
+
+    const result = getComponentStyles(mixedTheme, 'button', {
+      variants: { size: 'small', disabled: true, loading: false },
+    });
+
+    expect(result).toBe('btn-sm btn-disabled');
   });
 });

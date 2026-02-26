@@ -3,6 +3,7 @@
 import {
   type ComponentThemes,
   classnames,
+  type HTMLElementProps,
   type MarginAtoms,
 } from '@blockle/blocks-core';
 
@@ -12,11 +13,10 @@ import { Box } from '../../layout/Box/Box.js';
 type SpinnerTheme = ComponentThemes['spinner'];
 
 export type SpinnerProps = {
-  className?: string;
   color?: SpinnerTheme['variants']['color'];
   size?: SpinnerTheme['variants']['size'];
-  style?: React.CSSProperties;
-} & MarginAtoms;
+} & Omit<HTMLElementProps<HTMLDivElement>, 'size'> &
+  MarginAtoms;
 
 export const Spinner: React.FC<SpinnerProps> = ({
   className,

@@ -9,15 +9,15 @@ function getIconUrl(name: HeroIconName): string {
 const meta = preview.meta({
   title: 'Display/IconMask',
   component: IconMask,
+  argTypes: {
+    src: {
+      control: 'text',
+    },
+  },
 });
 
 export const Default = meta.story({
   args: {
     src: getIconUrl('academic-cap'),
-  },
-  argTypes: {
-    src: {
-      control: 'text',
-    },
   },
 });

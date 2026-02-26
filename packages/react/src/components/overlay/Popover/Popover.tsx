@@ -2,6 +2,7 @@
 
 import {
   classnames,
+  composeRefs,
   type HTMLElementProps,
   hasAnimationDuration,
 } from '@blockle/blocks-core';
@@ -20,13 +21,10 @@ export type PopoverAlign = 'top' | 'bottom' | 'left' | 'right';
 
 export type PopoverProps = {
   anchorElement: React.RefObject<HTMLElement | null>;
-  children: React.ReactNode;
-  className?: string;
   onRequestClose: () => void;
   open: boolean;
   position?: PopoverAlign; // TODO PopoverAlign | PopoverAlign[]; allow multiple positions
   sticky?: boolean;
-  style?: React.CSSProperties;
   // trigger?: 'click' | 'hover' | 'focus'; // TODO: implement
 } & HTMLElementProps<HTMLDivElement>;
 
@@ -130,7 +128,7 @@ export const Popover: React.FC<PopoverProps> = ({
 
   return (
     <Box
-      ref={popoverRef}
+      ref={composeRefs(restProps.ref, popoverRef)}
       data-open={open ? '' : undefined}
       popover="manual"
       className={classnames(popoverClassName, className)}

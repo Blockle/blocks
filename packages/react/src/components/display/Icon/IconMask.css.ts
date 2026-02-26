@@ -5,9 +5,10 @@ export const iconMask = style({
   '@layer': {
     [layers.molecule]: {
       aspectRatio: '1 / 1',
-      maskSize: '100%',
-      display: 'inline-block',
       backgroundColor: 'currentcolor',
+      maskPosition: 'center',
+      maskRepeat: 'no-repeat',
+      maskSize: '100%',
     },
   },
 });

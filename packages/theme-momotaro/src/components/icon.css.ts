@@ -10,19 +10,19 @@ export const icon: ThemeComponentsStyles['icon'] = makeComponentTheme('icon', {
   variants: {
     size: {
       xsmall: style({
-        minWidth: pixelsToRem(12),
+        width: pixelsToRem(12),
       }),
       small: style({
-        minWidth: pixelsToRem(16),
+        width: pixelsToRem(16),
       }),
       medium: style({
-        minWidth: pixelsToRem(32),
+        width: pixelsToRem(32),
       }),
       large: style({
-        minWidth: pixelsToRem(48),
+        width: pixelsToRem(48),
       }),
       xlarge: style({
-        minWidth: pixelsToRem(64),
+        width: pixelsToRem(64),
       }),
     },
   },

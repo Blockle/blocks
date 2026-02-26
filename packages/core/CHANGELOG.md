@@ -1,5 +1,18 @@
 # @blockle/blocks-core
 
+## 1.3.2
+
+### Patch Changes
+
+- 7f660d5: fix getComponentStyles when using defaults
+
+## 1.3.1
+
+### Patch Changes
+
+- 269d397: Allow most html attributes for base components
+- 02b716a: Refactor layer definitions to remove parent-child relationships
+
 ## 1.3.0
 
 ### Minor Changes

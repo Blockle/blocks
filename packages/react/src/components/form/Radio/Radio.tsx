@@ -10,7 +10,6 @@ import * as styles from './radio.css.js';
 export type RadioProps = {
   children?: React.ReactNode;
   name: string;
-  ref?: React.Ref<HTMLInputElement>;
   value: string;
 } & HTMLElementProps<HTMLInputElement>;
 
@@ -18,21 +17,19 @@ export const Radio: React.FC<RadioProps> = ({
   name,
   children,
   className,
-  ref,
   ...restProps
 }) => {
   const rid = useId();
   const id = restProps.id ?? rid;
   const containerClassName = useComponentStyles('radio', { root: true }, false);
   const iconClassName = useComponentStyles('radio', { icon: true }, false);
-  const labelClassName = useComponentStyles('checkbox', { label: true }, false);
+  const labelClassName = useComponentStyles('radio', { label: true }, false);
 
   const input = (
     <div
       className={classnames(styles.container, containerClassName, className)}
     >
       <input
-        ref={ref}
         type="radio"
         name={name}
         id={id}

@@ -28,10 +28,10 @@ export type TextProps<Tag extends Tags = 'span'> = {
   children: React.ReactNode;
   ref?: React.Ref<HTMLElementTagNameMap[Tag]>;
   tag?: Tag;
-} & TextAtoms &
+} & Omit<HTMLElementProps<HTMLSpanElement>, 'children' | 'ref'> &
+  TextAtoms &
   MarginAtoms &
-  PaddingAtoms &
-  Omit<HTMLElementProps<HTMLSpanElement>, 'children' | 'ref'>;
+  PaddingAtoms;
 
 export const Text = <T extends Tags = 'span'>({
   asChild,

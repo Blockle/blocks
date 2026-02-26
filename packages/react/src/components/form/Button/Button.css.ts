@@ -4,7 +4,7 @@ import { style } from '@vanilla-extract/css';
 export const buttonReset = style({
   '@layer': {
     [layers.reset]: {
-      all: 'unset',
+      appearance: 'none',
       cursor: 'pointer',
     },
   },

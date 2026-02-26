@@ -1,5 +1,11 @@
 # @blockle/blocks-theme-momotaro
 
+## 6.2.6
+
+### Patch Changes
+
+- 3bd1c36: Introducing grow for TextArea and css reset improvements
+
 ## 6.2.5
 
 ### Patch Changes

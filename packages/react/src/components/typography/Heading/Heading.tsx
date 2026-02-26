@@ -10,13 +10,12 @@ import { Box } from '../../layout/Box/Box.js';
 import * as styles from './heading.css.js';
 
 export type HeadingProps = {
-  children: React.ReactNode;
   className?: string;
   level?: 1 | 2 | 3 | 4 | 5 | 6;
-} & TextAtoms &
+} & HTMLElementProps<HTMLHeadingElement> &
+  TextAtoms &
   MarginAtoms &
-  PaddingAtoms &
-  HTMLElementProps<HTMLHeadingElement>;
+  PaddingAtoms;
 
 export const Heading: React.FC<HeadingProps> = ({
   className,

@@ -1,32 +1,39 @@
-import { type Atoms, classnames } from '@blockle/blocks-core';
+import {
+  type Atoms,
+  classnames,
+  type HTMLElementProps,
+} from '@blockle/blocks-core';
 
 import { Box } from '../../layout/Box/Box.js';
 import * as styles from './Skeleton.css.js';
 
 export type SkeletonProps = {
-  ref?: React.Ref<HTMLDivElement>;
   height?: string | number;
   circle?: boolean;
-  className?: string;
   borderRadius?: Atoms['borderRadius'];
   backgroundColor?: Atoms['backgroundColor'];
-};
+} & HTMLElementProps<HTMLDivElement>;
 
 export const Skeleton: React.FC<SkeletonProps> = ({
-  ref,
   height,
   circle = false,
   className,
   borderRadius = 1,
   backgroundColor = 'background-300',
+  style,
+  ...restProps
 }) => {
   return (
     <Box
-      ref={ref}
       className={classnames(styles.skeleton, className)}
       borderRadius={circle ? 'full' : borderRadius}
       backgroundColor={backgroundColor}
-      style={{ height, aspectRatio: circle ? '1 / 1' : undefined }}
+      style={{
+        ...style,
+        height,
+        aspectRatio: circle ? '1 / 1' : undefined,
+      }}
+      {...restProps}
     />
   );
 };

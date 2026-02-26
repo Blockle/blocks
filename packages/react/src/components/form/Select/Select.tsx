@@ -16,7 +16,6 @@ type SelectTheme = ComponentThemes['select'];
 export type SelectProps = {
   children: React.ReactNode;
   placeholder?: string;
-  ref?: React.Ref<HTMLSelectElement>;
   variant?: SelectTheme['variants']['variant'];
 } & HTMLElementProps<HTMLSelectElement>;
 
@@ -25,7 +24,6 @@ export const Select: React.FC<SelectProps> = ({
   placeholder,
   className,
   variant,
-  ref,
   ...restProps
 }) => {
   const wrapperClassName = useComponentStyles('select', { root: true }, false);
@@ -38,7 +36,6 @@ export const Select: React.FC<SelectProps> = ({
   return (
     <Box className={classnames(styles.wrapper, wrapperClassName)}>
       <select
-        ref={ref}
         className={classnames(styles.select, selectClassName, className)}
         {...restProps}
       >

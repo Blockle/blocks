@@ -8,7 +8,6 @@ import * as styles from './switch.css.js';
 
 export type SwitchProps = {
   onChange?: (value: boolean) => void;
-  ref?: React.Ref<HTMLInputElement>;
 } & Omit<HTMLElementProps<HTMLInputElement>, 'onChange'>;
 
 export const Switch: React.FC<SwitchProps> = ({
@@ -16,7 +15,6 @@ export const Switch: React.FC<SwitchProps> = ({
   className,
   defaultChecked,
   onChange,
-  ref,
   ...restProps
 }) => {
   const [isChecked, setIsChecked] = useState<boolean>(
@@ -72,7 +70,6 @@ export const Switch: React.FC<SwitchProps> = ({
         }}
       >
         <input
-          ref={ref}
           type="checkbox"
           className={styles.input}
           checked={isChecked}

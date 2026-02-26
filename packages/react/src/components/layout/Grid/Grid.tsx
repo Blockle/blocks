@@ -7,7 +7,6 @@ export type GridProps = {
   children?: React.ReactNode;
   columnGap?: Atoms['columnGap'];
   gap?: Atoms['gap'];
-  ref?: React.Ref<HTMLDivElement>;
   rowGap?: Atoms['rowGap'];
 } & HTMLElementProps<HTMLDivElement>;
 

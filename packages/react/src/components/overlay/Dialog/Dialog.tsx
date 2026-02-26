@@ -3,6 +3,7 @@
 import {
   type ComponentThemes,
   classnames,
+  type HTMLElementProps,
   hasAnimationDuration,
 } from '@blockle/blocks-core';
 import { useCallback, useRef, useState } from 'react';
@@ -19,13 +20,12 @@ import { DialogContext, useNestedDialog } from './dialogHelper.js';
 type DialogTheme = ComponentThemes['dialog'];
 
 export type DialogProps = {
-  children?: React.ReactNode;
   open: boolean;
   onRequestClose: () => void;
   className?: string;
   size?: DialogTheme['variants']['size'];
   'aria-label'?: string;
-};
+} & HTMLElementProps<HTMLDialogElement>;
 
 export const Dialog: React.FC<DialogProps> = ({
   children,

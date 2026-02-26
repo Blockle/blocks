@@ -4,6 +4,8 @@ import {
   type Atoms,
   type ComponentThemes,
   classnames,
+  getNameFromVanillaCSSVar,
+  type HTMLElementProps,
   vars,
 } from '@blockle/blocks-core';
 
@@ -11,22 +13,12 @@ import { useComponentStyles } from '../../../hooks/useComponentStyles/useCompone
 import { Box } from '../../layout/Box/Box.js';
 import * as styles from './divider.css.js';
 
-function getVanillaVarName(variable: string | undefined) {
-  // In test environment, CSS variables are undefined..
-  return (variable ?? '').replace(/var\((.+)\)/, '$1');
-}
-
-const dividerColorVarName = getVanillaVarName(styles.dividerColorVar);
-
 export type DividerProps = {
   alignment?: 'start' | 'center' | 'end';
-  className?: string;
   color?: keyof typeof vars.color;
-  children?: React.ReactNode;
   size?: ComponentThemes['divider']['variants']['size'];
-  style?: React.CSSProperties;
   gap?: Atoms['gap'];
-};
+} & Omit<HTMLElementProps<HTMLDivElement>, 'size'>;
 
 export const Divider: React.FC<DividerProps> = ({
   alignment = 'center',
@@ -35,6 +27,7 @@ export const Divider: React.FC<DividerProps> = ({
   children,
   size,
   gap = 2,
+  style,
   ...restProps
 }) => {
   const dividerClass = useComponentStyles('divider', {
@@ -51,7 +44,10 @@ export const Divider: React.FC<DividerProps> = ({
       className={classnames(className, dividerClass, styles.divider)}
       data-alignment={alignment}
       style={{
-        [dividerColorVarName]: color ? vars.color[color] : 'currentColor',
+        ...style,
+        [getNameFromVanillaCSSVar(styles.dividerColorVar)]: color
+          ? vars.color[color]
+          : 'currentColor',
       }}
       {...restProps}
     >

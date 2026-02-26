@@ -17,7 +17,6 @@ export type AlertProps = {
   children?: React.ReactNode;
   intent?: AlertTheme['variants']['intent'];
   onRequestClose?: () => void;
-  ref?: React.RefObject<HTMLDivElement>;
 } & HTMLElementProps<HTMLDivElement>;
 
 export const Alert: React.FC<AlertProps> = ({

@@ -11,11 +11,9 @@ import { Box } from '../../layout/Box/Box.js';
 import * as styles from './TextInput.css.js';
 
 export type TextInputProps = {
-  className?: string;
   inputClassName?: string;
   endSlot?: React.ReactNode;
   name: string;
-  ref?: React.Ref<HTMLInputElement>;
   startSlot?: React.ReactNode;
   type?: OptionalLiteral<
     'email' | 'number' | 'password' | 'tel' | 'text' | 'url'
@@ -29,7 +27,6 @@ export const TextInput: React.FC<TextInputProps> = ({
   endSlot,
   name,
   placeholder,
-  ref,
   startSlot,
   type = 'text',
   ...restProps
@@ -51,7 +48,6 @@ export const TextInput: React.FC<TextInputProps> = ({
         {startSlot}
 
         <input
-          ref={ref}
           name={name}
           type={type}
           placeholder={placeholder}

@@ -21,6 +21,7 @@ export {
   getOriginalElementSize,
   parseCSSTransform,
 } from './css/cssMatrixUtils.js';
+export { getNameFromVanillaCSSVar } from './css/getNameFromVanillaCSSVar.js';
 export { layers } from './css/layers.css.js';
 export { pixelsToRem } from './css/pixelsToRem.js';
 export { vars } from './css/vars.css.js';

@@ -65,6 +65,7 @@ export {
 } from './components/form/TextInput/TextInput.js';
 // layout
 export { Box, type BoxProps } from './components/layout/Box/Box.js';
+export { Flex, type FlexProps } from './components/layout/Flex/Flex.js';
 export { Inline, type InlineProps } from './components/layout/Inline/Inline.js';
 export { Stack, type StackProps } from './components/layout/Stack/Stack.js';
 // navigation

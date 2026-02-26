@@ -1,5 +1,66 @@
 # @blockle/blocks-react
 
+## 2.6.5
+
+### Patch Changes
+
+- 51589bb: Using "appearance: none" instead of "all: unset"
+
+## 2.6.4
+
+### Patch Changes
+
+- 269d397: Allow most html attributes for base components
+
+## 2.6.3
+
+### Patch Changes
+
+- 6b5d527: Remove 'all: unset' from buttonReset style
+- 5c710a7: Center dialog
+
+## 2.6.2
+
+### Patch Changes
+
+- 766d998: Remove 'all: unset' from buttonReset style
+
+## 2.6.1
+
+### Patch Changes
+
+- 3bd1c36: Introducing grow for TextArea and css reset improvements
+
+## 2.6.0
+
+### Minor Changes
+
+- c879057: <Flex />
+
+## 2.5.6
+
+### Patch Changes
+
+- 3cfe06f: IconMask display fix
+
+## 2.5.5
+
+### Patch Changes
+
+- 92f24d5: IconMask css display can now be set
+
+## 2.5.4
+
+### Patch Changes
+
+- 7f10490: Allow more atoms to be passed to "IconMask" component.
+
+## 2.5.3
+
+### Patch Changes
+
+- 4d39467: Button update type handling for asChild prop
+
 ## 2.5.2
 
 ### Patch Changes
