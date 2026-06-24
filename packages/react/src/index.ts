@@ -66,6 +66,11 @@ export {
 // layout
 export { Box, type BoxProps } from './components/layout/Box/Box.js';
 export { Flex, type FlexProps } from './components/layout/Flex/Flex.js';
+export { Grid, type GridProps } from './components/layout/Grid/Grid.js';
+export {
+  GridItem,
+  type GridItemProps,
+} from './components/layout/Grid/GridItem.js';
 export { Inline, type InlineProps } from './components/layout/Inline/Inline.js';
 export { Stack, type StackProps } from './components/layout/Stack/Stack.js';
 // navigation
