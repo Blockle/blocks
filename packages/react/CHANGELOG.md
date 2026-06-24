@@ -1,5 +1,11 @@
 # @blockle/blocks-react
 
+## 2.6.6
+
+### Patch Changes
+
+- 95a89e5: Expose Grid and GridItem
+
 ## 2.6.5
 
 ### Patch Changes
