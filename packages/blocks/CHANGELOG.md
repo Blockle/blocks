@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 2.3.23
+
+### Patch Changes
+
+- 95a89e5: Expose Grid and GridItem
+
 ## 2.3.22
 
 ### Patch Changes
