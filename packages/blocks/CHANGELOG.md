@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 2.3.25
+
+### Patch Changes
+
+- 8e9f47e: Fix: update sideEffects configuration in package.json files
+
 ## 2.3.24
 
 ### Patch Changes
