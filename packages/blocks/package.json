@@ -3,7 +3,9 @@
   "version": "2.3.24",
   "description": "Design system for React",
   "type": "module",
-  "sideEffects": false,
+  "sideEffects": [
+    "dist/reset.js"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
