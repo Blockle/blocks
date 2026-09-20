@@ -3,7 +3,9 @@
   "version": "1.3.2",
   "description": "Core for Blocks",
   "type": "module",
-  "sideEffects": false,
+  "sideEffects": [
+    "dist/reset.js"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

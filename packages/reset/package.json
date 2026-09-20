@@ -4,6 +4,7 @@
   "description": "CSS reset for Blockle",
   "type": "module",
   "sideEffects": [
+    "dist/index.js",
     "**/reset.css.*"
   ],
   "exports": {
