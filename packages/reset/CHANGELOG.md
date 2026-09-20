@@ -1,5 +1,11 @@
 # @blockle/blocks-reset
 
+## 0.24.3
+
+### Patch Changes
+
+- 1b33b09: Fix sideEffects configuration in package.json for core and reset packages
+
 ## 0.24.2
 
 ### Patch Changes
