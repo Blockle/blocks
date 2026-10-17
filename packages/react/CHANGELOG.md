@@ -1,5 +1,11 @@
 # @blockle/blocks-react
 
+## 2.6.7
+
+### Patch Changes
+
+- 3f79fc3: Fix: update Alert component to conditionally render close button and enhance Textarea component with maxHeight and containerProps support
+
 ## 2.6.6
 
 ### Patch Changes
