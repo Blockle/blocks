@@ -12,6 +12,11 @@ export type TextareaProps = {
    * If true, the textarea will grow in height to fit its content.
    */
   grow?: boolean;
+  /**
+   * The maximum height the textarea can grow to when `grow` is true.
+   */
+  maxHeight?: string | number;
+  containerProps?: HTMLElementProps<HTMLDivElement>;
   // helperText: React.ReactNode;
 } & HTMLElementProps<HTMLTextAreaElement>;
 
@@ -19,6 +24,8 @@ export const Textarea: React.FC<TextareaProps> = ({
   ref,
   value,
   grow,
+  maxHeight,
+  containerProps,
   ...restProps
 }) => {
   const containerClassName = useComponentStyles(
@@ -27,9 +34,21 @@ export const Textarea: React.FC<TextareaProps> = ({
     false,
   );
   const inputClassName = useComponentStyles('textarea', { input: true });
+  const {
+    className: containerClassNameFromProps,
+    style: containerStyleFromProps,
+    ...containerRestProps
+  } = containerProps || {};
 
   return (
-    <Box className={containerClassName}>
+    <Box
+      className={classnames(containerClassName, containerClassNameFromProps)}
+      style={{
+        maxHeight: grow ? maxHeight : undefined,
+        ...containerStyleFromProps,
+      }}
+      {...containerRestProps}
+    >
       <textarea
         ref={ref}
         value={value}

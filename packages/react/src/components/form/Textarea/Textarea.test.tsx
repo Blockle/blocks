@@ -36,6 +36,43 @@ describe('Textarea', () => {
     expect(textarea).not.toHaveClass(styles.fieldSizingEnabled);
   });
 
+  it('should apply maxHeight to the container when growing', () => {
+    render(<Textarea grow maxHeight={240} />);
+
+    expect(screen.getByRole('textbox').parentElement).toHaveStyle({
+      maxHeight: '240px',
+    });
+  });
+
+  it('should not apply maxHeight to the container when not growing', () => {
+    render(<Textarea maxHeight={240} />);
+
+    expect(screen.getByRole('textbox').parentElement).not.toHaveStyle({
+      maxHeight: '240px',
+    });
+  });
+
+  it('should forward and merge container props', () => {
+    render(
+      <Textarea
+        containerProps={{
+          'data-testid': 'textarea-container',
+          className: 'custom-container',
+          style: { maxHeight: 320, minHeight: 120 },
+        }}
+        grow
+        maxHeight={240}
+      />,
+    );
+
+    const container = screen.getByTestId('textarea-container');
+    expect(container).toHaveClass('custom-container');
+    expect(container).toHaveStyle({
+      maxHeight: '320px',
+      minHeight: '120px',
+    });
+  });
+
   it('should forward additional props to textarea element', () => {
     render(<Textarea placeholder="Enter text" disabled />);
 
