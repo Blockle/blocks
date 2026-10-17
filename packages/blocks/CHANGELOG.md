@@ -1,5 +1,11 @@
 # @blockle/blocks
 
+## 2.3.27
+
+### Patch Changes
+
+- 58e24da: Fix: merge the Textarea's custom `className` with its built-in and theme styles.
+
 ## 2.3.26
 
 ### Patch Changes
