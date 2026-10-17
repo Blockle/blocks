@@ -69,8 +69,8 @@ const responsiveAtomicProperties = defineProperties({
   ],
   properties: {
     alignContent: ['stretch', 'center', 'flex-start', 'flex-end'],
-    alignItems: ['stretch', 'center', 'flex-start', 'flex-end'],
-    alignSelf: ['stretch', 'center', 'flex-start', 'flex-end'],
+    alignItems: ['stretch', 'center', 'flex-start', 'flex-end', 'baseline'],
+    alignSelf: ['stretch', 'center', 'flex-start', 'flex-end', 'baseline'],
     placeItems: ['stretch', 'center', 'flex-start', 'flex-end'],
     display: [
       'none',

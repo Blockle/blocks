@@ -2,8 +2,6 @@ import {
   type AlignItemsMap,
   type Atoms,
   alignItemsMap,
-  type MarginAtoms,
-  type PaddingAtoms,
 } from '@blockle/blocks-core';
 
 import { Box } from '../Box/Box.js';
@@ -13,7 +11,6 @@ export type StackProps = {
   tag?: 'div' | 'section' | 'ul' | 'ol';
   children: React.ReactNode;
   className?: string;
-  display?: Atoms['display'];
   gap: Atoms['gap'];
   style?: React.CSSProperties;
   role?: React.AriaRole;
@@ -21,8 +18,7 @@ export type StackProps = {
    * Start prop is only valid when tag="ol"
    */
   start?: number;
-} & MarginAtoms &
-  PaddingAtoms;
+} & Omit<Atoms, 'flexDirection' | 'gap'>;
 
 export const Stack: React.FC<StackProps> = ({
   tag: Tag = 'div',

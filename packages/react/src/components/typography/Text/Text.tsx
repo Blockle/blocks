@@ -11,11 +11,16 @@ import { Box } from '../../layout/Box/Box.js';
 import * as styles from './text.css.js';
 
 type Tags =
+  | 'cite'
+  | 'code'
   | 'del'
   | 'em'
   | 'ins'
+  | 'kbd'
   | 'label'
+  | 'mark'
   | 'p'
+  | 'q'
   | 's'
   | 'small'
   | 'span'

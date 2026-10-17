@@ -20,6 +20,15 @@ describe('Text Component', () => {
     expect(pElement).toHaveTextContent('Paragraph Text');
   });
 
+  it.each(['code', 'kbd', 'mark', 'q', 'cite'] as const)(
+    'renders a "%s" tag',
+    (tag) => {
+      const { container } = render(<Text tag={tag}>Content</Text>);
+
+      expect(container.querySelector(tag)).toHaveTextContent('Content');
+    },
+  );
+
   it('renders children directly when "asChild" is true', () => {
     const { container } = render(
       <Text asChild>

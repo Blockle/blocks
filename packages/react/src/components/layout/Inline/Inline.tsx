@@ -4,8 +4,6 @@ import {
   alignItemsMap,
   type JustifyContentMap,
   justifyContentMap,
-  type MarginAtoms,
-  type PaddingAtoms,
 } from '@blockle/blocks-core';
 
 import { Box } from '../Box/Box.js';
@@ -16,11 +14,9 @@ export type InlineProps = {
   tag?: 'div' | 'ul' | 'ol' | 'nav';
   children: React.ReactNode;
   className?: string;
-  display?: Atoms['display'];
   gap: Atoms['gap'];
   style?: React.CSSProperties;
-} & MarginAtoms &
-  PaddingAtoms;
+} & Omit<Atoms, 'flexDirection' | 'gap'>;
 
 export const Inline: React.FC<InlineProps> = ({
   alignX,
