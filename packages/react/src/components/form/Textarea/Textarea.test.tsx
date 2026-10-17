@@ -22,6 +22,14 @@ describe('Textarea', () => {
     expect(screen.getByRole('textbox')).toHaveValue('Test content');
   });
 
+  it('should merge the provided className with textarea styles', () => {
+    render(<Textarea className="custom-textarea" />);
+
+    const textarea = screen.getByRole('textbox');
+    expect(textarea).toHaveClass(styles.textarea);
+    expect(textarea).toHaveClass('custom-textarea');
+  });
+
   it('should apply grow class when grow prop is true', () => {
     render(<Textarea grow />);
 

@@ -34,6 +34,7 @@ export const Textarea: React.FC<TextareaProps> = ({
     false,
   );
   const inputClassName = useComponentStyles('textarea', { input: true });
+  const { className, ...inputProps } = restProps;
   const {
     className: containerClassNameFromProps,
     style: containerStyleFromProps,
@@ -56,8 +57,9 @@ export const Textarea: React.FC<TextareaProps> = ({
           styles.textarea,
           grow && styles.fieldSizingEnabled,
           inputClassName,
+          className,
         )}
-        {...restProps}
+        {...inputProps}
       />
     </Box>
   );
