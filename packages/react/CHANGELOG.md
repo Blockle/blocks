@@ -1,5 +1,15 @@
 # @blockle/blocks-react
 
+## 2.7.0
+
+### Minor Changes
+
+- 60a2ad1: Widen layout and typography props.
+
+  - `Text`: added `code`, `kbd`, `mark`, `q` and `cite` to the supported `tag` values, so `Box asChild` is no longer needed to render them.
+  - `Stack` and `Inline`: now accept all `Box` atoms except `flexDirection` and `gap`, which is still required. This enables props like `backgroundColor` and `alignItems="baseline"`.
+  - `core`: added `baseline` to the `alignItems` and `alignSelf` atoms.
+
 ## 2.6.8
 
 ### Patch Changes
