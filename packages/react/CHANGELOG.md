@@ -1,5 +1,11 @@
 # @blockle/blocks-react
 
+## 2.6.8
+
+### Patch Changes
+
+- 58e24da: Fix: merge the Textarea's custom `className` with its built-in and theme styles.
+
 ## 2.6.7
 
 ### Patch Changes
