@@ -56,7 +56,7 @@ describe('Textarea', () => {
     render(
       <Textarea
         containerProps={{
-          'data-testid': 'textarea-container',
+          id: 'textarea-container',
           className: 'custom-container',
           style: { maxHeight: 320, minHeight: 120 },
         }}
@@ -65,7 +65,8 @@ describe('Textarea', () => {
       />,
     );
 
-    const container = screen.getByTestId('textarea-container');
+    const container = screen.getByRole('textbox').parentElement;
+    expect(container).toHaveAttribute('id', 'textarea-container');
     expect(container).toHaveClass('custom-container');
     expect(container).toHaveStyle({
       maxHeight: '320px',
