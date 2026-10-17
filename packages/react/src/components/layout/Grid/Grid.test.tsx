@@ -1,3 +1,4 @@
+import { atoms } from '@blockle/blocks-core';
 import { describe, expect, it } from 'vitest';
 
 import { render, screen } from '../../../testUtils/testUtils.js';
@@ -52,6 +53,41 @@ describe('Grid', () => {
       styles.responsiveRowSpanStyles[1][0],
       styles.responsiveRowSpanStyles[2][1],
       styles.responsiveRowSpanStyles[3][2],
+    );
+  });
+
+  it('should apply the grid class and keep a custom className', () => {
+    render(
+      <Grid className="custom" data-testid="grid">
+        <GridItem colSpan={12}>Item</GridItem>
+      </Grid>,
+    );
+
+    expect(screen.getByTestId('grid')).toHaveClass(styles.grid, 'custom');
+  });
+
+  it('should apply layout atoms to the grid element', () => {
+    render(
+      <Grid gap={3} alignItems="center" paddingBlock={2} data-testid="grid">
+        <GridItem colSpan={12}>Item</GridItem>
+      </Grid>,
+    );
+
+    const grid = screen.getByTestId('grid');
+    expect(grid).toHaveClass(
+      atoms({ display: 'grid', gap: 3, alignItems: 'center', paddingBlock: 2 }),
+    );
+  });
+
+  it('should allow overriding display', () => {
+    render(
+      <Grid display="inline-grid" data-testid="grid">
+        <GridItem colSpan={12}>Item</GridItem>
+      </Grid>,
+    );
+
+    expect(screen.getByTestId('grid')).toHaveClass(
+      atoms({ display: 'inline-grid' }),
     );
   });
 });

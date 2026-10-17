@@ -1,3 +1,4 @@
+import { atoms } from '@blockle/blocks-core';
 import { describe, expect, it, vi } from 'vitest';
 
 import { render, screen } from '../../../testUtils/testUtils.js';
@@ -44,20 +45,28 @@ describe('Textarea', () => {
     expect(textarea).not.toHaveClass(styles.fieldSizingEnabled);
   });
 
-  it('should apply maxHeight to the container when growing', () => {
-    render(<Textarea grow maxHeight={240} />);
+  it('should apply maxBlockSize to the container when growing', () => {
+    render(<Textarea grow maxBlockSize={200} />);
 
     expect(screen.getByRole('textbox').parentElement).toHaveStyle({
-      maxHeight: '240px',
+      maxHeight: '200px',
     });
   });
 
-  it('should not apply maxHeight to the container when not growing', () => {
-    render(<Textarea maxHeight={240} />);
+  it('should not apply maxBlockSize to the container when not growing', () => {
+    render(<Textarea maxBlockSize={240} />);
 
     expect(screen.getByRole('textbox').parentElement).not.toHaveStyle({
       maxHeight: '240px',
     });
+  });
+
+  it('should apply atoms passed through containerProps', () => {
+    render(<Textarea containerProps={{ flex: 1, paddingBlock: 2 }} />);
+
+    expect(screen.getByRole('textbox').parentElement).toHaveClass(
+      atoms({ flex: 1, paddingBlock: 2 }),
+    );
   });
 
   it('should forward and merge container props', () => {
@@ -69,7 +78,7 @@ describe('Textarea', () => {
           style: { maxHeight: 320, minHeight: 120 },
         }}
         grow
-        maxHeight={240}
+        maxBlockSize={240}
       />,
     );
 

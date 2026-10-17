@@ -2,7 +2,7 @@ import { createResponsiveStyles, layers } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 
 export const grid = style({
-  gridTemplateColumns: 'repeat(12, 1fr)',
+  gridTemplateColumns: 'repeat(12, minmax(0, 1fr))',
 });
 
 export const responsiveColSpanStyles = createResponsiveStyles(

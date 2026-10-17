@@ -1,29 +1,27 @@
-import type { Atoms, HTMLElementProps } from '@blockle/blocks-core';
+import {
+  type Atoms,
+  classnames,
+  type HTMLElementProps,
+} from '@blockle/blocks-core';
 
 import { Box } from '../Box/Box.js';
 import * as styles from './Grid.css.js';
 
 export type GridProps = {
   children?: React.ReactNode;
-  columnGap?: Atoms['columnGap'];
-  gap?: Atoms['gap'];
-  rowGap?: Atoms['rowGap'];
-} & HTMLElementProps<HTMLDivElement>;
+} & Omit<Atoms, 'flexDirection'> &
+  Omit<HTMLElementProps<HTMLDivElement>, keyof Atoms>;
 
 export const Grid: React.FC<GridProps> = ({
   children,
-  columnGap,
-  gap,
-  rowGap,
+  display = 'grid',
+  className,
   ...restProps
 }) => {
   return (
     <Box
-      display="grid"
-      className={styles.grid}
-      gap={gap}
-      rowGap={rowGap}
-      columnGap={columnGap}
+      display={display}
+      className={classnames(styles.grid, className)}
       {...restProps}
     >
       {children}

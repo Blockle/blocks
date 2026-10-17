@@ -1,6 +1,10 @@
 'use client';
 
-import { classnames, type HTMLElementProps } from '@blockle/blocks-core';
+import {
+  type Atoms,
+  classnames,
+  type HTMLElementProps,
+} from '@blockle/blocks-core';
 
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { Box } from '../../layout/Box/Box.js';
@@ -13,10 +17,15 @@ export type TextareaProps = {
    */
   grow?: boolean;
   /**
-   * The maximum height the textarea can grow to when `grow` is true.
+   * The maximum block size the container can grow to when `grow` is true.
+   * The container stops at this limit and scrolls, while the `<textarea>`
+   * itself keeps growing inside it.
    */
-  maxHeight?: string | number;
-  containerProps?: HTMLElementProps<HTMLDivElement>;
+  maxBlockSize?: string | number;
+  /**
+   * Props for the wrapper element. Accepts the same atoms as `Box`.
+   */
+  containerProps?: Omit<HTMLElementProps<HTMLDivElement>, keyof Atoms> & Atoms;
   // helperText: React.ReactNode;
 } & HTMLElementProps<HTMLTextAreaElement>;
 
@@ -24,7 +33,7 @@ export const Textarea: React.FC<TextareaProps> = ({
   ref,
   value,
   grow,
-  maxHeight,
+  maxBlockSize,
   containerProps,
   ...restProps
 }) => {
@@ -45,7 +54,7 @@ export const Textarea: React.FC<TextareaProps> = ({
     <Box
       className={classnames(containerClassName, containerClassNameFromProps)}
       style={{
-        maxHeight: grow ? maxHeight : undefined,
+        maxHeight: grow ? maxBlockSize : undefined,
         ...containerStyleFromProps,
       }}
       {...containerRestProps}
