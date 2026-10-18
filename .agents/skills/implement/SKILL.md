@@ -14,4 +14,4 @@ Run typechecking regularly, single test files regularly, and the full test suite
 
 Once done, call the Skill tool with "code-review" to review the work.
 
-Commit your work to the current branch.
+Never commit to `main`. If the current branch is `main`, suggest a branch name derived from the ticket (for example `feat/249-letter-spacing-atom`), ask the user to confirm or change it, create it, and only then commit. Otherwise commit to the current branch.
