@@ -10,7 +10,8 @@ export const popover: ThemeComponentsStyles['popover'] = makeComponentTheme(
   {
     root: style([
       atoms({
-        backgroundColor: 'white',
+        backgroundColor: 'surfaceRaised',
+        color: 'text',
         borderRadius: 1,
         boxShadow: 2,
         padding: 2,

@@ -2,6 +2,7 @@ import {
   atoms,
   makeComponentTheme,
   type ThemeComponentsStyles,
+  vars,
 } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 
@@ -17,12 +18,14 @@ export const dialog: ThemeComponentsStyles['dialog'] = makeComponentTheme(
         overflow: 'auto',
         borderRadius: 2,
         boxShadow: 3,
+        backgroundColor: 'surfaceRaised',
+        color: 'text',
       }),
       {
         maxHeight: '90%',
         minWidth: '300px',
         '::backdrop': {
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          backgroundColor: vars.color.overlay,
         },
         selectors: {
           '&[open]': {
