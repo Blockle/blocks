@@ -16,7 +16,7 @@ export const switchTheme: ThemeComponentsStyles['switch'] = makeComponentTheme(
     root: style([
       atoms({
         borderRadius: 4,
-        backgroundColor: 'text-200',
+        backgroundColor: 'surfaceSunken',
       }),
       {
         width: 52,
@@ -28,7 +28,7 @@ export const switchTheme: ThemeComponentsStyles['switch'] = makeComponentTheme(
         },
         selectors: {
           '&[data-checked="true"]': {
-            backgroundColor: vars.color['secondary-500'],
+            backgroundColor: vars.color.secondary,
           },
         },
         // Scale the switch when it's `:active`
@@ -54,7 +54,7 @@ export const switchTheme: ThemeComponentsStyles['switch'] = makeComponentTheme(
         left: 4,
         transform: `translateX(0) scale(calc(0.9 * ${activeScaleFactor}))`,
         position: 'absolute',
-        backgroundColor: 'white',
+        backgroundColor: vars.color.surfaceRaised,
         selectors: {
           '&[data-checked="true"]': {
             transform: `translateX(20px) scale(${activeScaleFactor})`,

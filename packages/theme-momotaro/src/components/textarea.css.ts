@@ -14,7 +14,7 @@ export const textarea: ThemeComponentsStyles['textarea'] = makeComponentTheme(
     input: style([
       atoms({
         paddingInline: 3,
-        color: 'text-900',
+        color: 'text',
         border: 'none',
         backgroundColor: 'transparent',
       }),
@@ -22,7 +22,7 @@ export const textarea: ThemeComponentsStyles['textarea'] = makeComponentTheme(
         borderRadius: 'inherit',
         outline: 'none',
         '::placeholder': {
-          color: vars.color['text-600'],
+          color: vars.color.textMuted,
         },
         ':disabled': {},
       },
@@ -32,7 +32,7 @@ export const textarea: ThemeComponentsStyles['textarea'] = makeComponentTheme(
         overflow: 'auto',
         minHeight: 96,
         maxHeight: 240,
-        backgroundColor: 'white',
+        backgroundColor: vars.color.surfaceRaised,
         '@media': {
           '(prefers-reduced-motion: no-preference)': {
             transition: `box-shadow ${vars.transition.fast}`,
@@ -41,7 +41,7 @@ export const textarea: ThemeComponentsStyles['textarea'] = makeComponentTheme(
       },
       atoms({
         paddingBlock: 2,
-        backgroundColor: 'white',
+        backgroundColor: 'surfaceRaised',
         borderRadius: 2,
         boxShadow: 2,
       }),

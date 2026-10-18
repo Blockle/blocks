@@ -2,8 +2,6 @@ import type { SchemeTokens } from '@blockle/blocks-core';
 
 import { monochrome, palette } from './palette.js';
 
-const focusColor = '#7FE3F0';
-
 // Light roles reproduce the shades components used before Color roles existed.
 const light: SchemeTokens = {
   color: {
@@ -18,7 +16,7 @@ const light: SchemeTokens = {
     border: '#E1E1E1',
     borderStrong: palette.neutral[400],
     overlay: 'rgba(0, 0, 0, 0.5)',
-    focusRing: focusColor,
+    focusRing: palette.primary[300],
     primary: palette.primary[600],
     primaryHover: palette.primary[700],
     primarySubtle: palette.primary[100],
@@ -72,7 +70,7 @@ const dark: SchemeTokens = {
     border: monochrome[700],
     borderStrong: palette.neutral[700],
     overlay: 'rgba(0, 0, 0, 0.7)',
-    focusRing: focusColor,
+    focusRing: palette.secondary[500],
     primary: palette.primary[400],
     primaryHover: palette.primary[300],
     primarySubtle: palette.primary[900],

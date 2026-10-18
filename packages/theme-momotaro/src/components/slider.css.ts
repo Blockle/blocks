@@ -37,9 +37,9 @@ export const slider: ThemeComponentsStyles['slider'] = makeComponentTheme(
         borderRadius: '50%',
         height: '16px',
         width: '16px',
-        boxShadow: `0 0 0 0px color-mix(in srgb,  ${vars.color['primary-100']}, transparent 0%)`,
+        boxShadow: `0 0 0 0px color-mix(in srgb,  ${vars.color.primarySubtle}, transparent 0%)`,
         vars: {
-          [thumbActive]: `0 0 0 8px color-mix(in srgb,  ${vars.color['primary-100']}, transparent 20%)`,
+          [thumbActive]: `0 0 0 8px color-mix(in srgb,  ${vars.color.primarySubtle}, transparent 20%)`,
         },
         ':hover': {
           boxShadow: thumbActive,
@@ -70,25 +70,25 @@ export const slider: ThemeComponentsStyles['slider'] = makeComponentTheme(
       intent: {
         primary: style({
           vars: {
-            [trackBackground]: vars.color['primary-100'],
-            [filledTrackBackground]: vars.color['primary-500'],
-            [thumbBackground]: vars.color['primary-500'],
+            [trackBackground]: vars.color.primarySubtle,
+            [filledTrackBackground]: vars.color.primary,
+            [thumbBackground]: vars.color.primary,
           },
         }),
         secondary: style({
           vars: {
-            [trackBackground]: vars.color['primary-100'],
-            [filledTrackBackground]: vars.color['secondary-500'],
-            [thumbBackground]: vars.color['secondary-500'],
+            [trackBackground]: vars.color.primarySubtle,
+            [filledTrackBackground]: vars.color.secondary,
+            [thumbBackground]: vars.color.secondary,
           },
         }),
       },
       disabled: style({
         pointerEvents: 'none',
         vars: {
-          [trackBackground]: vars.color['background-200'],
-          [filledTrackBackground]: vars.color['background-400'],
-          [thumbBackground]: vars.color['background-400'],
+          [trackBackground]: vars.color.surfaceSunken,
+          [filledTrackBackground]: vars.color.textDisabled,
+          [thumbBackground]: vars.color.textDisabled,
         },
       }),
     },
