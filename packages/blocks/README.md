@@ -18,11 +18,15 @@ import { BlocksProvider } from '@blockle/blocks';
 import { momotaro } from '@blockle/blocks-theme-momotaro';
 
 const App = () => (
-  <BlocksProvider theme={momotaro}>
-    <div>Your app here</div>
+  <BlocksProvider theme={momotaro} colorScheme="system" asChild>
+    <body>
+      <div>Your app here</div>
+    </body>
   </BlocksProvider>
 );
 ```
+
+`colorScheme` is `light`, `dark` or `system` (follows the OS preference). It defaults to the parent provider's scheme, or `system` at the top level. The provider element paints the theme's `surface` background and `text` color, so apply the top-level provider to the whole page (for example with `asChild` on `<body>`) to make the page background follow the scheme. Nest a provider with its own `colorScheme` to give one section a different scheme.
 
 ## Usage
 
