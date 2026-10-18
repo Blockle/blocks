@@ -5,14 +5,12 @@ import { atoms } from './atoms.js';
 
 describe('atoms', () => {
   it('should find the class for a property', () => {
-    expect(
-      atomicProperties.color.values['primary-500'].defaultClass,
-    ).toBeDefined();
+    expect(atomicProperties.color.values.primary.defaultClass).toBeDefined();
   });
 
   it('returns correct class for single string value', () => {
-    expect(atoms({ color: 'black' })).toBe(
-      atomicProperties.color.values.black.defaultClass,
+    expect(atoms({ color: 'text' })).toBe(
+      atomicProperties.color.values.text.defaultClass,
     );
   });
 

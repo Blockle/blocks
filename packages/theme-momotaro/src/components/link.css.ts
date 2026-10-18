@@ -38,11 +38,11 @@ export const link: ThemeComponentsStyles['link'] = makeComponentTheme('link', {
         fontWeight: 'inherit',
       }),
       primary: atoms({
-        color: 'primary-500',
+        color: 'primary',
         fontWeight: 'medium',
       }),
       secondary: atoms({
-        color: 'secondary-500',
+        color: 'secondary',
         fontWeight: 'medium',
       }),
     },

@@ -43,16 +43,33 @@ describe('Divider', () => {
     expect(screen.getByRole('separator')).toHaveClass('custom-class');
   });
 
-  // TODO: Fix this test
-  it('should apply color style', () => {
-    render(<Divider color="primary-500" />);
+  it('applies a Color role as the line color', () => {
+    render(<Divider color="borderStrong" />);
 
     const divider = screen.getByRole('separator');
     expect(
-      getComputedStyle(divider).getPropertyValue(
+      divider.style.getPropertyValue(
         getNameFromVanillaCSSVar(styles.dividerColorVar),
       ),
-    ).toEqual(vars.color['primary-500']);
+    ).toBe(vars.color.borderStrong);
+  });
+
+  it('uses currentColor when no color is given', () => {
+    render(<Divider />);
+
+    const divider = screen.getByRole('separator');
+    expect(
+      divider.style.getPropertyValue(
+        getNameFromVanillaCSSVar(styles.dividerColorVar),
+      ),
+    ).toBe('currentColor');
+  });
+
+  it('only accepts Color roles for color', () => {
+    // @ts-expect-error Palette shades are not Color roles
+    render(<Divider color="primary-500" />);
+
+    expect(screen.getByRole('separator')).toBeInTheDocument();
   });
 
   it('should have horizontal orientation', () => {
