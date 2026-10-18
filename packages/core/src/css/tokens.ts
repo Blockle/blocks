@@ -37,12 +37,10 @@ export const tokens: DeepNullable<ThemeTokens> = {
       bold: null,
     },
     lineHeight: {
-      xsmall: null,
-      small: null,
-      medium: null,
-      large: null,
-      xlarge: null,
-      display: null,
+      compact: null,
+      snug: null,
+      normal: null,
+      relaxed: null,
     },
     letterSpacing: {
       tight: null,
@@ -91,6 +89,8 @@ export const tokens: DeepNullable<ThemeTokens> = {
   color: {
     black: null,
     white: null,
+    border: null,
+    focus: null,
     primary: colorPalette,
     secondary: colorPalette,
     success: colorPalette,
