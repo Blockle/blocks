@@ -31,7 +31,7 @@ export const Default = meta.story({
 export const AsChild = meta.story({
   args: {
     asChild: true,
-    color: 'primary-700',
+    color: 'primaryHover',
     children: (
       <a
         href="https://google.com"
