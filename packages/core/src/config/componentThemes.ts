@@ -2,14 +2,15 @@ import type { Atoms } from '../atoms/atoms.js';
 import type { RecordLike } from '../utils/typing/helpers.js';
 
 // Shared variant type definitions
-type Intent = 'error' | 'info' | 'success' | 'warning';
+type Intent = 'danger' | 'info' | 'success' | 'warning';
 type AlertIntent = Intent;
 type ToastIntent = 'neutral' | Intent;
 type ButtonVariant = 'solid' | 'outline' | 'ghost';
 type InputVariant = 'solid' | 'outline';
-type LinkVariant = 'inherit' | 'primary' | 'secondary';
+type LinkIntent = 'inherit' | 'primary' | 'secondary';
 type Size = 'small' | 'medium' | 'large';
 type IconSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
+type SliderIntent = 'primary' | 'secondary';
 type ColorScheme = 'primary' | 'secondary';
 
 /**
@@ -82,7 +83,7 @@ export type LabelTheme = {
 export type LinkTheme = {
   root: string;
   variants: {
-    variant: LinkVariant;
+    intent: LinkIntent;
     underline: boolean;
   };
 };
@@ -121,7 +122,7 @@ export type SliderTheme = {
   thumb: string;
   variants: {
     size: Size;
-    colorScheme: ColorScheme;
+    intent: SliderIntent;
     disabled: boolean;
   };
 };
