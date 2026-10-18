@@ -153,6 +153,7 @@ export const tokens: ThemeTokens = {
       medium: pixelsToRem(16),
       large: pixelsToRem(20),
       xlarge: pixelsToRem(24),
+      display: 'clamp(2rem, 1.5rem + 2.5vw, 3.5rem)',
     },
     fontWeight: {
       light: 300,
@@ -167,6 +168,13 @@ export const tokens: ThemeTokens = {
       medium: pixelsToRem(24),
       large: pixelsToRem(28),
       xlarge: pixelsToRem(32),
+      display: 1.1,
+    },
+    letterSpacing: {
+      tight: '-0.02em',
+      normal: '0',
+      wide: '0.05em',
+      wider: '0.1em',
     },
   },
 };

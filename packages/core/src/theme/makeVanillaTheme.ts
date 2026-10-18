@@ -56,6 +56,10 @@ export const makeVanillaTheme = (tokens: ThemeTokens) => {
       keyof typeof tokens.typography.lineHeight,
       string
     >,
+    letterSpacing: tokens.typography.letterSpacing as Record<
+      keyof typeof tokens.typography.letterSpacing,
+      string
+    >,
     transition: tokens.transition as Record<
       keyof typeof tokens.transition,
       string

@@ -27,6 +27,7 @@ export const tokens: DeepNullable<ThemeTokens> = {
       medium: null,
       large: null,
       xlarge: null,
+      display: null,
     },
     fontWeight: {
       light: null,
@@ -41,6 +42,13 @@ export const tokens: DeepNullable<ThemeTokens> = {
       medium: null,
       large: null,
       xlarge: null,
+      display: null,
+    },
+    letterSpacing: {
+      tight: null,
+      normal: null,
+      wide: null,
+      wider: null,
     },
   },
   spacing: {

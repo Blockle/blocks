@@ -32,6 +32,7 @@ export type TextAtoms = {
   fontSize?: Atoms['fontSize'];
   fontStyle?: Atoms['fontStyle'];
   fontWeight?: Atoms['fontWeight'];
+  letterSpacing?: Atoms['letterSpacing'];
   lineHeight?: Atoms['lineHeight'];
   textAlign?: Atoms['textAlign'];
   textDecoration?: Atoms['textDecoration'];

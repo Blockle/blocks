@@ -1,3 +1,4 @@
+import { atoms } from '@blockle/blocks-core';
 import { describe, expect, it } from 'vitest';
 
 import { render, screen } from '../../../testUtils/testUtils.js';
@@ -21,5 +22,13 @@ describe('Box', () => {
 
     expect(target.tagName).toEqual('A');
     expect(target).toHaveAttribute('href', '/foo');
+  });
+
+  it('should apply the letterSpacing atom', () => {
+    render(<Box letterSpacing="wide">Box content</Box>);
+
+    expect(screen.getByText('Box content')).toHaveClass(
+      atoms({ letterSpacing: 'wide' }),
+    );
   });
 });

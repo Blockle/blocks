@@ -1,3 +1,4 @@
+import { atoms } from '@blockle/blocks-core';
 import { render } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
@@ -60,5 +61,13 @@ describe('Text Component', () => {
 
     expect(ref.current).not.toBeNull();
     expect(ref.current?.tagName).toBe('SPAN');
+  });
+
+  it('applies the display font size atom', () => {
+    const { container } = render(<Text fontSize="display">Title</Text>);
+
+    expect(container.querySelector('span')).toHaveClass(
+      atoms({ fontSize: 'display' }),
+    );
   });
 });

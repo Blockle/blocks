@@ -8,7 +8,9 @@ import { style } from '@vanilla-extract/css';
 export const label: ThemeComponentsStyles['label'] = makeComponentTheme(
   'label',
   {
-    root: style({}),
+    root: style({
+      letterSpacing: vars.letterSpacing.wide,
+    }),
     variants: {
       size: {
         small: style({

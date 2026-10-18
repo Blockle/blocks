@@ -42,6 +42,24 @@ describe('atoms', () => {
     );
   });
 
+  it('returns a class for letterSpacing', () => {
+    const className = atoms({ letterSpacing: 'wide' });
+
+    expect(className).toBeTruthy();
+    expect(className).toBe(
+      atomicProperties.letterSpacing.values.wide.defaultClass,
+    );
+  });
+
+  it('returns a class for the display fontSize', () => {
+    const className = atoms({ fontSize: 'display' });
+
+    expect(className).toBeTruthy();
+    expect(className).toBe(
+      atomicProperties.fontSize.values.display.defaultClass,
+    );
+  });
+
   it('returns empty string for unknown property', () => {
     // @ts-expect-error testing unknown property
     expect(atoms({ unknown: 'value' })).toBe('');

@@ -25,6 +25,12 @@ const meta = preview.meta({
       control: 'select',
       options: Object.keys(atomicProperties.lineHeight.values),
     },
+    letterSpacing: {
+      name: 'letterSpacing',
+      type: 'string',
+      control: 'select',
+      options: Object.keys(atomicProperties.letterSpacing.values),
+    },
   },
 });
 

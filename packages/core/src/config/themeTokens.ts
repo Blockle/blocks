@@ -4,8 +4,15 @@ type Transition = 'slow' | 'normal' | 'fast';
 type BorderRadius = 1 | 2 | 3 | 4;
 type BorderWidth = 'thin' | 'thick';
 type BoxShadow = 1 | 2 | 3 | 4 | 5;
-type FontSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
-type LineHeight = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
+type FontSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'display';
+type LineHeight =
+  | 'xsmall'
+  | 'small'
+  | 'medium'
+  | 'large'
+  | 'xlarge'
+  | 'display';
+type LetterSpacing = 'tight' | 'normal' | 'wide' | 'wider';
 
 type ColorPalette =
   | '100'
@@ -42,6 +49,7 @@ export type ThemeTokens = {
     fontSize: Record<FontSize, number | string>;
     fontWeight: Record<FontWeight, 300 | 400 | 500 | 600 | 700 | 800>;
     lineHeight: Record<LineHeight, number | string>;
+    letterSpacing: Record<LetterSpacing, number | string>;
   };
   spacing: Record<Space, number | string>;
   transition: Record<Transition, string>;

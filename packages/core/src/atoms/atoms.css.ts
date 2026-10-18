@@ -88,6 +88,7 @@ const responsiveAtomicProperties = defineProperties({
     flexShrink: [0, 1],
     flexWrap: ['nowrap', 'wrap'],
     fontSize: vars.fontSize,
+    letterSpacing: vars.letterSpacing,
     gap: vars.space,
     columnGap: vars.space,
     rowGap: vars.space,

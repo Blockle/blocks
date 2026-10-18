@@ -85,6 +85,7 @@ export const testingTheme = makeTheme({
         medium: '16px',
         large: '20px',
         xlarge: '24px',
+        display: 'clamp(32px, 24px + 2.5vw, 56px)',
       },
       fontWeight: {
         light: 300,
@@ -99,6 +100,13 @@ export const testingTheme = makeTheme({
         medium: '24px',
         large: '28px',
         xlarge: '32px',
+        display: 1.1,
+      },
+      letterSpacing: {
+        tight: '-0.02em',
+        normal: '0',
+        wide: '0.05em',
+        wider: '0.1em',
       },
     },
     transition: {
