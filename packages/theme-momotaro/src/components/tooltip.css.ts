@@ -2,31 +2,23 @@ import {
   atoms,
   makeComponentTheme,
   type ThemeComponentsStyles,
+  vars,
 } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 
+// The inverse roles make the tooltip dark on light and light on dark.
 export const tooltip: ThemeComponentsStyles['tooltip'] = makeComponentTheme(
   'tooltip',
   {
-    root: atoms({
-      padding: 1,
-    }),
-    variants: {
-      colorScheme: {
-        primary: style({
-          backgroundColor: 'rgba(0, 0, 0, 0.8)',
-          boxShadow: '0 0 0 1px rgba(255, 255, 255, 0.1)',
-          color: 'white',
-        }),
-        secondary: style({
-          backgroundColor: 'rgba(255, 255, 255, 0.8)',
-          boxShadow: '0 0 0 1px rgba(0, 0, 0, 0.1)',
-          color: 'black',
-        }),
+    root: style([
+      atoms({
+        padding: 1,
+      }),
+      {
+        backgroundColor: vars.color.surfaceInverse,
+        boxShadow: `0 0 0 1px color-mix(in srgb, ${vars.color.textInverse} 10%, transparent)`,
+        color: vars.color.textInverse,
       },
-    },
-    defaultVariants: {
-      colorScheme: 'primary',
-    },
+    ]),
   },
 );

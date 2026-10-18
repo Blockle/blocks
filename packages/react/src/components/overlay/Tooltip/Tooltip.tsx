@@ -1,10 +1,6 @@
 'use client';
 
-import {
-  type ComponentThemes,
-  composeRefs,
-  type HTMLElementProps,
-} from '@blockle/blocks-core';
+import { composeRefs, type HTMLElementProps } from '@blockle/blocks-core';
 import {
   Children,
   cloneElement,
@@ -25,29 +21,22 @@ type ReactElement = React.ReactElement<
   string | React.JSXElementConstructor<any>
 >;
 
-type TooltipTheme = ComponentThemes['tooltip'];
-
 export type TooltipProps = {
   position?: PopoverProps['position'];
   children: ReactElement;
   content: React.ReactNode;
-  colorScheme?: TooltipTheme['variants']['colorScheme'];
 } & Omit<HTMLElementProps<HTMLDivElement>, 'ref' | 'children'>;
 
 export const Tooltip: React.FC<TooltipProps> = ({
   position = 'top',
   children,
   content,
-  colorScheme,
 }) => {
   const id = useId();
   const ref = useRef<HTMLElement>(null);
   const [open, setOpen] = useState(false);
 
-  const tooltipClassName = useComponentStyles('tooltip', {
-    root: true,
-    variants: { colorScheme },
-  });
+  const tooltipClassName = useComponentStyles('tooltip', { root: true });
 
   // Create a hook?
   // usePointerEnterLeave

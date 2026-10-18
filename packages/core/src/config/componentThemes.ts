@@ -11,7 +11,6 @@ type LinkIntent = 'inherit' | 'primary' | 'secondary';
 type Size = 'small' | 'medium' | 'large';
 type IconSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 type SliderIntent = 'primary' | 'secondary';
-type ColorScheme = 'primary' | 'secondary';
 
 /**
  * Theming options for components.
@@ -162,9 +161,6 @@ export type ToastTheme = {
 
 export type TooltipTheme = {
   root: string;
-  variants: {
-    colorScheme: ColorScheme;
-  };
 };
 
 export type ComponentThemes = {
