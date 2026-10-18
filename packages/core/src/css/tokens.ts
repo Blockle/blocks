@@ -94,8 +94,6 @@ const palette: DeepNullable<PaletteTokens> = {
   warning: colorPalette,
   danger: colorPalette,
   info: colorPalette,
-  background: colorPalette,
-  text: colorPalette,
   neutral: colorPalette,
 };
 

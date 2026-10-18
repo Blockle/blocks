@@ -82,8 +82,6 @@ export const palette: PaletteTokens = {
     '800': '#804D00',
     '900': '#4D3300',
   },
-  background: monochrome,
-  text: monochrome,
   neutral: {
     100: '#F7F7F7',
     200: '#E1E1E1',
