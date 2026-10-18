@@ -77,7 +77,7 @@ export const slider: ThemeComponentsStyles['slider'] = makeComponentTheme(
         }),
         secondary: style({
           vars: {
-            [trackBackground]: vars.color.primarySubtle,
+            [trackBackground]: vars.color.secondarySubtle,
             [filledTrackBackground]: vars.color.secondary,
             [thumbBackground]: vars.color.secondary,
           },
