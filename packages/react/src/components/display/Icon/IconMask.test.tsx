@@ -1,3 +1,4 @@
+import { atoms } from '@blockle/blocks-core';
 import { describe, expect, it } from 'vitest';
 
 import { render } from '../../../testUtils/testUtils.js';
@@ -28,13 +29,20 @@ describe('IconMask', () => {
     expect(span).toHaveClass('custom-class');
   });
 
-  it('applies color prop', () => {
-    const { container } = render(
-      <IconMask src="icon.svg" color="danger-500" />,
-    );
+  it('applies a Color role as the icon color', () => {
+    const { container } = render(<IconMask src="icon.svg" color="danger" />);
     const span = container.querySelector('span');
 
-    expect(span?.className).toBeTruthy();
+    expect(span).toHaveClass(atoms({ color: 'danger' }));
+  });
+
+  it('only accepts Color roles for color', () => {
+    const { container } = render(
+      // @ts-expect-error Palette shades are not Color roles
+      <IconMask src="icon.svg" color="danger-500" />,
+    );
+
+    expect(container.querySelector('span')).toBeInTheDocument();
   });
 
   it('applies size variant', () => {

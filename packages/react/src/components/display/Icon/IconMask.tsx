@@ -1,6 +1,7 @@
 import {
   type Atoms,
   atoms,
+  type ColorRole,
   type ComponentThemes,
   classnames,
   getAtomsAndProps,
@@ -15,7 +16,7 @@ import * as styles from './IconMask.css.js';
 type IconTheme = ComponentThemes['icon'];
 
 export type IconMaskProps = {
-  color?: Atoms['color'];
+  color?: ColorRole | 'currentColor';
   display?: Atoms['display'];
   size?: IconTheme['variants']['size'];
   src: string;
