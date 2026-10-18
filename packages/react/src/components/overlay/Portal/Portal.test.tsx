@@ -33,4 +33,21 @@ describe('Portal', () => {
       screen.getByText('Portal content').closest('[data-color-scheme]'),
     ).toHaveAttribute('data-color-scheme', 'dark');
   });
+
+  it('wraps its children in a provider that generates no box of its own', () => {
+    render(
+      <BlocksProvider theme={testingTheme} colorScheme="dark">
+        <Portal>
+          <span>Portal content</span>
+        </Portal>
+      </BlocksProvider>,
+    );
+
+    const wrapper = screen
+      .getByText('Portal content')
+      .closest('[data-color-scheme]');
+
+    expect(wrapper).toHaveClass(testingTheme.vars);
+    expect(wrapper).toHaveStyle({ display: 'contents' });
+  });
 });
