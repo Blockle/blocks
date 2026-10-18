@@ -19,22 +19,13 @@ export type Theme = {
   components: ThemeComponentsStyles;
 };
 
-type SchemeValues = ReturnType<typeof makeVanillaTheme>['dark'];
-
 /**
- * Picks the scheme-dependent variables from the theme contract.
+ * The scheme-dependent variables of the theme contract.
  */
-function getSchemeContract(values: SchemeValues) {
-  return {
-    color: Object.fromEntries(
-      Object.keys(values.color).map((role) => [
-        role,
-        vars.color[role as keyof typeof vars.color],
-      ]),
-    ) as Record<keyof SchemeValues['color'], (typeof vars.color)['surface']>,
-    shadow: vars.shadow,
-  };
-}
+const schemeContract = {
+  color: vars.color,
+  shadow: vars.shadow,
+};
 
 /**
  * Creates the theme class. It assigns the light scheme by default and
@@ -45,7 +36,7 @@ export function makeTheme(theme: ThemeInput): Theme {
   const className = createTheme(vars, light);
   const darkStyle = {
     colorScheme: 'dark',
-    vars: assignVars(getSchemeContract(dark), dark),
+    vars: assignVars(schemeContract, dark),
   } as const;
 
   globalStyle(className, {

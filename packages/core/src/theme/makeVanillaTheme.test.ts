@@ -122,10 +122,10 @@ describe('makeVanillaTheme', () => {
     expect(theme.light.palette).not.toHaveProperty('surface');
   });
 
-  it('keeps palette values in the color group alongside roles', () => {
-    expect(theme.light.color['primary-500']).toBe('#7265E3');
-    expect(theme.light.color.black).toBe('#000');
-    expect(theme.light.color.surface).toBe('light-surface');
+  it('keeps only Color roles in the color group', () => {
+    expect(Object.keys(theme.light.color).sort()).toEqual(
+      [...colorRoles].sort(),
+    );
   });
 });
 
@@ -147,6 +147,38 @@ describe('makeVanillaTheme types', () => {
           // @ts-expect-error every role is required in each scheme
           dark: { ...light, color: colorWithoutSurface },
         },
+      });
+    };
+
+    expect(assertTypes).toBeTypeOf('function');
+  });
+
+  it('rejects removed palettes and the old color shape', () => {
+    const light = makeScheme('light');
+    const dark = makeScheme('dark');
+    const schemes = { light, dark };
+    const scale = palette.primary;
+
+    const assertTypes = () => {
+      makeVanillaTheme({
+        tokens,
+        // @ts-expect-error the text palette is removed
+        palette: { ...palette, text: scale },
+        schemes,
+      });
+
+      makeVanillaTheme({
+        tokens,
+        // @ts-expect-error the background palette is removed
+        palette: { ...palette, background: scale },
+        schemes,
+      });
+
+      makeVanillaTheme({
+        // @ts-expect-error the old color group is not a token
+        tokens: { ...tokens, color: palette },
+        palette,
+        schemes,
       });
     };
 

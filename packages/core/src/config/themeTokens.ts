@@ -23,18 +23,17 @@ type PaletteScale = Record<ColorPalette, string>;
 
 /**
  * Fixed scales of shades that do not change with the Color scheme.
+ * Only theme authors use the Palette, to define Color roles.
  */
 export type PaletteTokens = {
   white: string;
   black: string;
-  background: PaletteScale;
   danger: PaletteScale;
   info: PaletteScale;
   neutral: PaletteScale;
   primary: PaletteScale;
   secondary: PaletteScale;
   success: PaletteScale;
-  text: PaletteScale;
   warning: PaletteScale;
 };
 

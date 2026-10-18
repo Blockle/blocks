@@ -28,10 +28,24 @@ describe('atoms', () => {
     expect(atoms({ color: 'textMuted' })).toBeTruthy();
   });
 
-  it('still returns classes for Palette values, currentColor and transparent', () => {
-    expect(atoms({ color: 'primary-500' })).toBeTruthy();
-    expect(atoms({ backgroundColor: 'transparent' })).toBeTruthy();
-    expect(atoms({ borderColor: 'currentColor' })).toBeTruthy();
+  it('returns classes for currentColor and transparent', () => {
+    expect(atoms({ backgroundColor: 'transparent' })).toBe(
+      atomicProperties.backgroundColor.values.transparent.defaultClass,
+    );
+    expect(atoms({ borderColor: 'currentColor' })).toBe(
+      atomicProperties.borderColor.values.currentColor.defaultClass,
+    );
+  });
+
+  it('rejects Palette values for color properties', () => {
+    // @ts-expect-error Palette shades are not Color roles
+    expect(atoms({ backgroundColor: 'primary-100' })).toBe('');
+
+    // @ts-expect-error Palette colors are not Color roles
+    expect(atoms({ color: 'white' })).toBe('');
+
+    // @ts-expect-error Palette shades are not Color roles
+    expect(atoms({ borderColor: 'neutral-300' })).toBe('');
   });
 
   it('returns correct class for single numeric value', () => {

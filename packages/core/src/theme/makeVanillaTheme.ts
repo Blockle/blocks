@@ -64,7 +64,6 @@ export const makeVanillaTheme = ({
   palette,
   schemes,
 }: VanillaThemeInput) => {
-  const flatPalette = flattenPalette(palette);
   const light = makeSchemeValues(schemes.light);
   const dark = makeSchemeValues(schemes.dark);
 
@@ -75,9 +74,8 @@ export const makeVanillaTheme = ({
         ...tokens.border.radius,
         full: '9999px',
       }),
-      // Palette values stay in the color group until atoms only accept Color roles
-      color: { ...flatPalette, ...light.color },
-      palette: flatPalette,
+      color: light.color,
+      palette: flattenPalette(palette),
       borderWidth: tokens.border.width as Record<
         keyof typeof tokens.border.width,
         string

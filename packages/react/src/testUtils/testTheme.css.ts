@@ -75,8 +75,6 @@ export const testingTheme = makeTheme({
     warning: colorPalette,
     danger: colorPalette,
     info: colorPalette,
-    text: colorPalette,
-    background: colorPalette,
     neutral: colorPalette,
   },
   schemes: {
