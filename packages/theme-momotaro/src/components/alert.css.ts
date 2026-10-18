@@ -15,7 +15,7 @@ export const alert: ThemeComponentsStyles['alert'] = makeComponentTheme(
     }),
     variants: {
       intent: {
-        error: atoms({
+        danger: atoms({
           backgroundColor: 'danger-100',
           color: 'danger-800',
           borderColor: 'danger-300',
