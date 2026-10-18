@@ -37,10 +37,16 @@
   },
   "homepage": "https://github.com/Blockle/blocks#readme",
   "peerDependencies": {
-    "@blockle/blocks-core": ">=1.3.x",
-    "@blockle/blocks-react": ">=2.6.x",
+    "@blockle/blocks-core": ">=2.0.x",
+    "@blockle/blocks-react": ">=2.8.x",
     "@blockle/blocks-react-slot": ">=1.2.x",
-    "@blockle/blocks-reset": ">=0.24.x"
+    "@blockle/blocks-reset": ">=0.24.x",
+    "@blockle/blocks-theme-momotaro": ">=6.3.x"
+  },
+  "peerDependenciesMeta": {
+    "@blockle/blocks-theme-momotaro": {
+      "optional": true
+    }
   },
   "engines": {
     "node": ">=20.19.0 || >=22.12.9 || >=24.2.0"

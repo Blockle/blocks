@@ -13,6 +13,8 @@ const externalPeerDeps = new Map([
 /**
  * Automatically updates peerDependencies in all packages to match current versions
  */
+const checkOnly = process.argv.includes('--check');
+
 async function updatePeerDependencies() {
   // Find all package.json files in packages
   const packageFiles = await glob('packages/*/package.json');
@@ -74,13 +76,22 @@ async function updatePeerDependencies() {
 
       if (hasChanges) {
         pkg.peerDependencies = newPeerDeps;
-        writeFileSync(file, `${JSON.stringify(pkg, null, 2)}\n`);
+        if (!checkOnly) {
+          writeFileSync(file, `${JSON.stringify(pkg, null, 2)}\n`);
+        }
         updatedCount++;
       }
     }
   }
 
   console.log('');
+  if (checkOnly && updatedCount > 0) {
+    console.error(
+      `❌ ${updatedCount} package(s) have stale peerDependencies. Run "npm run update-peer-deps".`,
+    );
+    process.exit(1);
+  }
+
   if (updatedCount > 0) {
     console.log(`✅ Updated ${updatedCount} package(s)`);
   } else {

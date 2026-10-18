@@ -26,11 +26,12 @@
     "format": "biome check ./packages/*/src --write",
     "link": "npm link --workspaces",
     "lint": "biome check ./packages/*/src",
-    "release": "npm run build && npm run ts && npm run test && changeset publish",
+    "release": "npm run check-peer-deps && npm run build && npm run ts && npm run test && changeset publish",
     "storybook": "storybook dev -p 6006 --no-open",
     "test": "vitest",
     "ts": "tsc --noemit --project ./tsconfig.json && npm run ts --workspaces",
     "update-peer-deps": "node scripts/update-peer-deps.js",
+    "check-peer-deps": "node scripts/update-peer-deps.js --check",
     "version": "changeset version && node scripts/post-version-hook.js"
   },
   "devDependencies": {
