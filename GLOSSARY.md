@@ -21,7 +21,7 @@ _Avoid_: Ramp, color scale
 ### Component variants
 
 **Intent**:
-The meaning a component's color conveys, such as `primary`, `secondary`, `neutral`, `danger`, `success`, `info` or `warning`.
+The meaning a component's color conveys, such as `primary`, `secondary`, `neutral`, `danger`, `success`, `info` or `warning`. Link also accepts `inherit`, meaning the surrounding text color.
 _Avoid_: Color scheme, variant (for color choices), error (use `danger`)
 
 **Variant**:
