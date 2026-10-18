@@ -1,5 +1,5 @@
 ---
-"@blockle/blocks-core": minor
+"@blockle/blocks-core": major
 "@blockle/blocks-react": minor
 "@blockle/blocks-theme-momotaro": minor
 "@blockle/blocks": minor
