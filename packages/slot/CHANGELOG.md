@@ -1,5 +1,11 @@
 # @blockle/blocks-react-slot
 
+## 1.2.1
+
+### Patch Changes
+
+- 743d435: Align `@blockle/blocks-core` peer dependency ranges with the current major, and declare the Momotaro theme as an optional peer of `@blockle/blocks`.
+
 ## 1.2.0
 
 ### Minor Changes

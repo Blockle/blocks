@@ -1,6 +1,6 @@
 {
   "name": "@blockle/blocks-react-slot",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Slot",
   "type": "module",
   "exports": {
