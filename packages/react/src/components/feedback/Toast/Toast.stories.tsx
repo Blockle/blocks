@@ -27,7 +27,7 @@ const meta = preview.meta({
   argTypes: {
     intent: {
       control: 'select',
-      options: ['info', 'success', 'warning', 'error'],
+      options: ['info', 'success', 'warning', 'danger'],
     },
     duration: {
       control: 'select',

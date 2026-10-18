@@ -32,7 +32,7 @@ export const link: ThemeComponentsStyles['link'] = makeComponentTheme('link', {
     focusable,
   ]),
   variants: {
-    variant: {
+    intent: {
       inherit: style({
         color: 'inherit',
         fontWeight: 'inherit',
@@ -51,6 +51,6 @@ export const link: ThemeComponentsStyles['link'] = makeComponentTheme('link', {
     }),
   },
   defaultVariants: {
-    variant: 'primary',
+    intent: 'primary',
   },
 });
