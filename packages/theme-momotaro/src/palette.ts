@@ -1,17 +1,5 @@
 import type { PaletteTokens } from '@blockle/blocks-core';
 
-export const monochrome = {
-  100: '#FFFFFF',
-  200: '#F5F5F5',
-  300: '#E0E0E0',
-  400: '#AEAEAE',
-  500: '#7A7A7A',
-  600: '#4C4C4C',
-  700: '#2E2E2E',
-  800: '#1A1A1A',
-  900: '#0D0D0D',
-};
-
 export const palette: PaletteTokens = {
   white: '#fff',
   black: '#000',
