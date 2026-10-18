@@ -6,6 +6,7 @@ import { createVar, fallbackVar, style } from '@vanilla-extract/css';
 
 const sizeVar = createVar();
 
+// TODO Should root styles be declared in components, and expose a var or something?
 export const divider: ThemeComponentsStyles['divider'] = makeComponentTheme(
   'divider',
   {

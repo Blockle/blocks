@@ -34,6 +34,17 @@ export type ButtonTheme = {
   };
 };
 
+export type IconButtonTheme = {
+  root: string;
+  variants: {
+    variant: ButtonVariant;
+    intent: 'neutral' | 'primary' | 'secondary' | 'danger' | 'success';
+    size: Size;
+    disabled: boolean;
+    shape: 'circle' | 'square';
+  };
+};
+
 export type CheckboxTheme = {
   root: string;
   icon: string;

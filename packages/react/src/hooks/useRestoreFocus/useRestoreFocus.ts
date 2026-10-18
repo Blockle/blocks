@@ -15,6 +15,7 @@ export const useRestoreFocus = (active: boolean) => {
   }
 
   useEffect(() => {
+    // TODO Replace instanceof check with isHTMLElement util function when it is exported from core package
     if (target.current && !active && target.current instanceof HTMLElement) {
       target.current?.focus();
       target.current = null;
