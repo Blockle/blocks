@@ -1,12 +1,13 @@
 import {
   atoms,
+  type ComponentThemes,
   makeComponentTheme,
   type ThemeComponentsStyles,
   vars,
 } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 
-type AlertIntent = 'danger' | 'info' | 'success' | 'warning';
+type AlertIntent = ComponentThemes['alert']['variants']['intent'];
 
 /**
  * Tinted alert colors, mixed from Color roles so they follow the Color scheme.
