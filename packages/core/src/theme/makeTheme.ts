@@ -37,8 +37,8 @@ function schemeSelector(className: string, colorScheme: ColorScheme) {
  * reassigns only scheme-dependent variables for the dark scheme.
  */
 export function makeTheme(theme: ThemeInput): Theme {
-  const { light, dark } = makeVanillaTheme(theme);
-  const className = createTheme(vars, light);
+  const { base, dark } = makeVanillaTheme(theme);
+  const className = createTheme(vars, base);
   const darkStyle = {
     colorScheme: 'dark',
     vars: assignVars(schemeContract, dark),

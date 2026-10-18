@@ -56,7 +56,7 @@ function makeSchemeValues(scheme: SchemeTokens) {
 /**
  * Maps theme input to CSS variable values.
  *
- * - `light` holds every value: scheme-independent tokens, the Palette and the light scheme.
+ * - `base` holds every value: scheme-independent tokens, the Palette and the light scheme.
  * - `dark` holds only the scheme-dependent values (Color roles and shadows).
  */
 export const makeVanillaTheme = ({
@@ -68,7 +68,7 @@ export const makeVanillaTheme = ({
   const dark = makeSchemeValues(schemes.dark);
 
   return {
-    light: {
+    base: {
       space: addZeroToken(tokens.spacing),
       borderRadius: addZeroToken({
         ...tokens.border.radius,
@@ -105,9 +105,6 @@ export const makeVanillaTheme = ({
         string
       >,
       shadow: light.shadow,
-      focus: {
-        boxShadow: tokens.focus.boxShadow,
-      },
     },
     dark,
   };

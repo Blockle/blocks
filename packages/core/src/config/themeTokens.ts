@@ -1,3 +1,7 @@
+import type { ColorRole } from './colorRoles.js';
+
+export type { ColorRole, Intent } from './colorRoles.js';
+
 type FontWeight = 'light' | 'normal' | 'medium' | 'strong' | 'bold';
 type Space = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 type Transition = 'slow' | 'normal' | 'fast';
@@ -37,40 +41,11 @@ export type PaletteTokens = {
   warning: PaletteScale;
 };
 
-export type Intent =
-  | 'primary'
-  | 'secondary'
-  | 'neutral'
-  | 'danger'
-  | 'success'
-  | 'info'
-  | 'warning';
-
-type IntentColorRoles = Record<Intent, string> &
-  Record<`${Intent}Hover`, string> &
-  Record<`${Intent}Subtle`, string> &
-  Record<`on${Capitalize<Intent>}`, string>;
-
 /**
  * Purpose-named colors whose value differs per Color scheme.
  * Values can be any CSS color string.
  */
-export type ColorRoles = IntentColorRoles & {
-  surface: string;
-  surfaceRaised: string;
-  surfaceSunken: string;
-  surfaceInverse: string;
-  text: string;
-  textMuted: string;
-  textInverse: string;
-  textDisabled: string;
-  border: string;
-  borderStrong: string;
-  overlay: string;
-  focusRing: string;
-};
-
-export type ColorRole = keyof ColorRoles;
+export type ColorRoles = Record<ColorRole, string>;
 
 /**
  * Tokens that depend on the Color scheme.
@@ -100,8 +75,5 @@ export type ThemeTokens = {
   border: {
     radius: Record<BorderRadius, number | string>;
     width: Record<BorderWidth, number | string>;
-  };
-  focus: {
-    boxShadow: string;
   };
 };
