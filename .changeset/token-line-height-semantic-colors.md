@@ -4,4 +4,4 @@
 '@blockle/blocks-theme-momotaro': minor
 ---
 
-Breaking for custom themes: `typography.lineHeight` keys are now `compact`, `snug`, `normal` and `relaxed` (unitless ratios), replacing `xsmall` to `display`. For color changes, see the Color roles and schemes changeset.
+Breaking for custom themes: `typography.lineHeight` keys are now `compact`, `snug`, `normal` and `relaxed` (unitless ratios), replacing `xsmall` to `display`. Color tokens are replaced by Color roles in this release; see the "Light and dark Color schemes" migration notes.
