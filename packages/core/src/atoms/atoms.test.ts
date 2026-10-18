@@ -16,6 +16,26 @@ describe('atoms', () => {
     );
   });
 
+  it('returns classes for Color roles', () => {
+    expect(atoms({ backgroundColor: 'surface' })).toBe(
+      atomicProperties.backgroundColor.values.surface.defaultClass,
+    );
+    expect(atoms({ color: 'textMuted' })).toBe(
+      atomicProperties.color.values.textMuted.defaultClass,
+    );
+    expect(atoms({ borderColor: 'borderStrong' })).toBe(
+      atomicProperties.borderColor.values.borderStrong.defaultClass,
+    );
+    expect(atoms({ backgroundColor: 'surface' })).toBeTruthy();
+    expect(atoms({ color: 'textMuted' })).toBeTruthy();
+  });
+
+  it('still returns classes for Palette values, currentColor and transparent', () => {
+    expect(atoms({ color: 'primary-500' })).toBeTruthy();
+    expect(atoms({ backgroundColor: 'transparent' })).toBeTruthy();
+    expect(atoms({ borderColor: 'currentColor' })).toBeTruthy();
+  });
+
   it('returns correct class for single numeric value', () => {
     expect(atoms({ insetInlineStart: 0 })).toBe(
       atomicProperties.insetInlineStart.values[0].defaultClass,
