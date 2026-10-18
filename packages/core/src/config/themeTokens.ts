@@ -5,13 +5,7 @@ type BorderRadius = 1 | 2 | 3 | 4;
 type BorderWidth = 'thin' | 'thick';
 type BoxShadow = 1 | 2 | 3 | 4 | 5;
 type FontSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'display';
-type LineHeight =
-  | 'xsmall'
-  | 'small'
-  | 'medium'
-  | 'large'
-  | 'xlarge'
-  | 'display';
+type LineHeight = 'compact' | 'snug' | 'normal' | 'relaxed';
 type LetterSpacing = 'tight' | 'normal' | 'wide' | 'wider';
 
 type ColorPalette =
@@ -28,6 +22,8 @@ type ColorPalette =
 type Color = {
   white: string;
   black: string;
+  border: string;
+  focus: string;
   background: Record<ColorPalette, string>;
   danger: Record<ColorPalette, string>;
   info: Record<ColorPalette, string>;

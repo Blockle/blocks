@@ -7,18 +7,21 @@ describe('makeVanillaTheme typography', () => {
     fontFamily: {},
     fontSize: { display: 'clamp(2rem, 1.5rem + 2.5vw, 3.5rem)' },
     fontWeight: {},
-    lineHeight: { display: 1.1 },
+    lineHeight: { compact: 1.1 },
     letterSpacing: { wide: '0.05em' },
   };
-  // biome-ignore lint/suspicious/noExplicitAny: only typography is relevant here
   const theme = makeVanillaTheme({
     typography,
-    color: {},
+    color: {
+      focus: '#7FE3F0',
+      primary: { 500: '#7265E3' },
+    },
     spacing: {},
     border: { radius: {}, width: {} },
     transition: {},
     shadow: {},
     focus: { boxShadow: '' },
+    // biome-ignore lint/suspicious/noExplicitAny: only typography is relevant here
   } as any);
 
   it('exposes letterSpacing tokens', () => {
@@ -27,6 +30,11 @@ describe('makeVanillaTheme typography', () => {
 
   it('exposes the display font size and line height', () => {
     expect(theme.fontSize.display).toBe('clamp(2rem, 1.5rem + 2.5vw, 3.5rem)');
-    expect(theme.lineHeight.display).toBe(1.1);
+    expect(theme.lineHeight.compact).toBe(1.1);
+  });
+
+  it('exposes semantic and palette color tokens', () => {
+    expect(theme.color.focus).toBe('#7FE3F0');
+    expect(theme.color['primary-500']).toBe('#7265E3');
   });
 });

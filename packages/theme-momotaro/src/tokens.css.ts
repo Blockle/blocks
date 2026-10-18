@@ -1,5 +1,18 @@
 import { pixelsToRem, type ThemeTokens } from '@blockle/blocks-core';
 
+const monochrome = {
+  100: '#FFFFFF',
+  200: '#F5F5F5',
+  300: '#E0E0E0',
+  400: '#AEAEAE',
+  500: '#7A7A7A',
+  600: '#4C4C4C',
+  700: '#2E2E2E',
+  800: '#1A1A1A',
+  900: '#0D0D0D',
+};
+const focusColor = '#7FE3F0';
+
 export const tokens: ThemeTokens = {
   border: {
     radius: {
@@ -16,6 +29,8 @@ export const tokens: ThemeTokens = {
   color: {
     white: '#fff',
     black: '#000',
+    border: '#E1E1E1',
+    focus: focusColor,
     primary: {
       '100': '#E4DFFF',
       '200': '#C6B7FF',
@@ -27,6 +42,7 @@ export const tokens: ThemeTokens = {
       '800': '#3B2A82',
       '900': '#2A1B5A',
     },
+    // Intentional multihue sequence; indices are not a strict lightness ramp.
     secondary: {
       '100': '#DFFAF9',
       '200': '#B3F1EE',
@@ -82,28 +98,8 @@ export const tokens: ThemeTokens = {
       '800': '#804D00',
       '900': '#4D3300',
     },
-    background: {
-      100: '#FFFFFF',
-      200: '#F5F5F5',
-      300: '#E0E0E0',
-      400: '#AEAEAE',
-      500: '#7A7A7A',
-      600: '#4C4C4C',
-      700: '#2E2E2E',
-      800: '#1A1A1A',
-      900: '#0D0D0D',
-    },
-    text: {
-      100: '#FFFFFF',
-      200: '#F5F5F5',
-      300: '#E0E0E0',
-      400: '#AEAEAE',
-      500: '#7A7A7A',
-      600: '#4C4C4C',
-      700: '#2E2E2E',
-      800: '#1A1A1A',
-      900: '#0D0D0D',
-    },
+    background: monochrome,
+    text: monochrome,
     neutral: {
       100: '#F7F7F7',
       200: '#E1E1E1',
@@ -124,7 +120,7 @@ export const tokens: ThemeTokens = {
     5: '0px 32px 40px rgba(0, 0, 0, 0.08)',
   },
   focus: {
-    boxShadow: '0 0 1px 2px #7FE3F0',
+    boxShadow: `0 0 1px 2px ${focusColor}`,
   },
   spacing: {
     1: '4px',
@@ -145,7 +141,7 @@ export const tokens: ThemeTokens = {
     fontFamily: {
       body: '"Rubik", sans-serif',
       heading: '"Rubik", sans-serif',
-      mono: '"Rubik", monospace',
+      mono: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
     },
     fontSize: {
       xsmall: pixelsToRem(12),
@@ -163,12 +159,10 @@ export const tokens: ThemeTokens = {
       bold: 800,
     },
     lineHeight: {
-      xsmall: pixelsToRem(16),
-      small: pixelsToRem(20),
-      medium: pixelsToRem(24),
-      large: pixelsToRem(28),
-      xlarge: pixelsToRem(32),
-      display: 1.1,
+      compact: 1.1,
+      snug: 1.3,
+      normal: 1.5,
+      relaxed: 1.7,
     },
     letterSpacing: {
       tight: '-0.02em',

@@ -43,6 +43,8 @@ export const testingTheme = makeTheme({
     color: {
       black: '#000000',
       white: '#FFFFFF',
+      border: '#E1E1E1',
+      focus: '#7FE3F0',
       primary: colorPalette,
       secondary: colorPalette,
       success: colorPalette,
@@ -95,12 +97,10 @@ export const testingTheme = makeTheme({
         bold: 800,
       },
       lineHeight: {
-        xsmall: '16px',
-        small: '20px',
-        medium: '24px',
-        large: '28px',
-        xlarge: '32px',
-        display: 1.1,
+        compact: 1.1,
+        snug: 1.3,
+        normal: 1.5,
+        relaxed: 1.7,
       },
       letterSpacing: {
         tight: '-0.02em',
