@@ -26,23 +26,23 @@ export const radio: ThemeComponentsStyles['radio'] = makeComponentTheme(
           },
         },
         ':hover': {
-          backgroundColor: vars.color['primary-700'],
+          backgroundColor: vars.color.primaryHover,
         },
         selectors: {
           '&:has(input:checked):not(:hover)': {
-            backgroundColor: vars.color['primary-500'],
+            backgroundColor: vars.color.primary,
           },
         },
       },
       atoms({
-        backgroundColor: 'primary-100',
+        backgroundColor: 'primarySubtle',
       }),
       focusable,
     ]),
     icon: style({
       height: 12,
       width: 12,
-      backgroundColor: 'white',
+      backgroundColor: vars.color.onPrimary,
       borderRadius: '8px',
       transform: 'scale(0)',
       '@media': {

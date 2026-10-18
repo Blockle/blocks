@@ -13,10 +13,10 @@ export const select: ThemeComponentsStyles['select'] = makeComponentTheme(
   {
     select: style([
       atoms({
-        color: 'text-700',
+        color: 'text',
         paddingInline: 3,
         paddingBlock: 1,
-        backgroundColor: 'white',
+        backgroundColor: 'surfaceRaised',
         borderRadius: 2,
         boxShadow: 2,
       }),
@@ -39,7 +39,7 @@ export const select: ThemeComponentsStyles['select'] = makeComponentTheme(
         outline: style([
           atoms({
             borderWidth: 'thin',
-            borderColor: 'primary-500',
+            borderColor: 'primary',
           }),
           {
             borderStyle: 'solid',

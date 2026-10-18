@@ -10,6 +10,9 @@ import { clickable } from './helpers.css.js';
 
 // Use css vars to share colors between variants
 const intentColor = createVar();
+const intentHoverColor = createVar();
+const intentSubtleColor = createVar();
+const onIntentColor = createVar();
 const hoverBackgroundColor = createVar();
 
 export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
@@ -37,9 +40,12 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
     variants: {
       variant: {
         solid: style({
-          color: vars.color.white,
+          color: onIntentColor,
           backgroundColor: intentColor,
           border: 'none',
+          vars: {
+            [hoverBackgroundColor]: intentHoverColor,
+          },
         }),
         outline: style([
           atoms({
@@ -50,11 +56,17 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
             borderStyle: 'solid',
             borderColor: intentColor,
             background: 'transparent',
+            vars: {
+              [hoverBackgroundColor]: intentSubtleColor,
+            },
           },
         ]),
         ghost: style({
           color: intentColor,
           background: 'transparent',
+          vars: {
+            [hoverBackgroundColor]: intentSubtleColor,
+          },
         }),
       },
       size: {
@@ -86,60 +98,46 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
       intent: {
         neutral: style({
           vars: {
-            [intentColor]: vars.color['neutral-800'],
-            [hoverBackgroundColor]: vars.color['neutral-200'],
+            [intentColor]: vars.color.neutral,
+            [intentHoverColor]: vars.color.neutralHover,
+            [intentSubtleColor]: vars.color.neutralSubtle,
+            [onIntentColor]: vars.color.onNeutral,
           },
         }),
         primary: style({
           vars: {
-            [intentColor]: vars.color['primary-600'],
-            [hoverBackgroundColor]: vars.color['primary-100'],
+            [intentColor]: vars.color.primary,
+            [intentHoverColor]: vars.color.primaryHover,
+            [intentSubtleColor]: vars.color.primarySubtle,
+            [onIntentColor]: vars.color.onPrimary,
           },
         }),
         secondary: style({
           vars: {
-            [intentColor]: vars.color['secondary-600'],
-            [hoverBackgroundColor]: vars.color['secondary-100'],
+            [intentColor]: vars.color.secondary,
+            [intentHoverColor]: vars.color.secondaryHover,
+            [intentSubtleColor]: vars.color.secondarySubtle,
+            [onIntentColor]: vars.color.onSecondary,
           },
         }),
         success: style({
           vars: {
-            [intentColor]: vars.color['success-600'],
-            [hoverBackgroundColor]: vars.color['success-100'],
+            [intentColor]: vars.color.success,
+            [intentHoverColor]: vars.color.successHover,
+            [intentSubtleColor]: vars.color.successSubtle,
+            [onIntentColor]: vars.color.onSuccess,
           },
         }),
         danger: style({
           vars: {
-            [intentColor]: vars.color['danger-700'],
-            [hoverBackgroundColor]: vars.color['danger-200'],
+            [intentColor]: vars.color.danger,
+            [intentHoverColor]: vars.color.dangerHover,
+            [intentSubtleColor]: vars.color.dangerSubtle,
+            [onIntentColor]: vars.color.onDanger,
           },
         }),
       },
     },
-    compoundVariants: [
-      {
-        variants: {
-          variant: 'solid',
-          intent: 'primary',
-        },
-        style: style({
-          vars: {
-            [hoverBackgroundColor]: vars.color['primary-700'],
-          },
-        }),
-      },
-      {
-        variants: {
-          variant: 'solid',
-          intent: 'danger',
-        },
-        style: style({
-          vars: {
-            [hoverBackgroundColor]: vars.color['danger-200'],
-          },
-        }),
-      },
-    ],
     defaultVariants: {
       size: 'medium',
       variant: 'solid',
