@@ -13,6 +13,8 @@ export type PortalProps = {
 export const Portal: React.FC<PortalProps> = ({ children, container }) => {
   const currentTheme = useTheme();
 
+  // React context crosses the portal, so this provider inherits the Color
+  // scheme of the place that opened it.
   return createPortal(
     <BlocksProvider theme={currentTheme}>{children}</BlocksProvider>,
     container || document.body,

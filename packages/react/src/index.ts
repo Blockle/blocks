@@ -100,6 +100,7 @@ export {
 export {
   BlocksProvider,
   type BlocksProviderProps,
+  type ColorScheme,
 } from './components/providers/BlocksProvider/BlocksProvider.js';
 // typography
 export {
