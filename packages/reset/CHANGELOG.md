@@ -1,5 +1,11 @@
 # @blockle/blocks-reset
 
+## 0.24.5
+
+### Patch Changes
+
+- 743d435: Align `@blockle/blocks-core` peer dependency ranges with the current major, and declare the Momotaro theme as an optional peer of `@blockle/blocks`.
+
 ## 0.24.4
 
 ### Patch Changes
