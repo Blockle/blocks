@@ -32,6 +32,10 @@ export { getNameFromVanillaCSSVar } from './css/getNameFromVanillaCSSVar.js';
 export { layers } from './css/layers.css.js';
 export { pixelsToRem } from './css/pixelsToRem.js';
 export { vars } from './css/vars.css.js';
+export {
+  type ColorScheme,
+  colorSchemeAttribute,
+} from './theme/colorScheme.js';
 export { getComponentStyles } from './theme/getComponentStyles.js';
 export type {
   ComponentTheme,

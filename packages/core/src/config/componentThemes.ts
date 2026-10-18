@@ -1,16 +1,21 @@
 import type { Atoms } from '../atoms/atoms.js';
 import type { RecordLike } from '../utils/typing/helpers.js';
+import type { Intent } from './colorRoles.js';
 
 // Shared variant type definitions
-type Intent = 'danger' | 'info' | 'success' | 'warning';
-type AlertIntent = Intent;
-type ToastIntent = 'neutral' | Intent;
+/**
+ * The Intents a component supports, checked against the full `Intent` list.
+ */
+type IntentOf<T extends Intent> = T;
+type StatusIntent = IntentOf<'danger' | 'info' | 'success' | 'warning'>;
+type AlertIntent = StatusIntent;
+type ToastIntent = IntentOf<'neutral'> | StatusIntent;
 type ButtonVariant = 'solid' | 'outline' | 'ghost';
 type InputVariant = 'solid' | 'outline';
-type LinkIntent = 'inherit' | 'primary' | 'secondary';
+type LinkIntent = 'inherit' | IntentOf<'primary' | 'secondary'>;
 type Size = 'small' | 'medium' | 'large';
 type IconSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
-type SliderIntent = 'primary' | 'secondary';
+type SliderIntent = IntentOf<'primary' | 'secondary'>;
 
 /**
  * Theming options for components.
@@ -27,7 +32,9 @@ export type ButtonTheme = {
   root: string;
   variants: {
     variant: ButtonVariant;
-    intent: 'neutral' | 'primary' | 'secondary' | 'danger' | 'success';
+    intent: IntentOf<
+      'neutral' | 'primary' | 'secondary' | 'danger' | 'success'
+    >;
     size: Size;
     loading: boolean;
     disabled: boolean;

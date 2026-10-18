@@ -1,12 +1,18 @@
 'use client';
 
-import { atoms, classnames, type Theme } from '@blockle/blocks-core';
+import {
+  atoms,
+  type ColorScheme,
+  classnames,
+  colorSchemeAttribute,
+  type Theme,
+} from '@blockle/blocks-core';
 import { createSlottable } from '@blockle/blocks-react-slot';
 import { useContext, useMemo } from 'react';
 
-import { BlocksProviderContext, type ColorScheme } from './context.js';
+import { BlocksProviderContext } from './context.js';
 
-export type { ColorScheme } from './context.js';
+export type { ColorScheme } from '@blockle/blocks-core';
 
 export type BlocksProviderProps = {
   children: React.ReactNode;
@@ -62,7 +68,7 @@ export const BlocksProvider: React.FC<BlocksProviderProps> = ({
           }),
           className,
         )}
-        data-color-scheme={effectiveColorScheme}
+        {...{ [colorSchemeAttribute]: effectiveColorScheme }}
         {...restProps}
       >
         <Slot>{children}</Slot>

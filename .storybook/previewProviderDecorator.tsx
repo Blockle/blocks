@@ -1,9 +1,9 @@
 import { momotaro } from '@blockle/blocks-theme-momotaro';
 import type { DecoratorFunction } from 'storybook/internal/csf';
 
+import type { ColorScheme } from '../packages/react/src/components/providers/BlocksProvider/BlocksProvider.js';
 // Need local import to match react context
 import { BlocksProvider } from '../packages/react/src/components/providers/BlocksProvider/BlocksProvider.js';
-import type { ColorScheme } from '../packages/react/src/components/providers/BlocksProvider/context.js';
 
 // biome-ignore lint/suspicious/noExplicitAny: todo fix any
 export const previewProviderDecorator: DecoratorFunction<any> = (

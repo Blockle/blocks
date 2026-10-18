@@ -107,9 +107,6 @@ export const testingTheme = makeTheme({
       radius: { 1: '4px', 2: '8px', 3: '12px', 4: '16px' },
       width: { thin: '1px', thick: '2px' },
     },
-    focus: {
-      boxShadow: '0 0 0 3px rgba(66, 153, 225, 0.6)',
-    },
     spacing: {
       1: '4px',
       2: '8px',

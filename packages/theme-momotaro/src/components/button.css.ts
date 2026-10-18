@@ -1,5 +1,6 @@
 import {
   atoms,
+  type ComponentThemes,
   makeComponentTheme,
   type ThemeComponentsStyles,
   vars,
@@ -14,6 +15,25 @@ const intentHoverColor = createVar();
 const intentSubtleColor = createVar();
 const onIntentColor = createVar();
 const hoverBackgroundColor = createVar();
+
+type ButtonIntent = ComponentThemes['button']['variants']['intent'];
+
+/**
+ * Points the shared intent variables at the Color roles of one Intent.
+ */
+function intentStyle(intent: ButtonIntent) {
+  const capitalized = `${intent.charAt(0).toUpperCase()}${intent.slice(1)}`;
+
+  return style({
+    vars: {
+      [intentColor]: vars.color[intent],
+      [intentHoverColor]: vars.color[`${intent}Hover`],
+      [intentSubtleColor]: vars.color[`${intent}Subtle`],
+      [onIntentColor]:
+        vars.color[`on${capitalized as Capitalize<ButtonIntent>}`],
+    },
+  });
+}
 
 export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
   'button',
@@ -96,46 +116,11 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
         ]),
       },
       intent: {
-        neutral: style({
-          vars: {
-            [intentColor]: vars.color.neutral,
-            [intentHoverColor]: vars.color.neutralHover,
-            [intentSubtleColor]: vars.color.neutralSubtle,
-            [onIntentColor]: vars.color.onNeutral,
-          },
-        }),
-        primary: style({
-          vars: {
-            [intentColor]: vars.color.primary,
-            [intentHoverColor]: vars.color.primaryHover,
-            [intentSubtleColor]: vars.color.primarySubtle,
-            [onIntentColor]: vars.color.onPrimary,
-          },
-        }),
-        secondary: style({
-          vars: {
-            [intentColor]: vars.color.secondary,
-            [intentHoverColor]: vars.color.secondaryHover,
-            [intentSubtleColor]: vars.color.secondarySubtle,
-            [onIntentColor]: vars.color.onSecondary,
-          },
-        }),
-        success: style({
-          vars: {
-            [intentColor]: vars.color.success,
-            [intentHoverColor]: vars.color.successHover,
-            [intentSubtleColor]: vars.color.successSubtle,
-            [onIntentColor]: vars.color.onSuccess,
-          },
-        }),
-        danger: style({
-          vars: {
-            [intentColor]: vars.color.danger,
-            [intentHoverColor]: vars.color.dangerHover,
-            [intentSubtleColor]: vars.color.dangerSubtle,
-            [onIntentColor]: vars.color.onDanger,
-          },
-        }),
+        neutral: intentStyle('neutral'),
+        primary: intentStyle('primary'),
+        secondary: intentStyle('secondary'),
+        success: intentStyle('success'),
+        danger: intentStyle('danger'),
       },
     },
     defaultVariants: {

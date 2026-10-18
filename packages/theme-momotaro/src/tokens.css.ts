@@ -1,4 +1,4 @@
-import { pixelsToRem, type ThemeTokens, vars } from '@blockle/blocks-core';
+import { pixelsToRem, type ThemeTokens } from '@blockle/blocks-core';
 
 export const tokens: ThemeTokens = {
   border: {
@@ -12,9 +12,6 @@ export const tokens: ThemeTokens = {
       thin: '1px',
       thick: '2px',
     },
-  },
-  focus: {
-    boxShadow: `0 0 1px 2px ${vars.color.focusRing}`,
   },
   spacing: {
     1: '4px',

@@ -1,7 +1,5 @@
-import type { Theme } from '@blockle/blocks-core';
+import type { ColorScheme, Theme } from '@blockle/blocks-core';
 import { createContext } from 'react';
-
-export type ColorScheme = 'light' | 'dark' | 'system';
 
 export type BlocksProviderContextProps = {
   theme: Theme;
