@@ -19,22 +19,71 @@ type ColorPalette =
   | '800'
   | '900';
 
-type Color = {
+type PaletteScale = Record<ColorPalette, string>;
+
+/**
+ * Fixed scales of shades that do not change with the Color scheme.
+ */
+export type PaletteTokens = {
   white: string;
   black: string;
-  border: string;
-  focus: string;
-  background: Record<ColorPalette, string>;
-  danger: Record<ColorPalette, string>;
-  info: Record<ColorPalette, string>;
-  neutral: Record<ColorPalette, string>;
-  primary: Record<ColorPalette, string>;
-  secondary: Record<ColorPalette, string>;
-  success: Record<ColorPalette, string>;
-  text: Record<ColorPalette, string>;
-  warning: Record<ColorPalette, string>;
+  background: PaletteScale;
+  danger: PaletteScale;
+  info: PaletteScale;
+  neutral: PaletteScale;
+  primary: PaletteScale;
+  secondary: PaletteScale;
+  success: PaletteScale;
+  text: PaletteScale;
+  warning: PaletteScale;
 };
 
+export type Intent =
+  | 'primary'
+  | 'secondary'
+  | 'neutral'
+  | 'danger'
+  | 'success'
+  | 'info'
+  | 'warning';
+
+type IntentColorRoles = Record<Intent, string> &
+  Record<`${Intent}Hover`, string> &
+  Record<`${Intent}Subtle`, string> &
+  Record<`on${Capitalize<Intent>}`, string>;
+
+/**
+ * Purpose-named colors whose value differs per Color scheme.
+ * Values can be any CSS color string.
+ */
+export type ColorRoles = IntentColorRoles & {
+  surface: string;
+  surfaceRaised: string;
+  surfaceSunken: string;
+  surfaceInverse: string;
+  text: string;
+  textMuted: string;
+  textInverse: string;
+  textDisabled: string;
+  border: string;
+  borderStrong: string;
+  overlay: string;
+  focusRing: string;
+};
+
+export type ColorRole = keyof ColorRoles;
+
+/**
+ * Tokens that depend on the Color scheme.
+ */
+export type SchemeTokens = {
+  color: ColorRoles;
+  shadow: Record<BoxShadow, string>;
+};
+
+/**
+ * Tokens that do not depend on the Color scheme.
+ */
 export type ThemeTokens = {
   typography: {
     fontFamily: {
@@ -53,9 +102,7 @@ export type ThemeTokens = {
     radius: Record<BorderRadius, number | string>;
     width: Record<BorderWidth, number | string>;
   };
-  shadow: Record<BoxShadow, string>;
   focus: {
     boxShadow: string;
   };
-  color: Color;
 };

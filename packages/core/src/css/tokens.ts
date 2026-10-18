@@ -1,4 +1,9 @@
-import type { ThemeTokens } from '../config/themeTokens.js';
+import type {
+  PaletteTokens,
+  SchemeTokens,
+  ThemeTokens,
+} from '../config/themeTokens.js';
+import type { VanillaThemeInput } from '../theme/makeVanillaTheme.js';
 import type { DeepNullable } from '../utils/typing/helpers.js';
 
 const colorPalette = {
@@ -13,8 +18,7 @@ const colorPalette = {
   900: null,
 } as const;
 
-export const tokens: DeepNullable<ThemeTokens> = {
-  // mode: 'light', ??
+const themeTokens: DeepNullable<ThemeTokens> = {
   typography: {
     fontFamily: {
       body: null,
@@ -76,6 +80,68 @@ export const tokens: DeepNullable<ThemeTokens> = {
       thick: null,
     },
   },
+  focus: {
+    boxShadow: null,
+  },
+};
+
+const palette: DeepNullable<PaletteTokens> = {
+  black: null,
+  white: null,
+  primary: colorPalette,
+  secondary: colorPalette,
+  success: colorPalette,
+  warning: colorPalette,
+  danger: colorPalette,
+  info: colorPalette,
+  background: colorPalette,
+  text: colorPalette,
+  neutral: colorPalette,
+};
+
+const scheme: DeepNullable<SchemeTokens> = {
+  color: {
+    surface: null,
+    surfaceRaised: null,
+    surfaceSunken: null,
+    surfaceInverse: null,
+    text: null,
+    textMuted: null,
+    textInverse: null,
+    textDisabled: null,
+    border: null,
+    borderStrong: null,
+    overlay: null,
+    focusRing: null,
+    primary: null,
+    primaryHover: null,
+    primarySubtle: null,
+    onPrimary: null,
+    secondary: null,
+    secondaryHover: null,
+    secondarySubtle: null,
+    onSecondary: null,
+    neutral: null,
+    neutralHover: null,
+    neutralSubtle: null,
+    onNeutral: null,
+    danger: null,
+    dangerHover: null,
+    dangerSubtle: null,
+    onDanger: null,
+    success: null,
+    successHover: null,
+    successSubtle: null,
+    onSuccess: null,
+    info: null,
+    infoHover: null,
+    infoSubtle: null,
+    onInfo: null,
+    warning: null,
+    warningHover: null,
+    warningSubtle: null,
+    onWarning: null,
+  },
   shadow: {
     1: null,
     2: null,
@@ -83,22 +149,18 @@ export const tokens: DeepNullable<ThemeTokens> = {
     4: null,
     5: null,
   },
-  focus: {
-    boxShadow: null,
-  },
-  color: {
-    black: null,
-    white: null,
-    border: null,
-    focus: null,
-    primary: colorPalette,
-    secondary: colorPalette,
-    success: colorPalette,
-    warning: colorPalette,
-    danger: colorPalette,
-    info: colorPalette,
-    background: colorPalette,
-    text: colorPalette,
-    neutral: colorPalette,
+};
+
+/**
+ * Theme input with null values, used to create the theme contract.
+ */
+const nullInput: DeepNullable<VanillaThemeInput> = {
+  tokens: themeTokens,
+  palette,
+  schemes: {
+    light: scheme,
+    dark: scheme,
   },
 };
+
+export const tokens = nullInput as VanillaThemeInput;
