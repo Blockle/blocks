@@ -13,6 +13,8 @@ export const drawer: ThemeComponentsStyles['drawer'] = makeComponentTheme(
     root: style([
       atoms({
         border: 'none',
+        backgroundColor: 'surfaceRaised',
+        color: 'text',
       }),
       {
         selectors: {

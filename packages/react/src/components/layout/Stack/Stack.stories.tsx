@@ -22,13 +22,13 @@ export const Default = meta.story({
     gap: 2,
     children: (
       <>
-        <Box backgroundColor="danger-700" padding={2}>
+        <Box backgroundColor="dangerSubtle" padding={2}>
           1
         </Box>
-        <Box backgroundColor="danger-600" padding={2}>
+        <Box backgroundColor="dangerSubtle" padding={2}>
           2
         </Box>
-        <Box backgroundColor="danger-500" padding={2}>
+        <Box backgroundColor="dangerSubtle" padding={2}>
           3
         </Box>
       </>

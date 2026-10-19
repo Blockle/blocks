@@ -1,5 +1,6 @@
 import {
   atoms,
+  type ComponentThemes,
   makeComponentTheme,
   type ThemeComponentsStyles,
   vars,
@@ -10,7 +11,29 @@ import { clickable } from './helpers.css.js';
 
 // Use css vars to share colors between variants
 const intentColor = createVar();
+const intentHoverColor = createVar();
+const intentSubtleColor = createVar();
+const onIntentColor = createVar();
 const hoverBackgroundColor = createVar();
+
+type ButtonIntent = ComponentThemes['button']['variants']['intent'];
+
+/**
+ * Points the shared intent variables at the Color roles of one Intent.
+ */
+function intentStyle(intent: ButtonIntent) {
+  const capitalized = `${intent.charAt(0).toUpperCase()}${intent.slice(1)}`;
+
+  return style({
+    vars: {
+      [intentColor]: vars.color[intent],
+      [intentHoverColor]: vars.color[`${intent}Hover`],
+      [intentSubtleColor]: vars.color[`${intent}Subtle`],
+      [onIntentColor]:
+        vars.color[`on${capitalized as Capitalize<ButtonIntent>}`],
+    },
+  });
+}
 
 export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
   'button',
@@ -37,9 +60,12 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
     variants: {
       variant: {
         solid: style({
-          color: vars.color.white,
+          color: onIntentColor,
           backgroundColor: intentColor,
           border: 'none',
+          vars: {
+            [hoverBackgroundColor]: intentHoverColor,
+          },
         }),
         outline: style([
           atoms({
@@ -50,11 +76,17 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
             borderStyle: 'solid',
             borderColor: intentColor,
             background: 'transparent',
+            vars: {
+              [hoverBackgroundColor]: intentSubtleColor,
+            },
           },
         ]),
         ghost: style({
           color: intentColor,
           background: 'transparent',
+          vars: {
+            [hoverBackgroundColor]: intentSubtleColor,
+          },
         }),
       },
       size: {
@@ -84,62 +116,13 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
         ]),
       },
       intent: {
-        neutral: style({
-          vars: {
-            [intentColor]: vars.color['neutral-800'],
-            [hoverBackgroundColor]: vars.color['neutral-200'],
-          },
-        }),
-        primary: style({
-          vars: {
-            [intentColor]: vars.color['primary-600'],
-            [hoverBackgroundColor]: vars.color['primary-100'],
-          },
-        }),
-        secondary: style({
-          vars: {
-            [intentColor]: vars.color['secondary-600'],
-            [hoverBackgroundColor]: vars.color['secondary-100'],
-          },
-        }),
-        success: style({
-          vars: {
-            [intentColor]: vars.color['success-600'],
-            [hoverBackgroundColor]: vars.color['success-100'],
-          },
-        }),
-        danger: style({
-          vars: {
-            [intentColor]: vars.color['danger-700'],
-            [hoverBackgroundColor]: vars.color['danger-200'],
-          },
-        }),
+        neutral: intentStyle('neutral'),
+        primary: intentStyle('primary'),
+        secondary: intentStyle('secondary'),
+        success: intentStyle('success'),
+        danger: intentStyle('danger'),
       },
     },
-    compoundVariants: [
-      {
-        variants: {
-          variant: 'solid',
-          intent: 'primary',
-        },
-        style: style({
-          vars: {
-            [hoverBackgroundColor]: vars.color['primary-700'],
-          },
-        }),
-      },
-      {
-        variants: {
-          variant: 'solid',
-          intent: 'danger',
-        },
-        style: style({
-          vars: {
-            [hoverBackgroundColor]: vars.color['danger-200'],
-          },
-        }),
-      },
-    ],
     defaultVariants: {
       size: 'medium',
       variant: 'solid',

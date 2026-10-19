@@ -2,6 +2,7 @@
 
 import {
   type Atoms,
+  type ColorRole,
   type ComponentThemes,
   classnames,
   getNameFromVanillaCSSVar,
@@ -15,7 +16,7 @@ import * as styles from './divider.css.js';
 
 export type DividerProps = {
   alignment?: 'start' | 'center' | 'end';
-  color?: keyof typeof vars.color;
+  color?: ColorRole;
   size?: ComponentThemes['divider']['variants']['size'];
   gap?: Atoms['gap'];
 } & Omit<HTMLElementProps<HTMLDivElement>, 'size'>;

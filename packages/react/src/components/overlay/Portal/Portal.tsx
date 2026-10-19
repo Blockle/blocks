@@ -10,11 +10,19 @@ export type PortalProps = {
   container?: HTMLElement;
 };
 
+const wrapperStyle: React.CSSProperties = { display: 'contents' };
+
 export const Portal: React.FC<PortalProps> = ({ children, container }) => {
   const currentTheme = useTheme();
 
+  // React context crosses the portal, so this provider inherits the Color
+  // scheme of the place that opened it. `display: contents` keeps the wrapper
+  // from painting a box, while the theme class and `data-color-scheme` still
+  // pass the CSS variables to its content.
   return createPortal(
-    <BlocksProvider theme={currentTheme}>{children}</BlocksProvider>,
+    <BlocksProvider theme={currentTheme} style={wrapperStyle}>
+      {children}
+    </BlocksProvider>,
     container || document.body,
   );
 };

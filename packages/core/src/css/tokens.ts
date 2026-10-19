@@ -1,4 +1,10 @@
-import type { ThemeTokens } from '../config/themeTokens.js';
+import { type ColorRole, colorRoles } from '../config/colorRoles.js';
+import type {
+  PaletteTokens,
+  SchemeTokens,
+  ThemeTokens,
+} from '../config/themeTokens.js';
+import type { VanillaThemeInput } from '../theme/makeVanillaTheme.js';
 import type { DeepNullable } from '../utils/typing/helpers.js';
 
 const colorPalette = {
@@ -13,8 +19,7 @@ const colorPalette = {
   900: null,
 } as const;
 
-export const tokens: DeepNullable<ThemeTokens> = {
-  // mode: 'light', ??
+const themeTokens: DeepNullable<ThemeTokens> = {
   typography: {
     fontFamily: {
       body: null,
@@ -76,6 +81,25 @@ export const tokens: DeepNullable<ThemeTokens> = {
       thick: null,
     },
   },
+};
+
+const palette: DeepNullable<PaletteTokens> = {
+  black: null,
+  white: null,
+  primary: colorPalette,
+  secondary: colorPalette,
+  success: colorPalette,
+  warning: colorPalette,
+  danger: colorPalette,
+  info: colorPalette,
+  neutral: colorPalette,
+};
+
+const scheme: DeepNullable<SchemeTokens> = {
+  color: Object.fromEntries(colorRoles.map((role) => [role, null])) as Record<
+    ColorRole,
+    null
+  >,
   shadow: {
     1: null,
     2: null,
@@ -83,22 +107,18 @@ export const tokens: DeepNullable<ThemeTokens> = {
     4: null,
     5: null,
   },
-  focus: {
-    boxShadow: null,
-  },
-  color: {
-    black: null,
-    white: null,
-    border: null,
-    focus: null,
-    primary: colorPalette,
-    secondary: colorPalette,
-    success: colorPalette,
-    warning: colorPalette,
-    danger: colorPalette,
-    info: colorPalette,
-    background: colorPalette,
-    text: colorPalette,
-    neutral: colorPalette,
+};
+
+/**
+ * Theme input with null values, used to create the theme contract.
+ */
+const nullInput: DeepNullable<VanillaThemeInput> = {
+  tokens: themeTokens,
+  palette,
+  schemes: {
+    light: scheme,
+    dark: scheme,
   },
 };
+
+export const tokens = nullInput as VanillaThemeInput;

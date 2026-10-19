@@ -7,7 +7,7 @@ const meta = preview.meta({
   title: 'Navigation/Link',
   component: Link,
   argTypes: {
-    variant: {
+    intent: {
       control: 'radio',
       options: ['primary', 'secondary', 'inherit'],
     },

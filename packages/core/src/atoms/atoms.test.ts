@@ -5,15 +5,47 @@ import { atoms } from './atoms.js';
 
 describe('atoms', () => {
   it('should find the class for a property', () => {
-    expect(
-      atomicProperties.color.values['primary-500'].defaultClass,
-    ).toBeDefined();
+    expect(atomicProperties.color.values.primary.defaultClass).toBeDefined();
   });
 
   it('returns correct class for single string value', () => {
-    expect(atoms({ color: 'black' })).toBe(
-      atomicProperties.color.values.black.defaultClass,
+    expect(atoms({ color: 'text' })).toBe(
+      atomicProperties.color.values.text.defaultClass,
     );
+  });
+
+  it('returns classes for Color roles', () => {
+    expect(atoms({ backgroundColor: 'surface' })).toBe(
+      atomicProperties.backgroundColor.values.surface.defaultClass,
+    );
+    expect(atoms({ color: 'textMuted' })).toBe(
+      atomicProperties.color.values.textMuted.defaultClass,
+    );
+    expect(atoms({ borderColor: 'borderStrong' })).toBe(
+      atomicProperties.borderColor.values.borderStrong.defaultClass,
+    );
+    expect(atoms({ backgroundColor: 'surface' })).toBeTruthy();
+    expect(atoms({ color: 'textMuted' })).toBeTruthy();
+  });
+
+  it('returns classes for currentColor and transparent', () => {
+    expect(atoms({ backgroundColor: 'transparent' })).toBe(
+      atomicProperties.backgroundColor.values.transparent.defaultClass,
+    );
+    expect(atoms({ borderColor: 'currentColor' })).toBe(
+      atomicProperties.borderColor.values.currentColor.defaultClass,
+    );
+  });
+
+  it('rejects Palette values for color properties', () => {
+    // @ts-expect-error Palette shades are not Color roles
+    expect(atoms({ backgroundColor: 'primary-100' })).toBe('');
+
+    // @ts-expect-error Palette colors are not Color roles
+    expect(atoms({ color: 'white' })).toBe('');
+
+    // @ts-expect-error Palette shades are not Color roles
+    expect(atoms({ borderColor: 'neutral-300' })).toBe('');
   });
 
   it('returns correct class for single numeric value', () => {

@@ -19,7 +19,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({
   circle = false,
   className,
   borderRadius = 1,
-  backgroundColor = 'background-300',
+  backgroundColor = 'neutralSubtle',
   style,
   ...restProps
 }) => {

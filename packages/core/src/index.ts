@@ -12,7 +12,14 @@ export type {
   ComponentThemes,
   ComponentThemesProps,
 } from './config/componentThemes.js';
-export type { ThemeTokens } from './config/themeTokens.js';
+export type {
+  ColorRole,
+  ColorRoles,
+  Intent,
+  PaletteTokens,
+  SchemeTokens,
+  ThemeTokens,
+} from './config/themeTokens.js';
 export { breakpointNames, minMediaQuery } from './css/breakpoint/breakpoint.js';
 // CSS Utils
 export {
@@ -25,14 +32,19 @@ export { getNameFromVanillaCSSVar } from './css/getNameFromVanillaCSSVar.js';
 export { layers } from './css/layers.css.js';
 export { pixelsToRem } from './css/pixelsToRem.js';
 export { vars } from './css/vars.css.js';
+export {
+  type ColorScheme,
+  colorSchemeAttribute,
+} from './theme/colorScheme.js';
 export { getComponentStyles } from './theme/getComponentStyles.js';
 export type {
   ComponentTheme,
   ThemeComponentsStyles,
 } from './theme/makeComponentTheme.js';
 export { makeComponentTheme } from './theme/makeComponentTheme.js';
-export type { Theme } from './theme/makeTheme.js';
+export type { Theme, ThemeInput } from './theme/makeTheme.js';
 export { makeTheme } from './theme/makeTheme.js';
+export type { ThemeSchemes } from './theme/makeVanillaTheme.js';
 export { classnames } from './utils/classnames/classnames.js';
 export { hasAnimationDuration } from './utils/dom/hasAnimationDuration.js';
 export {

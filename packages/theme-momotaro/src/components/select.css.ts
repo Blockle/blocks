@@ -13,10 +13,10 @@ export const select: ThemeComponentsStyles['select'] = makeComponentTheme(
   {
     select: style([
       atoms({
-        color: 'text-700',
+        color: 'text',
         paddingInline: 3,
         paddingBlock: 1,
-        backgroundColor: 'white',
+        backgroundColor: 'surfaceRaised',
         borderRadius: 2,
         boxShadow: 2,
       }),
@@ -26,11 +26,6 @@ export const select: ThemeComponentsStyles['select'] = makeComponentTheme(
         minHeight: 40,
         transitionDuration: vars.transition.fast,
         transitionProperty: 'outline-color, outline-offset',
-        // ':focus-within': {
-        //   outline: '2px solid transparent',
-        //   outlineOffset: '2px',
-        //   boxShadow: `${vars.shadow.small}, ${vars.focus.boxShadow}`,
-        // },
       },
       focusable,
     ]),
@@ -39,7 +34,7 @@ export const select: ThemeComponentsStyles['select'] = makeComponentTheme(
         outline: style([
           atoms({
             borderWidth: 'thin',
-            borderColor: 'primary-500',
+            borderColor: 'primary',
           }),
           {
             borderStyle: 'solid',

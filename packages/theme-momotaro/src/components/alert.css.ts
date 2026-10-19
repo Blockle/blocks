@@ -1,8 +1,28 @@
 import {
   atoms,
+  type ComponentThemes,
   makeComponentTheme,
   type ThemeComponentsStyles,
+  vars,
 } from '@blockle/blocks-core';
+import { style } from '@vanilla-extract/css';
+
+type AlertIntent = ComponentThemes['alert']['variants']['intent'];
+
+/**
+ * Tinted alert colors, mixed from Color roles so they follow the Color scheme.
+ * - Text mixes the hover shade towards `text`, which raises contrast in both schemes.
+ * - The border sits between the solid and the subtle shade.
+ */
+function intentStyle(intent: AlertIntent) {
+  return style([
+    atoms({ backgroundColor: `${intent}Subtle` }),
+    {
+      color: `color-mix(in srgb, ${vars.color[`${intent}Hover`]} 80%, ${vars.color.text})`,
+      borderColor: `color-mix(in srgb, ${vars.color[intent]} 40%, ${vars.color[`${intent}Subtle`]})`,
+    },
+  ]);
+}
 
 export const alert: ThemeComponentsStyles['alert'] = makeComponentTheme(
   'alert',
@@ -15,26 +35,10 @@ export const alert: ThemeComponentsStyles['alert'] = makeComponentTheme(
     }),
     variants: {
       intent: {
-        error: atoms({
-          backgroundColor: 'danger-100',
-          color: 'danger-800',
-          borderColor: 'danger-300',
-        }),
-        info: atoms({
-          backgroundColor: 'info-100',
-          color: 'info-800',
-          borderColor: 'info-300',
-        }),
-        success: atoms({
-          backgroundColor: 'success-100',
-          color: 'success-800',
-          borderColor: 'success-300',
-        }),
-        warning: atoms({
-          backgroundColor: 'warning-100',
-          color: 'warning-800',
-          borderColor: 'warning-300',
-        }),
+        danger: intentStyle('danger'),
+        info: intentStyle('info'),
+        success: intentStyle('success'),
+        warning: intentStyle('warning'),
       },
     },
   },
