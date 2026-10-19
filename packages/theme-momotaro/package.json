@@ -1,6 +1,6 @@
 {
   "name": "@blockle/blocks-theme-momotaro",
-  "version": "6.3.1",
+  "version": "6.4.0",
   "description": "Momotaro theme for Blocks",
   "type": "module",
   "sideEffects": false,
@@ -34,7 +34,7 @@
     "@vanilla-extract/css": "^1.18.0"
   },
   "peerDependencies": {
-    "@blockle/blocks-core": ">=2.0.x",
+    "@blockle/blocks-core": ">=2.1.x",
     "@vanilla-extract/css": "^1.18.0"
   },
   "publishConfig": {
