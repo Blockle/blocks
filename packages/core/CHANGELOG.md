@@ -1,5 +1,11 @@
 # @blockle/blocks-core
 
+## 2.1.0
+
+### Minor Changes
+
+- b5a3008: Breaking for custom themes: `typography.lineHeight` keys are now `compact`, `snug`, `normal` and `relaxed` (unitless ratios), replacing `xsmall` to `display`. `color.border` and `color.focus` are now required in `ThemeTokens`.
+
 ## 2.0.0
 
 ### Major Changes
