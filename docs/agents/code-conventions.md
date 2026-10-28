@@ -13,6 +13,7 @@ The codebase uses both named function declarations and `const` arrow functions. 
 
 ## TypeScript and React
 
+- Start a React component file with `'use client';` when the file calls any hook, whether built-in (including server-safe ones like `useId` or `useMemo`) or custom (such as `useComponentStyles`). Do not add it to modules that only define hooks or create contexts; following React's guidance, the directive marks the client boundary at the component, and everything that component imports is client code automatically. See [Button.tsx](../../packages/react/src/components/form/Button/Button.tsx).
 - Keep public APIs explicitly typed, including exported component prop types. For React components, compose custom props with the appropriate native element props and omit conflicting native names where needed. See [Button.tsx](../../packages/react/src/components/form/Button/Button.tsx).
 - Separate atomic styling props from DOM props with the existing helpers before spreading props onto an element. For polymorphic React components, use the existing `createSlottable` and `asChild` pattern. See [Box.tsx](../../packages/react/src/components/layout/Box/Box.tsx).
 - Keep React component styles in colocated Vanilla Extract files. Use shared layers and tokens, and route themed variants through `useComponentStyles`. See [Button.css.ts](../../packages/react/src/components/form/Button/Button.css.ts).

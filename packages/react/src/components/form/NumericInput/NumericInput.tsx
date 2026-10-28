@@ -1,3 +1,5 @@
+'use client';
+
 import { composeRefs } from '@blockle/blocks-core';
 import { useCallback, useRef } from 'react';
 

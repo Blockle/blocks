@@ -1,5 +1,3 @@
-'use client';
-
 import { useEffect, useRef } from 'react';
 
 const isBrowser = typeof window !== 'undefined';

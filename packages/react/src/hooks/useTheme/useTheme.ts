@@ -1,5 +1,3 @@
-'use client';
-
 import type { Theme } from '@blockle/blocks-core';
 import { useContext } from 'react';
 
