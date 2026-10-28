@@ -16,9 +16,9 @@ export const switchTheme: ThemeComponentsStyles['switch'] = makeComponentTheme(
     root: style([
       atoms({
         borderRadius: 4,
-        backgroundColor: 'text-200',
       }),
       {
+        backgroundColor: vars.colorRole.border.strong,
         width: 52,
         height: 32,
         '@media': {
@@ -28,7 +28,7 @@ export const switchTheme: ThemeComponentsStyles['switch'] = makeComponentTheme(
         },
         selectors: {
           '&[data-checked="true"]': {
-            backgroundColor: vars.color['secondary-500'],
+            backgroundColor: vars.colorRole.intentSecondary.solid,
           },
         },
         // Scale the switch when it's `:active`
@@ -54,7 +54,8 @@ export const switchTheme: ThemeComponentsStyles['switch'] = makeComponentTheme(
         left: 4,
         transform: `translateX(0) scale(calc(0.9 * ${activeScaleFactor}))`,
         position: 'absolute',
-        backgroundColor: 'white',
+        // Deliberately fixed: the thumb is white in every mode
+        backgroundColor: vars.color.white,
         selectors: {
           '&[data-checked="true"]': {
             transform: `translateX(20px) scale(${activeScaleFactor})`,
