@@ -38,6 +38,11 @@ type Color = {
 };
 
 type TextRole = 'default' | 'muted' | 'disabled' | 'inverse';
+type SurfaceRole = 'default' | 'raised' | 'sunken' | 'inverse';
+type BorderRole = 'default' | 'strong';
+/** `color` is the ring color, `boxShadow` the full focus ring box-shadow. */
+type FocusRingRole = 'color' | 'boxShadow';
+type OverlayRole = 'default';
 
 /**
  * A Color role value: a Palette reference such as `neutral-900` (or `white`),
@@ -52,6 +57,15 @@ type ColorRoleValue = string;
  */
 export type ColorRoles = {
   text: Record<TextRole, ModeValue<ColorRoleValue>>;
+
+  // --- Neutral roles, shadows and focus ring (T283) ---
+  surface: Record<SurfaceRole, ModeValue<ColorRoleValue>>;
+  border: Record<BorderRole, ModeValue<ColorRoleValue>>;
+  focusRing: Record<FocusRingRole, ModeValue<ColorRoleValue>>;
+  overlay: Record<OverlayRole, ModeValue<ColorRoleValue>>;
+  /** Elevation levels. Dark themes usually need stronger shadows. */
+  shadow: Record<BoxShadow, ModeValue<ColorRoleValue>>;
+  // --- End of neutral roles ---
 };
 
 export type ThemeTokens = {
@@ -71,10 +85,6 @@ export type ThemeTokens = {
   border: {
     radius: Record<BorderRadius, number | string>;
     width: Record<BorderWidth, number | string>;
-  };
-  shadow: Record<BoxShadow, string>;
-  focus: {
-    boxShadow: string;
   };
   color: Color;
   colorRoles: ColorRoles;

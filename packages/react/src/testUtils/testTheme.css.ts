@@ -64,16 +64,51 @@ export const testingTheme = makeTheme({
         disabled: { light: 'neutral-400', dark: 'neutral-600' },
         inverse: { light: 'white', dark: 'neutral-900' },
       },
-    },
-    focus: {
-      boxShadow: '0 0 0 3px rgba(66, 153, 225, 0.6)',
-    },
-    shadow: {
-      1: '0 1px 2px rgba(0, 0, 0, 0.05)',
-      2: '0 4px 6px rgba(0, 0, 0, 0.1)',
-      3: '0 10px 15px rgba(0, 0, 0, 0.15)',
-      4: '0 16px 24px rgba(0, 0, 0, 0.08)',
-      5: '0 24px 32px rgba(0, 0, 0, 0.08)',
+
+      // --- Neutral roles, shadows and focus ring (T283) ---
+      surface: {
+        default: { light: 'white', dark: 'neutral-900' },
+        raised: { light: 'white', dark: 'neutral-800' },
+        sunken: { light: 'neutral-100', dark: 'black' },
+        inverse: { light: 'neutral-900', dark: 'neutral-100' },
+      },
+      border: {
+        default: { light: 'neutral-300', dark: 'neutral-800' },
+        strong: { light: 'neutral-500', dark: 'neutral-700' },
+      },
+      focusRing: {
+        color: { light: '#4299e1', dark: '#90cdf4' },
+        boxShadow: {
+          light: '0 0 0 3px rgba(66, 153, 225, 0.6)',
+          dark: '0 0 0 3px rgba(144, 205, 244, 0.6)',
+        },
+      },
+      overlay: {
+        default: { light: 'rgba(0, 0, 0, 0.4)', dark: 'rgba(0, 0, 0, 0.6)' },
+      },
+      shadow: {
+        1: {
+          light: '0 1px 2px rgba(0, 0, 0, 0.05)',
+          dark: '0 1px 2px rgba(0, 0, 0, 0.4)',
+        },
+        2: {
+          light: '0 4px 6px rgba(0, 0, 0, 0.1)',
+          dark: '0 4px 6px rgba(0, 0, 0, 0.45)',
+        },
+        3: {
+          light: '0 10px 15px rgba(0, 0, 0, 0.15)',
+          dark: '0 10px 15px rgba(0, 0, 0, 0.5)',
+        },
+        4: {
+          light: '0 16px 24px rgba(0, 0, 0, 0.08)',
+          dark: '0 16px 24px rgba(0, 0, 0, 0.5)',
+        },
+        5: {
+          light: '0 24px 32px rgba(0, 0, 0, 0.08)',
+          dark: '0 24px 32px rgba(0, 0, 0, 0.55)',
+        },
+      },
+      // --- End of neutral roles ---
     },
     spacing: {
       1: '4px',

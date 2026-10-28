@@ -26,6 +26,33 @@ export const colorRoleTokens: {
     disabled: null,
     inverse: null,
   },
+
+  // --- Neutral roles, shadows and focus ring (T283) ---
+  surface: {
+    default: null,
+    raised: null,
+    sunken: null,
+    inverse: null,
+  },
+  border: {
+    default: null,
+    strong: null,
+  },
+  focusRing: {
+    color: null,
+    boxShadow: null,
+  },
+  overlay: {
+    default: null,
+  },
+  shadow: {
+    1: null,
+    2: null,
+    3: null,
+    4: null,
+    5: null,
+  },
+  // --- End of neutral roles ---
 };
 
 /** The null template of all tokens except the Color roles, see `colorRoleTokens`. */
@@ -90,16 +117,6 @@ export const tokens: DeepNullable<Omit<ThemeTokens, 'colorRoles'>> = {
       thin: null,
       thick: null,
     },
-  },
-  shadow: {
-    1: null,
-    2: null,
-    3: null,
-    4: null,
-    5: null,
-  },
-  focus: {
-    boxShadow: null,
   },
   color: {
     black: null,

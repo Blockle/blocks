@@ -12,6 +12,7 @@ const monochrome = {
   900: '#0D0D0D',
 };
 const focusColor = '#7FE3F0';
+const focusColorDark = '#A8EEF6';
 
 export const tokens: ThemeTokens = {
   border: {
@@ -120,16 +121,51 @@ export const tokens: ThemeTokens = {
       disabled: { light: 'neutral-400', dark: 'neutral-600' },
       inverse: { light: 'white', dark: 'neutral-900' },
     },
-  },
-  shadow: {
-    1: '0px 4px 8px rgba(0, 0, 0, 0.08)',
-    2: '0px 8px 16px rgba(0, 0, 0, 0.08)',
-    3: '0px 16px 24px rgba(0, 0, 0, 0.08)',
-    4: '0px 24px 32px rgba(0, 0, 0, 0.08)',
-    5: '0px 32px 40px rgba(0, 0, 0, 0.08)',
-  },
-  focus: {
-    boxShadow: `0 0 1px 2px ${focusColor}`,
+
+    // --- Neutral roles, shadows and focus ring (T283) ---
+    surface: {
+      default: { light: 'white', dark: 'neutral-900' },
+      raised: { light: 'white', dark: 'neutral-800' },
+      sunken: { light: 'neutral-100', dark: '#0D0D0D' },
+      inverse: { light: 'neutral-900', dark: 'neutral-100' },
+    },
+    border: {
+      default: { light: 'neutral-200', dark: 'neutral-800' },
+      strong: { light: 'neutral-400', dark: 'neutral-700' },
+    },
+    focusRing: {
+      color: { light: focusColor, dark: focusColorDark },
+      boxShadow: {
+        light: `0 0 1px 2px ${focusColor}`,
+        dark: `0 0 1px 2px ${focusColorDark}`,
+      },
+    },
+    overlay: {
+      default: { light: 'rgba(13, 13, 13, 0.4)', dark: 'rgba(0, 0, 0, 0.6)' },
+    },
+    shadow: {
+      1: {
+        light: '0px 4px 8px rgba(0, 0, 0, 0.08)',
+        dark: '0px 4px 8px rgba(0, 0, 0, 0.4)',
+      },
+      2: {
+        light: '0px 8px 16px rgba(0, 0, 0, 0.08)',
+        dark: '0px 8px 16px rgba(0, 0, 0, 0.45)',
+      },
+      3: {
+        light: '0px 16px 24px rgba(0, 0, 0, 0.08)',
+        dark: '0px 16px 24px rgba(0, 0, 0, 0.5)',
+      },
+      4: {
+        light: '0px 24px 32px rgba(0, 0, 0, 0.08)',
+        dark: '0px 24px 32px rgba(0, 0, 0, 0.55)',
+      },
+      5: {
+        light: '0px 32px 40px rgba(0, 0, 0, 0.08)',
+        dark: '0px 32px 40px rgba(0, 0, 0, 0.6)',
+      },
+    },
+    // --- End of neutral roles ---
   },
   spacing: {
     1: '4px',
