@@ -1,4 +1,8 @@
-import { type ColorModeSetting, colorModes } from '@blockle/blocks-core';
+import {
+  type ColorModeSetting,
+  colorModes,
+  defaultColorMode,
+} from '@blockle/blocks-core';
 import { momotaro } from '@blockle/blocks-theme-momotaro';
 import type { DecoratorFunction } from 'storybook/internal/csf';
 
@@ -23,5 +27,5 @@ function toColorModeSetting(value: unknown): ColorModeSetting {
     return 'system';
   }
 
-  return colorModes.find((mode) => mode === value) ?? 'light';
+  return colorModes.find((mode) => mode === value) ?? defaultColorMode;
 }

@@ -8,6 +8,10 @@ const meta = preview.meta({
   title: 'Typography/Heading',
   component: Heading,
   argTypes: {
+    color: {
+      control: 'select',
+      options: ['default', 'muted', 'disabled', 'inverse', 'primary-700'],
+    },
     fontSize: {
       type: 'string',
       options: Object.keys(atomicProperties.fontSize.values),
@@ -48,6 +52,25 @@ export const All = meta.story({
       </Heading>
       <Heading {...args} level={4}>
         Heading 4
+      </Heading>
+    </Stack>
+  ),
+  args: {
+    children: null,
+  },
+});
+
+export const Colors = meta.story({
+  render: (args) => (
+    <Stack gap={2}>
+      <Heading {...args} level={2} color="default">
+        Default text role
+      </Heading>
+      <Heading {...args} level={2} color="muted">
+        Muted text role
+      </Heading>
+      <Heading {...args} level={2} color="primary-700">
+        Palette color primary-700
       </Heading>
     </Stack>
   ),
