@@ -43,7 +43,7 @@ export type SliderProps = {
   'aria-label'?: string;
   // TODO Size should not change width/height of the slider, but the size of the thumb / track height
   size?: SliderTheme['variants']['size'];
-  colorScheme?: SliderTheme['variants']['colorScheme'];
+  intent?: SliderTheme['variants']['intent'];
   disabled?: boolean;
 };
 
@@ -57,13 +57,13 @@ export const Slider: React.FC<SliderProps> = ({
   value,
   name,
   size,
-  colorScheme,
+  intent,
   disabled,
   ...restProps
 }) => {
   const baseClass = useComponentStyles('slider', {
     root: true,
-    variants: { size, colorScheme, disabled },
+    variants: { size, intent, disabled },
   });
   const trackClass = useComponentStyles('slider', { track: true }, false);
   const filledTrackClass = useComponentStyles(

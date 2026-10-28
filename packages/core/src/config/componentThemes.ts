@@ -10,7 +10,7 @@ type InputVariant = 'solid' | 'outline';
 type LinkVariant = 'inherit' | 'primary' | 'secondary';
 type Size = 'small' | 'medium' | 'large';
 type IconSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
-type ColorScheme = 'primary' | 'secondary';
+type SliderTooltipIntent = 'primary' | 'secondary';
 
 /**
  * Theming options for components.
@@ -121,7 +121,7 @@ export type SliderTheme = {
   thumb: string;
   variants: {
     size: Size;
-    colorScheme: ColorScheme;
+    intent: SliderTooltipIntent;
     disabled: boolean;
   };
 };
@@ -162,7 +162,7 @@ export type ToastTheme = {
 export type TooltipTheme = {
   root: string;
   variants: {
-    colorScheme: ColorScheme;
+    intent: SliderTooltipIntent;
   };
 };
 

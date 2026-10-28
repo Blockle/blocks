@@ -67,7 +67,7 @@ export const slider: ThemeComponentsStyles['slider'] = makeComponentTheme(
           inlineSize: '300px',
         }),
       },
-      colorScheme: {
+      intent: {
         primary: style({
           vars: {
             [trackBackground]: vars.color['primary-100'],
@@ -94,7 +94,7 @@ export const slider: ThemeComponentsStyles['slider'] = makeComponentTheme(
     },
     defaultVariants: {
       size: 'medium',
-      colorScheme: 'primary',
+      intent: 'primary',
     },
   },
 );

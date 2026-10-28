@@ -8,6 +8,26 @@ const meta = preview.meta({
   component: Tooltip,
 });
 
+export const SecondaryIntent = meta.story({
+  render({ children, ...props }) {
+    return (
+      <Box style={{ height: 1000, width: 1000 }}>
+        <Box style={{ marginTop: 240, marginLeft: 240 }}>
+          <Tooltip {...props}>
+            <Button variant="outline">Hover me</Button>
+          </Tooltip>
+        </Box>
+      </Box>
+    );
+  },
+
+  args: {
+    children: <i>ignored prop</i>,
+    content: 'Hi there',
+    intent: 'secondary',
+  },
+});
+
 export const Default = meta.story({
   render({ children, ...props }) {
     return (
