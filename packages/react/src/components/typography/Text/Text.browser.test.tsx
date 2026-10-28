@@ -30,14 +30,6 @@ describe('Text color roles (browser)', () => {
     expect(colorOf(screen.getByText('Hello').element())).toBe(darkDefault);
   });
 
-  it('defaults to light without a colorMode prop', async () => {
-    await emulateColorScheme('dark');
-
-    const screen = await render(<Text>Hello</Text>);
-
-    expect(colorOf(screen.getByText('Hello').element())).toBe(lightDefault);
-  });
-
   it('maps the color prop to a text role', async () => {
     const screen = await render(<Text color="muted">Hello</Text>, {
       colorMode: 'dark',

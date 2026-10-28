@@ -20,7 +20,7 @@ export type BlocksProviderProps = {
   /**
    * The Color mode of the whole page, written as `data-color-mode` on `<html>`.
    * Only the outermost BlocksProvider uses it; a nested provider ignores it.
-   * @default 'light'
+   * @default 'system'
    */
   colorMode?: ColorModeSetting;
   className?: string;

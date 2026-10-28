@@ -21,19 +21,16 @@ type ColorPalette =
   | '800'
   | '900';
 
+/** The Palette: the intent scales plus the fixed `white` and `black`. */
 type Color = {
   white: string;
   black: string;
-  border: string;
-  focus: string;
-  background: Record<ColorPalette, string>;
   danger: Record<ColorPalette, string>;
   info: Record<ColorPalette, string>;
   neutral: Record<ColorPalette, string>;
   primary: Record<ColorPalette, string>;
   secondary: Record<ColorPalette, string>;
   success: Record<ColorPalette, string>;
-  text: Record<ColorPalette, string>;
   warning: Record<ColorPalette, string>;
 };
 

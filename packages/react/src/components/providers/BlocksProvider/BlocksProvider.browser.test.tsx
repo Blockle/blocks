@@ -47,6 +47,23 @@ describe('BlocksProvider color mode (browser)', () => {
     expect(colorScheme()).toBe('light dark');
   });
 
+  it('follows the OS preference when no colorMode is given', async () => {
+    await emulateColorScheme('dark');
+
+    const screen = await render(<Text>Hello</Text>);
+
+    expect(colorScheme()).toBe('light dark');
+    expect(getComputedStyle(screen.getByText('Hello').element()).color).toBe(
+      darkDefault,
+    );
+
+    await emulateColorScheme('light');
+
+    expect(
+      getComputedStyle(screen.getByText('Hello').element()).color,
+    ).not.toBe(darkDefault);
+  });
+
   it('renders portaled content in the page color mode', async () => {
     const screen = await render(<PopoverInPortal />, { colorMode: 'dark' });
 

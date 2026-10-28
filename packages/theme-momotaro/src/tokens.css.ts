@@ -1,16 +1,5 @@
 import { pixelsToRem, type ThemeTokens } from '@blockle/blocks-core';
 
-const monochrome = {
-  100: '#FFFFFF',
-  200: '#F5F5F5',
-  300: '#E0E0E0',
-  400: '#AEAEAE',
-  500: '#7A7A7A',
-  600: '#4C4C4C',
-  700: '#2E2E2E',
-  800: '#1A1A1A',
-  900: '#0D0D0D',
-};
 const focusColor = '#7FE3F0';
 const focusColorDark = '#A8EEF6';
 
@@ -30,8 +19,6 @@ export const tokens: ThemeTokens = {
   color: {
     white: '#fff',
     black: '#000',
-    border: '#E1E1E1',
-    focus: focusColor,
     primary: {
       '100': '#E4DFFF',
       '200': '#C6B7FF',
@@ -99,8 +86,6 @@ export const tokens: ThemeTokens = {
       '800': '#804D00',
       '900': '#4D3300',
     },
-    background: monochrome,
-    text: monochrome,
     neutral: {
       100: '#F7F7F7',
       200: '#E1E1E1',
