@@ -108,6 +108,10 @@ export {
 } from './components/typography/Heading/Heading.js';
 export { Text, type TextProps } from './components/typography/Text/Text.js';
 // -- Hooks --
+export {
+  type UseColorModeResult,
+  useColorMode,
+} from './hooks/useColorMode/useColorMode.js';
 export { useComponentStyleDefaultProps } from './hooks/useComponentStyles/useComponentStyleDefaultProps.js';
 export { useComponentStyles } from './hooks/useComponentStyles/useComponentStyles.js';
 export { useControlledValue } from './hooks/useControlledValue/useControlledValue.js';
