@@ -55,6 +55,9 @@ describe('Button colors (browser)', () => {
 
         await button.hover();
         expect(styleOf(button.element()).backgroundColor).toBe(expected);
+        // The pointer stays where it is between tests; a later button
+        // rendered under it would start out hovered.
+        await button.unhover();
         await screen.unmount();
       }
     });
