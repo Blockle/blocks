@@ -64,9 +64,5 @@ export const makeVanillaTheme = (tokens: ThemeTokens) => {
       keyof typeof tokens.transition,
       string
     >,
-    shadow: tokens.shadow as Record<keyof typeof tokens.shadow, string>,
-    focus: {
-      boxShadow: tokens.focus.boxShadow,
-    },
   };
 };

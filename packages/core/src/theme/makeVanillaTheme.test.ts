@@ -19,8 +19,6 @@ describe('makeVanillaTheme typography', () => {
     spacing: {},
     border: { radius: {}, width: {} },
     transition: {},
-    shadow: {},
-    focus: { boxShadow: '' },
     // biome-ignore lint/suspicious/noExplicitAny: only typography is relevant here
   } as any);
 
