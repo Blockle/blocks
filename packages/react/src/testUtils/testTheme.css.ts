@@ -20,6 +20,7 @@ export const testingTheme = makeTheme({
     checkbox: { root: '', icon: '', label: '' },
     dialog: { dialog: '' },
     divider: { root: '' },
+    heading: { root: '' },
     icon: { root: '' },
     label: { root: '' },
     link: { root: '' },
@@ -30,6 +31,7 @@ export const testingTheme = makeTheme({
     slider: { root: '', thumb: '', track: '', filledTrack: '' },
     spinner: { root: '' },
     switch: { root: '', thumb: '' },
+    text: { root: '' },
     textarea: { root: '', input: '' },
     textInput: { root: '', input: '' },
     toast: { root: '' },
@@ -54,6 +56,14 @@ export const testingTheme = makeTheme({
       text: colorPalette,
       background: colorPalette,
       neutral: colorPalette,
+    },
+    colorRoles: {
+      text: {
+        default: { light: 'neutral-900', dark: 'neutral-100' },
+        muted: { light: 'neutral-700', dark: 'neutral-400' },
+        disabled: { light: 'neutral-400', dark: 'neutral-600' },
+        inverse: { light: 'white', dark: 'neutral-900' },
+      },
     },
     focus: {
       boxShadow: '0 0 0 3px rgba(66, 153, 225, 0.6)',

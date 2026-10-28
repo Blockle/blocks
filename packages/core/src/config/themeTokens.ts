@@ -1,3 +1,5 @@
+import type { ModeValue } from './colorMode.js';
+
 type FontWeight = 'light' | 'normal' | 'medium' | 'strong' | 'bold';
 type Space = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 type Transition = 'slow' | 'normal' | 'fast';
@@ -35,6 +37,23 @@ type Color = {
   warning: Record<ColorPalette, string>;
 };
 
+type TextRole = 'default' | 'muted' | 'disabled' | 'inverse';
+
+/**
+ * A Color role value: a Palette reference such as `neutral-900` (or `white`),
+ * or a raw CSS color. Palette references are resolved to the palette's color
+ * when the theme is made.
+ */
+type ColorRoleValue = string;
+
+/**
+ * Color roles: shared, purpose-named colors with a value for every Color mode.
+ * Add a group (or a role) here and in `css/tokens.ts` to extend the theme.
+ */
+export type ColorRoles = {
+  text: Record<TextRole, ModeValue<ColorRoleValue>>;
+};
+
 export type ThemeTokens = {
   typography: {
     fontFamily: {
@@ -58,4 +77,5 @@ export type ThemeTokens = {
     boxShadow: string;
   };
   color: Color;
+  colorRoles: ColorRoles;
 };

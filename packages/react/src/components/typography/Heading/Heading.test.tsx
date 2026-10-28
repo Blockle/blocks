@@ -1,6 +1,6 @@
-import { render } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
+import { render } from '../../../testUtils/testUtils.js';
 import { Heading } from './Heading.js';
 
 describe('Heading', () => {

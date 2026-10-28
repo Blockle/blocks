@@ -1,4 +1,4 @@
-import type { ThemeTokens } from '../config/themeTokens.js';
+import type { ColorRoles, ThemeTokens } from '../config/themeTokens.js';
 import type { DeepNullable } from '../utils/typing/helpers.js';
 
 const colorPalette = {
@@ -13,8 +13,23 @@ const colorPalette = {
   900: null,
 } as const;
 
-export const tokens: DeepNullable<ThemeTokens> = {
-  // mode: 'light', ??
+/**
+ * The Color roles without their per-mode values: the shape of the role contract.
+ * Mirror `ColorRoles`.
+ */
+export const colorRoleTokens: {
+  [Group in keyof ColorRoles]: Record<keyof ColorRoles[Group], null>;
+} = {
+  text: {
+    default: null,
+    muted: null,
+    disabled: null,
+    inverse: null,
+  },
+};
+
+/** The null template of all tokens except the Color roles, see `colorRoleTokens`. */
+export const tokens: DeepNullable<Omit<ThemeTokens, 'colorRoles'>> = {
   typography: {
     fontFamily: {
       body: null,
