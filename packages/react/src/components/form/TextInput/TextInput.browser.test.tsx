@@ -14,8 +14,8 @@ const darkText = 'rgb(247, 247, 247)';
 // momotaro text.muted: neutral-700 (#5E5E5E) in light, neutral-400 (#B1B1B1) in dark
 const lightMuted = 'rgb(94, 94, 94)';
 const darkMuted = 'rgb(177, 177, 177)';
-// momotaro focusRing.color: #7FE3F0 in light, #A8EEF6 in dark
-const lightFocus = 'rgb(127, 227, 240)';
+// momotaro focusRing.color: #8660FF in light, #A8EEF6 in dark
+const lightFocus = 'rgb(134, 96, 255)';
 const darkFocus = 'rgb(168, 238, 246)';
 
 const modes = [

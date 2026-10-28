@@ -2,9 +2,10 @@ import { assignVars, globalStyle } from '@vanilla-extract/css';
 
 import {
   type ColorMode,
-  colorModeAttribute,
+  colorModeSelector,
   colorModes,
   systemColorModeQueries,
+  systemColorModeSelectors,
   systemFallbackColorMode,
 } from '../config/colorMode.js';
 import type { ColorRoles, ThemeTokens } from '../config/themeTokens.js';
@@ -14,9 +15,6 @@ import { makeVanillaTheme } from './makeVanillaTheme.js';
 type ColorRoleValues = {
   [Group in keyof ColorRoles]: Record<keyof ColorRoles[Group], string>;
 };
-
-const modeSelector = (setting: string) =>
-  `html[${colorModeAttribute}="${setting}"]`;
 
 /**
  * Resolves the Color roles to the values of one Color mode. Palette references
@@ -49,9 +47,9 @@ function resolveColorRoles(
  * on `<html>`, and sets `color-scheme` to match. Must run in a `.css.ts` file.
  *
  * - `html[data-color-mode="<mode>"]` gets that mode's values.
- * - `html[data-color-mode="system"]` gets the fallback mode's values, plus each
- *   other mode's values inside the media query in `systemColorModeQueries`.
- * - Without the attribute (before a provider has mounted), the fallback mode applies.
+ * - `system` (`systemColorModeSelectors`: the attribute set to `system`, or
+ *   absent before a provider has mounted) gets the fallback mode's values, plus
+ *   each other mode's values inside the media query in `systemColorModeQueries`.
  */
 export function makeColorModeStyles(tokens: ThemeTokens) {
   const palette = makeVanillaTheme(tokens).color as Record<string, string>;
@@ -59,10 +57,10 @@ export function makeColorModeStyles(tokens: ThemeTokens) {
     assignVars(colorRoleVars, resolveColorRoles(tokens, mode, palette));
 
   for (const mode of colorModes) {
-    const selectors = [modeSelector(mode)];
+    const selectors = [colorModeSelector(mode)];
 
     if (mode === systemFallbackColorMode) {
-      selectors.push(':root', modeSelector('system'));
+      selectors.push(...systemColorModeSelectors);
     }
 
     globalStyle(selectors.join(', '), {
@@ -73,13 +71,15 @@ export function makeColorModeStyles(tokens: ThemeTokens) {
 
   // `system` allows every mode, and applies the ones that have a query
   // only while that query matches.
-  globalStyle(modeSelector('system'), { colorScheme: colorModes.join(' ') });
+  globalStyle(systemColorModeSelectors.join(', '), {
+    colorScheme: colorModes.join(' '),
+  });
 
   for (const mode of colorModes) {
     const query = systemColorModeQueries[mode];
 
     if (query) {
-      globalStyle(modeSelector('system'), {
+      globalStyle(systemColorModeSelectors.join(', '), {
         '@media': { [query]: { vars: valuesOf(mode) } },
       });
     }

@@ -3,9 +3,10 @@ import type { Properties as CSSProperties } from 'csstype';
 
 import {
   type ColorMode,
-  colorModeAttribute,
+  colorModeSelector,
   colorModes,
-  systemColorModeQueries,
+  systemColorModeQuery,
+  systemColorModeSelectors,
   systemFallbackColorMode,
 } from '../config/colorMode.js';
 import { layers } from '../css/layers.css.js';
@@ -93,6 +94,16 @@ export function defineProperties<
   const isModeProperty = (property: string) =>
     (modeProperties as string[] | undefined)?.includes(property) ?? false;
 
+  const addModeClasses = (
+    propResult: { modeClasses?: Record<ColorMode, string> },
+    property: string,
+    value: AtomicPrimitiveValue,
+  ) => {
+    if (isModeProperty(property)) {
+      propResult.modeClasses = makeModeClasses(property, value);
+    }
+  };
+
   for (const property in properties) {
     const values = properties[property];
 
@@ -149,9 +160,7 @@ export function defineProperties<
           });
         }
 
-        if (isModeProperty(property)) {
-          propResult.modeClasses = makeModeClasses(property, value);
-        }
+        addModeClasses(propResult, property, value);
 
         propertyResult.values[value] = propResult;
       }
@@ -200,12 +209,11 @@ export function defineProperties<
         });
       }
 
-      if (isModeProperty(property)) {
-        propResult.modeClasses = makeModeClasses(
-          property,
-          values[value] as AtomicPrimitiveValue,
-        );
-      }
+      addModeClasses(
+        propResult,
+        property,
+        values[value] as AtomicPrimitiveValue,
+      );
 
       propertyResult.values[value] = propResult;
     }
@@ -218,33 +226,11 @@ export function defineProperties<
   return result as PropertyResult<TProperties, TConditions, TModeKey>;
 }
 
-const modeSelector = (setting: string) =>
-  `html[${colorModeAttribute}="${setting}"] &`;
-
-/** The media query under which `system` renders `mode`, or undefined if it never does. */
-function systemQuery(mode: ColorMode): string | undefined {
-  const query = systemColorModeQueries[mode];
-
-  if (query) {
-    return query;
-  }
-
-  if (mode !== systemFallbackColorMode) {
-    return undefined;
-  }
-
-  // The fallback mode applies when no other mode's query matches.
-  const otherQueries = colorModes
-    .map((other) => systemColorModeQueries[other])
-    .filter((other): other is string => Boolean(other));
-
-  return otherQueries.map((other) => `(not ${other})`).join(' and ');
-}
-
 /**
  * One class per Color mode, applying `value` of `property` only while that
  * mode is active: `html[data-color-mode="<mode>"]`, `system` through its media
- * query, and (for the fallback mode) before a provider has set the attribute.
+ * query. `system` also applies while the attribute is absent (see
+ * `systemColorModeSelectors`).
  */
 function makeModeClasses(
   property: string,
@@ -253,16 +239,21 @@ function makeModeClasses(
   const declaration = { [property]: value };
   const modeClasses = {} as Record<ColorMode, string>;
 
+  const scoped = (selector: string) => `${selector} &`;
+
   for (const mode of colorModes) {
     const selectors: Record<string, object> = {
-      [modeSelector(mode)]: declaration,
+      [scoped(colorModeSelector(mode))]: declaration,
     };
+    const query = systemColorModeQuery(mode);
 
-    if (mode === systemFallbackColorMode) {
-      selectors[`:root:not([${colorModeAttribute}]) &`] = declaration;
+    // Without a media query, the system selectors apply to the mode only
+    // when it is the fallback, which has no query of its own to wait for.
+    if (!query && mode === systemFallbackColorMode) {
+      for (const selector of systemColorModeSelectors) {
+        selectors[scoped(selector)] = declaration;
+      }
     }
-
-    const query = systemQuery(mode);
 
     modeClasses[mode] = style({
       '@layer': {
@@ -272,7 +263,12 @@ function makeModeClasses(
             ? {
                 '@media': {
                   [query]: {
-                    selectors: { [modeSelector('system')]: declaration },
+                    selectors: Object.fromEntries(
+                      systemColorModeSelectors.map((selector) => [
+                        scoped(selector),
+                        declaration,
+                      ]),
+                    ),
                   },
                 },
               }

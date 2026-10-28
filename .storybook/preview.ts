@@ -3,13 +3,14 @@ import addonA11y from '@storybook/addon-a11y';
 import { definePreview } from '@storybook/react-vite';
 
 import './canvas.css.js';
+
 import { previewProviderDecorator } from './previewProviderDecorator.js';
 
 export default definePreview({
   addons: [addonA11y()],
   decorators: [previewProviderDecorator],
   initialGlobals: {
-    colorMode: 'light',
+    colorMode: 'system',
   },
   globalTypes: {
     colorMode: {

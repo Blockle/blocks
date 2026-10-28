@@ -72,4 +72,62 @@ describe('Overlay color roles (browser)', () => {
       expect(getComputedStyle(popover).boxShadow).toBe(shadow2[index]);
     });
   });
+
+  describe('portaled content under system', () => {
+    const portaled = (
+      <Portal>
+        <Dialog open onRequestClose={vi.fn()} aria-label="Sample">
+          Content
+        </Dialog>
+        <Popover
+          open
+          anchorElement={{ current: document.body }}
+          onRequestClose={vi.fn()}
+          data-testid="popover"
+        >
+          Content
+        </Popover>
+      </Portal>
+    );
+
+    it('follows an emulated dark OS', async () => {
+      await emulateColorScheme('dark');
+
+      const screen = await render(portaled, { colorMode: 'system' });
+      const dialog = screen.getByLabelText('Sample').element();
+      const popover = screen.getByTestId('popover').element();
+
+      expect(getComputedStyle(dialog).backgroundColor).toBe(raised[1]);
+      expect(getComputedStyle(dialog, '::backdrop').backgroundColor).toBe(
+        backdrop[1],
+      );
+      expect(getComputedStyle(popover).backgroundColor).toBe(raised[1]);
+    });
+
+    it('follows an OS switch while open', async () => {
+      const screen = await render(portaled, { colorMode: 'system' });
+      const dialog = screen.getByLabelText('Sample').element();
+      const popover = screen.getByTestId('popover').element();
+
+      expect(getComputedStyle(dialog).backgroundColor).toBe(raised[0]);
+
+      await emulateColorScheme('dark');
+
+      expect(getComputedStyle(dialog).backgroundColor).toBe(raised[1]);
+      expect(getComputedStyle(popover).backgroundColor).toBe(raised[1]);
+
+      await emulateColorScheme('light');
+
+      expect(getComputedStyle(dialog).backgroundColor).toBe(raised[0]);
+      expect(getComputedStyle(popover).backgroundColor).toBe(raised[0]);
+    });
+
+    it('uses color-scheme "light dark" on the page', async () => {
+      await render(portaled, { colorMode: 'system' });
+
+      expect(getComputedStyle(document.documentElement).colorScheme).toBe(
+        'light dark',
+      );
+    });
+  });
 });

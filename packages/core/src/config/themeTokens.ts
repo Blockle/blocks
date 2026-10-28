@@ -63,16 +63,13 @@ type ColorRoleValue = string;
 export type ColorRoles = {
   text: Record<TextRole, ModeValue<ColorRoleValue>>;
 
-  // --- Neutral roles, shadows and focus ring (T283) ---
   surface: Record<SurfaceRole, ModeValue<ColorRoleValue>>;
   border: Record<BorderRole, ModeValue<ColorRoleValue>>;
   focusRing: Record<FocusRingRole, ModeValue<ColorRoleValue>>;
   overlay: Record<OverlayRole, ModeValue<ColorRoleValue>>;
   /** Elevation levels. Dark themes usually need stronger shadows. */
   shadow: Record<BoxShadow, ModeValue<ColorRoleValue>>;
-  // --- End of neutral roles ---
 
-  // --- Intent roles (T284) ---
   // Every Intent has the same role family: `solid` (fill), `solidHover`,
   // `subtle` (tinted surface), `contrast` (content on `solid`), `foreground`
   // (intent-colored content on a neutral surface) and `border`.

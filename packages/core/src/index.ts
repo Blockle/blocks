@@ -12,10 +12,14 @@ export {
   type ColorMode,
   type ColorModeSetting,
   colorModeAttribute,
+  colorModeSelector,
   colorModes,
   defaultColorMode,
   type ModeValue,
+  resolveSystemColorMode,
   systemColorModeQueries,
+  systemColorModeQuery,
+  systemColorModeSelectors,
   systemFallbackColorMode,
 } from './config/colorMode.js';
 export type {

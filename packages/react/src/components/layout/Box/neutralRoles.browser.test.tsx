@@ -14,7 +14,7 @@ const expectedColors = {
   surface: ['rgb(255, 255, 255)', 'rgb(26, 26, 26)'],
   border: ['rgb(225, 225, 225)', 'rgb(60, 60, 60)'],
   overlay: ['rgba(13, 13, 13, 0.4)', 'rgba(0, 0, 0, 0.6)'],
-  focusRing: ['rgb(127, 227, 240)', 'rgb(168, 238, 246)'],
+  focusRing: ['rgb(134, 96, 255)', 'rgb(168, 238, 246)'],
 } as const;
 
 const shadow3 = [
@@ -22,7 +22,7 @@ const shadow3 = [
   'rgba(0, 0, 0, 0.5) 0px 16px 24px 0px',
 ] as const;
 const focusShadow = [
-  'rgb(127, 227, 240) 0px 0px 1px 2px',
+  'rgb(134, 96, 255) 0px 0px 1px 2px',
   'rgb(168, 238, 246) 0px 0px 1px 2px',
 ] as const;
 

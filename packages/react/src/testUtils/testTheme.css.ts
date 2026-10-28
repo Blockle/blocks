@@ -61,7 +61,6 @@ export const testingTheme = makeTheme({
         inverse: { light: 'white', dark: 'neutral-900' },
       },
 
-      // --- Neutral roles, shadows and focus ring (T283) ---
       surface: {
         default: { light: 'white', dark: 'neutral-900' },
         raised: { light: 'white', dark: 'neutral-800' },
@@ -104,9 +103,7 @@ export const testingTheme = makeTheme({
           dark: '0 24px 32px rgba(0, 0, 0, 0.55)',
         },
       },
-      // --- End of neutral roles ---
 
-      // --- Intent roles (T284) ---
       intentPrimary: {
         solid: { light: 'primary-600', dark: 'primary-300' },
         solidHover: { light: 'primary-700', dark: 'primary-400' },
