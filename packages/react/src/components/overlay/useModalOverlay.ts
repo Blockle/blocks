@@ -2,10 +2,10 @@
 
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
 
-import { useClickOutside } from '../../../hooks/useClickOutside/useClickOutside.js';
-import { usePreventBodyScroll } from '../../../hooks/usePreventBodyScroll/usePreventBodyScroll.js';
-import { useRestoreFocus } from '../../../hooks/useRestoreFocus/useRestoreFocus.js';
-import type { RequestCloseReason } from '../requestCloseReason.js';
+import { useClickOutside } from '../../hooks/useClickOutside/useClickOutside.js';
+import { usePreventBodyScroll } from '../../hooks/usePreventBodyScroll/usePreventBodyScroll.js';
+import { useRestoreFocus } from '../../hooks/useRestoreFocus/useRestoreFocus.js';
+import type { RequestCloseReason } from './requestCloseReason.js';
 
 type DialogContextValue = {
   setEnabled: (active: boolean) => void;
@@ -56,16 +56,16 @@ const useDialogCloseRequests = ({
   onKeyDownCapture,
   onCancel,
 }: UseDialogCloseRequestsOptions) => {
-  // Whether the current Escape keydown was stopped before reaching the dialog
-  const escapeStoppedRef = useRef(false);
+  // The current Escape keydown, until it reaches the dialog
+  const stoppedEscapeRef = useRef<KeyboardEvent | null>(null);
 
   const handleKeyDownCapture = (
     event: React.KeyboardEvent<HTMLDialogElement>,
   ) => {
     onKeyDownCapture?.(event);
 
-    // Cleared again when the keydown reaches the dialog
-    escapeStoppedRef.current = event.key === 'Escape';
+    stoppedEscapeRef.current =
+      event.key === 'Escape' ? event.nativeEvent : null;
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDialogElement>) => {
@@ -75,7 +75,7 @@ const useDialogCloseRequests = ({
       return;
     }
 
-    escapeStoppedRef.current = false;
+    stoppedEscapeRef.current = null;
 
     if (!enabled || event.defaultPrevented) {
       return;
@@ -97,10 +97,12 @@ const useDialogCloseRequests = ({
 
     event.preventDefault();
 
-    // The cancel of an Escape that content stopped, it claimed that Escape
-    const claimed = escapeStoppedRef.current;
+    // An Escape that content stopped is claimed, so is the cancel it causes.
+    // A prevented Escape causes none, so a cancel after it is a new request.
+    const stoppedEscape = stoppedEscapeRef.current;
+    const claimed = stoppedEscape !== null && !stoppedEscape.defaultPrevented;
 
-    escapeStoppedRef.current = false;
+    stoppedEscapeRef.current = null;
 
     if (enabled && !claimed) {
       onRequestClose('escape');

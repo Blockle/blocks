@@ -11,8 +11,8 @@ import { useRef } from 'react';
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { useModalDialog } from '../../../hooks/useModalDialog/useModalDialog.js';
 import type { RequestCloseReason } from '../requestCloseReason.js';
+import { DialogContext, useModalOverlay } from '../useModalOverlay.js';
 import * as styles from './dialog.css.js';
-import { DialogContext, useModalOverlay } from './dialogHelper.js';
 
 type DialogTheme = ComponentThemes['dialog'];
 

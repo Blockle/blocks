@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { Activity, useRef } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 
@@ -128,6 +128,54 @@ describe.each(modals)('%s close requests (browser)', (_, Overlay) => {
     expect(onRequestClose).toHaveBeenCalledTimes(1);
     expect(onRequestClose).toHaveBeenCalledWith('escape');
     expect(dialog.open).toBe(true);
+  });
+
+  it('requests to close on a close request after an Escape content stopped and prevented', async () => {
+    const onRequestClose = vi.fn();
+    const screen = await render(
+      <Overlay onRequestClose={onRequestClose}>
+        <input
+          aria-label="Title"
+          onKeyDown={(event) => {
+            if (event.key === 'Escape') {
+              event.stopPropagation();
+              event.preventDefault();
+            }
+          }}
+        />
+      </Overlay>,
+    );
+    const dialog = screen.getByTestId('overlay').element() as HTMLDialogElement;
+
+    await userEvent.click(screen.getByRole('textbox', { name: 'Title' }));
+    await userEvent.keyboard('{Escape}');
+
+    expect(onRequestClose).not.toHaveBeenCalled();
+
+    dialog.requestClose();
+
+    expect(onRequestClose).toHaveBeenCalledTimes(1);
+    expect(onRequestClose).toHaveBeenCalledWith('escape');
+  });
+
+  it('does not request to close when hidden in an Activity or unmounted', async () => {
+    const onRequestClose = vi.fn();
+    const ui = (mode: 'visible' | 'hidden') => (
+      <Activity mode={mode}>
+        <Overlay onRequestClose={onRequestClose}>Content</Overlay>
+      </Activity>
+    );
+    const screen = await render(ui('visible'));
+    const dialog = screen.getByTestId('overlay').element() as HTMLDialogElement;
+
+    await screen.rerender(ui('hidden'));
+
+    expect(dialog.open).toBe(false);
+
+    await screen.rerender(ui('visible'));
+    await screen.unmount();
+
+    expect(onRequestClose).not.toHaveBeenCalled();
   });
 });
 

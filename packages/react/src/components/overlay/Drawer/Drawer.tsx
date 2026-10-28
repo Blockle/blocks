@@ -10,8 +10,8 @@ import { useRef } from 'react';
 
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { useModalDialog } from '../../../hooks/useModalDialog/useModalDialog.js';
-import { DialogContext, useModalOverlay } from '../Dialog/dialogHelper.js';
 import type { RequestCloseReason } from '../requestCloseReason.js';
+import { DialogContext, useModalOverlay } from '../useModalOverlay.js';
 import * as styles from './drawer.css.js';
 
 type DrawerTheme = ComponentThemes['drawer'];
