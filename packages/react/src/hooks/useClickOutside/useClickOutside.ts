@@ -17,21 +17,45 @@ export const useClickOutside = (
       return;
     }
 
-    const listener = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
+    // Whether the pointer of the current click was pressed or released inside
+    let pointerInside = false;
+
+    // The path is fixed at dispatch, so it still holds a target that an
+    // event handler removed from the DOM
+    const isInside = (event: Event) =>
+      ref.current !== null && event.composedPath().includes(ref.current);
+
+    const onPointerDown = (event: PointerEvent) => {
+      pointerInside = isInside(event);
+    };
+
+    const onPointerUp = (event: PointerEvent) => {
+      pointerInside ||= isInside(event);
+    };
+
+    const onClick = (event: MouseEvent) => {
+      const inside = pointerInside || isInside(event);
+
+      pointerInside = false;
+
+      if (ref.current && !inside) {
         onClickOutside();
       }
     };
 
-    // Wait for the next frame to attach the event listener
+    // Wait for the next frame to attach the event listeners
     // This is to prevent the click event that triggered this hook from being caught
     const rafId = requestAnimationFrame(() => {
-      document.addEventListener('click', listener);
+      document.addEventListener('pointerdown', onPointerDown, true);
+      document.addEventListener('pointerup', onPointerUp, true);
+      document.addEventListener('click', onClick);
     });
 
     return () => {
       cancelAnimationFrame(rafId);
-      document.removeEventListener('click', listener);
+      document.removeEventListener('pointerdown', onPointerDown, true);
+      document.removeEventListener('pointerup', onPointerUp, true);
+      document.removeEventListener('click', onClick);
     };
   }, [ref, onClickOutside, enabled]);
 };
