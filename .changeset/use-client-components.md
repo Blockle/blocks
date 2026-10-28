@@ -1,4 +1,5 @@
 ---
+'@blockle/blocks': patch
 '@blockle/blocks-react': patch
 ---
 
