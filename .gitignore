@@ -33,3 +33,4 @@ storybook-static/
 
 /playground
 .claude/worktrees/
+__screenshots__/
