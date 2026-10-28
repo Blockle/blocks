@@ -24,7 +24,7 @@ describe('BlocksProvider', () => {
   });
 
   it('provides the theme context value', () => {
-    let contextValue: { theme: Theme } | null = null;
+    let contextValue: unknown = null;
 
     render(
       <BlocksProviderContext.Consumer>
@@ -40,7 +40,7 @@ describe('BlocksProvider', () => {
       },
     );
 
-    expect(contextValue).toEqual({ theme: mockTheme });
+    expect(contextValue).toEqual({ theme: mockTheme, colorMode: 'light' });
   });
 
   it('applies the correct className and styles', () => {
