@@ -1,4 +1,5 @@
 import { userEvent } from '@testing-library/user-event';
+import { createRef } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
 import { render, screen } from '../../../testUtils/testUtils.js';
@@ -42,6 +43,31 @@ describe('Dialog', () => {
     );
 
     await user.click(document.body);
+    expect(onRequestClose).toHaveBeenCalled();
+  });
+
+  it('passes a ref to the dialog and still closes on a click outside', async () => {
+    const ref = createRef<HTMLDialogElement>();
+    const onRequestClose = vi.fn();
+    const user = userEvent.setup();
+
+    render(
+      <Dialog
+        open={true}
+        onRequestClose={onRequestClose}
+        aria-label="Test Dialog"
+        ref={ref}
+      >
+        <p>Dialog Content</p>
+      </Dialog>,
+    );
+
+    expect(ref.current).toBe(screen.getByLabelText('Test Dialog'));
+
+    // useClickOutside listens from the next frame on
+    await new Promise(requestAnimationFrame);
+    await user.click(document.body);
+
     expect(onRequestClose).toHaveBeenCalled();
   });
 

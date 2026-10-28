@@ -1,44 +1,54 @@
 'use client';
 
 import {
+  type ComponentThemes,
   classnames,
+  composeRefs,
   type HTMLElementProps,
-  hasAnimationDuration,
 } from '@blockle/blocks-core';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useRef } from 'react';
 
 import { useClickOutside } from '../../../hooks/useClickOutside/useClickOutside.js';
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
-import { useIsomorphicLayoutEffect } from '../../../hooks/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js';
 import { useKeyboard } from '../../../hooks/useKeyboard/useKeyboard.js';
+import { useModalDialog } from '../../../hooks/useModalDialog/useModalDialog.js';
 import { usePreventBodyScroll } from '../../../hooks/usePreventBodyScroll/usePreventBodyScroll.js';
+import { useRestoreFocus } from '../../../hooks/useRestoreFocus/useRestoreFocus.js';
 import * as styles from './drawer.css.js';
+
+type DrawerTheme = ComponentThemes['drawer'];
 
 export type DrawerProps = {
   open: boolean;
   onRequestClose: () => void;
+  className?: string;
   placement?: keyof typeof styles.placement;
+  size?: DrawerTheme['variants']['size'];
 } & HTMLElementProps<HTMLDialogElement>;
 
 export const Drawer: React.FC<DrawerProps> = ({
   open,
   onRequestClose,
+  className,
   placement = 'left',
+  size,
   children,
+  ref,
   ...restProps
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const [visible, setVisible] = useState(open);
 
   const rootClassName = useComponentStyles('drawer', {
     root: true,
-    variants: { placement },
+    variants: { placement, size },
   });
 
   // SSR: If the dialog is open on the server, we need to render it with the open attribute
   const dataOpen = typeof window === 'undefined' && open ? true : undefined;
 
-  // Disable hook for nested dialogs, top level dialog already handles this
+  // Store the previous active element and restore it when the drawer is closed
+  useRestoreFocus(open);
+
   usePreventBodyScroll(open);
 
   // Close the dialog when clicking outside of it
@@ -58,34 +68,7 @@ export const Drawer: React.FC<DrawerProps> = ({
   // On Escape key press, close the dialog
   useKeyboard('Escape', onEscape, { enabled: open });
 
-  useIsomorphicLayoutEffect(() => {
-    // Using an additional state to control the visibility of the dialog
-    if (open && visible) {
-      if (!dialogRef.current || !dialogRef.current.showModal) {
-        return;
-      }
-
-      dialogRef.current.showModal();
-    } else if (open) {
-      setVisible(true);
-    } else {
-      // If the dialog has no animation duration, we hide it immediately
-      if (!hasAnimationDuration(dialogRef.current)) {
-        setVisible(false);
-      }
-
-      if (dialogRef.current?.close) {
-        // Close the dialog
-        dialogRef.current.close();
-      }
-    }
-  }, [open, visible]);
-
-  const onAnimationEnd = useCallback(() => {
-    if (!open) {
-      setVisible(false);
-    }
-  }, [open]);
+  const { visible, onAnimationEnd } = useModalDialog(dialogRef, open);
 
   if (!visible) {
     return null;
@@ -93,12 +76,13 @@ export const Drawer: React.FC<DrawerProps> = ({
 
   return (
     <dialog
-      ref={dialogRef}
+      ref={composeRefs(ref, dialogRef)}
       open={dataOpen}
       className={classnames(
         styles.drawer,
         styles.placement[placement],
         rootClassName,
+        className,
       )}
       onAnimationEnd={onAnimationEnd}
       onTransitionEnd={onAnimationEnd}

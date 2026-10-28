@@ -13,6 +13,10 @@ const meta = preview.meta({
       control: 'radio',
       options: ['left', 'right', 'top', 'bottom'],
     },
+    size: {
+      control: 'radio',
+      options: ['small', 'medium', 'large'],
+    },
     open: {
       control: 'boolean',
     },

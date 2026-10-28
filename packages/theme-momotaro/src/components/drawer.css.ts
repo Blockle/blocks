@@ -7,6 +7,7 @@ import {
 import { createVar, style } from '@vanilla-extract/css';
 
 const startingTransform = createVar();
+const drawerSize = createVar();
 
 export const drawer: ThemeComponentsStyles['drawer'] = makeComponentTheme(
   'drawer',
@@ -59,23 +60,47 @@ export const drawer: ThemeComponentsStyles['drawer'] = makeComponentTheme(
           vars: {
             [startingTransform]: 'translate(0, -100%)',
           },
+          height: drawerSize,
         }),
         right: style({
           vars: {
             [startingTransform]: 'translate(100%, 0)',
           },
+          width: drawerSize,
         }),
         bottom: style({
           vars: {
             [startingTransform]: 'translate(0, 100%)',
           },
+          height: drawerSize,
         }),
         left: style({
           vars: {
             [startingTransform]: 'translate(-100%, 0)',
           },
+          width: drawerSize,
         }),
       },
+      size: {
+        small: style({
+          vars: {
+            [drawerSize]: 'min(300px, 100%)',
+          },
+        }),
+        medium: style({
+          vars: {
+            [drawerSize]: 'min(480px, 100%)',
+          },
+        }),
+        large: style({
+          vars: {
+            [drawerSize]: 'min(640px, 100%)',
+          },
+        }),
+      },
+    },
+    defaultVariants: {
+      size: 'small',
     },
   },
 );
