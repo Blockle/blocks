@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback, useEffect, useState } from 'react';
 
 type UseVisibilityState = [visible: boolean, hide: () => void];

@@ -1,3 +1,5 @@
+'use client';
+
 import type { RecordLike, ThemeComponentsStyles } from '@blockle/blocks-core';
 
 import { useTheme } from '../useTheme/useTheme.js';

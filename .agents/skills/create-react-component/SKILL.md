@@ -18,7 +18,7 @@ Use this skill for a new component in `packages/react`. Keep the implementation 
    - `<Component>.stories.tsx` for representative Storybook stories
    - `<Component>.test.tsx` for focused Vitest and Testing Library coverage
 4. Follow local conventions:
-   - Start `<Component>.tsx` with `'use client';` when it calls any hook, including `useComponentStyles`. See the `'use client'` rule in `docs/agents/code-conventions.md`.
+   - Start `<Component>.tsx`, and any hook or context module you add, with `'use client';` when it calls or defines a hook (including `useComponentStyles`) or calls `createContext`. See the `'use client'` rule in `docs/agents/code-conventions.md`.
    - Use `.js` suffixes in imports.
    - Use `React.FC` and exported `<Component>Props` types where the neighboring component does.
    - Use `useComponentStyles`, `getAtomsAndProps`, `atoms`, and `classnames` when the component accepts the corresponding system props.
