@@ -1,7 +1,9 @@
 'use client';
 
 import type React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+
+import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js';
 
 type UseClickOutsideOptions = {
   enabled?: boolean;
@@ -12,6 +14,14 @@ export const useClickOutside = (
   onClickOutside: () => void,
   { enabled = true }: UseClickOutsideOptions = {},
 ): void => {
+  // Read the latest callback from a ref, so a new inline callback on each
+  // render keeps the listeners, and the state of a press, in place
+  const onClickOutsideRef = useRef(onClickOutside);
+
+  useIsomorphicLayoutEffect(() => {
+    onClickOutsideRef.current = onClickOutside;
+  }, [onClickOutside]);
+
   useEffect(() => {
     if (!enabled) {
       return;
@@ -34,12 +44,15 @@ export const useClickOutside = (
     };
 
     const onClick = (event: MouseEvent) => {
-      const inside = pointerInside || isInside(event);
+      // A click without a pointer press (detail 0), such as a keyboard
+      // activation, ignores the state a stopped or cancelled press left behind
+      const fromPointer = event.detail > 0;
+      const inside = (fromPointer && pointerInside) || isInside(event);
 
       pointerInside = false;
 
       if (ref.current && !inside) {
-        onClickOutside();
+        onClickOutsideRef.current();
       }
     };
 
@@ -57,5 +70,5 @@ export const useClickOutside = (
       document.removeEventListener('pointerup', onPointerUp, true);
       document.removeEventListener('click', onClick);
     };
-  }, [ref, onClickOutside, enabled]);
+  }, [ref, enabled]);
 };

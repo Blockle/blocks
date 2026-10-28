@@ -170,6 +170,27 @@ describe.each(overlays)('%s click outside (browser)', (_, Overlay) => {
     expect(onRequestClose).not.toHaveBeenCalled();
   });
 
+  it('stays open when the parent re-renders during a press inside', async () => {
+    const { onRequestClose, screen } = await renderOverlay();
+
+    await mouse(
+      'mousePressed',
+      centerOf(screen.getByTestId('overlay').element()),
+    );
+
+    // A new inline callback, as a parent re-render passes
+    await screen.rerender(
+      <Overlay onRequestClose={() => onRequestClose()}>Content</Overlay>,
+    );
+    await nextFrame();
+    await nextFrame();
+
+    await mouse('mouseMoved', outside());
+    await mouse('mouseReleased', outside());
+
+    expect(onRequestClose).not.toHaveBeenCalled();
+  });
+
   it('stays open when a press outside is released inside', async () => {
     const { onRequestClose, screen } = await renderOverlay();
 
@@ -182,6 +203,28 @@ describe.each(overlays)('%s click outside (browser)', (_, Overlay) => {
     const { onRequestClose } = await renderOverlay();
 
     await press(outside());
+
+    expect(onRequestClose).toHaveBeenCalledTimes(1);
+  });
+
+  it('requests to close on a keyboard click outside after a stopped click inside', async () => {
+    const { onRequestClose, screen } = await renderOverlay(
+      <button
+        type="button"
+        onClick={(event) => event.nativeEvent.stopImmediatePropagation()}
+      >
+        Stop
+      </button>,
+    );
+
+    await press(
+      centerOf(screen.getByRole('button', { name: 'Stop' }).element()),
+    );
+
+    expect(onRequestClose).not.toHaveBeenCalled();
+
+    // A keyboard activation fires a click without any pointer events
+    document.body.click();
 
     expect(onRequestClose).toHaveBeenCalledTimes(1);
   });
