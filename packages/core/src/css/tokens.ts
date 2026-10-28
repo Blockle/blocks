@@ -36,7 +36,6 @@ export const colorRoleTokens: {
     inverse: null,
   },
 
-  // --- Neutral roles, shadows and focus ring (T283) ---
   surface: {
     default: null,
     raised: null,
@@ -61,9 +60,7 @@ export const colorRoleTokens: {
     4: null,
     5: null,
   },
-  // --- End of neutral roles ---
 
-  // --- Intent roles (T284) ---
   intentPrimary: intentRoleTokens,
   intentSecondary: intentRoleTokens,
   intentNeutral: intentRoleTokens,
