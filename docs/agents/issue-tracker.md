@@ -1,6 +1,6 @@
 # Issue tracker: Tandembike
 
-Issues and specs for this repo live as Tickets in the Tandembike project **@blockle/blocks** (projectId 4). Use the `tandembike` MCP tools for every operation, not `gh issue`, even where a skill describes another tracker; never call the database or write requests by hand. Refer to Tickets as `T<number>`; `#<number>` is a GitHub PR.
+Issues and specs for this repo live as Tickets in the Tandembike project **@blockle/blocks**; pass it as `projectName` wherever a tool takes a Project. Use the `tandembike` MCP tools for every operation, not `gh issue`, even where a skill describes another tracker; never call the database or write requests by hand. Refer to Tickets as `T<number>`; `#<number>` is a GitHub PR.
 
 ## Conventions
 
@@ -18,7 +18,7 @@ Issues and specs for this repo live as Tickets in the Tandembike project **@bloc
 
 - **A spec is an Epic** titled `Spec: <name>`. The tickets split from it are its children (`epicNumber`).
 - **The Epic is the source of truth for its tickets.** Where a ticket or its acceptance criteria say less than a spec line, build the spec line and comment on the ticket saying so.
-- **Plan new tickets into the Active cycle** when one exists, the Epic included: find it with `list_cycles` (projectId 4), then `plan_tickets`.
+- **Plan new tickets into the Active cycle** when one exists, the Epic included: find it with `list_cycles` (`projectName: "@blockle/blocks"`), then `plan_tickets`.
 
 ## Pull requests as a triage surface
 
