@@ -1,6 +1,7 @@
 import { pixelsToRem, type ThemeTokens } from '@blockle/blocks-core';
 
-const focusColor = '#7FE3F0';
+// primary-400 on light (4.1:1 on white), light cyan on dark; both clear the 3:1 WCAG focus minimum.
+const focusColor = '#8660FF';
 const focusColorDark = '#A8EEF6';
 
 export const tokens: ThemeTokens = {
