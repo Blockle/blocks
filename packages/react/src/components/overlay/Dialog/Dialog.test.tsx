@@ -13,9 +13,9 @@ describe('Dialog', () => {
       </Dialog>,
     );
 
-    const dialog = screen.getByLabelText('Test Dialog');
-    // getByRole('dialog') is not working with showModal() api?
-    expect(dialog).toHaveRole('dialog');
+    const dialog = screen.getByRole('dialog', { name: 'Test Dialog' });
+
+    expect(dialog).toHaveTextContent('Dialog Content');
   });
 
   it('does not render when closed', () => {
@@ -42,7 +42,10 @@ describe('Dialog', () => {
       </Dialog>,
     );
 
+    // useClickOutside listens from the next frame on
+    await new Promise(requestAnimationFrame);
     await user.click(document.body);
+
     expect(onRequestClose).toHaveBeenCalled();
   });
 

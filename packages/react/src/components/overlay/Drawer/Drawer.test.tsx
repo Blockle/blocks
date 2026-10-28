@@ -6,6 +6,23 @@ import { render, screen } from '../../../testUtils/testUtils.js';
 import { Drawer } from './Drawer.js';
 
 describe('Drawer', () => {
+  it('exposes its content by role while open', () => {
+    const drawer = (open: boolean) => (
+      <Drawer open={open} onRequestClose={vi.fn()} aria-label="Menu">
+        <button type="button">Inside</button>
+      </Drawer>
+    );
+    const { rerender } = render(drawer(true));
+
+    expect(screen.getByRole('dialog', { name: 'Menu' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Inside' })).toBeInTheDocument();
+
+    rerender(drawer(false));
+
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
+  });
+
   it('merges a className with its own classes', () => {
     render(
       <Drawer open onRequestClose={vi.fn()} aria-label="Menu">
