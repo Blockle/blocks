@@ -1,13 +1,21 @@
 'use client';
 
-import { classnames, type HTMLElementProps } from '@blockle/blocks-core';
-import { useCallback, useEffect, useState } from 'react';
+import {
+  classnames,
+  composeRefs,
+  type HTMLElementProps,
+} from '@blockle/blocks-core';
+import { useRef, useState } from 'react';
 
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import * as styles from './switch.css.js';
 
 export type SwitchProps = {
-  onChange?: (value: boolean) => void;
+  /**
+   * The native change handler of the underlying input.
+   * Read the new value from `event.target.checked`.
+   */
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 } & Omit<HTMLElementProps<HTMLInputElement>, 'onChange'>;
 
 export const Switch: React.FC<SwitchProps> = ({
@@ -15,42 +23,25 @@ export const Switch: React.FC<SwitchProps> = ({
   className,
   defaultChecked,
   onChange,
+  ref,
   ...restProps
 }) => {
-  const [isChecked, setIsChecked] = useState<boolean>(
-    defaultChecked || checked || false,
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [uncontrolledChecked, setUncontrolledChecked] = useState(
+    defaultChecked ?? false,
   );
+  const isControlled = checked !== undefined;
+  const isChecked = isControlled ? checked : uncontrolledChecked;
   const baseClassName = useComponentStyles('switch', { root: true });
   const thumbClassName = useComponentStyles('switch', { thumb: true }, false);
 
-  useEffect(() => {
-    if (checked !== undefined) {
-      setIsChecked(checked);
+  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!isControlled) {
+      setUncontrolledChecked(event.target.checked);
     }
-  }, [checked]);
 
-  const toggle = useCallback(() => {
-    setIsChecked((checked) => {
-      const newValue = !checked;
-
-      if (onChange) {
-        onChange(newValue);
-      }
-
-      return newValue;
-    });
-  }, [onChange]);
-
-  const onChangeHandler = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setIsChecked(event.target.checked);
-
-      if (onChange) {
-        onChange(event.target.checked);
-      }
-    },
-    [onChange],
-  );
+    onChange?.(event);
+  };
 
   return (
     <>
@@ -60,20 +51,24 @@ export const Switch: React.FC<SwitchProps> = ({
         className={classnames(className, styles.container, baseClassName)}
         data-checked={isChecked}
         onClick={(event) => {
-          // Pressing spacebar on input element causes click event,
-          // but we don't want to toggle the switch in that case.
-          if ((event.target as HTMLElement).tagName === 'INPUT') {
+          // Clicks on the input itself (including those from a label or the
+          // spacebar) already toggle it natively.
+          if (event.target === inputRef.current) {
             return;
           }
 
-          toggle();
+          inputRef.current?.click();
         }}
       >
         <input
           type="checkbox"
+          // biome-ignore lint/a11y/useAriaPropsForRole: a checkbox input exposes its checked state natively, aria-checked would only duplicate it
+          role="switch"
           className={styles.input}
-          checked={isChecked}
+          checked={checked}
+          defaultChecked={defaultChecked}
           onChange={onChangeHandler}
+          ref={composeRefs(ref, inputRef)}
           {...restProps}
         />
         <div className={thumbClassName} data-checked={isChecked} />

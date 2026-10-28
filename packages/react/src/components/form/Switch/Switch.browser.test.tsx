@@ -15,7 +15,7 @@ describe('Switch (browser)', () => {
       </div>,
     );
 
-    const root = screen.getByRole('checkbox').element().parentElement;
+    const root = screen.getByRole('switch').element().parentElement;
 
     // momotaro sizes the switch at 52×32
     expect(root?.offsetWidth).toBe(52);
