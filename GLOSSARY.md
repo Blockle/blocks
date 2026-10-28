@@ -25,3 +25,9 @@ _Avoid_: Color pair, tuple, light-dark value
 **Palette**:
 A theme's scales of fixed shades, such as `primary-700`. A shade is the same color in every Color mode.
 _Avoid_: Color scale, ramp
+
+### Overlays
+
+**Placement**:
+Where an overlay sits relative to its anchor: a side (`top`, `right`, `bottom`, `left`), and optionally which of the anchor's edges it lines up with (`start` or `end`, centred when left out), as in `top-start`. A Drawer's Placement is a side of the screen.
+_Avoid_: Position, side, align
