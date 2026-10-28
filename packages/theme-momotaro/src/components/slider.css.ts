@@ -12,6 +12,7 @@ const trackBackground = createVar();
 const filledTrackBackground = createVar();
 const thumbBackground = createVar();
 const thumbActive = createVar();
+const haloColor = createVar();
 
 export const slider: ThemeComponentsStyles['slider'] = makeComponentTheme(
   'slider',
@@ -37,9 +38,9 @@ export const slider: ThemeComponentsStyles['slider'] = makeComponentTheme(
         borderRadius: '50%',
         height: '16px',
         width: '16px',
-        boxShadow: `0 0 0 0px color-mix(in srgb,  ${vars.color['primary-100']}, transparent 0%)`,
+        boxShadow: `0 0 0 0px color-mix(in srgb,  ${haloColor}, transparent 0%)`,
         vars: {
-          [thumbActive]: `0 0 0 8px color-mix(in srgb,  ${vars.color['primary-100']}, transparent 20%)`,
+          [thumbActive]: `0 0 0 8px color-mix(in srgb,  ${haloColor}, transparent 20%)`,
         },
         ':hover': {
           boxShadow: thumbActive,
@@ -67,34 +68,36 @@ export const slider: ThemeComponentsStyles['slider'] = makeComponentTheme(
           inlineSize: '300px',
         }),
       },
-      colorScheme: {
+      intent: {
         primary: style({
           vars: {
-            [trackBackground]: vars.color['primary-100'],
-            [filledTrackBackground]: vars.color['primary-500'],
-            [thumbBackground]: vars.color['primary-500'],
+            [trackBackground]: vars.colorRole.primary.subtle,
+            [filledTrackBackground]: vars.colorRole.primary.solid,
+            [thumbBackground]: vars.colorRole.primary.solid,
+            [haloColor]: vars.colorRole.primary.subtle,
           },
         }),
         secondary: style({
           vars: {
-            [trackBackground]: vars.color['primary-100'],
-            [filledTrackBackground]: vars.color['secondary-500'],
-            [thumbBackground]: vars.color['secondary-500'],
+            [trackBackground]: vars.colorRole.secondary.subtle,
+            [filledTrackBackground]: vars.colorRole.secondary.solid,
+            [thumbBackground]: vars.colorRole.secondary.solid,
+            [haloColor]: vars.colorRole.secondary.subtle,
           },
         }),
       },
       disabled: style({
         pointerEvents: 'none',
         vars: {
-          [trackBackground]: vars.color['background-200'],
-          [filledTrackBackground]: vars.color['background-400'],
-          [thumbBackground]: vars.color['background-400'],
+          [trackBackground]: vars.colorRole.border.default,
+          [filledTrackBackground]: vars.colorRole.text.disabled,
+          [thumbBackground]: vars.colorRole.text.disabled,
         },
       }),
     },
     defaultVariants: {
       size: 'medium',
-      colorScheme: 'primary',
+      intent: 'primary',
     },
   },
 );

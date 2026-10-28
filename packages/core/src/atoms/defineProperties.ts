@@ -1,6 +1,14 @@
 import { style } from '@vanilla-extract/css';
 import type { Properties as CSSProperties } from 'csstype';
 
+import {
+  type ColorMode,
+  colorModeSelector,
+  colorModes,
+  systemColorModeQuery,
+  systemColorModeSelectors,
+  systemFallbackColorMode,
+} from '../config/colorMode.js';
 import { layers } from '../css/layers.css.js';
 
 type DeepPartial<T> = {
@@ -25,10 +33,19 @@ type Properties = Partial<Record<keyof CSSProperties, AtomicProperty>>;
 type PropertyCondition = { '@media'?: string };
 type PropertyConditions = PropertyCondition[];
 
-type PropertyDefinition<TProperties, TConditions> = {
+type PropertyDefinition<TProperties, TConditions, TModeKey> = {
   properties: TProperties;
   conditions?: TConditions;
+  /**
+   * Properties that also accept a Mode value. Each of their values gets one
+   * class per Color mode (`modeClasses`), scoped to `data-color-mode`.
+   */
+  modeProperties?: TModeKey[];
 };
+
+type ModeClasses<TKey, TModeKey> = [TKey] extends [TModeKey]
+  ? { modeClasses: Record<ColorMode, string> }
+  : unknown;
 
 type PropertyResultValue<TConditions> = TConditions extends unknown[]
   ? {
@@ -41,14 +58,20 @@ type PropertyResultValue<TConditions> = TConditions extends unknown[]
       defaultClass: string;
     };
 
-type PropertyResult<TProperties extends Properties, TConditions> = {
+type PropertyResult<
+  TProperties extends Properties,
+  TConditions,
+  TModeKey = never,
+> = {
   [K in keyof TProperties]: {
     values: TProperties[K] extends AtomicPrimitiveValue[]
       ? {
-          [V in TProperties[K][number]]: PropertyResultValue<TConditions>;
+          [V in TProperties[K][number]]: PropertyResultValue<TConditions> &
+            ModeClasses<K, TModeKey>;
         }
       : {
-          [V in keyof TProperties[K]]: PropertyResultValue<TConditions>;
+          [V in keyof TProperties[K]]: PropertyResultValue<TConditions> &
+            ModeClasses<K, TModeKey>;
         };
   };
 };
@@ -56,14 +79,30 @@ type PropertyResult<TProperties extends Properties, TConditions> = {
 export function defineProperties<
   const TProperties extends Properties,
   TConditions extends PropertyConditions | undefined,
+  const TModeKey extends keyof TProperties = never,
 >({
   properties,
   conditions,
-}: PropertyDefinition<TProperties, TConditions>): PropertyResult<
+  modeProperties,
+}: PropertyDefinition<TProperties, TConditions, TModeKey>): PropertyResult<
   TProperties,
-  TConditions
+  TConditions,
+  TModeKey
 > {
   const result: DeepPartial<PropertyResult<TProperties, TConditions>> = {};
+
+  const isModeProperty = (property: string) =>
+    (modeProperties as string[] | undefined)?.includes(property) ?? false;
+
+  const addModeClasses = (
+    propResult: { modeClasses?: Record<ColorMode, string> },
+    property: string,
+    value: AtomicPrimitiveValue,
+  ) => {
+    if (isModeProperty(property)) {
+      propResult.modeClasses = makeModeClasses(property, value);
+    }
+  };
 
   for (const property in properties) {
     const values = properties[property];
@@ -71,7 +110,11 @@ export function defineProperties<
     const propertyResult = {
       values: {} as Record<
         string,
-        { defaultClass: string; conditions?: string[] }
+        {
+          defaultClass: string;
+          conditions?: string[];
+          modeClasses?: Record<ColorMode, string>;
+        }
       >,
     };
 
@@ -87,7 +130,9 @@ export function defineProperties<
 
         const propResult = {
           defaultClass,
-        } as PropertyResultValue<unknown[]>;
+        } as PropertyResultValue<unknown[]> & {
+          modeClasses?: Record<ColorMode, string>;
+        };
 
         if (isValidConditionList(conditions)) {
           propResult.conditions = conditions.map((condition, i) => {
@@ -115,6 +160,8 @@ export function defineProperties<
           });
         }
 
+        addModeClasses(propResult, property, value);
+
         propertyResult.values[value] = propResult;
       }
 
@@ -136,7 +183,9 @@ export function defineProperties<
 
       const propResult = {
         defaultClass,
-      } as PropertyResultValue<unknown[]>;
+      } as PropertyResultValue<unknown[]> & {
+        modeClasses?: Record<ColorMode, string>;
+      };
 
       if (isValidConditionList(conditions)) {
         propResult.conditions = conditions.map((condition, i) => {
@@ -160,6 +209,12 @@ export function defineProperties<
         });
       }
 
+      addModeClasses(
+        propResult,
+        property,
+        values[value] as AtomicPrimitiveValue,
+      );
+
       propertyResult.values[value] = propResult;
     }
 
@@ -168,7 +223,62 @@ export function defineProperties<
     >;
   }
 
-  return result as PropertyResult<TProperties, TConditions>;
+  return result as PropertyResult<TProperties, TConditions, TModeKey>;
+}
+
+/**
+ * One class per Color mode, applying `value` of `property` only while that
+ * mode is active: `html[data-color-mode="<mode>"]`, `system` through its media
+ * query. `system` also applies while the attribute is absent (see
+ * `systemColorModeSelectors`).
+ */
+function makeModeClasses(
+  property: string,
+  value: AtomicPrimitiveValue,
+): Record<ColorMode, string> {
+  const declaration = { [property]: value };
+  const modeClasses = {} as Record<ColorMode, string>;
+
+  const scoped = (selector: string) => `${selector} &`;
+
+  for (const mode of colorModes) {
+    const selectors: Record<string, object> = {
+      [scoped(colorModeSelector(mode))]: declaration,
+    };
+    const query = systemColorModeQuery(mode);
+
+    // Without a media query, the system selectors apply to the mode only
+    // when it is the fallback, which has no query of its own to wait for.
+    if (!query && mode === systemFallbackColorMode) {
+      for (const selector of systemColorModeSelectors) {
+        selectors[scoped(selector)] = declaration;
+      }
+    }
+
+    modeClasses[mode] = style({
+      '@layer': {
+        [layers.atom]: {
+          selectors,
+          ...(query
+            ? {
+                '@media': {
+                  [query]: {
+                    selectors: Object.fromEntries(
+                      systemColorModeSelectors.map((selector) => [
+                        scoped(selector),
+                        declaration,
+                      ]),
+                    ),
+                  },
+                },
+              }
+            : {}),
+        },
+      },
+    });
+  }
+
+  return modeClasses;
 }
 
 function isValidConditionList(

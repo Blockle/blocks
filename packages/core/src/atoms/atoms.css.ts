@@ -11,6 +11,7 @@ import { vars } from '../css/vars.css.js';
 import { defineProperties } from './defineProperties.js';
 
 const unresponsiveAtomicProperties = defineProperties({
+  modeProperties: ['backgroundColor', 'borderColor', 'color'],
   properties: {
     appearance: ['none'],
     backgroundColor: colorsWithCurrentColor,
@@ -20,7 +21,7 @@ const unresponsiveAtomicProperties = defineProperties({
     borderRadius: vars.borderRadius,
     borderWidth: vars.borderWidth,
     borderStyle: ['solid', 'dashed', 'dotted', 'double', 'none'],
-    boxShadow: vars.shadow,
+    boxShadow: vars.colorRole.shadow,
     color: colorsWithCurrentColor,
     cursor: ['auto', 'pointer'],
     fontFamily: vars.fontFamily,

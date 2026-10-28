@@ -1,7 +1,7 @@
 import {
-  atoms,
   makeComponentTheme,
   type ThemeComponentsStyles,
+  vars,
 } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 
@@ -37,13 +37,13 @@ export const link: ThemeComponentsStyles['link'] = makeComponentTheme('link', {
         color: 'inherit',
         fontWeight: 'inherit',
       }),
-      primary: atoms({
-        color: 'primary-500',
-        fontWeight: 'medium',
+      primary: style({
+        color: vars.colorRole.primary.foreground,
+        fontWeight: 500,
       }),
-      secondary: atoms({
-        color: 'secondary-500',
-        fontWeight: 'medium',
+      secondary: style({
+        color: vars.colorRole.secondary.foreground,
+        fontWeight: 500,
       }),
     },
     underline: style({

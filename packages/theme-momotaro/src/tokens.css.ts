@@ -1,17 +1,8 @@
 import { pixelsToRem, type ThemeTokens } from '@blockle/blocks-core';
 
-const monochrome = {
-  100: '#FFFFFF',
-  200: '#F5F5F5',
-  300: '#E0E0E0',
-  400: '#AEAEAE',
-  500: '#7A7A7A',
-  600: '#4C4C4C',
-  700: '#2E2E2E',
-  800: '#1A1A1A',
-  900: '#0D0D0D',
-};
-const focusColor = '#7FE3F0';
+// primary-400 on light (4.1:1 on white), light cyan on dark; both clear the 3:1 WCAG focus minimum.
+const focusColor = '#8660FF';
+const focusColorDark = '#A8EEF6';
 
 export const tokens: ThemeTokens = {
   border: {
@@ -29,8 +20,6 @@ export const tokens: ThemeTokens = {
   color: {
     white: '#fff',
     black: '#000',
-    border: '#E1E1E1',
-    focus: focusColor,
     primary: {
       '100': '#E4DFFF',
       '200': '#C6B7FF',
@@ -98,8 +87,6 @@ export const tokens: ThemeTokens = {
       '800': '#804D00',
       '900': '#4D3300',
     },
-    background: monochrome,
-    text: monochrome,
     neutral: {
       100: '#F7F7F7',
       200: '#E1E1E1',
@@ -112,15 +99,114 @@ export const tokens: ThemeTokens = {
       900: '#1A1A1A',
     },
   },
-  shadow: {
-    1: '0px 4px 8px rgba(0, 0, 0, 0.08)',
-    2: '0px 8px 16px rgba(0, 0, 0, 0.08)',
-    3: '0px 16px 24px rgba(0, 0, 0, 0.08)',
-    4: '0px 24px 32px rgba(0, 0, 0, 0.08)',
-    5: '0px 32px 40px rgba(0, 0, 0, 0.08)',
-  },
-  focus: {
-    boxShadow: `0 0 1px 2px ${focusColor}`,
+  // Dark values are a proposal, shown for review in the PR.
+  colorRoles: {
+    text: {
+      default: { light: 'neutral-900', dark: 'neutral-100' },
+      muted: { light: 'neutral-700', dark: 'neutral-400' },
+      disabled: { light: 'neutral-400', dark: 'neutral-600' },
+      inverse: { light: 'white', dark: 'neutral-900' },
+    },
+
+    surface: {
+      default: { light: 'white', dark: 'neutral-900' },
+      raised: { light: 'white', dark: 'neutral-800' },
+      sunken: { light: 'neutral-100', dark: '#0D0D0D' },
+      inverse: { light: 'neutral-900', dark: 'neutral-100' },
+    },
+    border: {
+      default: { light: 'neutral-200', dark: 'neutral-800' },
+      strong: { light: 'neutral-400', dark: 'neutral-700' },
+    },
+    focusRing: {
+      color: { light: focusColor, dark: focusColorDark },
+      boxShadow: {
+        light: `0 0 1px 2px ${focusColor}`,
+        dark: `0 0 1px 2px ${focusColorDark}`,
+      },
+    },
+    overlay: {
+      default: { light: 'rgba(13, 13, 13, 0.4)', dark: 'rgba(0, 0, 0, 0.6)' },
+    },
+    shadow: {
+      1: {
+        light: '0px 4px 8px rgba(0, 0, 0, 0.08)',
+        dark: '0px 4px 8px rgba(0, 0, 0, 0.4)',
+      },
+      2: {
+        light: '0px 8px 16px rgba(0, 0, 0, 0.08)',
+        dark: '0px 8px 16px rgba(0, 0, 0, 0.45)',
+      },
+      3: {
+        light: '0px 16px 24px rgba(0, 0, 0, 0.08)',
+        dark: '0px 16px 24px rgba(0, 0, 0, 0.5)',
+      },
+      4: {
+        light: '0px 24px 32px rgba(0, 0, 0, 0.08)',
+        dark: '0px 24px 32px rgba(0, 0, 0, 0.55)',
+      },
+      5: {
+        light: '0px 32px 40px rgba(0, 0, 0, 0.08)',
+        dark: '0px 32px 40px rgba(0, 0, 0, 0.6)',
+      },
+    },
+
+    primary: {
+      solid: { light: 'primary-600', dark: 'primary-300' },
+      solidHover: { light: 'primary-700', dark: 'primary-400' },
+      subtle: { light: 'primary-100', dark: 'primary-900' },
+      contrast: { light: 'white', dark: 'neutral-900' },
+      foreground: { light: 'primary-700', dark: 'primary-300' },
+      border: { light: 'primary-300', dark: 'primary-700' },
+    },
+    secondary: {
+      solid: { light: 'secondary-500', dark: 'secondary-500' },
+      solidHover: { light: 'secondary-600', dark: 'secondary-400' },
+      subtle: { light: 'secondary-100', dark: '#0F3A4D' },
+      contrast: { light: 'neutral-900', dark: 'neutral-900' },
+      foreground: { light: '#126A94', dark: 'secondary-400' },
+      border: { light: 'secondary-300', dark: 'secondary-800' },
+    },
+    neutral: {
+      solid: { light: 'neutral-800', dark: 'neutral-200' },
+      solidHover: { light: 'neutral-900', dark: 'neutral-300' },
+      subtle: { light: 'neutral-100', dark: 'neutral-800' },
+      contrast: { light: 'white', dark: 'neutral-900' },
+      foreground: { light: 'neutral-800', dark: 'neutral-300' },
+      border: { light: 'neutral-300', dark: 'neutral-700' },
+    },
+    danger: {
+      solid: { light: 'danger-700', dark: 'danger-400' },
+      solidHover: { light: 'danger-800', dark: 'danger-300' },
+      subtle: { light: 'danger-100', dark: 'danger-900' },
+      contrast: { light: 'white', dark: 'neutral-900' },
+      foreground: { light: 'danger-700', dark: 'danger-300' },
+      border: { light: 'danger-300', dark: 'danger-700' },
+    },
+    success: {
+      solid: { light: 'success-800', dark: 'success-500' },
+      solidHover: { light: 'success-900', dark: 'success-400' },
+      subtle: { light: 'success-100', dark: 'success-900' },
+      contrast: { light: 'white', dark: 'neutral-900' },
+      foreground: { light: 'success-800', dark: 'success-400' },
+      border: { light: 'success-300', dark: 'success-700' },
+    },
+    info: {
+      solid: { light: 'info-700', dark: 'info-400' },
+      solidHover: { light: 'info-800', dark: 'info-300' },
+      subtle: { light: 'info-100', dark: 'info-900' },
+      contrast: { light: 'white', dark: 'neutral-900' },
+      foreground: { light: 'info-700', dark: 'info-300' },
+      border: { light: 'info-300', dark: 'info-700' },
+    },
+    warning: {
+      solid: { light: 'warning-500', dark: 'warning-500' },
+      solidHover: { light: 'warning-600', dark: 'warning-400' },
+      subtle: { light: 'warning-100', dark: 'warning-900' },
+      contrast: { light: 'neutral-900', dark: 'neutral-900' },
+      foreground: { light: 'warning-800', dark: 'warning-400' },
+      border: { light: 'warning-300', dark: 'warning-700' },
+    },
   },
   spacing: {
     1: '4px',

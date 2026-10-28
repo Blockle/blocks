@@ -41,6 +41,14 @@ export const WithState = meta.story({
   },
 });
 
+export const SecondaryIntent = meta.story({
+  args: {
+    'aria-label': 'How happy are you today?',
+    intent: 'secondary',
+    defaultValue: 40,
+  },
+});
+
 export const WithStepSize = meta.story({
   render(props) {
     return <SliderWithState {...props} />;

@@ -1,4 +1,4 @@
-import type { ThemeTokens } from '../config/themeTokens.js';
+import type { ColorRoles, ThemeTokens } from '../config/themeTokens.js';
 import type { DeepNullable } from '../utils/typing/helpers.js';
 
 const colorPalette = {
@@ -13,8 +13,65 @@ const colorPalette = {
   900: null,
 } as const;
 
-export const tokens: DeepNullable<ThemeTokens> = {
-  // mode: 'light', ??
+const intentRoleTokens = {
+  solid: null,
+  solidHover: null,
+  subtle: null,
+  contrast: null,
+  foreground: null,
+  border: null,
+} as const;
+
+/**
+ * The Color roles without their per-mode values: the shape of the role contract.
+ * Mirror `ColorRoles`.
+ */
+export const colorRoleTokens: {
+  [Group in keyof ColorRoles]: Record<keyof ColorRoles[Group], null>;
+} = {
+  text: {
+    default: null,
+    muted: null,
+    disabled: null,
+    inverse: null,
+  },
+
+  surface: {
+    default: null,
+    raised: null,
+    sunken: null,
+    inverse: null,
+  },
+  border: {
+    default: null,
+    strong: null,
+  },
+  focusRing: {
+    color: null,
+    boxShadow: null,
+  },
+  overlay: {
+    default: null,
+  },
+  shadow: {
+    1: null,
+    2: null,
+    3: null,
+    4: null,
+    5: null,
+  },
+
+  primary: intentRoleTokens,
+  secondary: intentRoleTokens,
+  neutral: intentRoleTokens,
+  danger: intentRoleTokens,
+  success: intentRoleTokens,
+  info: intentRoleTokens,
+  warning: intentRoleTokens,
+};
+
+/** The null template of all tokens except the Color roles, see `colorRoleTokens`. */
+export const tokens: DeepNullable<Omit<ThemeTokens, 'colorRoles'>> = {
   typography: {
     fontFamily: {
       body: null,
@@ -76,29 +133,15 @@ export const tokens: DeepNullable<ThemeTokens> = {
       thick: null,
     },
   },
-  shadow: {
-    1: null,
-    2: null,
-    3: null,
-    4: null,
-    5: null,
-  },
-  focus: {
-    boxShadow: null,
-  },
   color: {
     black: null,
     white: null,
-    border: null,
-    focus: null,
     primary: colorPalette,
     secondary: colorPalette,
     success: colorPalette,
     warning: colorPalette,
     danger: colorPalette,
     info: colorPalette,
-    background: colorPalette,
-    text: colorPalette,
     neutral: colorPalette,
   },
 };

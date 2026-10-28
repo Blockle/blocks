@@ -8,11 +8,25 @@ export type {
   TextAtoms,
 } from './atoms/atomTypes.js';
 export { getAtomsAndProps } from './atoms/getAtomsAndProps.js';
+export {
+  type ColorMode,
+  type ColorModeSetting,
+  colorModeAttribute,
+  colorModeSelector,
+  colorModes,
+  defaultColorMode,
+  type ModeValue,
+  resolveSystemColorMode,
+  systemColorModeQueries,
+  systemColorModeQuery,
+  systemColorModeSelectors,
+  systemFallbackColorMode,
+} from './config/colorMode.js';
 export type {
   ComponentThemes,
   ComponentThemesProps,
 } from './config/componentThemes.js';
-export type { ThemeTokens } from './config/themeTokens.js';
+export type { ColorRoles, ThemeTokens } from './config/themeTokens.js';
 export { breakpointNames, minMediaQuery } from './css/breakpoint/breakpoint.js';
 // CSS Utils
 export {

@@ -32,3 +32,5 @@ storybook-static/
 .turbo
 
 /playground
+.claude/worktrees/
+__screenshots__/

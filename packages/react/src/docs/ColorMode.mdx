@@ -1,0 +1,224 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Guides/Color mode" />
+
+# Color mode
+
+A **Color mode** is the set of colors the UI renders with: `light` or `dark`, or `system` to follow the user's OS preference. It applies to the whole page. Blocks writes it as `data-color-mode` on `<html>`, so portaled and top-layer content (Dialog, Popover, Toast) follows it without extra work.
+
+## Setting the Color mode
+
+Pass `colorMode` to the outermost `BlocksProvider`:
+
+```tsx
+import { BlocksProvider } from '@blockle/blocks-react';
+import { momotaro } from '@blockle/blocks-theme-momotaro';
+
+<BlocksProvider theme={momotaro} colorMode="dark">
+  <App />
+</BlocksProvider>;
+```
+
+- `colorMode` is `'light' | 'dark' | 'system'` and defaults to **`system`**.
+- Under `system` the page follows the OS with plain CSS (`prefers-color-scheme`). It needs no script and never shows the wrong mode on first paint.
+- Without a `colorMode` prop, an app that was only designed for light will render dark for users whose OS is dark. Pass `colorMode="light"` to opt out.
+- Only the outermost `BlocksProvider` sets the Color mode. A nested provider ignores the prop (and warns in development).
+
+## Saving the user's choice
+
+Blocks does not store or toggle the choice; that is the app's job. The recipe below keeps it in `localStorage` under `color-mode`.
+
+```tsx
+import type { ColorModeSetting } from '@blockle/blocks-core';
+import { BlocksProvider } from '@blockle/blocks-react';
+import { momotaro } from '@blockle/blocks-theme-momotaro';
+import { useEffect, useState } from 'react';
+
+const storageKey = 'color-mode';
+
+function readChoice(): ColorModeSetting {
+  try {
+    const saved = localStorage.getItem(storageKey);
+
+    return saved === 'light' || saved === 'dark' ? saved : 'system';
+  } catch {
+    return 'system';
+  }
+}
+
+export function App() {
+  const [colorMode, setColorMode] = useState<ColorModeSetting>('system');
+
+  // Read after mount so server and first client render agree.
+  useEffect(() => setColorMode(readChoice()), []);
+
+  const choose = (choice: ColorModeSetting) => {
+    setColorMode(choice);
+
+    try {
+      localStorage.setItem(storageKey, choice);
+    } catch {}
+  };
+
+  return (
+    <BlocksProvider theme={momotaro} colorMode={colorMode}>
+      <button onClick={() => choose('light')}>Light</button>
+      <button onClick={() => choose('dark')}>Dark</button>
+      <button onClick={() => choose('system')}>System</button>
+    </BlocksProvider>
+  );
+}
+```
+
+### Avoiding a flash for explicit choices
+
+`system` needs no script. An explicit `light` or `dark` choice is only known after React mounts, so a user who chose dark on a light OS sees a flash of light. Set `data-color-mode` before first paint with a small blocking script in the document `<head>`, using the same storage key:
+
+```html
+<script>
+  try {
+    var choice = localStorage.getItem('color-mode');
+
+    if (choice === 'light' || choice === 'dark') {
+      document.documentElement.setAttribute('data-color-mode', choice);
+    }
+  } catch (error) {}
+</script>
+```
+
+When `BlocksProvider` mounts it takes over the attribute with the same value, so the two never disagree. Under a strict Content Security Policy, give the script a nonce or hash.
+
+## Reading the Color mode in JavaScript
+
+Use `useColorMode()` for visuals CSS cannot reach, such as charts, canvas or map styles. It must be called inside a `BlocksProvider`.
+
+```tsx
+import { useColorMode } from '@blockle/blocks-react';
+
+function Chart() {
+  const { colorMode, resolvedColorMode } = useColorMode();
+
+  // colorMode: what the provider was given ('light' | 'dark' | 'system')
+  // resolvedColorMode: what is rendered ('light' | 'dark')
+  return <MyChart theme={resolvedColorMode === 'dark' ? darkStyle : lightStyle} />;
+}
+```
+
+Under `system`, `resolvedColorMode` follows the OS and updates when it changes. On the server and during the first client render it is `light`, so a chart that reads it may re-render once after hydration.
+
+## Color roles, Mode values and Palette shades
+
+There are three ways to give something a color. Only the first two follow the Color mode.
+
+| | What it is | Follows the Color mode? |
+| --- | --- | --- |
+| **Color role** | A shared, named color with a purpose (`text.muted`, `surface.raised`, `danger.solid`), defined per mode by the theme. | Yes |
+| **Mode value** | A one-off color you define for every mode where you use it. | Yes |
+| **Palette** shade | A fixed shade such as `primary-700`. | **No**, it is the same in every mode |
+
+Prefer a Color role. Components with the same need share it, and every **Intent** (`primary`, `danger`, `success`, ...) has the same family of roles: `solid`, `solidHover`, `subtle`, `contrast`, `foreground` and `border`.
+
+A plain Palette shade in an atom does not change with the Color mode:
+
+```tsx
+// Always this purple, in light and dark
+<Box color="primary-700">Fixed</Box>
+```
+
+Use a Mode value when no role covers the need:
+
+```tsx
+<Box color={{ light: 'neutral-900', dark: 'neutral-100' }}>Follows the mode</Box>
+```
+
+`Text` and `Heading` accept a text role directly: `<Text color="muted">`. In your own styles read a role with `vars.colorRole.<group>.<role>`:
+
+```ts
+import { vars } from '@blockle/blocks-core';
+import { style } from '@vanilla-extract/css';
+
+export const card = style({
+  backgroundColor: vars.colorRole.surface.raised,
+  borderColor: vars.colorRole.border.default,
+  boxShadow: vars.colorRole.shadow[2],
+});
+```
+
+## A dark section on a light page
+
+A Color mode is global, so there is no nested `colorMode`. A dark section inside a light page is a matter of surface and text colors. Use the **inverse** roles: `surface.inverse` is dark in light mode and light in dark mode, and `text.inverse` is made to sit on it.
+
+```ts
+// darkSection.css.ts
+import { vars } from '@blockle/blocks-core';
+import { style } from '@vanilla-extract/css';
+
+export const darkSection = style({
+  backgroundColor: vars.colorRole.surface.inverse,
+});
+```
+
+```tsx
+import { Box, Text } from '@blockle/blocks-react';
+
+import { darkSection } from './darkSection.css.js';
+
+<Box className={darkSection} padding={6}>
+  <Text color="inverse">Stands out from the page in either mode</Text>
+</Box>;
+```
+
+## For theme authors
+
+`makeTheme` requires `tokens.colorRoles` with a value for **every** Color mode for every role. A value is a Palette reference (`neutral-900`, `white`) or a raw CSS color. Palette references are resolved to literal colors when the theme is made.
+
+```ts
+import { makeTheme, type ThemeTokens } from '@blockle/blocks-core';
+
+const tokens: ThemeTokens = {
+  // ...typography, spacing, border, color (the Palette)...
+  colorRoles: {
+    text: {
+      default: { light: 'neutral-900', dark: 'neutral-100' },
+      muted: { light: 'neutral-700', dark: 'neutral-400' },
+      disabled: { light: 'neutral-400', dark: 'neutral-600' },
+      inverse: { light: 'white', dark: 'neutral-900' },
+    },
+    surface: {
+      default: { light: 'white', dark: 'neutral-900' },
+      raised: { light: 'white', dark: 'neutral-800' },
+      sunken: { light: 'neutral-100', dark: '#0D0D0D' },
+      inverse: { light: 'neutral-900', dark: 'neutral-100' },
+    },
+    // Shadows and the focus ring are roles too, so they can change per mode.
+    // Dark themes usually need stronger shadows.
+    shadow: {
+      1: {
+        light: '0px 4px 8px rgba(0, 0, 0, 0.08)',
+        dark: '0px 4px 8px rgba(0, 0, 0, 0.4)',
+      },
+      // ...2 to 5
+    },
+    focusRing: {
+      color: { light: '#8660FF', dark: '#A8EEF6' },
+      boxShadow: {
+        light: '0 0 1px 2px #8660FF',
+        dark: '0 0 1px 2px #A8EEF6',
+      },
+    },
+    // ...border, overlay and the seven intent groups (primary, secondary,
+    // neutral, danger, success, info, warning), each with solid,
+    // solidHover, subtle, contrast, foreground and border.
+  },
+};
+```
+
+The full set is the `ColorRoles` type exported from `@blockle/blocks-core`; TypeScript reports any role or mode you leave out. See the momotaro theme (`packages/theme-momotaro/src/tokens.css.ts`) for a complete example.
+
+In component themes, use roles through `vars.colorRole`, and use a Mode value in `atoms()` for a color only that component needs:
+
+```ts
+atoms({ color: { light: 'neutral-900', dark: 'neutral-100' } });
+```
+
+A theme gets the `data-color-mode` CSS from `makeTheme`, which must run in a `.css.ts` file.
