@@ -60,9 +60,13 @@ export const BlocksProvider: React.FC<BlocksProviderProps> = ({
   className,
   ...restProps
 }) => {
-  const isOutermost = useContext(BlocksProviderContext) === null;
+  const parentContext = useContext(BlocksProviderContext);
+  const isOutermost = parentContext === null;
+  const activeColorMode = parentContext
+    ? parentContext.colorMode
+    : (colorMode ?? defaultColorMode);
 
-  useColorModeAttribute(isOutermost ? (colorMode ?? defaultColorMode) : null);
+  useColorModeAttribute(isOutermost ? activeColorMode : null);
 
   if (import.meta.env.DEV && !isOutermost && colorMode !== undefined) {
     console.warn(
@@ -73,8 +77,9 @@ export const BlocksProvider: React.FC<BlocksProviderProps> = ({
   const contextValue = useMemo(
     () => ({
       theme,
+      colorMode: activeColorMode,
     }),
-    [theme],
+    [theme, activeColorMode],
   );
 
   return (
