@@ -1,15 +1,30 @@
 import '@testing-library/jest-dom';
 import { vi } from 'vitest';
 
-const HTMLPrototype = HTMLElement.prototype;
+// Keep in sync with the Testing section in packages/react/README.md
+const PopoverPrototype = HTMLElement.prototype;
 
-if (!('showPopover' in HTMLPrototype)) {
-  HTMLElement.prototype.showPopover = vi.fn();
+if (!PopoverPrototype.showPopover) {
+  PopoverPrototype.showPopover = function showPopover() {
+    this.setAttribute('data-popover-open', '');
+  };
 }
 
-if (!('hidePopover' in HTMLPrototype)) {
-  HTMLElement.prototype.hidePopover = vi.fn();
+if (!PopoverPrototype.hidePopover) {
+  PopoverPrototype.hidePopover = function hidePopover() {
+    this.removeAttribute('data-popover-open');
+  };
 }
+
+if (!PopoverPrototype.togglePopover) {
+  PopoverPrototype.togglePopover = function togglePopover(force?: boolean) {
+    return this.toggleAttribute('data-popover-open', force);
+  };
+}
+
+const popoverStyle = document.createElement('style');
+popoverStyle.textContent = '[popover][data-popover-open] { display: block; }';
+document.head.append(popoverStyle);
 
 // Keep in sync with the Testing section in packages/react/README.md
 const DialogPrototype = HTMLDialogElement.prototype;
