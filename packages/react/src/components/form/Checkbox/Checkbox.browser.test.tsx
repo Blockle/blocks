@@ -17,6 +17,7 @@ describe('Checkbox (browser)', () => {
 
     const root = screen.getByRole('checkbox').element().parentElement;
 
+    // momotaro sizes the box at 24×24
     expect(root?.offsetWidth).toBe(24);
     expect(root?.offsetHeight).toBe(24);
   });
@@ -30,6 +31,7 @@ describe('Checkbox (browser)', () => {
 
     const root = screen.getByRole('checkbox').element().parentElement;
 
+    // momotaro sizes the box at 24×24
     expect(root?.offsetWidth).toBe(24);
     expect(root?.offsetHeight).toBe(24);
   });
