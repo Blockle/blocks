@@ -3,6 +3,7 @@ import { afterEach, describe, expect, it } from 'vitest';
 
 import { emulateColorScheme } from '../../../testUtils/browser/emulateColorScheme.js';
 import { render } from '../../../testUtils/browser/render.js';
+import { Box } from '../../layout/Box/Box.js';
 import { Popover } from '../../overlay/Popover/Popover.js';
 import { Portal } from '../../overlay/Portal/Portal.js';
 import { Text } from '../../typography/Text/Text.js';
@@ -71,5 +72,51 @@ describe('BlocksProvider color mode (browser)', () => {
 
     expect(getComputedStyle(content).color).toBe(darkDefault);
     expect(document.documentElement.dataset.colorMode).toBe('dark');
+  });
+
+  describe('without a data-color-mode attribute (before hydration)', () => {
+    const renderWithoutAttribute = async () => {
+      const screen = await render(
+        <Box color={{ light: 'primary-700', dark: 'white' }}>
+          <Text>Hello</Text>
+        </Box>,
+      );
+
+      document.documentElement.removeAttribute('data-color-mode');
+
+      return screen;
+    };
+
+    it('behaves like system: dark role colors under a dark OS', async () => {
+      await emulateColorScheme('dark');
+
+      const screen = await renderWithoutAttribute();
+
+      expect(getComputedStyle(screen.getByText('Hello').element()).color).toBe(
+        darkDefault,
+      );
+    });
+
+    it('behaves like system: dark Mode-value atom colors under a dark OS', async () => {
+      await emulateColorScheme('dark');
+
+      const screen = await renderWithoutAttribute();
+      const box = screen.getByText('Hello').element().parentElement as Element;
+
+      expect(getComputedStyle(box).color).toBe('rgb(255, 255, 255)');
+    });
+
+    it('sets color-scheme to "light dark"', async () => {
+      await renderWithoutAttribute();
+
+      expect(colorScheme()).toBe('light dark');
+    });
+
+    it('uses light colors under a light OS', async () => {
+      const screen = await renderWithoutAttribute();
+      const box = screen.getByText('Hello').element().parentElement as Element;
+
+      expect(getComputedStyle(box).color).toBe('rgb(77, 60, 171)');
+    });
   });
 });

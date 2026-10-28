@@ -3,7 +3,7 @@
 import {
   type ColorMode,
   type ColorModeSetting,
-  colorModes,
+  resolveSystemColorMode,
   systemColorModeQueries,
   systemFallbackColorMode,
 } from '@blockle/blocks-core';
@@ -20,17 +20,8 @@ export type UseColorModeResult = {
 
 const getServerSnapshot = (): ColorMode => systemFallbackColorMode;
 
-const getSystemColorMode = (): ColorMode => {
-  for (const mode of colorModes) {
-    const query = systemColorModeQueries[mode];
-
-    if (query && window.matchMedia(query).matches) {
-      return mode;
-    }
-  }
-
-  return systemFallbackColorMode;
-};
+const getSystemColorMode = (): ColorMode =>
+  resolveSystemColorMode((query) => window.matchMedia(query).matches);
 
 const subscribeToSystemColorMode = (onChange: () => void) => {
   const lists = Object.values(systemColorModeQueries).map((query) =>

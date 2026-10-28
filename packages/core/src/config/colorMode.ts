@@ -32,3 +32,52 @@ export const systemColorModeQueries: Partial<Record<ColorMode, string>> = {
 
 /** A value given for every Color mode, such as `{ light: 'neutral-900', dark: 'neutral-100' }`. */
 export type ModeValue<T> = Record<ColorMode, T>;
+
+/** The `<html>` selector matching a ColorModeSetting (`light`, `dark` or `system`). */
+export const colorModeSelector = (setting: ColorModeSetting): string =>
+  `html[${colorModeAttribute}="${setting}"]`;
+
+/**
+ * The `<html>` selectors under which `system` applies: an explicit `system`,
+ * and no attribute at all (SSR HTML and the paint before a BlocksProvider has
+ * mounted), which must behave like the default setting.
+ */
+export const systemColorModeSelectors: string[] = [
+  colorModeSelector('system'),
+  `html:not([${colorModeAttribute}])`,
+];
+
+/** The media query under which `system` renders `mode`, or undefined if it never does. */
+export function systemColorModeQuery(mode: ColorMode): string | undefined {
+  const query = systemColorModeQueries[mode];
+
+  if (query) {
+    return query;
+  }
+
+  if (mode !== systemFallbackColorMode) {
+    return undefined;
+  }
+
+  // The fallback mode applies when no other mode's query matches.
+  return colorModes
+    .map((other) => systemColorModeQueries[other])
+    .filter((other): other is string => Boolean(other))
+    .map((other) => `(not ${other})`)
+    .join(' and ');
+}
+
+/** The Color mode `system` renders, given whether each media query matches. */
+export function resolveSystemColorMode(
+  matches: (query: string) => boolean,
+): ColorMode {
+  for (const mode of colorModes) {
+    const query = systemColorModeQueries[mode];
+
+    if (query && matches(query)) {
+      return mode;
+    }
+  }
+
+  return systemFallbackColorMode;
+}
