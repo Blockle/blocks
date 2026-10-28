@@ -5,3 +5,16 @@
 <script>
   window.global = window;
 </script>
+
+<style>
+  /* Canvas background follows the color mode that BlocksProvider sets on <html> */
+  html[data-color-mode='dark'] body {
+    background-color: #121212;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    html[data-color-mode='system'] body {
+      background-color: #121212;
+    }
+  }
+</style>
