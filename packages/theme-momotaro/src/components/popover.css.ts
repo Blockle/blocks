@@ -2,6 +2,7 @@ import {
   atoms,
   makeComponentTheme,
   type ThemeComponentsStyles,
+  vars,
 } from '@blockle/blocks-core';
 import { style } from '@vanilla-extract/css';
 
@@ -10,13 +11,14 @@ export const popover: ThemeComponentsStyles['popover'] = makeComponentTheme(
   {
     root: style([
       atoms({
-        backgroundColor: 'white',
         borderRadius: 1,
         boxShadow: 2,
         padding: 2,
         margin: 1, // Space between the popover and the anchor element
       }),
       {
+        backgroundColor: vars.colorRole.surface.raised,
+        color: vars.colorRole.text.default,
         width: 'max-content',
         selectors: {
           '&:popover-open': {
