@@ -1,4 +1,5 @@
 import {
+  type Atoms,
   classnames,
   type HTMLElementProps,
   type MarginAtoms,
@@ -6,8 +7,9 @@ import {
   type TextAtoms,
 } from '@blockle/blocks-core';
 
+import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { Box } from '../../layout/Box/Box.js';
-import { type TextColor, useTextColor } from '../useTextColor.js';
+import type { TextColor, TextColorRole } from '../textColor.js';
 import * as styles from './heading.css.js';
 
 export type HeadingProps = {
@@ -27,14 +29,17 @@ export const Heading: React.FC<HeadingProps> = ({
   children,
   ...restProps
 }) => {
-  const textColor = useTextColor('heading', color);
+  const themeClassName = useComponentStyles('heading', {
+    root: true,
+    variants: { color: color as TextColorRole },
+  });
   const Tag = `h${level}` as const;
 
   return (
     <Box
       asChild
-      className={classnames(styles.heading, textColor.className, className)}
-      color={textColor.atomColor}
+      className={classnames(styles.heading, themeClassName, className)}
+      color={color as Atoms['color']}
       {...restProps}
     >
       <Tag>{children}</Tag>

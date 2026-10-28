@@ -1,4 +1,5 @@
 import {
+  type Atoms,
   classnames,
   type HTMLElementProps,
   type MarginAtoms,
@@ -7,8 +8,9 @@ import {
 } from '@blockle/blocks-core';
 import type React from 'react';
 
+import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { Box } from '../../layout/Box/Box.js';
-import { type TextColor, useTextColor } from '../useTextColor.js';
+import type { TextColor, TextColorRole } from '../textColor.js';
 import * as styles from './text.css.js';
 
 type Tags =
@@ -51,13 +53,16 @@ export const Text = <T extends Tags = 'span'>({
   ...restProps
 }: TextProps<T>) => {
   const Component = (tag ?? 'span') as Tags;
-  const textColor = useTextColor('text', color);
+  const themeClassName = useComponentStyles('text', {
+    root: true,
+    variants: { color: color as TextColorRole },
+  });
 
   return (
     <Box
       asChild
-      className={classnames(styles.text, textColor.className, className)}
-      color={textColor.atomColor}
+      className={classnames(styles.text, themeClassName, className)}
+      color={color as Atoms['color']}
       {...restProps}
     >
       {asChild ? (
