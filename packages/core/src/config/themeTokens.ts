@@ -39,6 +39,14 @@ type Color = {
 
 type TextRole = 'default' | 'muted' | 'disabled' | 'inverse';
 
+type IntentRole =
+  | 'solid'
+  | 'solidHover'
+  | 'subtle'
+  | 'contrast'
+  | 'foreground'
+  | 'border';
+
 /**
  * A Color role value: a Palette reference such as `neutral-900` (or `white`),
  * or a raw CSS color. Palette references are resolved to the palette's color
@@ -52,6 +60,19 @@ type ColorRoleValue = string;
  */
 export type ColorRoles = {
   text: Record<TextRole, ModeValue<ColorRoleValue>>;
+
+  // --- Intent roles (T284) ---
+  // Every Intent has the same role family: `solid` (fill), `solidHover`,
+  // `subtle` (tinted surface), `contrast` (content on `solid`), `foreground`
+  // (intent-colored content on a neutral surface) and `border`.
+  intentPrimary: Record<IntentRole, ModeValue<ColorRoleValue>>;
+  intentSecondary: Record<IntentRole, ModeValue<ColorRoleValue>>;
+  intentNeutral: Record<IntentRole, ModeValue<ColorRoleValue>>;
+  intentDanger: Record<IntentRole, ModeValue<ColorRoleValue>>;
+  intentSuccess: Record<IntentRole, ModeValue<ColorRoleValue>>;
+  intentInfo: Record<IntentRole, ModeValue<ColorRoleValue>>;
+  intentWarning: Record<IntentRole, ModeValue<ColorRoleValue>>;
+  // --- end Intent roles ---
 };
 
 export type ThemeTokens = {
