@@ -1,6 +1,6 @@
 {
   "name": "@blockle/blocks-react",
-  "version": "2.8.1",
+  "version": "3.0.0",
   "description": "React hooks and components for Blockle",
   "type": "module",
   "exports": {
@@ -34,7 +34,7 @@
     "@vanilla-extract/css": "^1.18.0"
   },
   "peerDependencies": {
-    "@blockle/blocks-core": ">=2.0.x",
+    "@blockle/blocks-core": ">=3.0.x",
     "@blockle/blocks-react-slot": ">=1.2.x",
     "@vanilla-extract/css": "^1.18.0",
     "react": ">=19.1.0",
