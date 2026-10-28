@@ -20,6 +20,16 @@ When changing React components, styling, theming, or tokens, follow the project 
 
 For TypeScript and TSX changes, follow the project-specific conventions in [docs/agents/code-conventions.md](docs/agents/code-conventions.md), especially its rules for control-flow braces and function spacing. Biome remains the source of truth for formatting and lint rules.
 
+## Branches
+
+Name branches `<type>/t<ticket>-<slug>`, for example `feat/t305-select-size`.
+
+- `type` is the conventional commit type of the change: `feat`, `fix`, `chore`, `docs`, `refactor`, or `test`.
+- `t<ticket>` is the Tandembike ticket number with a lowercase `t`, matching the `(T305)` in commit messages. Leave it out when there is no ticket: `chore/update-deps`.
+- `slug` is 2–5 kebab-case words describing the change.
+
+`changeset-release/main` is owned by the release workflow; don't rename or reuse it.
+
 ## Changesets
 
 When adding a changeset, always include the main package `@blockle/blocks`, with the same bump type as the highest bump among the other packages in that changeset.
