@@ -19,3 +19,7 @@ When changing React components, styling, theming, or tokens, follow the project 
 ## Code conventions
 
 For TypeScript and TSX changes, follow the project-specific conventions in [docs/agents/code-conventions.md](docs/agents/code-conventions.md), especially its rules for control-flow braces and function spacing. Biome remains the source of truth for formatting and lint rules.
+
+## Changesets
+
+When adding a changeset, always include the main package `@blockle/blocks`, with the same bump type as the highest bump among the other packages in that changeset.

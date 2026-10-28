@@ -1,3 +1,5 @@
+'use client';
+
 import type { ColorModeSetting, Theme } from '@blockle/blocks-core';
 import { createContext } from 'react';
 

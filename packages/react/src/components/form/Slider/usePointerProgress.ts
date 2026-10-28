@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect } from 'react';
 
 type PointerProgressOptions<T extends React.RefObject<HTMLElement | null>> = {
