@@ -6,6 +6,25 @@ import { Tooltip } from './Tooltip.js';
 const meta = preview.meta({
   title: 'Overlay/Tooltip',
   component: Tooltip,
+  argTypes: {
+    placement: {
+      control: 'select',
+      options: [
+        'top',
+        'top-start',
+        'top-end',
+        'bottom',
+        'bottom-start',
+        'bottom-end',
+        'left',
+        'left-start',
+        'left-end',
+        'right',
+        'right-start',
+        'right-end',
+      ],
+    },
+  },
 });
 
 export const SecondaryIntent = meta.story({
@@ -44,5 +63,25 @@ export const Default = meta.story({
   args: {
     children: <i>ignored prop</i>,
     content: 'Hi there',
+  },
+});
+
+export const Placement = meta.story({
+  render({ children, ...props }) {
+    return (
+      <Box style={{ height: 1000, width: 1000 }}>
+        <Box style={{ marginTop: 240, marginLeft: 240 }}>
+          <Tooltip {...props}>
+            <Button variant="outline">Hover me</Button>
+          </Tooltip>
+        </Box>
+      </Box>
+    );
+  },
+
+  args: {
+    children: <i>ignored prop</i>,
+    content: 'Lined up with the start of the button',
+    placement: 'bottom-start',
   },
 });

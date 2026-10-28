@@ -67,8 +67,8 @@ export function computePopoverPosition({
   }
 
   return [
-    left - popover.margin.left + viewport.scrollX,
-    top - popover.margin.top + viewport.scrollY,
+    left - margin.left + viewport.scrollX,
+    top - margin.top + viewport.scrollY,
   ];
 }
 
