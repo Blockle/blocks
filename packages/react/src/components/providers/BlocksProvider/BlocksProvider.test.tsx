@@ -143,6 +143,26 @@ describe('BlocksProvider', () => {
       warn.mockRestore();
     });
 
+    it('warns once per nested provider, not on every render', () => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      const tree = (label: string) => (
+        <BlocksProvider theme={mockTheme} colorMode="dark">
+          <BlocksProvider theme={mockTheme} colorMode="light">
+            {label}
+          </BlocksProvider>
+        </BlocksProvider>
+      );
+
+      const { rerender } = render(tree('a'));
+
+      rerender(tree('b'));
+      rerender(tree('c'));
+
+      expect(warn).toHaveBeenCalledTimes(1);
+
+      warn.mockRestore();
+    });
+
     it('does not warn on a nested provider without colorMode', () => {
       const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
 

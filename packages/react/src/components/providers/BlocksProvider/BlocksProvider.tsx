@@ -9,7 +9,7 @@ import {
   type Theme,
 } from '@blockle/blocks-core';
 import { createSlottable } from '@blockle/blocks-react-slot';
-import { useContext, useMemo } from 'react';
+import { useContext, useEffect, useMemo } from 'react';
 
 import { useIsomorphicLayoutEffect } from '../../../hooks/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js';
 import { BlocksProviderContext } from './context.js';
@@ -68,11 +68,15 @@ export const BlocksProvider: React.FC<BlocksProviderProps> = ({
 
   useColorModeAttribute(isOutermost ? activeColorMode : null);
 
-  if (import.meta.env.DEV && !isOutermost && colorMode !== undefined) {
-    console.warn(
-      'BlocksProvider: colorMode is ignored on a nested BlocksProvider. Set it on the outermost BlocksProvider.',
-    );
-  }
+  const ignoresColorMode = !isOutermost && colorMode !== undefined;
+
+  useEffect(() => {
+    if (import.meta.env.DEV && ignoresColorMode) {
+      console.warn(
+        'BlocksProvider: colorMode is ignored on a nested BlocksProvider. Set it on the outermost BlocksProvider.',
+      );
+    }
+  }, [ignoresColorMode]);
 
   const contextValue = useMemo(
     () => ({
