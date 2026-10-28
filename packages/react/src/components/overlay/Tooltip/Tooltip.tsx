@@ -31,14 +31,14 @@ export type TooltipProps = {
   position?: PopoverProps['position'];
   children: ReactElement;
   content: React.ReactNode;
-  colorScheme?: TooltipTheme['variants']['colorScheme'];
+  intent?: TooltipTheme['variants']['intent'];
 } & Omit<HTMLElementProps<HTMLDivElement>, 'ref' | 'children'>;
 
 export const Tooltip: React.FC<TooltipProps> = ({
   position = 'top',
   children,
   content,
-  colorScheme,
+  intent,
 }) => {
   const id = useId();
   const ref = useRef<HTMLElement>(null);
@@ -46,7 +46,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
 
   const tooltipClassName = useComponentStyles('tooltip', {
     root: true,
-    variants: { colorScheme },
+    variants: { intent },
   });
 
   // Create a hook?
