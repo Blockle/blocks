@@ -7,6 +7,24 @@ import { previewProviderDecorator } from './previewProviderDecorator.js';
 export default definePreview({
   addons: [addonA11y()],
   decorators: [previewProviderDecorator],
+  initialGlobals: {
+    colorMode: 'light',
+  },
+  globalTypes: {
+    colorMode: {
+      description: 'Color mode of the BlocksProvider',
+      toolbar: {
+        title: 'Color mode',
+        icon: 'mirror',
+        dynamicTitle: true,
+        items: [
+          { value: 'light', icon: 'sun', title: 'Light' },
+          { value: 'dark', icon: 'moon', title: 'Dark' },
+          { value: 'system', icon: 'browser', title: 'System' },
+        ],
+      },
+    },
+  },
   parameters: {
     controls: {
       expanded: false,

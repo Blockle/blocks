@@ -1,3 +1,4 @@
+import { type ColorModeSetting, colorModes } from '@blockle/blocks-core';
 import { momotaro } from '@blockle/blocks-theme-momotaro';
 import type { DecoratorFunction } from 'storybook/internal/csf';
 
@@ -9,7 +10,18 @@ export const previewProviderDecorator: DecoratorFunction<any> = (
   Story,
   context,
 ) => (
-  <BlocksProvider theme={momotaro}>
+  <BlocksProvider
+    theme={momotaro}
+    colorMode={toColorModeSetting(context.globals.colorMode)}
+  >
     <Story {...context} />
   </BlocksProvider>
 );
+
+function toColorModeSetting(value: unknown): ColorModeSetting {
+  if (value === 'system') {
+    return 'system';
+  }
+
+  return colorModes.find((mode) => mode === value) ?? 'light';
+}
