@@ -14,7 +14,7 @@ export const textInput: ThemeComponentsStyles['textInput'] = makeComponentTheme(
     root: style([
       {
         minHeight: 40,
-        backgroundColor: 'white',
+        backgroundColor: vars.colorRole.surface.raised,
         '@media': {
           '(prefers-reduced-motion: no-preference)': {
             transition: `box-shadow ${vars.transition.fast}`,
@@ -25,7 +25,6 @@ export const textInput: ThemeComponentsStyles['textInput'] = makeComponentTheme(
         display: 'flex',
         paddingInline: 3,
         paddingBlock: 2,
-        backgroundColor: 'white',
         borderRadius: 2,
         boxShadow: 2,
         // Space between `startSlot | children | endSlot`
@@ -35,14 +34,14 @@ export const textInput: ThemeComponentsStyles['textInput'] = makeComponentTheme(
     ]),
     input: style([
       atoms({
-        color: 'text-900',
         border: 'none',
         backgroundColor: 'transparent',
       }),
       {
         outline: 'none',
+        color: vars.colorRole.text.default,
         '::placeholder': {
-          color: vars.color['text-600'],
+          color: vars.colorRole.text.muted,
         },
         ':disabled': {},
       },

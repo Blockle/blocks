@@ -15,7 +15,7 @@ export const focusable = style({
   //   },
   // },
   ':focus-visible': {
-    outline: `2px solid ${vars.color['primary-300']}`,
+    outline: `2px solid ${vars.colorRole.focusRing.color}`,
     outlineOffset: '2px',
   },
   selectors: {
@@ -25,7 +25,7 @@ export const focusable = style({
       pointerEvents: 'none',
     },
     '&:has(:focus-visible:not(button))': {
-      outline: `2px solid ${vars.color['primary-300']}`,
+      outline: `2px solid ${vars.colorRole.focusRing.color}`,
       outlineOffset: '2px',
     },
     '&:has(:disabled)': {
