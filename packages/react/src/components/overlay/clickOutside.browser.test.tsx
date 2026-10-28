@@ -50,7 +50,7 @@ const PopoverOverlay: React.FC<OverlayProps> = ({
       <Popover
         open
         anchorElement={anchorRef}
-        position="bottom"
+        placement="bottom"
         onRequestClose={onRequestClose}
         data-testid="overlay"
       >

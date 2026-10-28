@@ -28,6 +28,14 @@ type ReactElement = React.ReactElement<
 type TooltipTheme = ComponentThemes['tooltip'];
 
 export type TooltipProps = {
+  /**
+   * Side of the child to open on, and which of its edges to line up with
+   * @default 'top'
+   */
+  placement?: PopoverProps['placement'];
+  /**
+   * @deprecated Use `placement`, which wins when both are passed
+   */
   position?: PopoverProps['position'];
   children: ReactElement;
   content: React.ReactNode;
@@ -35,7 +43,8 @@ export type TooltipProps = {
 } & Omit<HTMLElementProps<HTMLDivElement>, 'ref' | 'children'>;
 
 export const Tooltip: React.FC<TooltipProps> = ({
-  position = 'top',
+  placement,
+  position,
   children,
   content,
   intent,
@@ -106,7 +115,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
         onRequestClose={() => {
           setOpen(false);
         }}
-        position={position}
+        placement={placement ?? position}
         className={tooltipClassName}
       >
         {content}

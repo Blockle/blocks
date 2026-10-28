@@ -86,6 +86,7 @@ export {
 } from './components/overlay/Drawer/Drawer.js';
 export {
   Popover,
+  type PopoverPlacement,
   type PopoverProps,
 } from './components/overlay/Popover/Popover.js';
 export {
