@@ -8,7 +8,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    projects: ['packages/*'],
+    projects: ['packages/*', './vitest.browser.config.ts'],
     include: ['**/*.{test,spec}.{ts,tsx}'],
     coverage: {
       provider: 'v8',
