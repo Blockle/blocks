@@ -1,7 +1,7 @@
 import { atoms } from '@blockle/blocks-core';
-import { render } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
+import { render } from '../../../testUtils/testUtils.js';
 import { Text } from './Text.js';
 
 describe('Text Component', () => {

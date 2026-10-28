@@ -112,6 +112,15 @@ export const tokens: ThemeTokens = {
       900: '#1A1A1A',
     },
   },
+  // Dark values are a proposal, shown for review in the PR.
+  colorRoles: {
+    text: {
+      default: { light: 'neutral-900', dark: 'neutral-100' },
+      muted: { light: 'neutral-700', dark: 'neutral-400' },
+      disabled: { light: 'neutral-400', dark: 'neutral-600' },
+      inverse: { light: 'white', dark: 'neutral-900' },
+    },
+  },
   shadow: {
     1: '0px 4px 8px rgba(0, 0, 0, 0.08)',
     2: '0px 8px 16px rgba(0, 0, 0, 0.08)',

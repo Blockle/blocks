@@ -1,5 +1,6 @@
 import type { Atoms } from '../atoms/atoms.js';
 import type { RecordLike } from '../utils/typing/helpers.js';
+import type { ColorRoles } from './themeTokens.js';
 
 // Shared variant type definitions
 type Intent = 'error' | 'info' | 'success' | 'warning';
@@ -61,6 +62,13 @@ export type DrawerTheme = {
   root?: string;
   variants: {
     placement: 'left' | 'right' | 'top' | 'bottom';
+  };
+};
+
+export type HeadingTheme = {
+  root?: string;
+  variants: {
+    color: keyof ColorRoles['text'];
   };
 };
 
@@ -139,6 +147,13 @@ export type SwitchTheme = {
   thumb: string;
 };
 
+export type TextTheme = {
+  root?: string;
+  variants: {
+    color: keyof ColorRoles['text'];
+  };
+};
+
 export type TextareaTheme = {
   root: string;
   input: string;
@@ -173,6 +188,7 @@ export type ComponentThemes = {
   dialog: DialogTheme;
   divider: DividerTheme;
   drawer: DrawerTheme;
+  heading: HeadingTheme;
   icon: IconTheme;
   label: LabelTheme;
   link: LinkTheme;
@@ -183,6 +199,7 @@ export type ComponentThemes = {
   slider: SliderTheme;
   spinner: SpinnerTheme;
   switch: SwitchTheme;
+  text: TextTheme;
   textarea: TextareaTheme;
   textInput: TextInputTheme;
   toast: ToastTheme;

@@ -1,7 +1,15 @@
 import { momotaro } from '@blockle/blocks-theme-momotaro';
 import { render as browserRender } from 'vitest-browser-react';
 
-import { BlocksProvider } from '../../components/providers/BlocksProvider/BlocksProvider.js';
+import {
+  BlocksProvider,
+  type BlocksProviderProps,
+} from '../../components/providers/BlocksProvider/BlocksProvider.js';
+
+type RenderOptions = Parameters<typeof browserRender>[1] & {
+  /** Passed to the outermost BlocksProvider. Omit to use its default. */
+  colorMode?: BlocksProviderProps['colorMode'];
+};
 
 /**
  * Renders the UI in a real browser, under BlocksProvider with the momotaro theme.
@@ -9,11 +17,13 @@ import { BlocksProvider } from '../../components/providers/BlocksProvider/Blocks
  */
 export const render = (
   ui: Parameters<typeof browserRender>[0],
-  options?: Parameters<typeof browserRender>[1],
+  { colorMode, ...options }: RenderOptions = {},
 ) => {
   return browserRender(ui, {
     wrapper: ({ children }) => (
-      <BlocksProvider theme={momotaro}>{children}</BlocksProvider>
+      <BlocksProvider theme={momotaro} colorMode={colorMode}>
+        {children}
+      </BlocksProvider>
     ),
     ...options,
   });
