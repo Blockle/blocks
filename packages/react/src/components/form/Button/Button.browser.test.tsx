@@ -4,16 +4,16 @@ import { emulateColorScheme } from '../../../testUtils/browser/emulateColorSchem
 import { render } from '../../../testUtils/browser/render.js';
 import { Button } from './Button.js';
 
-// momotaro intentPrimary.solid: primary-600 (#5E4DBA) in light, primary-300 (#A488FF) in dark
+// momotaro primary.solid: primary-600 (#5E4DBA) in light, primary-300 (#A488FF) in dark
 const lightSolid = 'rgb(94, 77, 186)';
 const darkSolid = 'rgb(164, 136, 255)';
-// momotaro intentPrimary.contrast: white in light, neutral-900 (#1A1A1A) in dark
+// momotaro primary.contrast: white in light, neutral-900 (#1A1A1A) in dark
 const lightContrast = 'rgb(255, 255, 255)';
 const darkContrast = 'rgb(26, 26, 26)';
-// momotaro intentPrimary.solidHover: primary-700 (#4D3CAB) in light, primary-400 (#8660FF) in dark
+// momotaro primary.solidHover: primary-700 (#4D3CAB) in light, primary-400 (#8660FF) in dark
 const lightSolidHover = 'rgb(77, 60, 171)';
 const darkSolidHover = 'rgb(134, 96, 255)';
-// momotaro intentDanger.solid: danger-700 (#B32422) in light, danger-400 (#FF7A70) in dark
+// momotaro danger.solid: danger-700 (#B32422) in light, danger-400 (#FF7A70) in dark
 const lightDangerSolid = 'rgb(179, 36, 34)';
 const darkDangerSolid = 'rgb(255, 122, 112)';
 

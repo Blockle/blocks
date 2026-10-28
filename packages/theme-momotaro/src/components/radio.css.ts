@@ -26,21 +26,21 @@ export const radio: ThemeComponentsStyles['radio'] = makeComponentTheme(
           },
         },
         ':hover': {
-          backgroundColor: vars.colorRole.intentPrimary.solidHover,
+          backgroundColor: vars.colorRole.primary.solidHover,
         },
         selectors: {
           '&:has(input:checked):not(:hover)': {
-            backgroundColor: vars.colorRole.intentPrimary.solid,
+            backgroundColor: vars.colorRole.primary.solid,
           },
         },
       },
-      { backgroundColor: vars.colorRole.intentPrimary.subtle },
+      { backgroundColor: vars.colorRole.primary.subtle },
       focusable,
     ]),
     icon: style({
       height: 12,
       width: 12,
-      backgroundColor: vars.colorRole.intentPrimary.contrast,
+      backgroundColor: vars.colorRole.primary.contrast,
       borderRadius: '8px',
       transform: 'scale(0)',
       '@media': {

@@ -4,7 +4,7 @@ import { emulateColorScheme } from '../../../testUtils/browser/emulateColorSchem
 import { render } from '../../../testUtils/browser/render.js';
 import { Alert } from './Alert.js';
 
-// momotaro intentInfo roles: subtle / foreground / border
+// momotaro info roles: subtle / foreground / border
 const light = {
   backgroundColor: 'rgb(225, 240, 255)', // info-100
   color: 'rgb(26, 102, 204)', // info-700

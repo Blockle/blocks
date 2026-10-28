@@ -71,18 +71,18 @@ export const slider: ThemeComponentsStyles['slider'] = makeComponentTheme(
       intent: {
         primary: style({
           vars: {
-            [trackBackground]: vars.colorRole.intentPrimary.subtle,
-            [filledTrackBackground]: vars.colorRole.intentPrimary.solid,
-            [thumbBackground]: vars.colorRole.intentPrimary.solid,
-            [haloColor]: vars.colorRole.intentPrimary.subtle,
+            [trackBackground]: vars.colorRole.primary.subtle,
+            [filledTrackBackground]: vars.colorRole.primary.solid,
+            [thumbBackground]: vars.colorRole.primary.solid,
+            [haloColor]: vars.colorRole.primary.subtle,
           },
         }),
         secondary: style({
           vars: {
-            [trackBackground]: vars.colorRole.intentSecondary.subtle,
-            [filledTrackBackground]: vars.colorRole.intentSecondary.solid,
-            [thumbBackground]: vars.colorRole.intentSecondary.solid,
-            [haloColor]: vars.colorRole.intentSecondary.subtle,
+            [trackBackground]: vars.colorRole.secondary.subtle,
+            [filledTrackBackground]: vars.colorRole.secondary.solid,
+            [thumbBackground]: vars.colorRole.secondary.solid,
+            [haloColor]: vars.colorRole.secondary.subtle,
           },
         }),
       },

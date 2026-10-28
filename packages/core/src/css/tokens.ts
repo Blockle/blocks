@@ -61,14 +61,13 @@ export const colorRoleTokens: {
     5: null,
   },
 
-  intentPrimary: intentRoleTokens,
-  intentSecondary: intentRoleTokens,
-  intentNeutral: intentRoleTokens,
-  intentDanger: intentRoleTokens,
-  intentSuccess: intentRoleTokens,
-  intentInfo: intentRoleTokens,
-  intentWarning: intentRoleTokens,
-  // --- end Intent roles ---
+  primary: intentRoleTokens,
+  secondary: intentRoleTokens,
+  neutral: intentRoleTokens,
+  danger: intentRoleTokens,
+  success: intentRoleTokens,
+  info: intentRoleTokens,
+  warning: intentRoleTokens,
 };
 
 /** The null template of all tokens except the Color roles, see `colorRoleTokens`. */

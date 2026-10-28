@@ -26,23 +26,23 @@ export const checkbox: ThemeComponentsStyles['checkbox'] = makeComponentTheme(
         },
         selectors: {
           '&:hover:not(:has(input:disabled))': {
-            backgroundColor: vars.colorRole.intentPrimary.solidHover,
+            backgroundColor: vars.colorRole.primary.solidHover,
           },
           '&:has(input:checked)': {
-            backgroundColor: vars.colorRole.intentPrimary.solid,
+            backgroundColor: vars.colorRole.primary.solid,
           },
         },
       },
       atoms({
         borderRadius: 1,
       }),
-      { backgroundColor: vars.colorRole.intentPrimary.subtle },
+      { backgroundColor: vars.colorRole.primary.subtle },
       focusable,
     ]),
     icon: style({
       inlineSize: '1rem',
       blockSize: '1rem',
-      color: vars.colorRole.intentPrimary.contrast,
+      color: vars.colorRole.primary.contrast,
       transform: 'scale(0)',
       selectors: {
         'input:checked ~ &': {

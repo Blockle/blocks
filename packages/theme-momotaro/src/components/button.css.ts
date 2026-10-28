@@ -99,42 +99,42 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
       intent: {
         neutral: style({
           vars: {
-            [solidColor]: vars.colorRole.intentNeutral.solid,
-            [solidHoverColor]: vars.colorRole.intentNeutral.solidHover,
-            [subtleColor]: vars.colorRole.intentNeutral.subtle,
-            [contrastColor]: vars.colorRole.intentNeutral.contrast,
+            [solidColor]: vars.colorRole.neutral.solid,
+            [solidHoverColor]: vars.colorRole.neutral.solidHover,
+            [subtleColor]: vars.colorRole.neutral.subtle,
+            [contrastColor]: vars.colorRole.neutral.contrast,
           },
         }),
         primary: style({
           vars: {
-            [solidColor]: vars.colorRole.intentPrimary.solid,
-            [solidHoverColor]: vars.colorRole.intentPrimary.solidHover,
-            [subtleColor]: vars.colorRole.intentPrimary.subtle,
-            [contrastColor]: vars.colorRole.intentPrimary.contrast,
+            [solidColor]: vars.colorRole.primary.solid,
+            [solidHoverColor]: vars.colorRole.primary.solidHover,
+            [subtleColor]: vars.colorRole.primary.subtle,
+            [contrastColor]: vars.colorRole.primary.contrast,
           },
         }),
         secondary: style({
           vars: {
-            [solidColor]: vars.colorRole.intentSecondary.solid,
-            [solidHoverColor]: vars.colorRole.intentSecondary.solidHover,
-            [subtleColor]: vars.colorRole.intentSecondary.subtle,
-            [contrastColor]: vars.colorRole.intentSecondary.contrast,
+            [solidColor]: vars.colorRole.secondary.solid,
+            [solidHoverColor]: vars.colorRole.secondary.solidHover,
+            [subtleColor]: vars.colorRole.secondary.subtle,
+            [contrastColor]: vars.colorRole.secondary.contrast,
           },
         }),
         success: style({
           vars: {
-            [solidColor]: vars.colorRole.intentSuccess.solid,
-            [solidHoverColor]: vars.colorRole.intentSuccess.solidHover,
-            [subtleColor]: vars.colorRole.intentSuccess.subtle,
-            [contrastColor]: vars.colorRole.intentSuccess.contrast,
+            [solidColor]: vars.colorRole.success.solid,
+            [solidHoverColor]: vars.colorRole.success.solidHover,
+            [subtleColor]: vars.colorRole.success.subtle,
+            [contrastColor]: vars.colorRole.success.contrast,
           },
         }),
         danger: style({
           vars: {
-            [solidColor]: vars.colorRole.intentDanger.solid,
-            [solidHoverColor]: vars.colorRole.intentDanger.solidHover,
-            [subtleColor]: vars.colorRole.intentDanger.subtle,
-            [contrastColor]: vars.colorRole.intentDanger.contrast,
+            [solidColor]: vars.colorRole.danger.solid,
+            [solidHoverColor]: vars.colorRole.danger.solidHover,
+            [subtleColor]: vars.colorRole.danger.subtle,
+            [contrastColor]: vars.colorRole.danger.contrast,
           },
         }),
       },

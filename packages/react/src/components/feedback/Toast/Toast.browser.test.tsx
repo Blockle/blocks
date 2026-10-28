@@ -10,10 +10,10 @@ import { ToastProvider } from './ToastProvider.js';
 import { useToast } from './useToast.js';
 
 const intents = [
-  ['error', vars.colorRole.intentDanger],
-  ['info', vars.colorRole.intentInfo],
-  ['success', vars.colorRole.intentSuccess],
-  ['warning', vars.colorRole.intentWarning],
+  ['error', vars.colorRole.danger],
+  ['info', vars.colorRole.info],
+  ['success', vars.colorRole.success],
+  ['warning', vars.colorRole.warning],
 ] as const;
 
 const ShowToast: React.FC<{ intent: AlertProps['intent'] }> = ({ intent }) => {

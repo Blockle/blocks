@@ -5,13 +5,13 @@ import { contrast, resolve } from '../../../testUtils/browser/contrast.js';
 import { emulateColorScheme } from '../../../testUtils/browser/emulateColorScheme.js';
 
 const intents = [
-  ['primary', vars.colorRole.intentPrimary],
-  ['secondary', vars.colorRole.intentSecondary],
-  ['neutral', vars.colorRole.intentNeutral],
-  ['danger', vars.colorRole.intentDanger],
-  ['success', vars.colorRole.intentSuccess],
-  ['info', vars.colorRole.intentInfo],
-  ['warning', vars.colorRole.intentWarning],
+  ['primary', vars.colorRole.primary],
+  ['secondary', vars.colorRole.secondary],
+  ['neutral', vars.colorRole.neutral],
+  ['danger', vars.colorRole.danger],
+  ['success', vars.colorRole.success],
+  ['info', vars.colorRole.info],
+  ['warning', vars.colorRole.warning],
 ] as const;
 
 const roles = [
@@ -36,17 +36,17 @@ describe('Intent color roles (browser)', () => {
 
   it('resolves sampled roles to their light and dark values', async () => {
     // momotaro primary.solid: primary-600 (#5E4DBA) light, primary-300 (#A488FF) dark
-    expect(await resolve(vars.colorRole.intentPrimary.solid, 'light')).toBe(
+    expect(await resolve(vars.colorRole.primary.solid, 'light')).toBe(
       'rgb(94, 77, 186)',
     );
-    expect(await resolve(vars.colorRole.intentPrimary.solid, 'dark')).toBe(
+    expect(await resolve(vars.colorRole.primary.solid, 'dark')).toBe(
       'rgb(164, 136, 255)',
     );
     // momotaro danger.border: danger-300 (#FF9B90) light, danger-700 (#B32422) dark
-    expect(await resolve(vars.colorRole.intentDanger.border, 'light')).toBe(
+    expect(await resolve(vars.colorRole.danger.border, 'light')).toBe(
       'rgb(255, 155, 144)',
     );
-    expect(await resolve(vars.colorRole.intentDanger.border, 'dark')).toBe(
+    expect(await resolve(vars.colorRole.danger.border, 'dark')).toBe(
       'rgb(179, 36, 34)',
     );
   });

@@ -104,7 +104,7 @@ export const testingTheme = makeTheme({
         },
       },
 
-      intentPrimary: {
+      primary: {
         solid: { light: 'primary-600', dark: 'primary-300' },
         solidHover: { light: 'primary-700', dark: 'primary-400' },
         subtle: { light: 'primary-100', dark: 'primary-900' },
@@ -112,7 +112,7 @@ export const testingTheme = makeTheme({
         foreground: { light: 'primary-700', dark: 'primary-300' },
         border: { light: 'primary-300', dark: 'primary-700' },
       },
-      intentSecondary: {
+      secondary: {
         solid: { light: 'secondary-500', dark: 'secondary-500' },
         solidHover: { light: 'secondary-600', dark: 'secondary-400' },
         subtle: { light: 'secondary-100', dark: '#0F3A4D' },
@@ -120,7 +120,7 @@ export const testingTheme = makeTheme({
         foreground: { light: '#126A94', dark: 'secondary-400' },
         border: { light: 'secondary-300', dark: 'secondary-800' },
       },
-      intentNeutral: {
+      neutral: {
         solid: { light: 'neutral-800', dark: 'neutral-200' },
         solidHover: { light: 'neutral-900', dark: 'neutral-300' },
         subtle: { light: 'neutral-100', dark: 'neutral-800' },
@@ -128,7 +128,7 @@ export const testingTheme = makeTheme({
         foreground: { light: 'neutral-800', dark: 'neutral-300' },
         border: { light: 'neutral-300', dark: 'neutral-700' },
       },
-      intentDanger: {
+      danger: {
         solid: { light: 'danger-700', dark: 'danger-400' },
         solidHover: { light: 'danger-800', dark: 'danger-300' },
         subtle: { light: 'danger-100', dark: 'danger-900' },
@@ -136,7 +136,7 @@ export const testingTheme = makeTheme({
         foreground: { light: 'danger-700', dark: 'danger-300' },
         border: { light: 'danger-300', dark: 'danger-700' },
       },
-      intentSuccess: {
+      success: {
         solid: { light: 'success-800', dark: 'success-500' },
         solidHover: { light: 'success-900', dark: 'success-400' },
         subtle: { light: 'success-100', dark: 'success-900' },
@@ -144,7 +144,7 @@ export const testingTheme = makeTheme({
         foreground: { light: 'success-800', dark: 'success-400' },
         border: { light: 'success-300', dark: 'success-700' },
       },
-      intentInfo: {
+      info: {
         solid: { light: 'info-700', dark: 'info-400' },
         solidHover: { light: 'info-800', dark: 'info-300' },
         subtle: { light: 'info-100', dark: 'info-900' },
@@ -152,7 +152,7 @@ export const testingTheme = makeTheme({
         foreground: { light: 'info-700', dark: 'info-300' },
         border: { light: 'info-300', dark: 'info-700' },
       },
-      intentWarning: {
+      warning: {
         solid: { light: 'warning-500', dark: 'warning-500' },
         solidHover: { light: 'warning-600', dark: 'warning-400' },
         subtle: { light: 'warning-100', dark: 'warning-900' },
@@ -160,7 +160,6 @@ export const testingTheme = makeTheme({
         foreground: { light: 'warning-800', dark: 'warning-400' },
         border: { light: 'warning-300', dark: 'warning-700' },
       },
-      // --- end Intent roles ---
     },
     spacing: {
       1: '4px',

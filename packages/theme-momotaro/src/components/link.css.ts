@@ -38,11 +38,11 @@ export const link: ThemeComponentsStyles['link'] = makeComponentTheme('link', {
         fontWeight: 'inherit',
       }),
       primary: style({
-        color: vars.colorRole.intentPrimary.foreground,
+        color: vars.colorRole.primary.foreground,
         fontWeight: 500,
       }),
       secondary: style({
-        color: vars.colorRole.intentSecondary.foreground,
+        color: vars.colorRole.secondary.foreground,
         fontWeight: 500,
       }),
     },

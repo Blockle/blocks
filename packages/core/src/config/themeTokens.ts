@@ -73,14 +73,13 @@ export type ColorRoles = {
   // Every Intent has the same role family: `solid` (fill), `solidHover`,
   // `subtle` (tinted surface), `contrast` (content on `solid`), `foreground`
   // (intent-colored content on a neutral surface) and `border`.
-  intentPrimary: Record<IntentRole, ModeValue<ColorRoleValue>>;
-  intentSecondary: Record<IntentRole, ModeValue<ColorRoleValue>>;
-  intentNeutral: Record<IntentRole, ModeValue<ColorRoleValue>>;
-  intentDanger: Record<IntentRole, ModeValue<ColorRoleValue>>;
-  intentSuccess: Record<IntentRole, ModeValue<ColorRoleValue>>;
-  intentInfo: Record<IntentRole, ModeValue<ColorRoleValue>>;
-  intentWarning: Record<IntentRole, ModeValue<ColorRoleValue>>;
-  // --- end Intent roles ---
+  primary: Record<IntentRole, ModeValue<ColorRoleValue>>;
+  secondary: Record<IntentRole, ModeValue<ColorRoleValue>>;
+  neutral: Record<IntentRole, ModeValue<ColorRoleValue>>;
+  danger: Record<IntentRole, ModeValue<ColorRoleValue>>;
+  success: Record<IntentRole, ModeValue<ColorRoleValue>>;
+  info: Record<IntentRole, ModeValue<ColorRoleValue>>;
+  warning: Record<IntentRole, ModeValue<ColorRoleValue>>;
 };
 
 export type ThemeTokens = {

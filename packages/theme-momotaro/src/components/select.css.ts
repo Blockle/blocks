@@ -37,7 +37,7 @@ export const select: ThemeComponentsStyles['select'] = makeComponentTheme(
           }),
           {
             borderStyle: 'solid',
-            borderColor: vars.colorRole.intentPrimary.solid,
+            borderColor: vars.colorRole.primary.solid,
           },
         ]),
         solid: style({}),

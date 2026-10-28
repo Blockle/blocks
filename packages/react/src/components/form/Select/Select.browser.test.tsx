@@ -21,7 +21,7 @@ const renderSelect = (
 const expectedColors = async (mode: 'light' | 'dark') => ({
   surface: await resolve(vars.colorRole.surface.raised, mode),
   text: await resolve(vars.colorRole.text.default, mode),
-  border: await resolve(vars.colorRole.intentPrimary.solid, mode),
+  border: await resolve(vars.colorRole.primary.solid, mode),
 });
 
 describe('Select colors (browser)', () => {

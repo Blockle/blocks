@@ -22,7 +22,7 @@ export const progress: ThemeComponentsStyles['progress'] = makeComponentTheme(
       {
         height: 8,
         backgroundColor: vars.colorRole.surface.sunken,
-        color: vars.colorRole.intentPrimary.solid,
+        color: vars.colorRole.primary.solid,
       },
       atoms({
         inlineSize: 'full',
@@ -47,8 +47,8 @@ export const progress: ThemeComponentsStyles['progress'] = makeComponentTheme(
             45deg,
             transparent,
             transparent 20px,
-            ${vars.colorRole.intentPrimary.solidHover} 20px,
-            ${vars.colorRole.intentPrimary.solidHover} 40px
+            ${vars.colorRole.primary.solidHover} 20px,
+            ${vars.colorRole.primary.solidHover} 40px
           )`,
           },
           '(prefers-reduced-motion: no-preference)': {

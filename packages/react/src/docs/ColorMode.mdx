@@ -112,7 +112,7 @@ There are three ways to give something a color. Only the first two follow the Co
 
 | | What it is | Follows the Color mode? |
 | --- | --- | --- |
-| **Color role** | A shared, named color with a purpose (`text.muted`, `surface.raised`, `intentDanger.solid`), defined per mode by the theme. | Yes |
+| **Color role** | A shared, named color with a purpose (`text.muted`, `surface.raised`, `danger.solid`), defined per mode by the theme. | Yes |
 | **Mode value** | A one-off color you define for every mode where you use it. | Yes |
 | **Palette** shade | A fixed shade such as `primary-700`. | **No**, it is the same in every mode |
 
@@ -206,10 +206,9 @@ const tokens: ThemeTokens = {
         dark: '0 0 1px 2px #A8EEF6',
       },
     },
-    // ...border, overlay and the seven intent groups (intentPrimary,
-    // intentSecondary, intentNeutral, intentDanger, intentSuccess,
-    // intentInfo, intentWarning), each with solid, solidHover, subtle,
-    // contrast, foreground and border.
+    // ...border, overlay and the seven intent groups (primary, secondary,
+    // neutral, danger, success, info, warning), each with solid,
+    // solidHover, subtle, contrast, foreground and border.
   },
 };
 ```

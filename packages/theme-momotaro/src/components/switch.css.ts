@@ -28,7 +28,7 @@ export const switchTheme: ThemeComponentsStyles['switch'] = makeComponentTheme(
         },
         selectors: {
           '&[data-checked="true"]': {
-            backgroundColor: vars.colorRole.intentSecondary.solid,
+            backgroundColor: vars.colorRole.secondary.solid,
           },
         },
         // Scale the switch when it's `:active`
