@@ -1,9 +1,14 @@
+import {
+  type ColorMode,
+  colorModes,
+  type ModeValue,
+} from '../config/colorMode.js';
 import { atomicProperties } from './atoms.css.js';
 
 export type AtomicProperties = typeof atomicProperties;
 
-export type AtomProperties = {
-  [K in keyof AtomicProperties]?: AtomicProperties[K]['values'] extends Record<
+type AtomValue<K extends keyof AtomicProperties> =
+  AtomicProperties[K]['values'] extends Record<
     string,
     {
       defaultClass: string;
@@ -14,6 +19,22 @@ export type AtomProperties = {
         | keyof AtomicProperties[K]['values']
         | (keyof AtomicProperties[K]['values'])[]
     : keyof AtomicProperties[K]['values'];
+
+/** Properties whose values have a class per Color mode, so accept a Mode value. */
+type ModeProperty = {
+  [K in keyof AtomicProperties]: AtomicProperties[K]['values'][keyof AtomicProperties[K]['values']] extends {
+    modeClasses: Record<ColorMode, string>;
+  }
+    ? K
+    : never;
+}[keyof AtomicProperties];
+
+export type AtomProperties = {
+  [K in keyof AtomicProperties]?: K extends ModeProperty
+    ?
+        | keyof AtomicProperties[K]['values']
+        | ModeValue<keyof AtomicProperties[K]['values']>
+    : AtomValue<K>;
 };
 
 export function atoms(properties: AtomProperties): string {
@@ -34,7 +55,19 @@ export function atoms(properties: AtomProperties): string {
       continue;
     }
 
-    if (typeof value === 'string' || typeof value === 'number') {
+    if (isModeValue(value)) {
+      for (const mode of colorModes) {
+        const modeClass = (
+          target.values[value[mode] as string] as
+            | { modeClasses?: Record<ColorMode, string> }
+            | undefined
+        )?.modeClasses?.[mode];
+
+        if (modeClass) {
+          classList.push(modeClass);
+        }
+      }
+    } else if (typeof value === 'string' || typeof value === 'number') {
       if (target.values[value] !== undefined) {
         classList.push(target.values[value].defaultClass);
       }
@@ -65,6 +98,10 @@ export function atoms(properties: AtomProperties): string {
   }
 
   return classList.join(' ');
+}
+
+function isModeValue(value: unknown): value is Record<ColorMode, string> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
 export type Atoms = Parameters<typeof atoms>[0];
