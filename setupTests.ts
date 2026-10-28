@@ -11,6 +11,32 @@ if (!('hidePopover' in HTMLPrototype)) {
   HTMLElement.prototype.hidePopover = vi.fn();
 }
 
+// Keep in sync with the Testing section in packages/react/README.md
+const DialogPrototype = HTMLDialogElement.prototype;
+
+if (!DialogPrototype.showModal) {
+  DialogPrototype.showModal = function showModal() {
+    this.setAttribute('open', '');
+  };
+}
+
+if (!DialogPrototype.show) {
+  DialogPrototype.show = function show() {
+    this.setAttribute('open', '');
+  };
+}
+
+if (!DialogPrototype.close) {
+  DialogPrototype.close = function close() {
+    if (!this.hasAttribute('open')) {
+      return;
+    }
+
+    this.removeAttribute('open');
+    this.dispatchEvent(new Event('close'));
+  };
+}
+
 const originalConsoleDotError = console.error;
 const originalConsoleDotWarn = console.warn;
 
