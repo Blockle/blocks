@@ -40,7 +40,7 @@ describe('BlocksProvider', () => {
       },
     );
 
-    expect(contextValue).toEqual({ theme: mockTheme, colorMode: 'light' });
+    expect(contextValue).toEqual({ theme: mockTheme, colorMode: 'system' });
   });
 
   it('applies the correct className and styles', () => {
@@ -64,10 +64,10 @@ describe('BlocksProvider', () => {
   describe('color mode', () => {
     const colorMode = () => document.documentElement.dataset.colorMode;
 
-    it('defaults to light', () => {
+    it('defaults to system', () => {
       render(<BlocksProvider theme={mockTheme}>child</BlocksProvider>);
 
-      expect(colorMode()).toBe('light');
+      expect(colorMode()).toBe('system');
     });
 
     it.each([

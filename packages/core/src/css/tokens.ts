@@ -140,16 +140,12 @@ export const tokens: DeepNullable<Omit<ThemeTokens, 'colorRoles'>> = {
   color: {
     black: null,
     white: null,
-    border: null,
-    focus: null,
     primary: colorPalette,
     secondary: colorPalette,
     success: colorPalette,
     warning: colorPalette,
     danger: colorPalette,
     info: colorPalette,
-    background: colorPalette,
-    text: colorPalette,
     neutral: colorPalette,
   },
 };

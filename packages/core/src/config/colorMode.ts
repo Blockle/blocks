@@ -11,7 +11,7 @@ export type ColorMode = (typeof colorModes)[number];
 export type ColorModeSetting = ColorMode | 'system';
 
 /** The Color mode used when `BlocksProvider` isn't given a `colorMode`. */
-export const defaultColorMode: ColorModeSetting = 'light';
+export const defaultColorMode: ColorModeSetting = 'system';
 
 /** The attribute on `<html>` that carries the active ColorModeSetting. */
 export const colorModeAttribute = 'data-color-mode';

@@ -13,7 +13,6 @@ describe('makeVanillaTheme typography', () => {
   const theme = makeVanillaTheme({
     typography,
     color: {
-      focus: '#7FE3F0',
       primary: { 500: '#7265E3' },
     },
     spacing: {},
@@ -31,8 +30,7 @@ describe('makeVanillaTheme typography', () => {
     expect(theme.lineHeight.compact).toBe(1.1);
   });
 
-  it('exposes semantic and palette color tokens', () => {
-    expect(theme.color.focus).toBe('#7FE3F0');
+  it('exposes palette color tokens', () => {
     expect(theme.color['primary-500']).toBe('#7265E3');
   });
 });

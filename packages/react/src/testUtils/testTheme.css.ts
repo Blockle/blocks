@@ -45,16 +45,12 @@ export const testingTheme = makeTheme({
     color: {
       black: '#000000',
       white: '#FFFFFF',
-      border: '#E1E1E1',
-      focus: '#7FE3F0',
       primary: colorPalette,
       secondary: colorPalette,
       success: colorPalette,
       warning: colorPalette,
       danger: colorPalette,
       info: colorPalette,
-      text: colorPalette,
-      background: colorPalette,
       neutral: colorPalette,
     },
     colorRoles: {
