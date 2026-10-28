@@ -16,20 +16,22 @@ type SelectTheme = ComponentThemes['select'];
 export type SelectProps = {
   children: React.ReactNode;
   placeholder?: string;
+  size?: SelectTheme['variants']['size'];
   variant?: SelectTheme['variants']['variant'];
-} & HTMLElementProps<HTMLSelectElement>;
+} & Omit<HTMLElementProps<HTMLSelectElement>, 'size'>;
 
 export const Select: React.FC<SelectProps> = ({
   children,
   placeholder,
   className,
+  size,
   variant,
   ...restProps
 }) => {
   const wrapperClassName = useComponentStyles('select', { root: true }, false);
   const selectClassName = useComponentStyles('select', {
     select: true,
-    variants: { variant },
+    variants: { variant, size },
   });
   const iconClassName = useComponentStyles('select', { icon: true }, false);
 
