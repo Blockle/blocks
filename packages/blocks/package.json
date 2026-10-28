@@ -1,6 +1,6 @@
 {
   "name": "@blockle/blocks",
-  "version": "2.4.1",
+  "version": "3.0.0",
   "description": "Design system for React",
   "type": "module",
   "sideEffects": [
@@ -37,11 +37,11 @@
   },
   "homepage": "https://github.com/Blockle/blocks#readme",
   "peerDependencies": {
-    "@blockle/blocks-core": ">=2.0.x",
-    "@blockle/blocks-react": ">=2.8.x",
+    "@blockle/blocks-core": ">=3.0.x",
+    "@blockle/blocks-react": ">=3.0.x",
     "@blockle/blocks-react-slot": ">=1.2.x",
     "@blockle/blocks-reset": ">=0.24.x",
-    "@blockle/blocks-theme-momotaro": ">=6.3.x"
+    "@blockle/blocks-theme-momotaro": ">=7.0.x"
   },
   "peerDependenciesMeta": {
     "@blockle/blocks-theme-momotaro": {
