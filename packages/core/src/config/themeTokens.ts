@@ -44,6 +44,14 @@ type BorderRole = 'default' | 'strong';
 type FocusRingRole = 'color' | 'boxShadow';
 type OverlayRole = 'default';
 
+type IntentRole =
+  | 'solid'
+  | 'solidHover'
+  | 'subtle'
+  | 'contrast'
+  | 'foreground'
+  | 'border';
+
 /**
  * A Color role value: a Palette reference such as `neutral-900` (or `white`),
  * or a raw CSS color. Palette references are resolved to the palette's color
@@ -66,6 +74,19 @@ export type ColorRoles = {
   /** Elevation levels. Dark themes usually need stronger shadows. */
   shadow: Record<BoxShadow, ModeValue<ColorRoleValue>>;
   // --- End of neutral roles ---
+
+  // --- Intent roles (T284) ---
+  // Every Intent has the same role family: `solid` (fill), `solidHover`,
+  // `subtle` (tinted surface), `contrast` (content on `solid`), `foreground`
+  // (intent-colored content on a neutral surface) and `border`.
+  intentPrimary: Record<IntentRole, ModeValue<ColorRoleValue>>;
+  intentSecondary: Record<IntentRole, ModeValue<ColorRoleValue>>;
+  intentNeutral: Record<IntentRole, ModeValue<ColorRoleValue>>;
+  intentDanger: Record<IntentRole, ModeValue<ColorRoleValue>>;
+  intentSuccess: Record<IntentRole, ModeValue<ColorRoleValue>>;
+  intentInfo: Record<IntentRole, ModeValue<ColorRoleValue>>;
+  intentWarning: Record<IntentRole, ModeValue<ColorRoleValue>>;
+  // --- end Intent roles ---
 };
 
 export type ThemeTokens = {

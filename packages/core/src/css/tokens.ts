@@ -13,6 +13,15 @@ const colorPalette = {
   900: null,
 } as const;
 
+const intentRoleTokens = {
+  solid: null,
+  solidHover: null,
+  subtle: null,
+  contrast: null,
+  foreground: null,
+  border: null,
+} as const;
+
 /**
  * The Color roles without their per-mode values: the shape of the role contract.
  * Mirror `ColorRoles`.
@@ -53,6 +62,16 @@ export const colorRoleTokens: {
     5: null,
   },
   // --- End of neutral roles ---
+
+  // --- Intent roles (T284) ---
+  intentPrimary: intentRoleTokens,
+  intentSecondary: intentRoleTokens,
+  intentNeutral: intentRoleTokens,
+  intentDanger: intentRoleTokens,
+  intentSuccess: intentRoleTokens,
+  intentInfo: intentRoleTokens,
+  intentWarning: intentRoleTokens,
+  // --- end Intent roles ---
 };
 
 /** The null template of all tokens except the Color roles, see `colorRoleTokens`. */
