@@ -84,4 +84,43 @@ describe('atoms', () => {
     // @ts-expect-error testing missing conditions
     expect(atoms({ display: ['nope', 'nope'] })).toBe('');
   });
+
+  describe('mode values', () => {
+    it('returns one class per mode', () => {
+      const className = atoms({
+        color: { light: 'neutral-900', dark: 'neutral-100' },
+      });
+
+      expect(className).toBe(
+        [
+          atomicProperties.color.values['neutral-900'].modeClasses.light,
+          atomicProperties.color.values['neutral-100'].modeClasses.dark,
+        ].join(' '),
+      );
+      expect(className.split(' ')).toHaveLength(2);
+    });
+
+    it('returns a single class for a plain string', () => {
+      expect(atoms({ backgroundColor: 'neutral-900' })).toBe(
+        atomicProperties.backgroundColor.values['neutral-900'].defaultClass,
+      );
+    });
+
+    it('supports backgroundColor and borderColor', () => {
+      const value = { light: 'currentColor', dark: 'transparent' } as const;
+
+      expect(atoms({ backgroundColor: value }).split(' ')).toHaveLength(2);
+      expect(atoms({ borderColor: value }).split(' ')).toHaveLength(2);
+    });
+
+    it('requires every color mode', () => {
+      // @ts-expect-error dark is missing
+      atoms({ color: { light: 'neutral-900' } });
+    });
+
+    it('rejects mode values on properties that do not support them', () => {
+      // @ts-expect-error padding takes no mode value
+      atoms({ padding: { light: 'small', dark: 'small' } });
+    });
+  });
 });

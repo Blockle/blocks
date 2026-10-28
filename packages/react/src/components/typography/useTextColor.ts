@@ -22,7 +22,8 @@ export function useTextColor(
   color: TextColor,
 ): { className: string; atomColor: Atoms['color'] } {
   const isAtomColor =
-    color !== undefined && color in atomicProperties.color.values;
+    color !== undefined &&
+    (typeof color === 'object' || color in atomicProperties.color.values);
 
   const className = useComponentStyles(
     component,

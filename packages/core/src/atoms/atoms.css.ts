@@ -11,6 +11,7 @@ import { vars } from '../css/vars.css.js';
 import { defineProperties } from './defineProperties.js';
 
 const unresponsiveAtomicProperties = defineProperties({
+  modeProperties: ['backgroundColor', 'borderColor', 'color'],
   properties: {
     appearance: ['none'],
     backgroundColor: colorsWithCurrentColor,
