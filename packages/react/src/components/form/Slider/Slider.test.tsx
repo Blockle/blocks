@@ -1,10 +1,41 @@
+import type { Theme } from '@blockle/blocks-core';
 import { userEvent } from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 
+import { testingTheme } from '../../../testUtils/testTheme.css.js';
 import { render, screen } from '../../../testUtils/testUtils.js';
+import { BlocksProvider } from '../../providers/BlocksProvider/BlocksProvider.js';
 import { Slider } from './Slider.js';
 
+const intentTheme: Theme = {
+  ...testingTheme,
+  components: {
+    ...testingTheme.components,
+    slider: {
+      root: 'slider-root',
+      track: '',
+      filledTrack: '',
+      thumb: '',
+      variants: {
+        intent: { primary: 'slider-primary', secondary: 'slider-secondary' },
+      },
+      defaultVariants: { intent: 'primary' },
+    },
+  },
+};
+
 describe('Slider', () => {
+  it('should render the secondary styling for intent="secondary"', () => {
+    const { container } = render(
+      <BlocksProvider theme={intentTheme}>
+        <Slider aria-label="Slider label" intent="secondary" />
+      </BlocksProvider>,
+    );
+
+    expect(container.querySelector('.slider-secondary')).toBeInTheDocument();
+    expect(container.querySelector('.slider-primary')).not.toBeInTheDocument();
+  });
+
   it('should render', () => {
     render(<Slider aria-label="Slider label" />);
 

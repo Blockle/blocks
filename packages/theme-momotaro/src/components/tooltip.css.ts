@@ -12,7 +12,7 @@ export const tooltip: ThemeComponentsStyles['tooltip'] = makeComponentTheme(
       padding: 1,
     }),
     variants: {
-      colorScheme: {
+      intent: {
         primary: style({
           backgroundColor: 'rgba(0, 0, 0, 0.8)',
           boxShadow: '0 0 0 1px rgba(255, 255, 255, 0.1)',
@@ -26,7 +26,7 @@ export const tooltip: ThemeComponentsStyles['tooltip'] = makeComponentTheme(
       },
     },
     defaultVariants: {
-      colorScheme: 'primary',
+      intent: 'primary',
     },
   },
 );
