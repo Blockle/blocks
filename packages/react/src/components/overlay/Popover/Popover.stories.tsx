@@ -9,6 +9,25 @@ import { Popover } from './Popover.js';
 const meta = preview.meta({
   title: 'Overlay/Popover',
   component: Popover,
+  argTypes: {
+    placement: {
+      control: 'select',
+      options: [
+        'top',
+        'top-start',
+        'top-end',
+        'bottom',
+        'bottom-start',
+        'bottom-end',
+        'left',
+        'left-start',
+        'left-end',
+        'right',
+        'right-start',
+        'right-end',
+      ],
+    },
+  },
 });
 
 export const Default = meta.story({
@@ -72,5 +91,32 @@ export const Interactive = meta.story({
     // biome-ignore lint/suspicious/noExplicitAny: ref is added in render function
     anchorElement: null as any,
     open: true,
+  },
+});
+
+export const NearTheEdge = meta.story({
+  render: (props) => {
+    const buttonRef = useRef<HTMLButtonElement | null>(null);
+
+    return (
+      <>
+        <Button ref={buttonRef} style={{ position: 'fixed', top: 8, left: 8 }}>
+          Anchor
+        </Button>
+        <Popover {...props} anchorElement={buttonRef}>
+          {props.children}
+        </Popover>
+      </>
+    );
+  },
+  args: {
+    children:
+      'A popover wider than the space left of its anchor stays on screen',
+    placement: 'bottom',
+    onRequestClose: action('onRequestClose'),
+    // biome-ignore lint/suspicious/noExplicitAny: ref is added in render function
+    anchorElement: null as any,
+    open: true,
+    style: { width: 350 },
   },
 });
