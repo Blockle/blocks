@@ -13,7 +13,6 @@ export const select: ThemeComponentsStyles['select'] = makeComponentTheme(
   {
     select: style([
       atoms({
-        paddingInline: 3,
         paddingBlock: 1,
         borderRadius: 2,
         boxShadow: 2,
@@ -23,7 +22,6 @@ export const select: ThemeComponentsStyles['select'] = makeComponentTheme(
         outline: 'none',
         color: vars.colorRole.text.default,
         backgroundColor: vars.colorRole.surface.raised,
-        minHeight: 40,
         transitionDuration: vars.transition.fast,
         transitionProperty: 'outline-color, outline-offset',
       },
@@ -42,11 +40,38 @@ export const select: ThemeComponentsStyles['select'] = makeComponentTheme(
         ]),
         solid: style({}),
       },
+      size: {
+        small: style([
+          atoms({
+            paddingInline: 3,
+          }),
+          {
+            minHeight: 40,
+          },
+        ]),
+        medium: style([
+          atoms({
+            paddingInline: 4,
+          }),
+          {
+            minHeight: 48,
+          },
+        ]),
+        large: style([
+          atoms({
+            paddingInline: 5,
+          }),
+          {
+            minHeight: 56,
+          },
+        ]),
+      },
     },
     icon: atoms({
       paddingInline: 3,
     }),
     defaultVariants: {
+      size: 'medium',
       variant: 'solid',
     },
   },

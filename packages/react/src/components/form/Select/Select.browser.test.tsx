@@ -67,3 +67,38 @@ describe('Select colors (browser)', () => {
     expect(getComputedStyle(select).color).toBe(light.text);
   });
 });
+
+describe('Select size (browser)', () => {
+  // momotaro matches Button: minHeight 40/48/56, paddingInline space 3/4/5
+  const sizes = [
+    ['small', 40, '16px'],
+    ['medium', 48, '24px'],
+    ['large', 56, '32px'],
+  ] as const;
+
+  for (const [size, height, padding] of sizes) {
+    it(`is ${height}px high with ${padding} inline padding at ${size}`, async () => {
+      const screen = await render(
+        <Select aria-label="Fruit" size={size}>
+          <option value="apple">Apple</option>
+        </Select>,
+      );
+      const select = screen.getByLabelText('Fruit').element() as HTMLElement;
+
+      expect(select.offsetHeight).toBe(height);
+      expect(getComputedStyle(select).paddingInlineStart).toBe(padding);
+    });
+  }
+
+  it('renders as medium without a size', async () => {
+    const screen = await render(
+      <Select aria-label="Fruit">
+        <option value="apple">Apple</option>
+      </Select>,
+    );
+    const select = screen.getByLabelText('Fruit').element() as HTMLElement;
+
+    expect(select.offsetHeight).toBe(48);
+    expect(getComputedStyle(select).paddingInlineStart).toBe('24px');
+  });
+});

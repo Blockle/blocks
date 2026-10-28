@@ -119,6 +119,7 @@ export type SelectTheme = {
   icon: string;
   variants: {
     variant: InputVariant;
+    size: Size;
   };
 };
 

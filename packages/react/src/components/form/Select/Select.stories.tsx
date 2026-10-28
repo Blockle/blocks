@@ -18,3 +18,19 @@ export const Default = meta.story({
     ),
   },
 });
+
+export const Sizes = meta.story({
+  render: () => (
+    <>
+      <Select aria-label="Small" size="small">
+        <option value="1">Small</option>
+      </Select>
+      <Select aria-label="Medium" size="medium">
+        <option value="1">Medium</option>
+      </Select>
+      <Select aria-label="Large" size="large">
+        <option value="1">Large</option>
+      </Select>
+    </>
+  ),
+});
