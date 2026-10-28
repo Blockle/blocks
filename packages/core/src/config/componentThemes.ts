@@ -62,6 +62,7 @@ export type DrawerTheme = {
   root?: string;
   variants: {
     placement: 'left' | 'right' | 'top' | 'bottom';
+    size: Size;
   };
 };
 

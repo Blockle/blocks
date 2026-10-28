@@ -3,15 +3,15 @@
 import {
   type ComponentThemes,
   classnames,
+  composeRefs,
   type HTMLElementProps,
-  hasAnimationDuration,
 } from '@blockle/blocks-core';
 import { useCallback, useRef, useState } from 'react';
 
 import { useClickOutside } from '../../../hooks/useClickOutside/useClickOutside.js';
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
-import { useIsomorphicLayoutEffect } from '../../../hooks/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js';
 import { useKeyboard } from '../../../hooks/useKeyboard/useKeyboard.js';
+import { useModalDialog } from '../../../hooks/useModalDialog/useModalDialog.js';
 import { usePreventBodyScroll } from '../../../hooks/usePreventBodyScroll/usePreventBodyScroll.js';
 import { useRestoreFocus } from '../../../hooks/useRestoreFocus/useRestoreFocus.js';
 import * as styles from './dialog.css.js';
@@ -33,6 +33,7 @@ export const Dialog: React.FC<DialogProps> = ({
   className,
   onRequestClose,
   size,
+  ref,
   ...restProps
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -42,7 +43,6 @@ export const Dialog: React.FC<DialogProps> = ({
   });
 
   const [enabled, setEnabled] = useState(true);
-  const [visible, setVisible] = useState(open);
 
   // Store the previous active element and restore it when the dialog is closed
   useRestoreFocus(open);
@@ -70,34 +70,7 @@ export const Dialog: React.FC<DialogProps> = ({
   // Close the dialog when clicking outside of it
   useClickOutside(dialogRef, onRequestClose, { enabled: open && enabled });
 
-  useIsomorphicLayoutEffect(() => {
-    // Using an addional state to control the visibility of the dialog
-    if (open && visible) {
-      if (!dialogRef.current || !dialogRef.current.showModal) {
-        return;
-      }
-
-      dialogRef.current.showModal();
-    } else if (open) {
-      setVisible(true);
-    } else {
-      // If the dialog has no animation duration, we hide it immediately
-      if (!hasAnimationDuration(dialogRef.current)) {
-        setVisible(false);
-      }
-
-      if (dialogRef.current?.close) {
-        // Close the dialog
-        dialogRef.current.close();
-      }
-    }
-  }, [open, visible]);
-
-  const onAnimationEnd = useCallback(() => {
-    if (!open) {
-      setVisible(false);
-    }
-  }, [open]);
+  const { visible, onAnimationEnd } = useModalDialog(dialogRef, open);
 
   if (!visible) {
     return null;
@@ -109,7 +82,7 @@ export const Dialog: React.FC<DialogProps> = ({
   return (
     <DialogContext.Provider value={{ setEnabled }}>
       <dialog
-        ref={dialogRef}
+        ref={composeRefs(ref, dialogRef)}
         open={dataOpen}
         className={classnames(styles.dialog, dialogClassName, className)}
         onAnimationEnd={onAnimationEnd}
