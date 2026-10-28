@@ -2,6 +2,7 @@ import {
   atoms,
   makeComponentTheme,
   type ThemeComponentsStyles,
+  vars,
 } from '@blockle/blocks-core';
 import { createVar, style } from '@vanilla-extract/css';
 
@@ -15,6 +16,8 @@ export const drawer: ThemeComponentsStyles['drawer'] = makeComponentTheme(
         border: 'none',
       }),
       {
+        backgroundColor: vars.colorRole.surface.raised,
+        color: vars.colorRole.text.default,
         selectors: {
           '&[open]': {
             transform: 'translate(0, 0)',
@@ -25,6 +28,7 @@ export const drawer: ThemeComponentsStyles['drawer'] = makeComponentTheme(
             },
           },
           '&[open]::backdrop': {
+            backgroundColor: vars.colorRole.overlay.default,
             opacity: 1,
             '@starting-style': {
               opacity: 0,
