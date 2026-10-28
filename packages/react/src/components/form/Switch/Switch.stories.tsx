@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import preview from '../../../../../../.storybook/preview.js';
 import { Box } from '../../layout/Box/Box.js';
 import { Switch } from './Switch.js';
@@ -17,6 +19,25 @@ export const Default = meta.story({
     );
   },
   args: {
-    onChange: (value) => console.log('onChange', value),
+    onChange: (event) => console.log('onChange', event.target.checked),
+  },
+});
+
+export const Controlled = meta.story({
+  render: () => {
+    const [checked, setChecked] = useState(false);
+
+    return (
+      <Box display="flex" gap={2} alignItems="center">
+        <label htmlFor="controlled-switch">
+          Show archived ({checked ? 'on' : 'off'})
+        </label>
+        <Switch
+          id="controlled-switch"
+          checked={checked}
+          onChange={(event) => setChecked(event.target.checked)}
+        />
+      </Box>
+    );
   },
 });
