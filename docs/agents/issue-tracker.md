@@ -1,46 +1,44 @@
-# Issue tracker: GitHub
+# Issue tracker: Tandembike
 
-Issues and specs for this repo live as GitHub issues. Use the `gh` CLI for all operations.
+Issues and specs for this repo live as Tickets in the Tandembike project **@blockle/blocks** (projectId 4). Use the `tandembike` MCP tools for every operation, not `gh issue`, even where a skill describes another tracker; never call the database or write requests by hand. Refer to Tickets as `T<number>`; `#<number>` is a GitHub PR.
 
 ## Conventions
 
-- **Create an issue**: `gh issue create --title "..." --body "..."`. Use a heredoc for multi-line bodies.
-- **Read an issue**: `gh issue view <number> --json number,title,body,labels,comments`.
-- **List issues**: `gh issue list --state open --json number,title,body,labels,comments --jq '[.[] | {number, title, body, labels: [.labels[].name], comments: [.comments[].body]}]'` with appropriate `--label` and `--state` filters.
-- **Make an issue a sub-issue of a parent**: `gh issue create --parent <parent> ...`, or `gh issue edit <parent> --add-sub-issue <child>` afterwards (`gh` 2.94+). Older `gh`: `gh api --method POST repos/<owner>/<repo>/issues/<parent>/sub_issues -F sub_issue_id=<child-db-id>` (database id, as in **Blocking** below). Without sub-issues, put `Part of #<parent>` at the top of the child body.
-- **Comment on an issue**: `gh issue comment <number> --body "..."`
-- **Apply / remove labels**: `gh issue edit <number> --add-label "..."` / `--remove-label "..."`
-- **Close**: `gh issue close <number> --comment "..."`
+- **Create a ticket**: `create_ticket` with `projectName: "@blockle/blocks"`. Put acceptance criteria in the `acceptanceCriteria` field, never as a checklist in the description.
+- **Create several related tickets**: `create_tickets`, listed in dependency order, with `blockedByPositions` for blockers.
+- **Read a ticket**: `get_ticket`, plus `list_comments` for discussion.
+- **List tickets**: `list_tickets` filtered by `status`, labels, `blocked`, `claimed`, `cycleId`.
+- **Parent/child**: create an Epic (`type: "Epic"`) and attach children with `epicNumber` or `attach_to_epic`.
+- **Comment**: `add_comment`. Share progress and findings as comments; don't rewrite the description.
+- **Apply / remove labels**: `add_ticket_labels` / `remove_ticket_labels`. Reuse labels from `list_labels`.
+- **Status**: move to In progress when starting and Done when finished (`update_ticket`).
+- **Close as won't-do**: label `wontfix`, comment why, then `archive_ticket`.
 
-Infer the repo from `git remote -v`; `gh` does this automatically when run inside a clone.
+## Specs and cycles
+
+- **A spec is an Epic** titled `Spec: <name>`. The tickets split from it are its children (`epicNumber`).
+- **The Epic is the source of truth for its tickets.** Where a ticket or its acceptance criteria say less than a spec line, build the spec line and comment on the ticket saying so.
+- **Plan new tickets into the Active cycle** when one exists, the Epic included: find it with `list_cycles` (projectId 4), then `plan_tickets`.
 
 ## Pull requests as a triage surface
 
 **PRs as a request surface: no.** _(Set to `yes` if this repo treats external PRs as feature requests; `/triage` reads this flag.)_
 
-When set to `yes`, PRs run through the same labels and states as issues, using the `gh pr` equivalents:
-
-- **Read a PR**: `gh pr view <number> --comments` and `gh pr diff <number>` for the diff.
-- **List external PRs for triage**: `gh api --paginate 'repos/{owner}/{repo}/pulls?state=open' --jq '.[] | select(.author_association | IN("OWNER","MEMBER","COLLABORATOR") | not) | {number, title, author: .user.login, author_association, labels: [.labels[].name]}'`.
-- **Comment / label / close**: `gh pr comment`, `gh pr edit --add-label`/`--remove-label`, `gh pr close`.
-
-GitHub shares one number space across issues and PRs, so a bare `#42` may be either: resolve with `gh pr view 42` and fall back to `gh issue view 42`.
-
 ## When a skill says "publish to the issue tracker"
 
-Create a GitHub issue.
+Create a Tandembike ticket in @blockle/blocks.
 
 ## When a skill says "fetch the relevant ticket"
 
-Read it as in **Read an issue** above.
+Use `get_ticket` and `list_comments`.
 
 ## Wayfinding operations
 
-Used by `/wayfinder`. The **map** is a single issue with **child** issues as tickets.
+Used by `/wayfinder`. The **map** is a single Epic with **child** tickets.
 
-- **Map**: a single issue labelled `wayfinder:map`, holding the Notes / Decisions-so-far / Fog body. `gh issue create --label wayfinder:map`.
-- **Child ticket**: an issue linked to the map as a GitHub sub-issue (see **Make an issue a sub-issue of a parent**). Where sub-issues aren't enabled, add the child to a task list in the map body and put `Part of #<map>` at the top of the child body. Labels: `wayfinder:<type>` (`research`/`prototype`/`grilling`/`task`). Once claimed, the ticket is assigned to the driving dev.
-- **Blocking**: GitHub's **native issue dependencies**, the canonical, UI-visible representation. Add an edge with `gh api --method POST repos/<owner>/<repo>/issues/<child>/dependencies/blocked_by -F issue_id=<blocker-db-id>`, where `<blocker-db-id>` is the blocker's numeric **database id** (`gh api repos/<owner>/<repo>/issues/<n> --jq .id`, _not_ the `#number` or `node_id`). GitHub reports `issue_dependencies_summary.blocked_by` (open blockers only, the live gate). Where dependencies aren't available, fall back to a `Blocked by: #<n>, #<n>` line at the top of the child body. A ticket is unblocked when every blocker is closed.
-- **Frontier query**: list the map's open children (`gh issue list --state open`, scoped to the map's sub-issues / task list), drop any with an open blocker (`issue_dependencies_summary.blocked_by > 0`, or an open issue in the `Blocked by` line) or an assignee; first in map order wins.
-- **Claim**: `gh issue edit <n> --add-assignee @me`, the session's first write.
-- **Resolve**: `gh issue comment <n> --body "<answer>"`, then `gh issue close <n>`, then append a context pointer (gist + link) to the map's Decisions-so-far.
+- **Map**: an Epic labelled `wayfinder:map`, holding Notes / Decisions-so-far / Fog in its description.
+- **Child ticket**: a child of that Epic, labelled `wayfinder:<type>` (`research`/`prototype`/`grilling`/`task`).
+- **Blocking**: `add_blocker`. A blocker is resolved once it's Done or archived.
+- **Frontier query**: `list_tickets` with `status: "Todo"`, `blocked: false`, `claimed: false`, scoped to the Epic's children; first in order wins.
+- **Claim**: `claim_ticket` with a unique agent-run ID, as the session's first write.
+- **Resolve**: `add_comment` with the answer, move to Done, and append a pointer to the map's Decisions-so-far.

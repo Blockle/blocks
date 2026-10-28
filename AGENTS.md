@@ -2,7 +2,7 @@
 
 ### Issue tracker
 
-Issues and specs for this repo live as GitHub issues. See `docs/agents/issue-tracker.md`.
+Tickets live in the Tandembike project `@blockle/blocks`, handled through the `tandembike` MCP tools. See `docs/agents/issue-tracker.md`.
 
 ### Triage labels
 
