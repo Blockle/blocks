@@ -81,33 +81,32 @@ describe('Dialog', () => {
         onRequestClose={onRequestClose}
         aria-label="Test Dialog"
       >
-        <p>Dialog Content</p>
+        <button type="button">Inside</button>
       </Dialog>,
     );
 
+    screen.getByText('Inside').focus();
     await user.keyboard('{Escape}');
-    expect(onRequestClose).toHaveBeenCalled();
+
+    expect(onRequestClose).toHaveBeenCalledWith('escape');
   });
 
-  it('restores focus to the previously focused element when closed', async () => {
-    const onRequestClose = vi.fn();
+  it('restores focus to the previously focused element when closed', () => {
     const button = document.createElement('button');
-    button.textContent = 'Focus Me';
+
     document.body.appendChild(button);
     button.focus();
 
-    render(
-      <Dialog
-        open={true}
-        onRequestClose={onRequestClose}
-        aria-label="Test Dialog"
-      >
-        <p>Dialog Content</p>
-      </Dialog>,
+    const dialog = (open: boolean) => (
+      <Dialog open={open} onRequestClose={vi.fn()} aria-label="Test Dialog">
+        <button type="button">Inside</button>
+      </Dialog>
     );
+    const { rerender } = render(dialog(true));
 
-    await userEvent.keyboard('{Escape}');
-    expect(onRequestClose).toHaveBeenCalled();
+    screen.getByText('Inside').focus();
+    rerender(dialog(false));
+
     expect(document.activeElement).toBe(button);
 
     document.body.removeChild(button);

@@ -92,6 +92,7 @@ export {
   Portal,
   type PortalProps,
 } from './components/overlay/Portal/Portal.js';
+export type { RequestCloseReason } from './components/overlay/requestCloseReason.js';
 export {
   Tooltip,
   type TooltipProps,

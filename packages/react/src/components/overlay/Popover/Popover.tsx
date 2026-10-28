@@ -13,6 +13,7 @@ import { useComponentStyles } from '../../../hooks/useComponentStyles/useCompone
 import { useIsomorphicLayoutEffect } from '../../../hooks/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js';
 import { useKeyboard } from '../../../hooks/useKeyboard/useKeyboard.js';
 import { Box } from '../../layout/Box/Box.js';
+import type { RequestCloseReason } from '../requestCloseReason.js';
 import { getPopoverPosition } from './popover-utils.js';
 
 export type PopoverAlign = 'top' | 'bottom' | 'left' | 'right';
@@ -21,7 +22,7 @@ export type PopoverAlign = 'top' | 'bottom' | 'left' | 'right';
 
 export type PopoverProps = {
   anchorElement: React.RefObject<HTMLElement | null>;
-  onRequestClose: () => void;
+  onRequestClose: (reason: RequestCloseReason) => void;
   open: boolean;
   position?: PopoverAlign; // TODO PopoverAlign | PopoverAlign[]; allow multiple positions
   sticky?: boolean;
@@ -45,11 +46,26 @@ export const Popover: React.FC<PopoverProps> = ({
 
   const popoverClassName = useComponentStyles('popover', { root: true }, false);
 
-  // On Escape key press, close the popover
-  useKeyboard('Escape', onRequestClose, { enabled: open });
+  const onEscape = useCallback(
+    (event: KeyboardEvent) => {
+      // Content claimed this Escape
+      if (event.defaultPrevented) {
+        return;
+      }
+
+      event.preventDefault();
+      onRequestClose('escape');
+    },
+    [onRequestClose],
+  );
+
+  // Focus often stays on the anchor, so listen for Escape on the document
+  useKeyboard('Escape', onEscape, { enabled: open });
 
   // Close the popover when clicking outside of it
-  useClickOutside(popoverRef, onRequestClose, { enabled: open });
+  useClickOutside(popoverRef, () => onRequestClose('outside-click'), {
+    enabled: open,
+  });
 
   useIsomorphicLayoutEffect(() => {
     const element = popoverRef.current;
