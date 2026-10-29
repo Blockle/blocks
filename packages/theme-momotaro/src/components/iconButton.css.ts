@@ -1,4 +1,5 @@
 import {
+  atoms,
   makeComponentTheme,
   type ThemeComponentsStyles,
 } from '@blockle/blocks-core';
@@ -35,6 +36,7 @@ export const iconButton: ThemeComponentsStyles['iconButton'] =
   makeComponentTheme('iconButton', {
     root: style([
       buttonBase,
+      atoms({ justifyContent: 'center' }),
       {
         aspectRatio: '1',
         flexShrink: 0,

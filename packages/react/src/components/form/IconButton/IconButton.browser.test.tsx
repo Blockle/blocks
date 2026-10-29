@@ -67,4 +67,18 @@ describe('IconButton geometry (browser)', () => {
     expect(svg?.width).toBe(28);
     expect(svg?.height).toBe(28);
   });
+
+  it('centers the icon', async () => {
+    const screen = await render(
+      <IconButton size="large" label="Close">
+        {icon}
+      </IconButton>,
+    );
+    const button = screen.getByRole('button').element();
+    const outer = button.getBoundingClientRect();
+    const inner = button.querySelector('svg')?.getBoundingClientRect();
+
+    expect(inner?.left).toBe(outer.left + 14);
+    expect(inner?.top).toBe(outer.top + 14);
+  });
 });
