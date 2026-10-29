@@ -1,5 +1,4 @@
 import {
-  atoms,
   makeComponentTheme,
   type ThemeComponentsStyles,
 } from '@blockle/blocks-core';
@@ -9,10 +8,11 @@ import {
   buttonBase,
   buttonHeight,
   buttonIntent,
+  buttonRadius,
   buttonVariant,
 } from './buttonBase.css.js';
 
-const size = {
+const sizeStyles = {
   small: style({ blockSize: buttonHeight.small }),
   medium: style({ blockSize: buttonHeight.medium }),
   large: style({ blockSize: buttonHeight.large }),
@@ -25,7 +25,7 @@ const iconSize = {
 };
 
 for (const key of ['small', 'medium', 'large'] as const) {
-  globalStyle(`${size[key]} > svg`, {
+  globalStyle(`${sizeStyles[key]} > svg`, {
     inlineSize: iconSize[key],
     blockSize: iconSize[key],
   });
@@ -43,9 +43,9 @@ export const iconButton: ThemeComponentsStyles['iconButton'] =
     ]),
     variants: {
       variant: buttonVariant,
-      size,
+      size: sizeStyles,
       shape: {
-        square: atoms({ borderRadius: 2 }),
+        square: buttonRadius,
         circle: style({ borderRadius: '50%' }),
       },
       intent: buttonIntent,

@@ -9,6 +9,7 @@ import {
   buttonBase,
   buttonHeight,
   buttonIntent,
+  buttonRadius,
   buttonVariant,
 } from './buttonBase.css.js';
 
@@ -18,12 +19,12 @@ export const button: ThemeComponentsStyles['button'] = makeComponentTheme(
     root: style([
       atoms({
         fontSize: 'medium',
-        borderRadius: 2,
         fontWeight: 'medium',
         gap: 2,
         paddingBlock: 1,
       }),
       buttonBase,
+      buttonRadius,
     ]),
     variants: {
       variant: buttonVariant,

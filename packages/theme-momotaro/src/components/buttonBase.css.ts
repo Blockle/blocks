@@ -28,6 +28,10 @@ export const buttonBase = style([
   clickable,
 ]);
 
+export const buttonRadius = atoms({
+  borderRadius: 2,
+});
+
 export const buttonVariant = {
   solid: style({
     color: contrastColor,
