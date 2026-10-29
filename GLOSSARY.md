@@ -32,6 +32,12 @@ _Avoid_: Color scale, ramp
 A style prop, such as `padding` or `opacity`, whose value comes from a fixed set: a theme's token scale or a few literal values.
 _Avoid_: Style prop, sprinkle, utility class
 
+### Composition
+
+**Slot**:
+A named position in a component, at its start or end, that holds content the consumer composes, such as an Icon or a Button. A Slot is named by where it sits, not by what goes in it. A component composes its actions through Slots rather than building them in.
+_Avoid_: Action, addon, adornment
+
 ### Overlays
 
 **Placement**:
