@@ -102,3 +102,54 @@ describe('Select size (browser)', () => {
     expect(getComputedStyle(select).paddingInlineStart).toBe('24px');
   });
 });
+
+describe('Select chevron (browser)', () => {
+  for (const size of ['small', 'medium', 'large'] as const) {
+    it(`keeps the value clear of the chevron at ${size}`, async () => {
+      const screen = await render(
+        <div style={{ display: 'inline-block' }}>
+          <Select aria-label="Label" size={size}>
+            <option value="label">Filter by Label</option>
+          </Select>
+        </div>,
+      );
+      const select = screen.getByLabelText('Label').element() as HTMLElement;
+      const chevron = select.parentElement?.querySelector('svg');
+
+      if (!chevron) {
+        throw new Error('Chevron not rendered');
+      }
+
+      const selectRect = select.getBoundingClientRect();
+      const chevronRect = chevron.getBoundingClientRect();
+      const valueEnd =
+        selectRect.right -
+        Number.parseFloat(getComputedStyle(select).paddingInlineEnd);
+
+      expect(chevronRect.left - valueEnd).toBeGreaterThanOrEqual(8);
+      // momotaro pins the chevron space 3 from the end edge at every size
+      expect(selectRect.right - chevronRect.right).toBeCloseTo(16);
+    });
+  }
+
+  it('keeps the chevron at the end edge in right-to-left text', async () => {
+    const screen = await render(
+      <div dir="rtl" style={{ display: 'inline-block' }}>
+        <Select aria-label="Label">
+          <option value="label">Filter by Label</option>
+        </Select>
+      </div>,
+    );
+    const select = screen.getByLabelText('Label').element() as HTMLElement;
+    const chevron = select.parentElement?.querySelector('svg');
+
+    if (!chevron) {
+      throw new Error('Chevron not rendered');
+    }
+
+    const selectRect = select.getBoundingClientRect();
+    const chevronRect = chevron.getBoundingClientRect();
+
+    expect(chevronRect.left - selectRect.left).toBeCloseTo(16);
+  });
+});

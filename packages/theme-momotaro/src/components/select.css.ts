@@ -8,6 +8,11 @@ import { style } from '@vanilla-extract/css';
 
 import { focusable } from './helpers.css.js';
 
+// Room the chevron takes at the end of the select: its padding, its 1rem
+// width, and a gap before the value text. The same at every size, so
+// chevrons line up when selects of different sizes are stacked
+const chevronRoom = `calc(${vars.space[3]} + 1rem + ${vars.space[2]})`;
+
 export const select: ThemeComponentsStyles['select'] = makeComponentTheme(
   'select',
   {
@@ -43,25 +48,28 @@ export const select: ThemeComponentsStyles['select'] = makeComponentTheme(
       size: {
         small: style([
           atoms({
-            paddingInline: 3,
+            paddingInlineStart: 3,
           }),
           {
+            paddingInlineEnd: chevronRoom,
             minHeight: 40,
           },
         ]),
         medium: style([
           atoms({
-            paddingInline: 4,
+            paddingInlineStart: 4,
           }),
           {
+            paddingInlineEnd: chevronRoom,
             minHeight: 48,
           },
         ]),
         large: style([
           atoms({
-            paddingInline: 5,
+            paddingInlineStart: 5,
           }),
           {
+            paddingInlineEnd: chevronRoom,
             minHeight: 56,
           },
         ]),

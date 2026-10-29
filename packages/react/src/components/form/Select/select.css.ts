@@ -22,7 +22,7 @@ export const icon = style({
   '@layer': {
     [layers.molecule]: {
       position: 'absolute',
-      right: 0,
+      insetInlineEnd: 0,
       top: 0,
       bottom: 0,
       pointerEvents: 'none',
