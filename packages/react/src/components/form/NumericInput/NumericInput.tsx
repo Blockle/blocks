@@ -3,18 +3,45 @@
 import { composeRefs } from '@blockle/blocks-core';
 import { useCallback, useRef } from 'react';
 
-import { Button } from '../Button/Button.js';
+import { IconButton } from '../IconButton/IconButton.js';
 import { TextInput, type TextInputProps } from '../TextInput/TextInput.js';
 import * as styles from './NumericInput.css.js';
 
 export type NumericInputProps = {
+  /**
+   * Accessible name of the decrement button. Pass your own wording to translate it.
+   * @default 'Decrease'
+   */
+  decrementLabel?: string;
+  /**
+   * Accessible name of the increment button. Pass your own wording to translate it.
+   * @default 'Increase'
+   */
+  incrementLabel?: string;
   value?: number | string;
   min?: number;
   max?: number;
   step?: number;
 } & TextInputProps;
 
-export const NumericInput: React.FC<NumericInputProps> = (props) => {
+const StepIcon: React.FC<{ path: string }> = ({ path }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    aria-hidden="true"
+  >
+    <path d={path} />
+  </svg>
+);
+
+export const NumericInput: React.FC<NumericInputProps> = ({
+  decrementLabel = 'Decrease',
+  incrementLabel = 'Increase',
+  ...props
+}) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const onDecrement = useCallback((event: React.MouseEvent) => {
     const size = event.shiftKey ? 10 : 1;
@@ -44,14 +71,24 @@ export const NumericInput: React.FC<NumericInputProps> = (props) => {
       inputClassName={styles.numericInput}
       type="number"
       startSlot={
-        <Button variant="ghost" size="small" onClick={onDecrement}>
-          -
-        </Button>
+        <IconButton
+          label={decrementLabel}
+          variant="ghost"
+          size="small"
+          onClick={onDecrement}
+        >
+          <StepIcon path="M5 12h14" />
+        </IconButton>
       }
       endSlot={
-        <Button variant="ghost" size="small" onClick={onIncrement}>
-          +
-        </Button>
+        <IconButton
+          label={incrementLabel}
+          variant="ghost"
+          size="small"
+          onClick={onIncrement}
+        >
+          <StepIcon path="M12 5v14M5 12h14" />
+        </IconButton>
       }
       onKeyDown={onKeyDown}
       {...props}

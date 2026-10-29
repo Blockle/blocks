@@ -11,3 +11,11 @@ export const Default = meta.story({
     name: 'number-input',
   },
 });
+
+export const TranslatedLabels = meta.story({
+  args: {
+    name: 'number-input',
+    decrementLabel: 'Verlagen',
+    incrementLabel: 'Verhogen',
+  },
+});
