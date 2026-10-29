@@ -1,5 +1,31 @@
 # @blockle/blocks-core
 
+## 3.1.0
+
+### Minor Changes
+
+- 2bf6086: `Alert` and `Toast` now use `intent="danger"` for errors, the same name `Button` uses. `intent="error"` is removed: replace it with `intent="danger"` (also in `showToast({ intent })`).
+
+  Blocks core exports the shared `Intent` type (`primary`, `secondary`, `neutral`, `danger`, `success`, `info`, `warning`), matching the Color role groups; every component's `intent` accepts a subset of it. Custom themes that style `alert.variants.intent.error` must rename that key to `danger`.
+
+- 51a1c03: `Drawer` and `Dialog` now close their `<dialog>` while React hides them in an `<Activity>` (as Next.js does for a route you left), and open it as modal again when revealed. Hydrating a server-rendered open `Drawer` or `Dialog` no longer throws `InvalidStateError`. A `ref` passed to either now reaches the `<dialog>` without breaking its own open and close behaviour.
+
+  `Drawer` takes a `size` of `small` (300px, the default), `medium` (480px) or `large` (640px), capped at the viewport. It sets the width for `left` and `right`, and the height for `top` and `bottom` placement. The size lives in the theme's `drawer` component as a `size` variant. `Drawer` also merges a `className` with its own classes, and restores focus to the previously focused element after it closes.
+
+  `ComponentThemes['drawer']` gains a required `size` variant. A custom theme that defines the `drawer` component needs to add `size` variants (`small`, `medium`, `large`) to keep type-checking.
+
+- c3a2419: `ToastProvider` takes a `placement` that now actually places the toasts: a side of the screen (`top` or `bottom`), optionally lined up with its `start` or `end` edge, as in `bottom-end`. It defaults to `bottom`. The type is exported as `ToastPlacement`. For `top` placements the newest toast is nearest the top edge. `position` was ignored before; it now works but is deprecated (`bottom-left` maps to `bottom-start`, `bottom-center` to `bottom`, `bottom-right` to `bottom-end`, and the same for `top-*`), and `placement` wins when both are passed. Toasts no longer catch clicks on the empty space beside them, and showing several toasts at once no longer logs an unhandled `AbortError` from a skipped view transition.
+
+  Toast styling moved into a `toast` component theme, which momotaro now provides: the stack is at most 400px wide, and each toast has a shadow and slides in from the screen edge. Custom themes must define `toast` as `{ root, toast }`, optionally with `placement` variants. Its unused `intent` variant is removed. Without a theme, toasts are still placed correctly, full width and unanimated.
+
+### Patch Changes
+
+- 965d474: `Select` now takes a `size` prop (`small`, `medium` or `large`, default `medium`) like `Button`. In momotaro the sizes are 40, 48 and 56px high with the same inline padding as the matching `Button` size.
+
+  **Breaking:** the native numeric `size` attribute (visible row count) is no longer accepted on `Select`; `size={4}` is now a type error.
+
+  **Visual change:** a `Select` without `size` is now `medium`, 48px high instead of 40px, with wider inline padding. Pass `size="small"` to keep the previous look.
+
 ## 3.0.0
 
 ### Major Changes
