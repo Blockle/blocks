@@ -1,5 +1,62 @@
 # @blockle/blocks
 
+## 3.1.0
+
+### Minor Changes
+
+- 1281b20: `Alert`'s close button now has an accessible name, so screen readers announce it as "Close" instead of just "button". This includes the close button on every toast. Pass `closeLabel` to use your own wording, for example `closeLabel="Sluiten"`.
+- 2bf6086: `Alert` and `Toast` now use `intent="danger"` for errors, the same name `Button` uses. `intent="error"` is removed: replace it with `intent="danger"` (also in `showToast({ intent })`).
+
+  Blocks core exports the shared `Intent` type (`primary`, `secondary`, `neutral`, `danger`, `success`, `info`, `warning`), matching the Color role groups; every component's `intent` accepts a subset of it. Custom themes that style `alert.variants.intent.error` must rename that key to `danger`.
+
+- 51a1c03: `Drawer` and `Dialog` now close their `<dialog>` while React hides them in an `<Activity>` (as Next.js does for a route you left), and open it as modal again when revealed. Hydrating a server-rendered open `Drawer` or `Dialog` no longer throws `InvalidStateError`. A `ref` passed to either now reaches the `<dialog>` without breaking its own open and close behaviour.
+
+  `Drawer` takes a `size` of `small` (300px, the default), `medium` (480px) or `large` (640px), capped at the viewport. It sets the width for `left` and `right`, and the height for `top` and `bottom` placement. The size lives in the theme's `drawer` component as a `size` variant. `Drawer` also merges a `className` with its own classes, and restores focus to the previously focused element after it closes.
+
+  `ComponentThemes['drawer']` gains a required `size` variant. A custom theme that defines the `drawer` component needs to add `size` variants (`small`, `medium`, `large`) to keep type-checking.
+
+- 44a2ccc: `Dialog`, `Drawer` and `Popover` pass a reason to `onRequestClose`: `'escape'` or `'outside-click'`, typed as the new exported `RequestCloseReason`. Callbacks that take no argument still type-check.
+
+  `Dialog` and `Drawer` handle Escape on their own `<dialog>` instead of on `document`, so content can claim an Escape with `stopPropagation()` or `preventDefault()` and keep the overlay open, also when React's root is `document`. A close request that is not a key press, such as the Android back gesture, calls `onRequestClose('escape')` instead of closing the dialog natively. `Popover` still listens on `document`, but skips an Escape that is already `defaultPrevented`, and prevents the Escapes it handles.
+
+  `Drawer` now takes part in nesting as `Dialog` does: while a `Dialog` or `Drawer` opened inside it is open, it ignores Escape and clicks outside, so one Escape closes only the inner one.
+
+- 01fa519: `Popover` and `Tooltip` take a `placement`: a side (`top`, `bottom`, `left`, `right`), optionally lined up with the anchor's `start` or `end` edge, as in `bottom-start`. A bare side centres the popover on the anchor, as before. The type is exported as `PopoverPlacement`. `position` still works but is deprecated; `placement` wins when both are passed.
+
+  The popover now stays inside the viewport: it shifts along the anchor's side to keep at least 8px from the viewport's edges, and a popover bigger than the viewport starts 8px from its start edge. Flipping to the other side keeps the edge, so `top-start` without room above becomes `bottom-start`, and only flips when the other side has more room.
+
+- 62d5b9f: `Switch` now has `role="switch"`, so assistive technology and `getByRole('switch', { name })` see a switch instead of a checkbox. Its checked state comes from the native `checked`.
+
+  `Switch`'s `onChange` is now the native input change handler (`React.ChangeEventHandler<HTMLInputElement>`), like the other form controls. Clicking the track, clicking an associated label and pressing Space each call it exactly once, also under `React.StrictMode`. A controlled `Switch` (`checked` + `onChange`) now only changes when its `checked` prop does.
+
+  **Migration:** read the new value from the event:
+
+  ```diff
+  - <Switch checked={show} onChange={setShow} />
+  + <Switch checked={show} onChange={(event) => setShow(event.target.checked)} />
+  ```
+
+  Tests that queried the `checkbox` role should query `switch` instead.
+
+- c3a2419: `ToastProvider` takes a `placement` that now actually places the toasts: a side of the screen (`top` or `bottom`), optionally lined up with its `start` or `end` edge, as in `bottom-end`. It defaults to `bottom`. The type is exported as `ToastPlacement`. For `top` placements the newest toast is nearest the top edge. `position` was ignored before; it now works but is deprecated (`bottom-left` maps to `bottom-start`, `bottom-center` to `bottom`, `bottom-right` to `bottom-end`, and the same for `top-*`), and `placement` wins when both are passed. Toasts no longer catch clicks on the empty space beside them, and showing several toasts at once no longer logs an unhandled `AbortError` from a skipped view transition.
+
+  Toast styling moved into a `toast` component theme, which momotaro now provides: the stack is at most 400px wide, and each toast has a shadow and slides in from the screen edge. Custom themes must define `toast` as `{ root, toast }`, optionally with `placement` variants. Its unused `intent` variant is removed. Without a theme, toasts are still placed correctly, full width and unanimated.
+
+### Patch Changes
+
+- 0436909: `@blockle/blocks` now requires `@blockle/blocks-react` `>=3.0.1` as a peer dependency. A project that still has `blocks-react` 3.0.0 installed, which crashes in Server Components, gets it upgraded (or a peer conflict reported) when it installs `@blockle/blocks`, instead of keeping the broken version.
+- 51fe64c: `Dialog`, `Drawer` and `Popover` now close on an outside click only when the press both starts and ends outside them. A click whose own handler removes its target, or a text selection dragged out of the overlay, no longer closes it.
+- c504729: The README documents how to test `Dialog` and `Drawer` in jsdom: a polyfill for `showModal()`, `show()` and `close()` to add to your test setup, so an open dialog can be found by role. Under the polyfill the dialog is not modal, so modal behaviour still needs browser tests.
+- 89b66a2: `Checkbox`, `Radio` and `Switch` no longer shrink in a flex row beside text that wraps. Their root now sets `flex-shrink: 0`, so consumers can drop `flexShrink: 0` workarounds passed through `className`.
+- c16decd: `name` is now optional on `Checkbox`, `Radio` and `TextInput`, as it is on a native `<input>`. A control that sits outside a form, such as a checkbox that saves on change, no longer needs a made-up `name`. Without `name`, the rendered `<input>` has no `name` attribute; with one, it is passed through as before.
+- 9092dde: `Popover` no longer throws when it closes where the Popover API is missing, such as in jsdom: it warns instead, as it already did when opening. The README documents how to test `Popover` in jsdom with a polyfill for `showPopover()`, `hidePopover()` and `togglePopover()` and a test stylesheet, so an open popover's content can be found by role.
+- 4652ba3: `Popover` keeps working when you pass it a `ref`. The passed `ref` used to replace `Popover`'s own, so the popover was never shown or positioned and ignored clicks outside. Now both refs receive the element.
+- 965d474: `Select` now takes a `size` prop (`small`, `medium` or `large`, default `medium`) like `Button`. In momotaro the sizes are 40, 48 and 56px high with the same inline padding as the matching `Button` size.
+
+  **Breaking:** the native numeric `size` attribute (visible row count) is no longer accepted on `Select`; `size={4}` is now a type error.
+
+  **Visual change:** a `Select` without `size` is now `medium`, 48px high instead of 40px, with wider inline padding. Pass `size="small"` to keep the previous look.
+
 ## 3.0.1
 
 ### Patch Changes
