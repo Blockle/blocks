@@ -172,21 +172,31 @@ describe('Tag (browser)', () => {
 
   it('sizes Slot content to the line height', async () => {
     const screen = await render(
-      <Tag
-        startSlot={<img src={pixel} alt="avatar" width={64} height={64} />}
-        endSlot={
-          <IconButton label="Remove label bug" variant="ghost" size="small">
-            <CloseIcon />
-          </IconButton>
-        }
-      >
-        bug
-      </Tag>,
+      <>
+        <Tag
+          startSlot={<img src={pixel} alt="avatar" width={64} height={64} />}
+          endSlot={
+            <IconButton label="Remove label bug" variant="ghost" size="small">
+              <CloseIcon />
+            </IconButton>
+          }
+        >
+          bug
+        </Tag>
+        <Tag
+          startSlot={
+            <IconMask data-testid="icon" src="/icon.svg" size="xlarge" />
+          }
+        >
+          Blocked
+        </Tag>
+      </>,
     );
     const img = screen.getByRole('img', { name: 'avatar' }).element();
     const button = screen
       .getByRole('button', { name: 'Remove label bug' })
       .element();
+    const icon = screen.getByTestId('icon').element();
     const lineHeight = Number.parseFloat(
       getComputedStyle(img.parentElement as Element).blockSize,
     );
@@ -194,9 +204,10 @@ describe('Tag (browser)', () => {
     expect(height(img)).toBe(lineHeight);
     expect(img.getBoundingClientRect().width).toBe(lineHeight);
     expect(height(button)).toBe(lineHeight);
+    expect(icon.getBoundingClientRect().width).toBe(lineHeight);
   });
 
-  it('reduces the padding on a side with a filled Slot', async () => {
+  it('reduces the padding on the side with a filled startSlot', async () => {
     const screen = await render(
       <Tag data-testid="tag" startSlot="🐛">
         bug
@@ -208,6 +219,21 @@ describe('Tag (browser)', () => {
 
     expect(Number.parseFloat(paddingInlineStart)).toBeLessThan(
       Number.parseFloat(paddingInlineEnd),
+    );
+  });
+
+  it('reduces the padding on the side with a filled endSlot', async () => {
+    const screen = await render(
+      <Tag data-testid="tag" endSlot="🐛">
+        bug
+      </Tag>,
+    );
+    const { paddingInlineStart, paddingInlineEnd } = getComputedStyle(
+      screen.getByTestId('tag').element(),
+    );
+
+    expect(Number.parseFloat(paddingInlineEnd)).toBeLessThan(
+      Number.parseFloat(paddingInlineStart),
     );
   });
 });
