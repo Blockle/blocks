@@ -1,5 +1,7 @@
+import { vars } from '@blockle/blocks-core';
 import { afterEach, describe, expect, it } from 'vitest';
 
+import { resolve } from '../../../testUtils/browser/contrast.js';
 import { emulateColorScheme } from '../../../testUtils/browser/emulateColorScheme.js';
 import { render } from '../../../testUtils/browser/render.js';
 import { Alert } from './Alert.js';
@@ -42,4 +44,19 @@ describe('Alert intent roles (browser)', () => {
 
     expect(read(screen.getByRole('alert').element())).toEqual(dark);
   });
+
+  for (const mode of ['light', 'dark'] as const) {
+    it(`renders the danger intent with the danger roles in ${mode} mode`, async () => {
+      const roles = vars.colorRole.danger;
+      const screen = await render(<Alert intent="danger">Name taken</Alert>, {
+        colorMode: mode,
+      });
+
+      expect(read(screen.getByRole('alert').element())).toEqual({
+        backgroundColor: await resolve(roles.subtle, mode),
+        color: await resolve(roles.foreground, mode),
+        borderColor: await resolve(roles.border, mode),
+      });
+    });
+  }
 });

@@ -26,7 +26,7 @@ export const alert: ThemeComponentsStyles['alert'] = makeComponentTheme(
     }),
     variants: {
       intent: {
-        error: intentStyle(vars.colorRole.danger),
+        danger: intentStyle(vars.colorRole.danger),
         info: intentStyle(vars.colorRole.info),
         success: intentStyle(vars.colorRole.success),
         warning: intentStyle(vars.colorRole.warning),

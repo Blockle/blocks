@@ -15,7 +15,7 @@ A shared, named color with a purpose, such as muted text or a raised surface, wh
 _Avoid_: Semantic token, alias token
 
 **Intent**:
-The meaning a component's color conveys, such as `primary`, `danger` or `success`. Every Intent has the same family of Color roles, so components that share an Intent look consistent.
+The meaning a component's color conveys, such as `primary`, `danger` or `success`. Every Intent has the same family of Color roles, so components that share an Intent look consistent. Blocks core exports the `Intent` type; each component's `intent` accepts a subset of it.
 _Avoid_: Color scheme (for color choices)
 
 **Mode value**:

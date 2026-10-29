@@ -50,6 +50,19 @@ type IntentRole =
   | 'border';
 
 /**
+ * The meaning a component's color conveys. Each Intent is a Color role group
+ * of `ColorRoles`, and a component's `intent` variant is a subset of it.
+ */
+export type Intent =
+  | 'primary'
+  | 'secondary'
+  | 'neutral'
+  | 'danger'
+  | 'success'
+  | 'info'
+  | 'warning';
+
+/**
  * A Color role value: a Palette reference such as `neutral-900` (or `white`),
  * or a raw CSS color. Palette references are resolved to the palette's color
  * when the theme is made.
@@ -69,17 +82,11 @@ export type ColorRoles = {
   overlay: Record<OverlayRole, ModeValue<ColorRoleValue>>;
   /** Elevation levels. Dark themes usually need stronger shadows. */
   shadow: Record<BoxShadow, ModeValue<ColorRoleValue>>;
-
+} & {
   // Every Intent has the same role family: `solid` (fill), `solidHover`,
   // `subtle` (tinted surface), `contrast` (content on `solid`), `foreground`
   // (intent-colored content on a neutral surface) and `border`.
-  primary: Record<IntentRole, ModeValue<ColorRoleValue>>;
-  secondary: Record<IntentRole, ModeValue<ColorRoleValue>>;
-  neutral: Record<IntentRole, ModeValue<ColorRoleValue>>;
-  danger: Record<IntentRole, ModeValue<ColorRoleValue>>;
-  success: Record<IntentRole, ModeValue<ColorRoleValue>>;
-  info: Record<IntentRole, ModeValue<ColorRoleValue>>;
-  warning: Record<IntentRole, ModeValue<ColorRoleValue>>;
+  [K in Intent]: Record<IntentRole, ModeValue<ColorRoleValue>>;
 };
 
 export type ThemeTokens = {

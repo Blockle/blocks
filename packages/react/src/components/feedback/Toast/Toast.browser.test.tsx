@@ -10,7 +10,7 @@ import { ToastProvider } from './ToastProvider.js';
 import { useToast } from './useToast.js';
 
 const intents = [
-  ['error', vars.colorRole.danger],
+  ['danger', vars.colorRole.danger],
   ['info', vars.colorRole.info],
   ['success', vars.colorRole.success],
   ['warning', vars.colorRole.warning],
@@ -85,7 +85,7 @@ describe('Toast colors (browser)', () => {
 
     await emulateColorScheme('dark');
 
-    await renderToast('error', 'system');
+    await renderToast('danger', 'system');
 
     const alert = await findAlert();
 

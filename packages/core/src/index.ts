@@ -26,7 +26,11 @@ export type {
   ComponentThemes,
   ComponentThemesProps,
 } from './config/componentThemes.js';
-export type { ColorRoles, ThemeTokens } from './config/themeTokens.js';
+export type {
+  ColorRoles,
+  Intent,
+  ThemeTokens,
+} from './config/themeTokens.js';
 export { breakpointNames, minMediaQuery } from './css/breakpoint/breakpoint.js';
 // CSS Utils
 export {
