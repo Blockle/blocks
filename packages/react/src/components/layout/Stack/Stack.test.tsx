@@ -66,6 +66,54 @@ describe('Stack Component', () => {
     expect(container.firstElementChild?.className).not.toBe('');
   });
 
+  it('aligns items with alignX="center"', () => {
+    const { container } = render(
+      <Stack gap={2} alignX="center">
+        Content
+      </Stack>,
+    );
+
+    expect(container.firstElementChild).toHaveClass(
+      atoms({ alignItems: 'center' }),
+    );
+  });
+
+  it('accepts no physical keys for alignX', () => {
+    render(
+      // @ts-expect-error use alignX="start"
+      <Stack gap={2} alignX="left">
+        Content
+      </Stack>,
+    );
+  });
+
+  it.each([
+    ['start', 'flex-start'],
+    ['end', 'flex-end'],
+    ['center', 'center'],
+    ['between', 'space-between'],
+    ['around', 'space-around'],
+  ] as const)('justifies content with alignY="%s"', (alignY, justifyContent) => {
+    const { container } = render(
+      <Stack gap={2} alignY={alignY}>
+        Content
+      </Stack>,
+    );
+
+    expect(container.firstElementChild).toHaveClass(atoms({ justifyContent }));
+  });
+
+  it('keeps alignY off the DOM', () => {
+    const { container } = render(
+      <Stack gap={2} alignY="between">
+        Content
+      </Stack>,
+    );
+
+    expect(container.firstElementChild).not.toHaveAttribute('alignY');
+    expect(container.firstElementChild).not.toHaveAttribute('aligny');
+  });
+
   it('renders HTML attributes on the element', () => {
     render(
       <Stack id="x" aria-labelledby="h" data-test="s" gap={2}>

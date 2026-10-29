@@ -1,6 +1,6 @@
 export const justifyContentMap = {
-  left: 'flex-start',
-  right: 'flex-end',
+  start: 'flex-start',
+  end: 'flex-end',
   center: 'center',
   between: 'space-between',
   around: 'space-around',
@@ -9,8 +9,8 @@ export const justifyContentMap = {
 export type JustifyContentMap = typeof justifyContentMap;
 
 export const alignItemsMap = {
-  left: 'flex-start',
-  right: 'flex-end',
+  start: 'flex-start',
+  end: 'flex-end',
   center: 'center',
   stretch: 'stretch',
 } as const;

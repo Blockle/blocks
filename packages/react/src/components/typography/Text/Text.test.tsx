@@ -71,6 +71,25 @@ describe('Text Component', () => {
     );
   });
 
+  it('applies a logical textAlign', () => {
+    const { container } = render(<Text textAlign="end">Text</Text>);
+
+    expect(container.querySelector('span')).toHaveClass(
+      atoms({ textAlign: 'end' }),
+    );
+  });
+
+  it('accepts no physical keys for textAlign', () => {
+    render(
+      <>
+        {/* @ts-expect-error use textAlign="start" */}
+        <Text textAlign="left">Text</Text>
+        {/* @ts-expect-error use textAlign="end" */}
+        <Text textAlign="right">Text</Text>
+      </>,
+    );
+  });
+
   describe('overflow', () => {
     afterEach(() => {
       vi.restoreAllMocks();

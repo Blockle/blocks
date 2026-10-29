@@ -1,4 +1,8 @@
-import { atomicProperties } from '@blockle/blocks-core';
+import {
+  alignItemsMap,
+  atomicProperties,
+  justifyContentMap,
+} from '@blockle/blocks-core';
 
 import preview from '../../../../../../.storybook/preview.js';
 import { Inline } from './Inline.js';
@@ -7,6 +11,14 @@ const meta = preview.meta({
   title: 'Layout/Inline',
   component: Inline,
   argTypes: {
+    alignX: {
+      control: 'select',
+      options: Object.keys(justifyContentMap),
+    },
+    alignY: {
+      control: 'select',
+      options: Object.keys(alignItemsMap),
+    },
     gap: {
       name: 'gap',
       control: 'select',
