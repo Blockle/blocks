@@ -16,6 +16,26 @@ describe('Stack Component', () => {
     expect(container.querySelector('div')).toHaveTextContent('Content');
   });
 
+  it('renders a div with the layout classes and a className', () => {
+    const { container } = render(
+      <Stack gap={2} className="custom">
+        Content
+      </Stack>,
+    );
+
+    const element = container.firstElementChild;
+
+    expect(element?.tagName).toBe('DIV');
+    expect(element).toHaveClass(
+      'custom',
+      atoms({
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 2,
+      }),
+    );
+  });
+
   it('has no tag prop, and renders a div', () => {
     const { container } = render(
       // @ts-expect-error tag was removed, use asChild

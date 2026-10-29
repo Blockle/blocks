@@ -16,6 +16,27 @@ describe('Inline Component', () => {
     expect(container.querySelector('div')).toHaveTextContent('Content');
   });
 
+  it('renders a div with the layout classes and a className', () => {
+    const { container } = render(
+      <Inline gap={2} className="custom">
+        Content
+      </Inline>,
+    );
+
+    const element = container.firstElementChild;
+
+    expect(element?.tagName).toBe('DIV');
+    expect(element).toHaveClass(
+      'custom',
+      atoms({
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: 2,
+      }),
+    );
+  });
+
   it('has no tag prop, and renders a div', () => {
     const { container } = render(
       // @ts-expect-error tag was removed, use asChild
