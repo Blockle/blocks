@@ -10,7 +10,6 @@ import * as styles from './checkbox.css.js';
 
 export type CheckboxProps = {
   children?: React.ReactNode;
-  name: string;
   required?: boolean;
 } & HTMLElementProps<HTMLInputElement>;
 
@@ -18,7 +17,6 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   children,
   className,
   id,
-  name,
   required,
   ...restProps
 }) => {
@@ -38,7 +36,6 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     >
       <input
         type="checkbox"
-        name={name}
         id={inputId}
         className={styles.input}
         {...restProps}

@@ -13,7 +13,6 @@ import * as styles from './TextInput.css.js';
 export type TextInputProps = {
   inputClassName?: string;
   endSlot?: React.ReactNode;
-  name: string;
   startSlot?: React.ReactNode;
   type?: OptionalLiteral<
     'email' | 'number' | 'password' | 'tel' | 'text' | 'url'
@@ -25,7 +24,6 @@ export const TextInput: React.FC<TextInputProps> = ({
   className,
   inputClassName,
   endSlot,
-  name,
   placeholder,
   startSlot,
   type = 'text',
@@ -48,7 +46,6 @@ export const TextInput: React.FC<TextInputProps> = ({
         {startSlot}
 
         <input
-          name={name}
           type={type}
           placeholder={placeholder}
           className={classnames(styles.input, inputStyles, inputClassName)}
