@@ -60,6 +60,15 @@ describe('atoms', () => {
     );
   });
 
+  it('returns a class for minInlineSize 0', () => {
+    const className = atoms({ minInlineSize: 0 });
+
+    expect(className).toBeTruthy();
+    expect(className).toBe(
+      atomicProperties.minInlineSize.values[0].defaultClass,
+    );
+  });
+
   it('returns empty string for unknown property', () => {
     // @ts-expect-error testing unknown property
     expect(atoms({ unknown: 'value' })).toBe('');
