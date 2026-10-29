@@ -16,62 +16,45 @@ describe('Inline Component', () => {
     expect(container.querySelector('div')).toHaveTextContent('Content');
   });
 
-  it('renders a custom tag', () => {
+  it('renders a div with the layout classes and a className', () => {
     const { container } = render(
+      <Inline gap={2} className="custom">
+        Content
+      </Inline>,
+    );
+
+    const element = container.firstElementChild;
+
+    expect(element?.tagName).toBe('DIV');
+    expect(element).toHaveClass(
+      'custom',
+      atoms({
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: 2,
+      }),
+    );
+  });
+
+  it('has no tag prop, and renders a div', () => {
+    const { container } = render(
+      // @ts-expect-error tag was removed, use asChild
       <Inline tag="nav" gap={2}>
         Content
       </Inline>,
     );
 
-    expect(container.querySelector('nav')).toBeInTheDocument();
+    expect(container.querySelector('nav')).not.toBeInTheDocument();
+    expect(container.firstElementChild?.tagName).toBe('DIV');
   });
 
-  it.each([
-    'ul',
-    'ol',
-  ] as const)('drops the list markers for tag="%s"', (tag) => {
-    const { container } = render(
-      <Inline tag={tag} gap={2}>
-        <li>Item</li>
-      </Inline>,
-    );
+  it('adds no listStyle class', () => {
+    const { container } = render(<Inline gap={2}>Content</Inline>);
 
-    expect(container.querySelector(tag)).toHaveClass(
+    expect(container.querySelector('div')).not.toHaveClass(
       atoms({ listStyle: 'none' }),
     );
-  });
-
-  it.each([
-    'div',
-    'nav',
-  ] as const)('adds no listStyle class for tag="%s"', (tag) => {
-    const { container } = render(
-      <Inline tag={tag} gap={2}>
-        Content
-      </Inline>,
-    );
-
-    expect(container.querySelector(tag)).not.toHaveClass(
-      atoms({ listStyle: 'none' }),
-    );
-  });
-
-  it('adds no role itself, and renders a role passed to it', () => {
-    const { container, rerender } = render(
-      <Inline tag="ol" gap={2}>
-        <li>Item</li>
-      </Inline>,
-    );
-
-    expect(container.querySelector('ol')).not.toHaveAttribute('role');
-
-    rerender(
-      <Inline tag="ol" gap={2} role="list">
-        <li>Item</li>
-      </Inline>,
-    );
-
-    expect(container.querySelector('ol')).toHaveAttribute('role', 'list');
   });
 
   it('accepts additional atoms such as background and alignItems', () => {
@@ -86,16 +69,15 @@ describe('Inline Component', () => {
 
   it('renders HTML attributes on the element', () => {
     render(
-      <Inline tag="ul" id="x" aria-labelledby="h" data-test="s" gap={2}>
-        <li>Item</li>
+      <Inline id="x" aria-labelledby="h" data-test="s" gap={2}>
+        Content
       </Inline>,
     );
 
-    const list = screen.getByRole('list');
+    const element = document.getElementById('x');
 
-    expect(list).toHaveAttribute('id', 'x');
-    expect(list).toHaveAttribute('aria-labelledby', 'h');
-    expect(list).toHaveAttribute('data-test', 's');
+    expect(element).toHaveAttribute('aria-labelledby', 'h');
+    expect(element).toHaveAttribute('data-test', 's');
   });
 
   it('fires onClick and onKeyDown on the element', () => {
@@ -124,12 +106,12 @@ describe('Inline Component', () => {
     const ref = createRef<HTMLElement>();
 
     render(
-      <Inline ref={ref} tag="nav" gap={2}>
+      <Inline ref={ref} data-testid="inline" gap={2}>
         Content
       </Inline>,
     );
 
-    expect(ref.current).toBe(screen.getByRole('navigation'));
+    expect(ref.current).toBe(screen.getByTestId('inline'));
   });
 
   describe('asChild', () => {
@@ -166,21 +148,52 @@ describe('Inline Component', () => {
       expect(ref.current).toBe(screen.getByRole('toolbar'));
     });
 
-    it('ignores tag without logging, and applies no tag-based defaults', () => {
-      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
-      const error = vi.spyOn(console, 'error').mockImplementation(() => {});
+    it.each([
+      'ol',
+      'nav',
+    ] as const)('renders a single %s with the layout and listStyle classes', (Tag) => {
       const { container } = render(
-        <Inline asChild tag="ul" gap={1}>
-          <span>Content</span>
+        <Inline asChild gap={2} listStyle="none">
+          <Tag>Content</Tag>
         </Inline>,
       );
 
-      expect(container.querySelector('ul')).not.toBeInTheDocument();
-      expect(container.querySelector('span')).not.toHaveClass(
+      expect(container.childElementCount).toBe(1);
+      expect(container.firstElementChild?.tagName).toBe(Tag.toUpperCase());
+      expect(container.firstElementChild).toHaveClass(
+        atoms({
+          display: 'flex',
+          flexDirection: 'row',
+          gap: 2,
+          listStyle: 'none',
+        }),
+      );
+    });
+
+    it('adds no listStyle class to a list child on its own', () => {
+      render(
+        <Inline asChild gap={2}>
+          <ol>
+            <li>Item</li>
+          </ol>
+        </Inline>,
+      );
+
+      expect(screen.getByRole('list')).not.toHaveClass(
         atoms({ listStyle: 'none' }),
       );
-      expect(warn).not.toHaveBeenCalled();
-      expect(error).not.toHaveBeenCalled();
+    });
+
+    it('renders a role passed to it on the child', () => {
+      render(
+        <Inline asChild gap={2} listStyle="none" role="list">
+          <ol>
+            <li>Item</li>
+          </ol>
+        </Inline>,
+      );
+
+      expect(screen.getByRole('list')).toHaveAttribute('role', 'list');
     });
   });
 });
