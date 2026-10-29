@@ -18,5 +18,6 @@ export const Default = meta.story({
     children: 'This is an alert message.',
     open: true,
     onRequestClose: action('onRequestClose'),
+    closeLabel: 'Close',
   },
 });
