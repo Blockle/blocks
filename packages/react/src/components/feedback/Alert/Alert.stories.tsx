@@ -6,7 +6,12 @@ import { Alert } from './Alert.js';
 const meta = preview.meta({
   title: 'Feedback/Alert',
   component: Alert,
-  argTypes: {},
+  argTypes: {
+    intent: {
+      control: 'select',
+      options: ['info', 'success', 'warning', 'danger'],
+    },
+  },
 });
 
 export const Default = meta.story({
@@ -16,7 +21,7 @@ export const Default = meta.story({
 
   args: {
     children: 'This is an alert message.',
-    open: true,
+    intent: 'info',
     onRequestClose: action('onRequestClose'),
     closeLabel: 'Close',
   },

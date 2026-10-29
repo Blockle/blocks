@@ -1,17 +1,19 @@
 import type { Atoms } from '../atoms/atoms.js';
 import type { RecordLike } from '../utils/typing/helpers.js';
-import type { ColorRoles } from './themeTokens.js';
+import type { ColorRoles, Intent } from './themeTokens.js';
 
 // Shared variant type definitions
-type Intent = 'error' | 'info' | 'success' | 'warning';
-type AlertIntent = Intent;
-type ToastIntent = 'neutral' | Intent;
+type AlertIntent = Extract<Intent, 'danger' | 'info' | 'success' | 'warning'>;
+type ToastIntent = Extract<
+  Intent,
+  'neutral' | 'danger' | 'info' | 'success' | 'warning'
+>;
 type ButtonVariant = 'solid' | 'outline' | 'ghost';
 type InputVariant = 'solid' | 'outline';
 type LinkVariant = 'inherit' | 'primary' | 'secondary';
 type Size = 'small' | 'medium' | 'large';
 type IconSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
-type SliderTooltipIntent = 'primary' | 'secondary';
+type SliderTooltipIntent = Extract<Intent, 'primary' | 'secondary'>;
 
 /**
  * Theming options for components.
@@ -28,7 +30,10 @@ export type ButtonTheme = {
   root: string;
   variants: {
     variant: ButtonVariant;
-    intent: 'neutral' | 'primary' | 'secondary' | 'danger' | 'success';
+    intent: Extract<
+      Intent,
+      'neutral' | 'primary' | 'secondary' | 'danger' | 'success'
+    >;
     size: Size;
     loading: boolean;
     disabled: boolean;
