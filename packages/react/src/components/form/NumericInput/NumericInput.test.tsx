@@ -34,11 +34,18 @@ describe('NumericInput', () => {
   });
 
   it('does not pass the label props to the input', () => {
-    render(<NumericInput name="amount" decrementLabel="Verlagen" />);
-
-    expect(screen.getByRole('spinbutton')).not.toHaveAttribute(
-      'decrementLabel',
+    render(
+      <NumericInput
+        name="amount"
+        decrementLabel="Verlagen"
+        incrementLabel="Verhogen"
+      />,
     );
+
+    const input = screen.getByRole('spinbutton');
+
+    expect(input).not.toHaveAttribute('decrementLabel');
+    expect(input).not.toHaveAttribute('incrementLabel');
   });
 
   it('steps the value with the step buttons', async () => {

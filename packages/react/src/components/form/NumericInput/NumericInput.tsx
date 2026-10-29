@@ -24,6 +24,19 @@ export type NumericInputProps = {
   step?: number;
 } & TextInputProps;
 
+const StepIcon: React.FC<{ path: string }> = ({ path }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    aria-hidden="true"
+  >
+    <path d={path} />
+  </svg>
+);
+
 export const NumericInput: React.FC<NumericInputProps> = ({
   decrementLabel = 'Decrease',
   incrementLabel = 'Increase',
@@ -64,16 +77,7 @@ export const NumericInput: React.FC<NumericInputProps> = ({
           size="small"
           onClick={onDecrement}
         >
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            aria-hidden="true"
-          >
-            <path d="M5 12h14" />
-          </svg>
+          <StepIcon path="M5 12h14" />
         </IconButton>
       }
       endSlot={
@@ -83,16 +87,7 @@ export const NumericInput: React.FC<NumericInputProps> = ({
           size="small"
           onClick={onIncrement}
         >
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            aria-hidden="true"
-          >
-            <path d="M12 5v14M5 12h14" />
-          </svg>
+          <StepIcon path="M12 5v14M5 12h14" />
         </IconButton>
       }
       onKeyDown={onKeyDown}
