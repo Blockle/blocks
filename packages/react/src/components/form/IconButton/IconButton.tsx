@@ -18,11 +18,23 @@ import { buttonReset } from '../Button/Button.css.js';
 
 type IconButtonTheme = ComponentThemes['iconButton'];
 
+type IconButtonIntentProps =
+  | {
+      /**
+       * Use the surrounding text color; only for the ghost and outline variants
+       */
+      intent: 'inherit';
+      variant: Exclude<IconButtonTheme['variants']['variant'], 'solid'>;
+    }
+  | {
+      intent?: Exclude<IconButtonTheme['variants']['intent'], 'inherit'>;
+      variant?: IconButtonTheme['variants']['variant'];
+    };
+
 export type IconButtonProps = {
   asChild?: boolean;
   children: React.ReactNode;
   disabled?: boolean;
-  intent?: IconButtonTheme['variants']['intent'];
   /**
    * Accessible name of the button, rendered as `aria-label`
    */
@@ -31,8 +43,8 @@ export type IconButtonProps = {
   shape?: IconButtonTheme['variants']['shape'];
   size?: IconButtonTheme['variants']['size'];
   type?: 'button' | 'submit' | 'reset';
-  variant?: IconButtonTheme['variants']['variant'];
-} & Omit<HTMLElementProps<HTMLButtonElement>, 'size'> &
+} & IconButtonIntentProps &
+  Omit<HTMLElementProps<HTMLButtonElement>, 'size'> &
   MarginAtoms;
 
 const [Template, Slot] = createSlottable('button');

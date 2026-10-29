@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { render } from '../../../testUtils/browser/render.js';
+import { Alert } from '../../feedback/Alert/Alert.js';
 import { Button } from '../Button/Button.js';
 import { IconButton } from './IconButton.js';
 
@@ -81,4 +82,37 @@ describe('IconButton geometry (browser)', () => {
     expect(inner?.left).toBe(outer.left + 14);
     expect(inner?.top).toBe(outer.top + 14);
   });
+});
+
+describe('IconButton intent="inherit" (browser)', () => {
+  for (const intent of ['danger', 'warning', 'info'] as const) {
+    for (const variant of ['ghost', 'outline'] as const) {
+      it(`takes the text color of a ${intent} Alert as a ${variant} button`, async () => {
+        const screen = await render(
+          <Alert
+            intent={intent}
+            endSlot={
+              <IconButton label="Close" intent="inherit" variant={variant}>
+                {icon}
+              </IconButton>
+            }
+          >
+            Heads up
+          </Alert>,
+        );
+        const alertColor = getComputedStyle(
+          screen.getByRole('alert').element(),
+        ).color;
+        const style = getComputedStyle(screen.getByRole('button').element());
+
+        expect(style.color).toBe(alertColor);
+
+        if (variant === 'outline') {
+          expect(style.borderColor).toBe(alertColor);
+        }
+
+        await screen.unmount();
+      });
+    }
+  }
 });

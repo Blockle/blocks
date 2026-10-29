@@ -10,7 +10,7 @@ To migrate a dismissable Alert, compose the button in `endSlot`, bringing your o
 ```tsx
 <Alert
   endSlot={
-    <IconButton label="Close" variant="ghost" size="small" intent="neutral" onClick={onClose}>
+    <IconButton label="Close" variant="ghost" size="small" intent="inherit" onClick={onClose}>
       <CloseIcon />
     </IconButton>
   }

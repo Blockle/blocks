@@ -111,4 +111,11 @@ export const buttonIntent = {
       [contrastColor]: vars.colorRole.danger.contrast,
     },
   }),
+  // Takes the surrounding text color; only used with the ghost and outline variants
+  inherit: style({
+    vars: {
+      [solidColor]: 'currentColor',
+      [subtleColor]: 'color-mix(in srgb, currentColor 12%, transparent)',
+    },
+  }),
 };

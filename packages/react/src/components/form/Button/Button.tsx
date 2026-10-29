@@ -19,6 +19,19 @@ import * as styles from './Button.css.js';
 
 type ButtonTheme = ComponentThemes['button'];
 
+type ButtonIntentProps =
+  | {
+      /**
+       * Use the surrounding text color; only for the ghost and outline variants
+       */
+      intent: 'inherit';
+      variant: Exclude<ButtonTheme['variants']['variant'], 'solid'>;
+    }
+  | {
+      intent?: Exclude<ButtonTheme['variants']['intent'], 'inherit'>;
+      variant?: ButtonTheme['variants']['variant'];
+    };
+
 export type ButtonProps = {
   alignSelf?: Atoms['alignSelf'];
   asChild?: boolean;
@@ -26,14 +39,13 @@ export type ButtonProps = {
   disabled?: boolean;
   endSlot?: React.ReactNode;
   inlineSize?: Atoms['inlineSize'];
-  intent?: ButtonTheme['variants']['intent'];
   loading?: boolean;
   popovertarget?: string;
   size?: ButtonTheme['variants']['size'];
   startSlot?: React.ReactNode;
   type?: 'button' | 'submit' | 'reset';
-  variant?: ButtonTheme['variants']['variant'];
-} & Omit<HTMLElementProps<HTMLButtonElement>, 'size'> &
+} & ButtonIntentProps &
+  Omit<HTMLElementProps<HTMLButtonElement>, 'size'> &
   MarginAtoms;
 
 const [Template, Slot] = createSlottable('button');

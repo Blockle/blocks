@@ -18,6 +18,27 @@ describe('IconButton', () => {
     render(<IconButton>{icon}</IconButton>);
   });
 
+  it('takes intent="inherit" only with a ghost or outline variant', () => {
+    render(
+      <>
+        <IconButton label="Ghost" intent="inherit" variant="ghost">
+          {icon}
+        </IconButton>
+        <IconButton label="Outline" intent="inherit" variant="outline">
+          {icon}
+        </IconButton>
+        {/* @ts-expect-error: the default variant is solid, which can't inherit */}
+        <IconButton label="Default" intent="inherit">
+          {icon}
+        </IconButton>
+        {/* @ts-expect-error: a solid button can't inherit */}
+        <IconButton label="Solid" intent="inherit" variant="solid">
+          {icon}
+        </IconButton>
+      </>,
+    );
+  });
+
   it('defaults the type to button', () => {
     render(<IconButton label="Close">{icon}</IconButton>);
 

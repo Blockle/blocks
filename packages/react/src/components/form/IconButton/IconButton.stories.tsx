@@ -2,6 +2,7 @@ import { action } from 'storybook/actions';
 
 import preview from '../../../../../../.storybook/preview.js';
 import { HeroIcon } from '../../display/Icon/exampleIconMask.js';
+import { Box } from '../../layout/Box/Box.js';
 import { Inline } from '../../layout/Inline/Inline.js';
 import { Tooltip } from '../../overlay/Tooltip/Tooltip.js';
 import { Button } from '../Button/Button.js';
@@ -32,7 +33,8 @@ const meta = preview.meta({
 export const Default = meta.story({});
 
 export const Variants = meta.story({
-  render: (props) => (
+  // Left out because a solid button can't take intent="inherit"
+  render: ({ intent: _intent, ...props }) => (
     <Inline gap={3}>
       <IconButton {...props} variant="solid" />
       <IconButton {...props} variant="outline" />
@@ -50,6 +52,18 @@ export const Intents = meta.story({
       <IconButton {...props} intent="success" />
       <IconButton {...props} intent="danger" />
     </Inline>
+  ),
+});
+
+export const InheritColor = meta.story({
+  render: ({ intent: _intent, variant: _variant, ...props }) => (
+    <Box color="success-700">
+      <Inline gap={3} alignY="center">
+        Saved
+        <IconButton {...props} intent="inherit" variant="ghost" />
+        <IconButton {...props} intent="inherit" variant="outline" />
+      </Inline>
+    </Box>
   ),
 });
 

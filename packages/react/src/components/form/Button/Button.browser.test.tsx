@@ -99,4 +99,48 @@ describe('Button colors (browser)', () => {
       }
     });
   });
+
+  describe('inherit', () => {
+    const surrounding = 'rgb(0, 128, 0)';
+
+    for (const variant of ['ghost', 'outline'] as const) {
+      it(`takes the surrounding text color as a ${variant} button`, async () => {
+        const screen = await render(
+          <div style={{ color: surrounding }}>
+            <Button intent="inherit" variant={variant}>
+              Save
+            </Button>
+          </div>,
+        );
+        const style = styleOf(screen.getByRole('button').element());
+
+        expect(style.color).toBe(surrounding);
+        expect(style.backgroundColor).toBe('rgba(0, 0, 0, 0)');
+
+        if (variant === 'outline') {
+          expect(style.borderColor).toBe(surrounding);
+        }
+
+        await screen.unmount();
+      });
+
+      it(`tints a hovered ${variant} button with the surrounding text color`, async () => {
+        const screen = await render(
+          <div style={{ color: surrounding }}>
+            <Button intent="inherit" variant={variant}>
+              Save
+            </Button>
+          </div>,
+        );
+        const button = screen.getByRole('button');
+
+        await button.hover();
+        expect(styleOf(button.element()).backgroundColor).toBe(
+          'color(srgb 0 0.501961 0 / 0.12)',
+        );
+        await button.unhover();
+        await screen.unmount();
+      });
+    }
+  });
 });

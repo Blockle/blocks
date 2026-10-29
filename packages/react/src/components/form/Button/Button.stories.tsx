@@ -2,6 +2,8 @@ import { action } from 'storybook/actions';
 
 import preview from '../../../../../../.storybook/preview.js';
 import { HeroIcon } from '../../display/Icon/exampleIconMask.js';
+import { Box } from '../../layout/Box/Box.js';
+import { Inline } from '../../layout/Inline/Inline.js';
 import { Button } from './Button.js';
 
 const meta = preview.meta({
@@ -14,6 +16,22 @@ export const Primary = meta.story({
     children: 'Button',
     onClick: action('button-clicked'),
   },
+});
+
+export const InheritColor = meta.story({
+  render: () => (
+    <Box color="success-700">
+      <Inline gap={3} alignY="center">
+        Saved
+        <Button intent="inherit" variant="ghost" onClick={action('undo')}>
+          Undo
+        </Button>
+        <Button intent="inherit" variant="outline" onClick={action('view')}>
+          View
+        </Button>
+      </Inline>
+    </Box>
+  ),
 });
 
 export const LinkButton = meta.story({
