@@ -26,6 +26,12 @@ _Avoid_: Color pair, tuple, light-dark value
 A theme's scales of fixed shades, such as `primary-700`. A shade is the same color in every Color mode.
 _Avoid_: Color scale, ramp
 
+### Styling
+
+**Atom**:
+A style prop, such as `padding` or `opacity`, whose value comes from a fixed set: a theme's token scale or a few literal values.
+_Avoid_: Style prop, sprinkle, utility class
+
 ### Overlays
 
 **Placement**:
