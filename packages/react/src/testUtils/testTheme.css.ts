@@ -22,6 +22,7 @@ export const testingTheme = makeTheme({
     divider: { root: '' },
     heading: { root: '' },
     icon: { root: '' },
+    iconButton: { root: '' },
     label: { root: '' },
     link: { root: '' },
     popover: { root: '' },
