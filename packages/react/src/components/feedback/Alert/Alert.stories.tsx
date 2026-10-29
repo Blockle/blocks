@@ -1,6 +1,7 @@
 import { action } from 'storybook/actions';
 
 import preview from '../../../../../../.storybook/preview.js';
+import { Button } from '../../form/Button/Button.js';
 import { Alert } from './Alert.js';
 
 const meta = preview.meta({
@@ -24,5 +25,22 @@ export const Default = meta.story({
     intent: 'info',
     onRequestClose: action('onRequestClose'),
     closeLabel: 'Close',
+  },
+});
+
+export const LastingNotice = meta.story({
+  render: (props) => {
+    return <Alert {...props} />;
+  },
+
+  args: {
+    children: 'This Ticket is archived.',
+    intent: 'info',
+    role: 'status',
+    action: (
+      <Button variant="outline" size="small" onClick={action('onRestore')}>
+        Restore
+      </Button>
+    ),
   },
 });
