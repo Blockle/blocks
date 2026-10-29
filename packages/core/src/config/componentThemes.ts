@@ -4,16 +4,24 @@ import type { ColorRoles, Intent } from './themeTokens.js';
 
 // Shared variant type definitions
 type AlertIntent = Extract<Intent, 'danger' | 'info' | 'success' | 'warning'>;
-type ToastIntent = Extract<
-  Intent,
-  'neutral' | 'danger' | 'info' | 'success' | 'warning'
->;
 type ButtonVariant = 'solid' | 'outline' | 'ghost';
 type InputVariant = 'solid' | 'outline';
 type LinkVariant = 'inherit' | 'primary' | 'secondary';
 type Size = 'small' | 'medium' | 'large';
 type IconSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 type SliderTooltipIntent = Extract<Intent, 'primary' | 'secondary'>;
+
+/**
+ * Where the toast stack sits on the screen: a side, and optionally which of
+ * the screen's edges it lines up with (centred when left out).
+ */
+export type ToastPlacement =
+  | 'top'
+  | 'top-start'
+  | 'top-end'
+  | 'bottom'
+  | 'bottom-start'
+  | 'bottom-end';
 
 /**
  * Theming options for components.
@@ -176,8 +184,9 @@ export type TextInputTheme = {
 
 export type ToastTheme = {
   root: string;
+  toast: string;
   variants: {
-    intent: ToastIntent;
+    placement: ToastPlacement;
   };
 };
 

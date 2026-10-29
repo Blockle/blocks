@@ -29,5 +29,5 @@ _Avoid_: Color scale, ramp
 ### Overlays
 
 **Placement**:
-Where an overlay sits relative to its anchor: a side (`top`, `right`, `bottom`, `left`), and optionally which of the anchor's edges it lines up with (`start` or `end`, centred when left out), as in `top-start`. A Drawer's Placement is a side of the screen.
+Where an overlay sits relative to its anchor: a side (`top`, `right`, `bottom`, `left`), and optionally which of the anchor's edges it lines up with (`start` or `end`, centred when left out), as in `top-start`. A Drawer's Placement is a side of the screen; a Toast's Placement uses the screen as its anchor, as in `bottom-end`.
 _Avoid_: Position, side, align

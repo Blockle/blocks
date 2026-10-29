@@ -34,7 +34,7 @@ export const testingTheme = makeTheme({
     text: { root: '' },
     textarea: { root: '', input: '' },
     textInput: { root: '', input: '' },
-    toast: { root: '' },
+    toast: { root: '', toast: '' },
     tooltip: { root: '' },
   },
   tokens: {

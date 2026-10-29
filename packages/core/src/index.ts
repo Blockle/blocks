@@ -25,6 +25,7 @@ export {
 export type {
   ComponentThemes,
   ComponentThemesProps,
+  ToastPlacement,
 } from './config/componentThemes.js';
 export type {
   ColorRoles,

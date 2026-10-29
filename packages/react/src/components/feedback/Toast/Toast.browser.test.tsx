@@ -6,7 +6,11 @@ import { resolve } from '../../../testUtils/browser/contrast.js';
 import { emulateColorScheme } from '../../../testUtils/browser/emulateColorScheme.js';
 import { render } from '../../../testUtils/browser/render.js';
 import type { AlertProps } from '../Alert/Alert.js';
-import { ToastProvider } from './ToastProvider.js';
+import {
+  type ToastPlacement,
+  ToastProvider,
+  type ToastProviderProps,
+} from './ToastProvider.js';
 import { useToast } from './useToast.js';
 
 const intents = [
@@ -96,5 +100,150 @@ describe('Toast colors (browser)', () => {
 
     expect(getComputedStyle(alert).backgroundColor).toBe(light.background);
     expect(getComputedStyle(alert).color).toBe(light.text);
+  });
+});
+
+const ShowToasts: React.FC<{ ids: string[] }> = ({ ids }) => {
+  const { showToast } = useToast();
+
+  useEffect(() => {
+    for (const id of ids) {
+      showToast({ id, children: `Toast ${id}` });
+    }
+  }, [showToast, ids]);
+
+  return null;
+};
+
+const renderPlaced = (
+  props: Omit<ToastProviderProps, 'children'>,
+  ids = ['first'],
+) =>
+  render(
+    <ToastProvider {...props}>
+      <ShowToasts ids={ids} />
+    </ToastProvider>,
+  );
+
+/** Finds the toast showing `Toast ${id}`, once its view transition has added it. */
+const findToast = (id: string) =>
+  vi.waitFor(() => {
+    const alert = [...document.querySelectorAll('[role="alert"]')].find(
+      (element) => element.textContent?.includes(`Toast ${id}`),
+    );
+
+    if (!alert) {
+      throw new Error(`No toast ${id} rendered yet`);
+    }
+
+    return alert;
+  });
+
+/** The stack holding the toasts */
+const findStack = async () => {
+  const stack = (await findToast('first')).parentElement;
+
+  if (!stack) {
+    throw new Error('Toast has no stack');
+  }
+
+  return stack;
+};
+
+/** The stack's box per the spec: at most 400px wide, flush with the screen's edges. */
+const expectedBox = (placement: ToastPlacement) => {
+  const [side, edge] = placement.split('-');
+  const width = Math.min(window.innerWidth, 400);
+  const left =
+    edge === 'start'
+      ? 0
+      : edge === 'end'
+        ? window.innerWidth - width
+        : (window.innerWidth - width) / 2;
+
+  return { side, left, width };
+};
+
+const expectStackAt = (stack: HTMLElement, placement: ToastPlacement) => {
+  const box = stack.getBoundingClientRect();
+  const { side, left, width } = expectedBox(placement);
+
+  expect(box.width).toBeCloseTo(width, 0);
+  expect(box.left).toBeCloseTo(left, 0);
+
+  if (side === 'top') {
+    expect(box.top).toBeCloseTo(0, 0);
+  } else {
+    expect(box.bottom).toBeCloseTo(window.innerHeight, 0);
+  }
+};
+
+const placements: ToastPlacement[] = [
+  'top',
+  'top-start',
+  'top-end',
+  'bottom',
+  'bottom-start',
+  'bottom-end',
+];
+
+describe('Toast placement (browser)', () => {
+  it('places the stack at the bottom by default', async () => {
+    await renderPlaced({});
+
+    expectStackAt(await findStack(), 'bottom');
+  });
+
+  for (const placement of placements) {
+    it(`places the stack at ${placement}`, async () => {
+      await renderPlaced({ placement });
+
+      expectStackAt(await findStack(), placement);
+    });
+  }
+
+  const positions = [
+    ['top-left', 'top-start'],
+    ['top-center', 'top'],
+    ['top-right', 'top-end'],
+    ['bottom-left', 'bottom-start'],
+    ['bottom-center', 'bottom'],
+    ['bottom-right', 'bottom-end'],
+  ] as const;
+
+  for (const [position, placement] of positions) {
+    it(`maps the deprecated position ${position} to ${placement}`, async () => {
+      await renderPlaced({ position });
+
+      expectStackAt(await findStack(), placement);
+    });
+  }
+
+  it('prefers placement over the deprecated position', async () => {
+    await renderPlaced({ placement: 'bottom-end', position: 'top-left' });
+
+    expectStackAt(await findStack(), 'bottom-end');
+  });
+
+  it('puts the newest toast nearest the top edge for a top placement', async () => {
+    await renderPlaced({ placement: 'top' }, ['first', 'second']);
+
+    const first = await findToast('first');
+    const second = await findToast('second');
+
+    expect(second.getBoundingClientRect().top).toBeLessThan(
+      first.getBoundingClientRect().top,
+    );
+  });
+
+  it('puts the newest toast nearest the bottom edge for a bottom placement', async () => {
+    await renderPlaced({ placement: 'bottom' }, ['first', 'second']);
+
+    const first = await findToast('first');
+    const second = await findToast('second');
+
+    expect(second.getBoundingClientRect().bottom).toBeGreaterThan(
+      first.getBoundingClientRect().bottom,
+    );
   });
 });
