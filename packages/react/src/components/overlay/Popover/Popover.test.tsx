@@ -1,4 +1,5 @@
 import { userEvent } from '@testing-library/user-event';
+import { createRef } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
 import {
@@ -93,6 +94,71 @@ describe('Popover', () => {
 
     expect(popover?.style.top).toBeTruthy();
     expect(popover?.style.left).toBeTruthy();
+  });
+
+  describe('with a passed ref', () => {
+    it('gives an object ref the popover element', () => {
+      const ref = createRef<HTMLDivElement>();
+      render(<Popover {...defaultProps} open ref={ref} />);
+
+      expect(ref.current).toBe(
+        screen.getByText('Popover Content').parentElement,
+      );
+    });
+
+    it('gives a callback ref the popover element', () => {
+      const ref = vi.fn();
+      render(<Popover {...defaultProps} open ref={ref} />);
+
+      expect(ref).toHaveBeenCalledWith(
+        screen.getByText('Popover Content').parentElement,
+      );
+    });
+
+    it('shows and positions the popover', () => {
+      const showPopover = vi.spyOn(HTMLElement.prototype, 'showPopover');
+      const anchorElement = document.createElement('div');
+      document.body.appendChild(anchorElement);
+
+      try {
+        render(
+          <Popover
+            {...defaultProps}
+            anchorElement={{ current: anchorElement }}
+            open
+            ref={createRef()}
+          />,
+        );
+        const popover = screen.getByText('Popover Content').parentElement;
+
+        expect(showPopover).toHaveBeenCalled();
+        expect(showPopover.mock.contexts).toContain(popover);
+        expect(popover?.style.top).toBeTruthy();
+        expect(popover?.style.left).toBeTruthy();
+      } finally {
+        showPopover.mockRestore();
+        anchorElement.remove();
+      }
+    });
+
+    it('requests to close on a click outside', async () => {
+      const user = userEvent.setup();
+      const onRequestClose = vi.fn();
+      render(
+        <Popover
+          {...defaultProps}
+          onRequestClose={onRequestClose}
+          open
+          ref={createRef()}
+        />,
+      );
+
+      // The listeners attach on the next frame
+      await new Promise(requestAnimationFrame);
+      await user.click(document.body);
+
+      expect(onRequestClose).toHaveBeenCalledWith('outside-click');
+    });
   });
 
   it('should hide the popover after animation ends when open is false', () => {
