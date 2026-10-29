@@ -5,6 +5,7 @@ import type React from 'react';
 import { useId } from 'react';
 
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
+import { CheckIcon } from '../../../icons/icons.js';
 import { Label } from '../Label/Label.js';
 import * as styles from './checkbox.css.js';
 
@@ -41,7 +42,9 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         {...restProps}
       />
       <div className={classnames(styles.icon, iconClassName)} aria-hidden>
-        <DefaultIcon />
+        <CheckIcon
+          style={{ width: '1rem', height: '1rem', display: 'block' }}
+        />
       </div>
     </div>
   );
@@ -59,26 +62,5 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         </Label>
       )}
     </span>
-  );
-};
-
-// Icon from https://heroicons.com/
-const DefaultIcon: React.FC = () => {
-  return (
-    // TOOD - replace with actual icon component renderer
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      strokeWidth="1.5"
-      stroke="currentColor"
-      style={{ width: '1rem', height: '1rem', display: 'block' }}
-      role="presentation"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="m4.5 12.75 6 6 9-13.5"
-      />
-    </svg>
   );
 };

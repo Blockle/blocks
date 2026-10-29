@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
+import { CloseIcon } from '../../../icons/icons.js';
 import { IconButton } from '../../form/IconButton/IconButton.js';
 import { Alert } from '../Alert/Alert.js';
 import * as styles from './Toast.css.js';
@@ -29,19 +30,6 @@ function makeTransition(transition: () => void) {
     transition();
   }
 }
-
-const CloseIcon: React.FC = () => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    aria-hidden="true"
-  >
-    <path d="M18 6 6 18M6 6l12 12" />
-  </svg>
-);
 
 export type { ToastPlacement };
 
