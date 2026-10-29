@@ -28,12 +28,22 @@ const meta = preview.meta({
       </Button>
     );
   },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A toast with a `duration` removes itself once that time has run. The countdown pauses while any toast is hovered or focused, or the page is hidden, and then continues with the time left. Leave out `duration` for a toast that contains an action, such as an "Undo" button, so nobody loses the action before they can use it.',
+      },
+    },
+  },
   argTypes: {
     intent: {
       control: 'select',
       options: ['info', 'success', 'warning', 'danger'],
     },
     duration: {
+      description:
+        'Milliseconds before the toast removes itself. Leave it out for a toast that contains an action.',
       control: 'select',
       options: [0, 3000, 5000],
       labels: ['Persistent', '3 seconds', '5 seconds'],
