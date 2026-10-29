@@ -53,5 +53,6 @@ export const List = meta.story({
       </>
     ),
     tag: 'ol',
+    role: 'list',
   },
 });

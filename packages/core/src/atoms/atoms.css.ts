@@ -35,6 +35,7 @@ const unresponsiveAtomicProperties = defineProperties({
     insetInlineEnd: [0],
     insetInlineStart: [0],
     lineHeight: vars.lineHeight,
+    listStyle: ['none'],
     maxBlockSize: size,
     maxInlineSize: size,
     minInlineSize: [0],

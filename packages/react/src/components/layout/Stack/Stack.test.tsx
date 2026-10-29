@@ -1,3 +1,4 @@
+import { atoms } from '@blockle/blocks-core';
 import { render } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
@@ -18,6 +19,54 @@ describe('Stack Component', () => {
     );
 
     expect(container.querySelector('ul')).toBeInTheDocument();
+  });
+
+  it.each([
+    'ul',
+    'ol',
+  ] as const)('drops the list markers for tag="%s"', (tag) => {
+    const { container } = render(
+      <Stack tag={tag} gap={2}>
+        <li>Item</li>
+      </Stack>,
+    );
+
+    expect(container.querySelector(tag)).toHaveClass(
+      atoms({ listStyle: 'none' }),
+    );
+  });
+
+  it.each([
+    'div',
+    'section',
+  ] as const)('adds no listStyle class for tag="%s"', (tag) => {
+    const { container } = render(
+      <Stack tag={tag} gap={2}>
+        Content
+      </Stack>,
+    );
+
+    expect(container.querySelector(tag)).not.toHaveClass(
+      atoms({ listStyle: 'none' }),
+    );
+  });
+
+  it('adds no role itself, and renders a role passed to it', () => {
+    const { container, rerender } = render(
+      <Stack tag="ul" gap={2}>
+        <li>Item</li>
+      </Stack>,
+    );
+
+    expect(container.querySelector('ul')).not.toHaveAttribute('role');
+
+    rerender(
+      <Stack tag="ul" gap={2} role="list">
+        <li>Item</li>
+      </Stack>,
+    );
+
+    expect(container.querySelector('ul')).toHaveAttribute('role', 'list');
   });
 
   it('accepts additional atoms such as background and alignItems', () => {

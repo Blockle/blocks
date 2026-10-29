@@ -8,6 +8,11 @@ import { Box } from '../Box/Box.js';
 
 export type StackProps = {
   alignX?: keyof AlignItemsMap;
+  /**
+   * With `ul` or `ol`, the list markers are dropped (`listStyle="none"`).
+   * WebKit then no longer exposes the element as a list, so pass
+   * `role="list"` when list semantics matter.
+   */
   tag?: 'div' | 'section' | 'ul' | 'ol';
   children: React.ReactNode;
   className?: string;
@@ -39,6 +44,7 @@ export const Stack: React.FC<StackProps> = ({
       gap={gap}
       flexDirection="column"
       alignItems={alignX ? alignItemsMap[alignX] : undefined}
+      listStyle={Tag === 'ul' || Tag === 'ol' ? 'none' : undefined}
       {...restProps}
     >
       <Tag>{children}</Tag>
