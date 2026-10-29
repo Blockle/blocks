@@ -102,13 +102,13 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
   const hoveredIdsRef = useRef(new Set<string>());
   const focusWithinRef = useRef(false);
 
-  const removeToastNow = useCallback((id: string) => {
+  const commitRemoval = useCallback((id: string) => {
     makeTransition(() => {
       setToasts((prev) => prev.filter((toast) => toast.id !== id));
     });
   }, []);
 
-  const countdowns = useCountdowns(removeToastNow);
+  const countdowns = useCountdowns(commitRemoval);
 
   // Every toast pauses while any of them is hovered or focused, or the page
   // is hidden, so nobody loses a toast they're still reading
@@ -126,9 +126,9 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
       // A removed toast fires no pointerleave
       hoveredIdsRef.current.delete(id);
       syncPaused();
-      removeToastNow(id);
+      commitRemoval(id);
     },
-    [countdowns, syncPaused, removeToastNow],
+    [countdowns, syncPaused, commitRemoval],
   );
 
   const addToast = useCallback(
@@ -145,6 +145,9 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
 
         return [...prev, toast];
       }
+
+      // Sync first, so a toast added while the page is hidden starts paused
+      syncPaused();
 
       // An update replaces the toast's countdown, so it runs the new duration
       if (toast.duration) {
@@ -164,7 +167,7 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
         setToasts(updateState);
       });
     },
-    [countdowns],
+    [countdowns, syncPaused],
   );
 
   useEffect(() => {
@@ -227,8 +230,13 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
               syncPaused();
             }}
             onBlur={(event) => {
+              const stack = stackRef.current;
+
+              // On a window blur focus stays put, so the toast keeps it
               focusWithinRef.current =
-                stackRef.current?.contains(event.relatedTarget) ?? false;
+                !!stack &&
+                (stack.contains(event.relatedTarget) ||
+                  stack.contains(document.activeElement));
               syncPaused();
             }}
             endSlot={

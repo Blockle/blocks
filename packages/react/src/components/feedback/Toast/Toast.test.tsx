@@ -1,5 +1,5 @@
 import { userEvent } from '@testing-library/user-event';
-import { useEffect } from 'react';
+import { StrictMode, useEffect } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import {
@@ -262,5 +262,38 @@ describe('Toast Auto-dismiss', () => {
     unmount();
 
     expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it('stays paused when the window loses focus while a toast has it', () => {
+    renderProvider();
+    showToast({ id: 'saved', children: 'Saved', duration: 1000 });
+
+    const close = screen.getByRole('button', { name: 'Close' });
+
+    act(() => {
+      close.focus();
+    });
+    // A window blur fires focusout with no relatedTarget, and focus stays put
+    fireEvent.focusOut(close, { relatedTarget: null });
+    advance(5000);
+
+    expect(screen.queryByText('Saved')).toBeInTheDocument();
+  });
+
+  it('counts down under StrictMode', () => {
+    render(
+      <StrictMode>
+        <ToastProvider>
+          <CaptureToast />
+        </ToastProvider>
+      </StrictMode>,
+    );
+    showToast({ id: 'saved', children: 'Saved', duration: 1000 });
+
+    advance(999);
+    expect(screen.queryByText('Saved')).toBeInTheDocument();
+
+    advance(1);
+    expect(screen.queryByText('Saved')).not.toBeInTheDocument();
   });
 });

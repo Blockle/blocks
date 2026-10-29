@@ -11,19 +11,19 @@ type Countdown = {
 export type Countdowns = {
   /** Starts a countdown of `duration` for `id`, replacing any it had */
   set: (id: string, duration: number) => void;
-  /** Drops the countdown of `id` without calling `onExpire` */
+  /** Drops the countdown of `id` without calling `onEnd` */
   clear: (id: string) => void;
   /** Pauses or resumes every countdown; a resumed one runs its time left */
   setPaused: (paused: boolean) => void;
 };
 
 /**
- * Pausable countdowns keyed by id, calling `onExpire` with the id once its
+ * Pausable countdowns keyed by id, calling `onEnd` with the id once its
  * time has run. They only count down while mounted, and are stopped on unmount.
  */
-export function useCountdowns(onExpire: (id: string) => void): Countdowns {
-  const onExpireRef = useRef(onExpire);
-  onExpireRef.current = onExpire;
+export function useCountdowns(onEnd: (id: string) => void): Countdowns {
+  const onEndRef = useRef(onEnd);
+  onEndRef.current = onEnd;
 
   const countdownsRef = useRef(new Map<string, Countdown>());
   const pausedRef = useRef(false);
@@ -34,7 +34,7 @@ export function useCountdowns(onExpire: (id: string) => void): Countdowns {
       countdown.startedAt = Date.now();
       countdown.timeout = setTimeout(() => {
         countdownsRef.current.delete(id);
-        onExpireRef.current(id);
+        onEndRef.current(id);
       }, countdown.remaining);
     }
 
