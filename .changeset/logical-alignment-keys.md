@@ -1,7 +1,7 @@
 ---
-'@blockle/blocks': major
-'@blockle/blocks-core': major
-'@blockle/blocks-react': major
+'@blockle/blocks': minor
+'@blockle/blocks-core': minor
+'@blockle/blocks-react': minor
 ---
 
 Alignment uses logical `start` and `end` keys instead of `left` and `right`, so it follows the writing direction and reads the same on both axes.
