@@ -33,6 +33,7 @@ export {
   type SpinnerProps,
 } from './components/feedback/Spinner/Spinner.js';
 export {
+  type ToastPlacement,
   ToastProvider,
   type ToastProviderProps,
 } from './components/feedback/Toast/ToastProvider.js';

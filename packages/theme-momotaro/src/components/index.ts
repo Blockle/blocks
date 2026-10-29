@@ -20,6 +20,7 @@ import { switchTheme } from './switch.css.js';
 import { text } from './text.css.js';
 import { textarea } from './textarea.css.js';
 import { textInput } from './textInput.css.js';
+import { toast } from './toast.css.js';
 import { tooltip } from './tooltip.css.js';
 
 export const components: ThemeComponentsStyles = {
@@ -43,5 +44,6 @@ export const components: ThemeComponentsStyles = {
   text,
   textarea,
   textInput,
+  toast,
   tooltip,
 };

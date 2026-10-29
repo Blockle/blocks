@@ -1,10 +1,10 @@
 'use client';
 
+import { classnames, type ToastPlacement } from '@blockle/blocks-core';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 
-import { Box } from '../../layout/Box/Box.js';
-import { Stack } from '../../layout/Stack/Stack.js';
+import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { Alert } from '../Alert/Alert.js';
 import * as styles from './Toast.css.js';
 import {
@@ -15,28 +15,63 @@ import {
 
 function makeTransition(transition: () => void) {
   if (document.startViewTransition) {
-    document.startViewTransition(() => {
+    const viewTransition = document.startViewTransition(() => {
       flushSync(() => {
         transition();
       });
     });
+
+    // A newer transition skips this one; its update still runs, so ignore the rejection
+    viewTransition.ready.catch(() => {});
   } else {
     transition();
   }
 }
 
-export type ToastProviderProps = {
-  children?: React.ReactNode;
-  position?:
-    | 'bottom-left'
-    | 'bottom-center'
-    | 'bottom-right'
-    | 'top-left'
-    | 'top-center'
-    | 'top-right';
+export type { ToastPlacement };
+
+type ToastPosition =
+  | 'bottom-left'
+  | 'bottom-center'
+  | 'bottom-right'
+  | 'top-left'
+  | 'top-center'
+  | 'top-right';
+
+const placementByPosition: Record<ToastPosition, ToastPlacement> = {
+  'bottom-left': 'bottom-start',
+  'bottom-center': 'bottom',
+  'bottom-right': 'bottom-end',
+  'top-left': 'top-start',
+  'top-center': 'top',
+  'top-right': 'top-end',
 };
 
-export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
+export type ToastProviderProps = {
+  children?: React.ReactNode;
+  /** Where the toasts sit on the screen. Defaults to `bottom` */
+  placement?: ToastPlacement;
+  /**
+   * @deprecated Use `placement`, which wins when both are passed
+   */
+  position?: ToastPosition;
+};
+
+export const ToastProvider: React.FC<ToastProviderProps> = ({
+  children,
+  placement: placementProp,
+  position,
+}) => {
+  const placement =
+    placementProp ?? (position ? placementByPosition[position] : 'bottom');
+  const rootClassName = useComponentStyles('toast', {
+    root: true,
+    variants: { placement },
+  });
+  const toastClassName = useComponentStyles('toast', {
+    toast: true,
+    variants: { placement },
+  });
   const [toasts, setToasts] = useState<Toast[]>([]);
   const toastsRef = useRef<Toast[]>(toasts);
   toastsRef.current = toasts;
@@ -97,31 +132,29 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
       </ToastContext.Provider>
 
       {/* Should this use popover? */}
-      <Box
-        asChild
-        position="fixed"
-        insetBlockEnd={0}
-        insetInline={0}
-        padding={2}
+      <div
+        className={classnames(
+          styles.stack,
+          styles.placement[placement],
+          rootClassName,
+        )}
       >
-        <Stack gap={2}>
-          {toasts.map(({ id, children, intent }) => (
-            <Alert
-              intent={intent}
-              key={id}
-              className={styles.container}
-              style={{
-                viewTransitionName: `toast-${id}`,
-              }}
-              onRequestClose={() => {
-                removeToast(id);
-              }}
-            >
-              {children}
-            </Alert>
-          ))}
-        </Stack>
-      </Box>
+        {toasts.map(({ id, children, intent }) => (
+          <Alert
+            intent={intent}
+            key={id}
+            className={classnames(styles.toast, toastClassName)}
+            style={{
+              viewTransitionName: `toast-${id}`,
+            }}
+            onRequestClose={() => {
+              removeToast(id);
+            }}
+          >
+            {children}
+          </Alert>
+        ))}
+      </div>
     </>
   );
 };
