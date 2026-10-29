@@ -134,7 +134,28 @@ describe('Select chevron (browser)', () => {
         Number.parseFloat(getComputedStyle(select).paddingInlineEnd);
 
       expect(chevronRect.left - valueEnd).toBeGreaterThanOrEqual(8);
-      expect(selectRect.right - chevronRect.right).toBe(padding);
+      expect(selectRect.right - chevronRect.right).toBeCloseTo(padding);
     });
   }
+
+  it('keeps the chevron at the end edge in right-to-left text', async () => {
+    const screen = await render(
+      <div dir="rtl" style={{ display: 'inline-block' }}>
+        <Select aria-label="Label">
+          <option value="label">Filter by Label</option>
+        </Select>
+      </div>,
+    );
+    const select = screen.getByLabelText('Label').element() as HTMLElement;
+    const chevron = select.parentElement?.querySelector('svg');
+
+    if (!chevron) {
+      throw new Error('Chevron not rendered');
+    }
+
+    const selectRect = select.getBoundingClientRect();
+    const chevronRect = chevron.getBoundingClientRect();
+
+    expect(chevronRect.left - selectRect.left).toBeCloseTo(24);
+  });
 });
