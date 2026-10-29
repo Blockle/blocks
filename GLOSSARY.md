@@ -44,6 +44,10 @@ _Avoid_: Action, addon, adornment
 Where an overlay sits relative to its anchor: a side (`top`, `right`, `bottom`, `left`), and optionally which of the anchor's edges it lines up with (`start` or `end`, centred when left out), as in `top-start`. A Drawer's Placement is a side of the screen; a Toast's Placement uses the screen as its anchor, as in `bottom-end`.
 _Avoid_: Position, side, align
 
+**Auto-dismiss**:
+A Toast removing itself once its duration has run. The duration counts down only while nobody is hovering or focusing the toasts and the page is visible.
+_Avoid_: Timeout, expire, auto-close
+
 ### Display
 
 **Tag**:
