@@ -1,5 +1,100 @@
 # @blockle/blocks-react
 
+## 3.2.0
+
+### Minor Changes
+
+- 739df3c: **Breaking:** `Alert` no longer draws its own close button: `onRequestClose` and `closeLabel` are removed. It takes a `startSlot`, before the message, and an `endSlot`, after it, which replaces `action`. The message takes the remaining width, and Slot content is centered but not resized or recolored.
+
+  To migrate a dismissable Alert, compose the button in `endSlot`, bringing your own × icon:
+
+  ```tsx
+  <Alert
+    endSlot={
+      <IconButton
+        label="Close"
+        variant="ghost"
+        size="small"
+        intent="inherit"
+        onClick={onClose}
+      >
+        <CloseIcon />
+      </IconButton>
+    }
+  >
+    Saved
+  </Alert>
+  ```
+
+  Rename `action` to `endSlot`; put both in `endSlot` when an Alert has an action and a close button. `ToastProvider` still gives each Toast a close button, now an `IconButton`, and takes `closeLabel` (default `'Close'`) for its accessible name.
+
+- ad55f76: `Alert` takes `role="status"` for a lasting notice that should not be announced as urgent; it still defaults to `role="alert"`.
+- 3645e4f: `Button` and `IconButton` accept `intent="inherit"` to take the surrounding text color, such as an `Alert`'s. It needs an explicit `variant="ghost"` or `variant="outline"`; without a variant, or with `solid`, it's a type error. The theme types' button `intent` gains `'inherit'`, so a custom theme's `button` and `iconButton` themes need an `inherit` intent style; the core `Intent` type is unchanged. momotaro draws the text and outline border in `currentColor` and tints the hover background with it.
+- 630621f: Add `IconButton`, a square button for a single icon. It requires a `label`, rendered as `aria-label`, and supports the `variant`, `intent` and `size` of `Button` plus a `shape` of `square` (default) or `circle`. Like `Button`, it accepts `disabled`, `loading` (a spinner replaces the icon), `asChild`, `type`, margin atoms and HTML attributes. Themes style it through the new `iconButton` key in `ComponentThemes`; momotaro sizes it to match `Button`'s heights (40, 48 and 56px) and sizes a direct `svg` child per size.
+- 8bbc48b: `Link` takes `intent` in place of `variant`, accepting `primary`, `neutral` or `inherit`, the same name `Button` uses for its color. This is a breaking rename with no alias: replace `variant="primary"` and `variant="inherit"` with `intent="primary"` and `intent="inherit"`. `secondary` is gone; use `primary` for a prominent link, or the new `neutral` for a subtle one in metadata, footers or breadcrumbs (momotaro draws it in `neutral.foreground` with weight 500). momotaro still defaults to `primary`. The theme types' link `variant` becomes `intent`, and the `LinkVariant` type is removed, so a custom theme's `link` theme needs `primary`, `neutral` and `inherit` intent styles.
+- 4847164: Add a `listStyle` atom (`none`) to drop list markers, for example `<Stack asChild gap={2} listStyle="none"><ul>…</ul></Stack>`; a `className` setting `list-style` still overrides it. Pass `role="list"` when list semantics matter, as WebKit drops them for unstyled lists. `Inline` now accepts `role`.
+- 6bf7bba: Alignment uses logical `start` and `end` keys instead of `left` and `right`, so it follows the writing direction and reads the same on both axes.
+
+  - `Inline` `alignX` and `alignY`, and `Stack` `alignX`, take `start | end | center` (plus `between | around` for `justify-content` and `stretch` for `align-items`). Replace `left` with `start` and `right` with `end`. For example, `<Inline alignY="left">`, which aligned items to the top, becomes `<Inline alignY="start">`.
+  - `justifyContentMap` and `alignItemsMap` from `@blockle/blocks-core` have `start` and `end` keys instead of `left` and `right`.
+  - The `textAlign` atom takes `start | end | center | justify` and renders `text-align: start` or `end`. Replace `textAlign="left"` with `"start"` and `"right"` with `"end"`.
+  - `Stack` takes `alignY` (`start | end | center | between | around`), which sets `justify-content` along the column, for example `<Stack gap={2} alignY="between">`.
+
+- c7bf2ac: Remove `startSlot` and `endSlot` from `NumericInput`. The step buttons are `NumericInput`'s own, so these props used to silently replace them; passing either is now a type error.
+
+  A consumer `onKeyDown` no longer turns off Shift+↑/↓ stepping by 10: both handlers run, yours first. Call `event.preventDefault()` in yours to skip the stepping for that key press.
+
+- cd96cce: `NumericInput`'s step buttons are now `IconButton`s with an accessible name. They're named "Decrease" and "Increase" by default; pass `decrementLabel` and `incrementLabel` to translate them.
+- 1d5bb21: Remove `tag` from `Stack` and `Inline`, and `start` from `Stack`. They render a `div`; choose another element with `asChild`. Lists no longer drop their markers automatically, so pass `listStyle="none"` (and `role="list"` when list semantics matter).
+
+  ```tsx
+  // Before
+  <Stack tag="ul" gap={2}>…</Stack>
+  <Inline tag="nav" gap={2}>…</Inline>
+  <Stack tag="ol" start={3} gap={2}>…</Stack>
+
+  // After
+  <Stack asChild gap={2} listStyle="none"><ul>…</ul></Stack>
+  <Inline asChild gap={2}><nav>…</nav></Inline>
+  <Stack asChild gap={2} listStyle="none"><ol start={3}>…</ol></Stack>
+  ```
+
+- 34b09c0: `Stack` and `Inline` now accept the HTML attributes of their element (`id`, `aria-*`, `data-*`, `role`, event handlers such as `onClick`), a `ref` typed `React.Ref<HTMLElement>`, and `asChild`. With `asChild`, the single child element is rendered with the layout classes merged onto it.
+- a960443: Add `Tag`, a compact pill showing a short value, such as a category, a status or a count, colored by any `intent` and sized by `size`. It renders a `span`, supports `asChild`, and takes a `startSlot` and an `endSlot` for an Icon, an `img`, an emoji or an `IconButton`. Slot content is sized to the Tag's line height, so a Tag doesn't grow taller with it, and the padding on a side with a filled Slot is reduced. Removing a Tag is composed, not built in:
+
+  ```tsx
+  <Tag
+    endSlot={
+      <IconButton
+        label="Remove label bug"
+        variant="ghost"
+        size="small"
+        shape="circle"
+        intent="inherit"
+        onClick={onRemove}
+      >
+        <CloseIcon />
+      </IconButton>
+    }
+  >
+    bug
+  </Tag>
+  ```
+
+  momotaro defaults to the `neutral` intent and the `small` size. A custom theme needs a `tag` theme with `root`, `startSlot` and `endSlot` classes.
+
+- a336721: `Text` and `Heading` take `lineClamp` (1 to 5), which caps the text at that many lines and ends it in an ellipsis, and `truncate`, which keeps the text on one line and ends the overflow in an ellipsis. `truncate` makes the element block-level, so it works on the default `span`. With both set, `lineClamp` applies and a development warning is logged. The atoms add `minInlineSize: 0`, which lets a flex item such as an `Inline` shrink below its content.
+- eef6a4e: `Textarea` takes a `fill` prop that stretches its container to the parent's block size and makes the `<textarea>` at least as tall as the container. With `grow`, textareas side by side, such as in a `Grid`, keep equal heights without custom CSS, up to the container's maximum block size; raise `maxBlockSize` to lift that limit.
+- 77d8066: Toast Auto-dismiss now pauses while any toast is hovered or focused, or the page is hidden, and then continues with the time left. A toast added while paused starts its countdown once the stack resumes. Window blur alone doesn't pause.
+
+  Showing a toast again with the same `id` now replaces its countdown: it runs the new `duration`, or stays until closed when there is none. Before, the first timer kept running and removed the updated toast. Closing a toast or unmounting `ToastProvider` now clears its pending timer.
+
+  Leave out `duration` for a toast that contains an action, such as an "Undo" button.
+
+### Patch Changes
+
+- b25fe83: Checkbox, Select, NumericInput and Toast now draw their built-in icons from one shared internal set, so their strokes stay consistent. The Checkbox check and Select chevron are now `aria-hidden` instead of `role="presentation"`. Rendering is unchanged.
+
 ## 3.1.0
 
 ### Minor Changes
