@@ -1,5 +1,11 @@
 # @blockle/blocks-theme-momotaro
 
+## 7.2.1
+
+### Patch Changes
+
+- 52d250c: Select reserves room for its chevron, so the value text keeps a gap before it and long values are cut off before it. The chevron sits the same distance from the end edge at every size, so stacked Selects line it up, and it stays at the end edge in right-to-left text.
+
 ## 7.2.0
 
 ### Minor Changes
