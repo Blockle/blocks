@@ -1,5 +1,35 @@
 # @blockle/blocks-theme-momotaro
 
+## 7.2.0
+
+### Minor Changes
+
+- 3645e4f: `Button` and `IconButton` accept `intent="inherit"` to take the surrounding text color, such as an `Alert`'s. It needs an explicit `variant="ghost"` or `variant="outline"`; without a variant, or with `solid`, it's a type error. The theme types' button `intent` gains `'inherit'`, so a custom theme's `button` and `iconButton` themes need an `inherit` intent style; the core `Intent` type is unchanged. momotaro draws the text and outline border in `currentColor` and tints the hover background with it.
+- 630621f: Add `IconButton`, a square button for a single icon. It requires a `label`, rendered as `aria-label`, and supports the `variant`, `intent` and `size` of `Button` plus a `shape` of `square` (default) or `circle`. Like `Button`, it accepts `disabled`, `loading` (a spinner replaces the icon), `asChild`, `type`, margin atoms and HTML attributes. Themes style it through the new `iconButton` key in `ComponentThemes`; momotaro sizes it to match `Button`'s heights (40, 48 and 56px) and sizes a direct `svg` child per size.
+- 8bbc48b: `Link` takes `intent` in place of `variant`, accepting `primary`, `neutral` or `inherit`, the same name `Button` uses for its color. This is a breaking rename with no alias: replace `variant="primary"` and `variant="inherit"` with `intent="primary"` and `intent="inherit"`. `secondary` is gone; use `primary` for a prominent link, or the new `neutral` for a subtle one in metadata, footers or breadcrumbs (momotaro draws it in `neutral.foreground` with weight 500). momotaro still defaults to `primary`. The theme types' link `variant` becomes `intent`, and the `LinkVariant` type is removed, so a custom theme's `link` theme needs `primary`, `neutral` and `inherit` intent styles.
+- a960443: Add `Tag`, a compact pill showing a short value, such as a category, a status or a count, colored by any `intent` and sized by `size`. It renders a `span`, supports `asChild`, and takes a `startSlot` and an `endSlot` for an Icon, an `img`, an emoji or an `IconButton`. Slot content is sized to the Tag's line height, so a Tag doesn't grow taller with it, and the padding on a side with a filled Slot is reduced. Removing a Tag is composed, not built in:
+
+  ```tsx
+  <Tag
+    endSlot={
+      <IconButton
+        label="Remove label bug"
+        variant="ghost"
+        size="small"
+        shape="circle"
+        intent="inherit"
+        onClick={onRemove}
+      >
+        <CloseIcon />
+      </IconButton>
+    }
+  >
+    bug
+  </Tag>
+  ```
+
+  momotaro defaults to the `neutral` intent and the `small` size. A custom theme needs a `tag` theme with `root`, `startSlot` and `endSlot` classes.
+
 ## 7.1.0
 
 ### Minor Changes
