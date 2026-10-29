@@ -23,7 +23,7 @@ const unresponsiveAtomicProperties = defineProperties({
     borderStyle: ['solid', 'dashed', 'dotted', 'double', 'none'],
     boxShadow: vars.colorRole.shadow,
     color: colorsWithCurrentColor,
-    cursor: ['auto', 'pointer'],
+    cursor: ['auto', 'pointer', 'grab', 'grabbing', 'text', 'not-allowed'],
     fontFamily: vars.fontFamily,
     fontStyle: ['normal', 'italic', 'oblique'],
     fontWeight: vars.fontWeight,

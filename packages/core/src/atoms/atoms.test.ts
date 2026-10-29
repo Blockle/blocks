@@ -69,6 +69,25 @@ describe('atoms', () => {
     );
   });
 
+  it.each([
+    'auto',
+    'pointer',
+    'grab',
+    'grabbing',
+    'text',
+    'not-allowed',
+  ] as const)('returns a class for cursor %s', (cursor) => {
+    const className = atoms({ cursor });
+
+    expect(className).toBeTruthy();
+    expect(className).toBe(atomicProperties.cursor.values[cursor].defaultClass);
+  });
+
+  it('rejects a cursor outside the list', () => {
+    // @ts-expect-error move is not a cursor value
+    expect(atoms({ cursor: 'move' })).toBe('');
+  });
+
   it('returns empty string for unknown property', () => {
     // @ts-expect-error testing unknown property
     expect(atoms({ unknown: 'value' })).toBe('');
