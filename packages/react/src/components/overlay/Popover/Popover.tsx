@@ -103,7 +103,18 @@ export const Popover: React.FC<PopoverProps> = ({
         setVisible(false);
       }
 
-      popoverRef.current?.hidePopover();
+      if (!element) {
+        return;
+      }
+
+      if (typeof element.hidePopover !== 'function') {
+        console.warn(
+          'Popover: hidePopover method is not available on the element.',
+        );
+        return;
+      }
+
+      element.hidePopover();
     }
   }, [open, visible]);
 

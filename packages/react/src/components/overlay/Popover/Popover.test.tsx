@@ -29,6 +29,37 @@ describe('Popover', () => {
     expect(screen.getByText('Popover Content')).toBeInTheDocument();
   });
 
+  it('finds the content of an open popover by role', () => {
+    render(
+      <Popover {...defaultProps} open>
+        <button type="button">Inside</button>
+      </Popover>,
+    );
+
+    expect(screen.getByRole('button', { name: 'Inside' })).toBeInTheDocument();
+  });
+
+  it('warns instead of throwing when closing without the Popover API', () => {
+    const { hidePopover } = HTMLElement.prototype;
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    // @ts-expect-error Simulate an environment without the Popover API
+    delete HTMLElement.prototype.hidePopover;
+
+    try {
+      const { rerender } = render(<Popover {...defaultProps} open />);
+
+      expect(() => {
+        rerender(<Popover {...defaultProps} open={false} />);
+      }).not.toThrow();
+      expect(warn).toHaveBeenCalledWith(
+        'Popover: hidePopover method is not available on the element.',
+      );
+    } finally {
+      HTMLElement.prototype.hidePopover = hidePopover;
+      warn.mockRestore();
+    }
+  });
+
   it('should call onRequestClose when Escape key is pressed', async () => {
     const user = userEvent.setup();
     render(<Popover {...defaultProps} open />);
