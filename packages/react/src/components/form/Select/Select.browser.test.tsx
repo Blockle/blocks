@@ -104,14 +104,7 @@ describe('Select size (browser)', () => {
 });
 
 describe('Select chevron (browser)', () => {
-  // momotaro start padding per size: space 3/4/5
-  const sizes = [
-    ['small', 16],
-    ['medium', 24],
-    ['large', 32],
-  ] as const;
-
-  for (const [size, padding] of sizes) {
+  for (const size of ['small', 'medium', 'large'] as const) {
     it(`keeps the value clear of the chevron at ${size}`, async () => {
       const screen = await render(
         <div style={{ display: 'inline-block' }}>
@@ -134,7 +127,8 @@ describe('Select chevron (browser)', () => {
         Number.parseFloat(getComputedStyle(select).paddingInlineEnd);
 
       expect(chevronRect.left - valueEnd).toBeGreaterThanOrEqual(8);
-      expect(selectRect.right - chevronRect.right).toBeCloseTo(padding);
+      // momotaro pins the chevron space 3 from the end edge at every size
+      expect(selectRect.right - chevronRect.right).toBeCloseTo(16);
     });
   }
 
@@ -156,6 +150,6 @@ describe('Select chevron (browser)', () => {
     const selectRect = select.getBoundingClientRect();
     const chevronRect = chevron.getBoundingClientRect();
 
-    expect(chevronRect.left - selectRect.left).toBeCloseTo(24);
+    expect(chevronRect.left - selectRect.left).toBeCloseTo(16);
   });
 });
