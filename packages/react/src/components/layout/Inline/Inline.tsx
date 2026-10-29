@@ -14,7 +14,8 @@ export type InlineProps = {
   /**
    * With `ul` or `ol`, the list markers are dropped (`listStyle="none"`).
    * WebKit then no longer exposes the element as a list, so pass
-   * `role="list"` when list semantics matter.
+   * `role="list"` when list semantics matter. To show markers, pass a
+   * `className` that sets `list-style` and `padding-inline-start`.
    */
   tag?: 'div' | 'ul' | 'ol' | 'nav';
   children: React.ReactNode;
