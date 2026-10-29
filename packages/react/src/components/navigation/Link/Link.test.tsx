@@ -12,6 +12,34 @@ describe('Link Component', () => {
     ).toBeInTheDocument();
   });
 
+  it('takes intent primary, neutral or inherit, and no variant', () => {
+    render(
+      <>
+        <Link href="/" intent="primary">
+          Primary
+        </Link>
+        <Link href="/" intent="neutral">
+          Neutral
+        </Link>
+        <Link href="/" intent="inherit">
+          Inherit
+        </Link>
+        {/* @ts-expect-error: secondary isn't a link intent */}
+        <Link href="/" intent="secondary">
+          Secondary
+        </Link>
+        {/* @ts-expect-error: danger isn't a link intent */}
+        <Link href="/" intent="danger">
+          Danger
+        </Link>
+        {/* @ts-expect-error: variant was renamed to intent */}
+        <Link href="/" variant="primary">
+          Variant
+        </Link>
+      </>,
+    );
+  });
+
   it('applies custom className', () => {
     render(
       <Link href="/" className="custom-class">

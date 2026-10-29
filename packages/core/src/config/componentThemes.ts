@@ -6,7 +6,6 @@ import type { ColorRoles, Intent } from './themeTokens.js';
 type AlertIntent = Extract<Intent, 'danger' | 'info' | 'success' | 'warning'>;
 type ButtonVariant = 'solid' | 'outline' | 'ghost';
 type InputVariant = 'solid' | 'outline';
-type LinkVariant = 'inherit' | 'primary' | 'secondary';
 type Size = 'small' | 'medium' | 'large';
 type IconSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 type SliderTooltipIntent = Extract<Intent, 'primary' | 'secondary'>;
@@ -119,7 +118,8 @@ export type LabelTheme = {
 export type LinkTheme = {
   root: string;
   variants: {
-    variant: LinkVariant;
+    // `inherit` uses the surrounding text color; it isn't an Intent
+    intent: Extract<Intent, 'primary' | 'neutral'> | 'inherit';
     underline: boolean;
   };
 };

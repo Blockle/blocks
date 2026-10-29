@@ -32,7 +32,7 @@ export const link: ThemeComponentsStyles['link'] = makeComponentTheme('link', {
     focusable,
   ]),
   variants: {
-    variant: {
+    intent: {
       inherit: style({
         color: 'inherit',
         fontWeight: 'inherit',
@@ -41,8 +41,8 @@ export const link: ThemeComponentsStyles['link'] = makeComponentTheme('link', {
         color: vars.colorRole.primary.foreground,
         fontWeight: 500,
       }),
-      secondary: style({
-        color: vars.colorRole.secondary.foreground,
+      neutral: style({
+        color: vars.colorRole.neutral.foreground,
         fontWeight: 500,
       }),
     },
@@ -51,6 +51,6 @@ export const link: ThemeComponentsStyles['link'] = makeComponentTheme('link', {
     }),
   },
   defaultVariants: {
-    variant: 'primary',
+    intent: 'primary',
   },
 });
