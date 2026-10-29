@@ -78,3 +78,20 @@ export const Colors = meta.story({
     children: null,
   },
 });
+
+export const Overflow = meta.story({
+  render: (args) => (
+    <Stack gap={4} style={{ maxInlineSize: 320 }}>
+      <Heading {...args} level={3} lineClamp={2}>
+        A long heading that is clamped to two lines and ends in an ellipsis when
+        it runs out of room
+      </Heading>
+      <Heading {...args} level={3} truncate>
+        A long heading that stays on one line and ends in an ellipsis
+      </Heading>
+    </Stack>
+  ),
+  args: {
+    children: null,
+  },
+});

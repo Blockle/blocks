@@ -1,3 +1,4 @@
+import { atoms } from '@blockle/blocks-core';
 import { afterEach, describe, expect, it } from 'vitest';
 
 import { emulateColorScheme } from '../../../testUtils/browser/emulateColorScheme.js';
@@ -140,5 +141,17 @@ describe('Text overflow (browser)', () => {
       inline.getBoundingClientRect().right,
     );
     expect(element.scrollWidth).toBeGreaterThan(element.clientWidth);
+  });
+});
+
+describe('minInlineSize atom (browser)', () => {
+  it('sets min-inline-size to 0', async () => {
+    const screen = await render(
+      <div className={atoms({ minInlineSize: 0 })}>Shrinks</div>,
+    );
+
+    expect(
+      getComputedStyle(screen.getByText('Shrinks').element()).minInlineSize,
+    ).toBe('0px');
   });
 });

@@ -2,7 +2,7 @@ import * as styles from './textOverflow.css.js';
 
 export type TextOverflowProps = {
   /** Clamps the text to this many lines and ends it in an ellipsis. */
-  lineClamp?: 1 | 2 | 3 | 4 | 5;
+  lineClamp?: keyof typeof styles.lineClamp;
   /** Keeps the text on one line and ends the overflow in an ellipsis. */
   truncate?: boolean;
 };
