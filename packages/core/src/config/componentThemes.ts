@@ -48,6 +48,18 @@ export type ButtonTheme = {
   };
 };
 
+export type IconButtonTheme = {
+  root: string;
+  variants: {
+    variant: ButtonVariant;
+    intent: ButtonTheme['variants']['intent'];
+    size: Size;
+    shape: 'square' | 'circle';
+    loading: boolean;
+    disabled: boolean;
+  };
+};
+
 export type CheckboxTheme = {
   root: string;
   icon: string;
@@ -206,6 +218,7 @@ export type ComponentThemes = {
   drawer: DrawerTheme;
   heading: HeadingTheme;
   icon: IconTheme;
+  iconButton: IconButtonTheme;
   label: LabelTheme;
   link: LinkTheme;
   popover: PopoverTheme;

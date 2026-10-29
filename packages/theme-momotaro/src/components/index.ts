@@ -8,6 +8,7 @@ import { divider } from './divider.css.js';
 import { drawer } from './drawer.css.js';
 import { heading } from './heading.css.js';
 import { icon } from './icon.css.js';
+import { iconButton } from './iconButton.css.js';
 import { label } from './label.css.js';
 import { link } from './link.css.js';
 import { popover } from './popover.css.js';
@@ -32,6 +33,7 @@ export const components: ThemeComponentsStyles = {
   drawer,
   heading,
   icon,
+  iconButton,
   label,
   link,
   popover,

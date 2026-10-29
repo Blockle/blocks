@@ -37,3 +37,9 @@ _Avoid_: Style prop, sprinkle, utility class
 **Placement**:
 Where an overlay sits relative to its anchor: a side (`top`, `right`, `bottom`, `left`), and optionally which of the anchor's edges it lines up with (`start` or `end`, centred when left out), as in `top-start`. A Drawer's Placement is a side of the screen; a Toast's Placement uses the screen as its anchor, as in `bottom-end`.
 _Avoid_: Position, side, align
+
+### Display
+
+**Tag**:
+A compact pill showing a short value, such as a category, a status or a count, colored by an Intent. Removing a Tag is an action composed into it, not a kind of Tag. A Tag is not a form `Label`.
+_Avoid_: Badge, chip, pill

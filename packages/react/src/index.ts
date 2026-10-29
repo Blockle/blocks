@@ -47,6 +47,10 @@ export {
   Checkbox,
   type CheckboxProps,
 } from './components/form/Checkbox/Checkbox.js';
+export {
+  IconButton,
+  type IconButtonProps,
+} from './components/form/IconButton/IconButton.js';
 export { Label, type LabelProps } from './components/form/Label/Label.js';
 export {
   NumericInput,
