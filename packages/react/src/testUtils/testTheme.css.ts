@@ -32,6 +32,7 @@ export const testingTheme = makeTheme({
     slider: { root: '', thumb: '', track: '', filledTrack: '' },
     spinner: { root: '' },
     switch: { root: '', thumb: '' },
+    tag: { root: '', startSlot: '', endSlot: '' },
     text: { root: '' },
     textarea: { root: '', input: '' },
     textInput: { root: '', input: '' },
