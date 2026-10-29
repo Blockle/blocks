@@ -45,6 +45,22 @@ describe('Textarea', () => {
     expect(textarea).not.toHaveClass(styles.fieldSizingEnabled);
   });
 
+  it('should apply fill classes to the container and textarea when fill is true', () => {
+    render(<Textarea fill />);
+
+    const textarea = screen.getByRole('textbox');
+    expect(textarea).toHaveClass(styles.textareaFill);
+    expect(textarea.parentElement).toHaveClass(styles.containerFill);
+  });
+
+  it('should not apply fill classes when fill is not set', () => {
+    render(<Textarea />);
+
+    const textarea = screen.getByRole('textbox');
+    expect(textarea).not.toHaveClass(styles.textareaFill);
+    expect(textarea.parentElement).not.toHaveClass(styles.containerFill);
+  });
+
   it('should apply maxBlockSize to the container when growing', () => {
     render(<Textarea grow maxBlockSize={200} />);
 
