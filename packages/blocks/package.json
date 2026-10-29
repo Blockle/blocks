@@ -38,7 +38,7 @@
   "homepage": "https://github.com/Blockle/blocks#readme",
   "peerDependencies": {
     "@blockle/blocks-core": ">=3.0.x",
-    "@blockle/blocks-react": ">=3.0.x",
+    "@blockle/blocks-react": ">=3.0.1",
     "@blockle/blocks-react-slot": ">=1.2.x",
     "@blockle/blocks-reset": ">=0.24.x",
     "@blockle/blocks-theme-momotaro": ">=7.0.x"
