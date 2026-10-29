@@ -56,3 +56,20 @@ export const List = meta.story({
     role: 'list',
   },
 });
+
+export const AsChild = meta.story({
+  args: {
+    asChild: true,
+    gap: 2,
+    children: (
+      <section aria-label="Comments">
+        <Box backgroundColor="danger-700" padding={2}>
+          1
+        </Box>
+        <Box backgroundColor="danger-600" padding={2}>
+          2
+        </Box>
+      </section>
+    ),
+  },
+});

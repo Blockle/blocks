@@ -72,3 +72,17 @@ export const List = meta.story({
     role: 'list',
   },
 });
+
+export const AsChild = meta.story({
+  args: {
+    asChild: true,
+    gap: 1,
+    alignY: 'center',
+    children: (
+      <span role="img" aria-label="Acceptance criteria: 2 of 4 checked">
+        <span aria-hidden>☑</span>
+        <span>2/4</span>
+      </span>
+    ),
+  },
+});
