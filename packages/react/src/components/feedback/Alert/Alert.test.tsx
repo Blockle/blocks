@@ -1,5 +1,4 @@
-import { userEvent } from '@testing-library/user-event';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 import { render, screen } from '../../../testUtils/testUtils.js';
 import { Alert } from './Alert.js';
@@ -20,49 +19,40 @@ describe('Alert', () => {
     expect(screen.queryByRole('alert')).not.toBeInTheDocument();
   });
 
-  it('names the close button "Close" by default', () => {
-    render(<Alert onRequestClose={() => {}}>Saved</Alert>);
+  it('renders no button of its own', () => {
+    render(<Alert>Saved</Alert>);
 
-    expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
   });
 
-  it('names the close button with closeLabel', () => {
+  it('renders the startSlot before the message', () => {
+    render(<Alert startSlot={<span>Icon</span>}>Saved</Alert>);
+
+    expect(screen.getByRole('alert')).toHaveTextContent(/^Icon\s*Saved$/);
+  });
+
+  it('renders the endSlot after the message', () => {
     render(
-      <Alert closeLabel="Sluiten" onRequestClose={() => {}}>
-        Opgeslagen
-      </Alert>,
-    );
-
-    expect(screen.getByRole('button', { name: 'Sluiten' })).toBeInTheDocument();
-  });
-
-  it('calls onRequestClose when the close button is clicked', async () => {
-    const onRequestClose = vi.fn();
-
-    render(<Alert onRequestClose={onRequestClose}>Saved</Alert>);
-
-    await userEvent.click(screen.getByRole('button', { name: 'Close' }));
-
-    expect(onRequestClose).toHaveBeenCalledTimes(1);
-  });
-
-  it('renders the action after the children and before the close button', () => {
-    render(
-      <Alert
-        role="status"
-        action={<button type="button">Restore</button>}
-        onRequestClose={() => {}}
-      >
+      <Alert role="status" endSlot={<button type="button">Restore</button>}>
         This Ticket is archived
       </Alert>,
     );
 
-    const [restore, close] = screen.getAllByRole('button');
-
     expect(screen.getByRole('status')).toHaveTextContent(
       /^This Ticket is archived\s*Restore$/,
     );
-    expect(restore).toHaveAccessibleName('Restore');
-    expect(close).toHaveAccessibleName('Close');
+    expect(screen.getByRole('button')).toHaveAccessibleName('Restore');
+  });
+
+  it('renders both Slots around the message', () => {
+    render(
+      <Alert startSlot={<span>Icon</span>} endSlot={<span>Undo</span>}>
+        Deleted
+      </Alert>,
+    );
+
+    expect(screen.getByRole('alert')).toHaveTextContent(
+      /^Icon\s*Deleted\s*Undo$/,
+    );
   });
 });

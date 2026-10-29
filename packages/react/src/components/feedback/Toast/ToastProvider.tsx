@@ -5,6 +5,7 @@ import { useCallback, useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
+import { IconButton } from '../../form/IconButton/IconButton.js';
 import { Alert } from '../Alert/Alert.js';
 import * as styles from './Toast.css.js';
 import {
@@ -28,6 +29,19 @@ function makeTransition(transition: () => void) {
   }
 }
 
+const CloseIcon: React.FC = () => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    aria-hidden="true"
+  >
+    <path d="M18 6 6 18M6 6l12 12" />
+  </svg>
+);
+
 export type { ToastPlacement };
 
 type ToastPosition =
@@ -49,6 +63,12 @@ const placementByPosition: Record<ToastPosition, ToastPlacement> = {
 
 export type ToastProviderProps = {
   children?: React.ReactNode;
+  /**
+   * Accessible name of each Toast's close button. Pass your own wording to
+   * translate it.
+   * @default 'Close'
+   */
+  closeLabel?: string;
   /** Where the toasts sit on the screen. Defaults to `bottom` */
   placement?: ToastPlacement;
   /**
@@ -59,6 +79,7 @@ export type ToastProviderProps = {
 
 export const ToastProvider: React.FC<ToastProviderProps> = ({
   children,
+  closeLabel = 'Close',
   placement: placementProp,
   position,
 }) => {
@@ -147,9 +168,19 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
             style={{
               viewTransitionName: `toast-${id}`,
             }}
-            onRequestClose={() => {
-              removeToast(id);
-            }}
+            endSlot={
+              <IconButton
+                label={closeLabel}
+                variant="ghost"
+                size="small"
+                intent="neutral"
+                onClick={() => {
+                  removeToast(id);
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
+            }
           >
             {children}
           </Alert>
