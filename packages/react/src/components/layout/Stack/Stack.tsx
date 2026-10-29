@@ -36,7 +36,7 @@ export const Stack: React.FC<StackProps> = ({
 }) => {
   return (
     <Box
-      asChild
+      asChild={asChild}
       display={display}
       gap={gap}
       flexDirection="column"
@@ -44,7 +44,7 @@ export const Stack: React.FC<StackProps> = ({
       ref={ref as React.Ref<HTMLDivElement>}
       {...restProps}
     >
-      {asChild ? children : <div>{children}</div>}
+      {children}
     </Box>
   );
 };

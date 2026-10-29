@@ -40,7 +40,7 @@ export const Inline: React.FC<InlineProps> = ({
 }) => {
   return (
     <Box
-      asChild
+      asChild={asChild}
       display={display}
       gap={gap}
       flexDirection="row"
@@ -50,7 +50,7 @@ export const Inline: React.FC<InlineProps> = ({
       ref={ref as React.Ref<HTMLDivElement>}
       {...props}
     >
-      {asChild ? children : <div>{children}</div>}
+      {children}
     </Box>
   );
 };
