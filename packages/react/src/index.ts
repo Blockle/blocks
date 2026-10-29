@@ -15,6 +15,7 @@ export {
   IconMask,
   type IconMaskProps,
 } from './components/display/Icon/IconMask.js';
+export { Tag, type TagProps } from './components/display/Tag/Tag.js';
 export {
   Alert,
   type AlertProps,

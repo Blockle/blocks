@@ -177,6 +177,16 @@ export type SwitchTheme = {
   thumb: string;
 };
 
+export type TagTheme = {
+  root: string;
+  startSlot: string;
+  endSlot: string;
+  variants: {
+    intent: Intent;
+    size: Size;
+  };
+};
+
 export type TextTheme = {
   root?: string;
   variants: {
@@ -231,6 +241,7 @@ export type ComponentThemes = {
   slider: SliderTheme;
   spinner: SpinnerTheme;
   switch: SwitchTheme;
+  tag: TagTheme;
   text: TextTheme;
   textarea: TextareaTheme;
   textInput: TextInputTheme;

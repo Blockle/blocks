@@ -18,6 +18,7 @@ import { select } from './select.css.js';
 import { slider } from './slider.css.js';
 import { spinner } from './spinner.css.js';
 import { switchTheme } from './switch.css.js';
+import { tag } from './tag.css.js';
 import { text } from './text.css.js';
 import { textarea } from './textarea.css.js';
 import { textInput } from './textInput.css.js';
@@ -43,6 +44,7 @@ export const components: ThemeComponentsStyles = {
   slider,
   spinner,
   switch: switchTheme,
+  tag,
   text,
   textarea,
   textInput,
