@@ -15,3 +15,19 @@ export const textarea = style({
 export const fieldSizingEnabled = style({
   fieldSizing: 'content',
 });
+
+export const containerFill = style({
+  '@layer': {
+    [layers.molecule]: {
+      blockSize: '100%',
+    },
+  },
+});
+
+export const textareaFill = style({
+  '@layer': {
+    [layers.molecule]: {
+      minBlockSize: '100%',
+    },
+  },
+});
