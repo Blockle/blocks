@@ -102,3 +102,39 @@ describe('Select size (browser)', () => {
     expect(getComputedStyle(select).paddingInlineStart).toBe('24px');
   });
 });
+
+describe('Select chevron (browser)', () => {
+  // momotaro start padding per size: space 3/4/5
+  const sizes = [
+    ['small', 16],
+    ['medium', 24],
+    ['large', 32],
+  ] as const;
+
+  for (const [size, padding] of sizes) {
+    it(`keeps the value clear of the chevron at ${size}`, async () => {
+      const screen = await render(
+        <div style={{ display: 'inline-block' }}>
+          <Select aria-label="Label" size={size}>
+            <option value="label">Filter by Label</option>
+          </Select>
+        </div>,
+      );
+      const select = screen.getByLabelText('Label').element() as HTMLElement;
+      const chevron = select.parentElement?.querySelector('svg');
+
+      if (!chevron) {
+        throw new Error('Chevron not rendered');
+      }
+
+      const selectRect = select.getBoundingClientRect();
+      const chevronRect = chevron.getBoundingClientRect();
+      const valueEnd =
+        selectRect.right -
+        Number.parseFloat(getComputedStyle(select).paddingInlineEnd);
+
+      expect(chevronRect.left - valueEnd).toBeGreaterThanOrEqual(8);
+      expect(selectRect.right - chevronRect.right).toBe(padding);
+    });
+  }
+});

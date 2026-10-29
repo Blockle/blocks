@@ -8,6 +8,41 @@ import { style } from '@vanilla-extract/css';
 
 import { focusable } from './helpers.css.js';
 
+// Room the chevron takes at the end of the select: its padding, its 1rem
+// width, and a gap before the value text
+const chevronRoom = (padding: keyof typeof vars.space) =>
+  `calc(${vars.space[padding]} + 1rem + ${vars.space[2]})`;
+
+const small = style([
+  atoms({
+    paddingInlineStart: 3,
+  }),
+  {
+    paddingInlineEnd: chevronRoom(3),
+    minHeight: 40,
+  },
+]);
+
+const medium = style([
+  atoms({
+    paddingInlineStart: 4,
+  }),
+  {
+    paddingInlineEnd: chevronRoom(4),
+    minHeight: 48,
+  },
+]);
+
+const large = style([
+  atoms({
+    paddingInlineStart: 5,
+  }),
+  {
+    paddingInlineEnd: chevronRoom(5),
+    minHeight: 56,
+  },
+]);
+
 export const select: ThemeComponentsStyles['select'] = makeComponentTheme(
   'select',
   {
@@ -41,34 +76,24 @@ export const select: ThemeComponentsStyles['select'] = makeComponentTheme(
         solid: style({}),
       },
       size: {
-        small: style([
-          atoms({
-            paddingInline: 3,
-          }),
-          {
-            minHeight: 40,
-          },
-        ]),
-        medium: style([
-          atoms({
-            paddingInline: 4,
-          }),
-          {
-            minHeight: 48,
-          },
-        ]),
-        large: style([
-          atoms({
-            paddingInline: 5,
-          }),
-          {
-            minHeight: 56,
-          },
-        ]),
+        small,
+        medium,
+        large,
       },
     },
-    icon: atoms({
-      paddingInline: 3,
+    // The chevron follows the select, so it lines up with each size's padding
+    icon: style({
+      selectors: {
+        [`${small} + &`]: {
+          paddingInline: vars.space[3],
+        },
+        [`${medium} + &`]: {
+          paddingInline: vars.space[4],
+        },
+        [`${large} + &`]: {
+          paddingInline: vars.space[5],
+        },
+      },
     }),
     defaultVariants: {
       size: 'medium',
