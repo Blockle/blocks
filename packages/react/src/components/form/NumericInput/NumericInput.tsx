@@ -1,6 +1,6 @@
 'use client';
 
-import { composeRefs } from '@blockle/blocks-core';
+import { classnames, composeRefs } from '@blockle/blocks-core';
 import { useCallback, useRef } from 'react';
 
 import { IconButton } from '../IconButton/IconButton.js';
@@ -81,7 +81,7 @@ export const NumericInput: React.FC<NumericInputProps> = ({
     <TextInput
       {...props}
       ref={composeRefs(props.ref, inputRef)}
-      inputClassName={styles.numericInput}
+      inputClassName={classnames(styles.numericInput, props.inputClassName)}
       type="number"
       startSlot={
         <IconButton

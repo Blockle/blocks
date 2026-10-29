@@ -128,4 +128,10 @@ describe('NumericInput', () => {
       screen.getByRole('button', { name: 'Increase' }),
     ).toBeInTheDocument();
   });
+
+  it('keeps a consumer inputClassName on the input', () => {
+    render(<NumericInput name="amount" inputClassName="custom" />);
+
+    expect(screen.getByRole('spinbutton')).toHaveClass('custom');
+  });
 });
