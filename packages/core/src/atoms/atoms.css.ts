@@ -37,6 +37,7 @@ const unresponsiveAtomicProperties = defineProperties({
     lineHeight: vars.lineHeight,
     maxBlockSize: size,
     maxInlineSize: size,
+    minInlineSize: [0],
     opacity: [0, 1],
     outline: ['none'],
     overflow: ['hidden', 'scroll', 'visible', 'auto'],

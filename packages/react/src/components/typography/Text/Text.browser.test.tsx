@@ -1,7 +1,9 @@
+import { atoms } from '@blockle/blocks-core';
 import { afterEach, describe, expect, it } from 'vitest';
 
 import { emulateColorScheme } from '../../../testUtils/browser/emulateColorScheme.js';
 import { render } from '../../../testUtils/browser/render.js';
+import { Inline } from '../../layout/Inline/Inline.js';
 import { Text } from './Text.js';
 
 // momotaro text.default: neutral-900 (#1A1A1A) in light, neutral-100 (#F7F7F7) in dark
@@ -72,5 +74,84 @@ describe('Text color roles (browser)', () => {
     await emulateColorScheme('light');
 
     expect(colorOf(hello)).toBe(lightDefault);
+  });
+});
+
+const longText =
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '.repeat(20);
+
+const lineCount = (element: HTMLElement) =>
+  Math.round(
+    element.getBoundingClientRect().height /
+      Number.parseFloat(getComputedStyle(element).lineHeight),
+  );
+
+describe('Text overflow (browser)', () => {
+  it('clamps to the given number of lines with an ellipsis', async () => {
+    const screen = await render(
+      <div style={{ inlineSize: 200 }}>
+        <Text lineClamp={2} lineHeight="normal">
+          {longText}
+        </Text>
+      </div>,
+    );
+    const element = screen.getByText(longText.trim()).element() as HTMLElement;
+    const style = getComputedStyle(element);
+
+    expect(lineCount(element)).toBe(2);
+    expect(element.scrollHeight).toBeGreaterThan(element.clientHeight);
+    expect(style.overflow).toBe('hidden');
+    expect(style.webkitLineClamp).toBe('2');
+  });
+
+  it('truncates a span to one line with an ellipsis', async () => {
+    const screen = await render(
+      <div style={{ inlineSize: 200 }}>
+        <Text truncate lineHeight="normal">
+          {longText}
+        </Text>
+      </div>,
+    );
+    const element = screen.getByText(longText.trim()).element() as HTMLElement;
+    const style = getComputedStyle(element);
+
+    expect(element.tagName).toBe('SPAN');
+    expect(lineCount(element)).toBe(1);
+    expect(element.getBoundingClientRect().width).toBe(200);
+    expect(element.scrollWidth).toBeGreaterThan(element.clientWidth);
+    expect(style.display).toBe('block');
+    expect(style.textOverflow).toBe('ellipsis');
+  });
+
+  it('lets a truncated Text shrink inside an Inline with minInlineSize 0', async () => {
+    const screen = await render(
+      <div style={{ display: 'flex', inlineSize: 200 }}>
+        <Inline gap={2} flexWrap="nowrap" minInlineSize={0}>
+          <Text>Blocks</Text>
+          <Text truncate>{longText}</Text>
+        </Inline>
+      </div>,
+    );
+    const element = screen.getByText(longText.trim()).element() as HTMLElement;
+    const inline = element.parentElement as HTMLElement;
+
+    expect(getComputedStyle(inline).minInlineSize).toBe('0px');
+    expect(inline.getBoundingClientRect().width).toBe(200);
+    expect(element.getBoundingClientRect().right).toBeLessThanOrEqual(
+      inline.getBoundingClientRect().right,
+    );
+    expect(element.scrollWidth).toBeGreaterThan(element.clientWidth);
+  });
+});
+
+describe('minInlineSize atom (browser)', () => {
+  it('sets min-inline-size to 0', async () => {
+    const screen = await render(
+      <div className={atoms({ minInlineSize: 0 })}>Shrinks</div>,
+    );
+
+    expect(
+      getComputedStyle(screen.getByText('Shrinks').element()).minInlineSize,
+    ).toBe('0px');
   });
 });

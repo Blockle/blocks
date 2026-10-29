@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { render } from '../../../testUtils/testUtils.js';
 import { Heading } from './Heading.js';
@@ -35,5 +35,72 @@ describe('Heading', () => {
     const heading = container.querySelector('h4');
     expect(heading).toHaveAttribute('id', 'heading-id');
     expect(heading).toHaveAttribute('data-test', 'test-prop');
+  });
+
+  describe('overflow', () => {
+    afterEach(() => {
+      vi.restoreAllMocks();
+    });
+
+    const classesOf = (ui: React.ReactElement) =>
+      render(ui).container.querySelector('h2')?.className;
+
+    it('renders the same classes as before without lineClamp or truncate', () => {
+      expect(
+        classesOf(
+          <Heading level={2} truncate={false}>
+            Title
+          </Heading>,
+        ),
+      ).toBe(classesOf(<Heading level={2}>Title</Heading>));
+    });
+
+    it('adds a class for lineClamp and for truncate, kept off the DOM', () => {
+      const plain = classesOf(<Heading level={2}>Title</Heading>);
+      const { container } = render(
+        <>
+          <Heading level={2} lineClamp={2}>
+            Clamped
+          </Heading>
+          <Heading level={2} truncate>
+            Truncated
+          </Heading>
+        </>,
+      );
+      const [clamped, truncated] = container.querySelectorAll('h2');
+
+      expect(clamped?.className).not.toBe(plain);
+      expect(truncated?.className).not.toBe(plain);
+      expect(clamped?.className).not.toBe(truncated?.className);
+      expect(clamped).not.toHaveAttribute('lineclamp');
+      expect(truncated).not.toHaveAttribute('truncate');
+    });
+
+    it('applies lineClamp and warns when truncate is also set', () => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+      expect(
+        classesOf(
+          <Heading level={2} lineClamp={2} truncate>
+            Title
+          </Heading>,
+        ),
+      ).toBe(
+        classesOf(
+          <Heading level={2} lineClamp={2}>
+            Title
+          </Heading>,
+        ),
+      );
+      expect(warn).toHaveBeenCalledWith(
+        expect.stringContaining('Heading: `lineClamp` and `truncate`'),
+      );
+    });
+
+    it('accepts lineClamp from 1 to 5 only', () => {
+      render(<Heading lineClamp={1}>Title</Heading>);
+      // @ts-expect-error 6 is not a lineClamp value
+      render(<Heading lineClamp={6}>Title</Heading>);
+    });
   });
 });
