@@ -17,12 +17,19 @@ export type AlertProps = {
   children?: React.ReactNode;
   intent?: AlertTheme['variants']['intent'];
   onRequestClose?: () => void;
+  /**
+   * Accessible name of the close button, rendered when `onRequestClose` is set.
+   * Pass your own wording to translate it.
+   * @default 'Close'
+   */
+  closeLabel?: string;
 } & HTMLElementProps<HTMLDivElement>;
 
 export const Alert: React.FC<AlertProps> = ({
   intent = 'info',
   children,
   onRequestClose,
+  closeLabel = 'Close',
   className,
   ...restProps
 }) => {
@@ -53,6 +60,7 @@ export const Alert: React.FC<AlertProps> = ({
           variant="ghost"
           size="small"
           className={styles.closeButton}
+          aria-label={closeLabel}
           onClick={() => onRequestClose?.()}
         >
           <svg
