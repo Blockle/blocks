@@ -99,7 +99,7 @@ export const Dismissable = meta.story({
         label="Close"
         variant="ghost"
         size="small"
-        intent="neutral"
+        intent="inherit"
         onClick={action('onClose')}
       >
         <CloseIcon />

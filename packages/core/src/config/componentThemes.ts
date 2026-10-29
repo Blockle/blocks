@@ -38,10 +38,13 @@ export type ButtonTheme = {
   root: string;
   variants: {
     variant: ButtonVariant;
-    intent: Extract<
-      Intent,
-      'neutral' | 'primary' | 'secondary' | 'danger' | 'success'
-    >;
+    // `inherit` uses the surrounding text color; it isn't an Intent
+    intent:
+      | Extract<
+          Intent,
+          'neutral' | 'primary' | 'secondary' | 'danger' | 'success'
+        >
+      | 'inherit';
     size: Size;
     loading: boolean;
     disabled: boolean;

@@ -35,6 +35,25 @@ describe('Button', () => {
     expect(screen.getByRole('button')).toBeDisabled();
   });
 
+  it('takes intent="inherit" only with a ghost or outline variant', () => {
+    render(
+      <>
+        <Button intent="inherit" variant="ghost">
+          Ghost
+        </Button>
+        <Button intent="inherit" variant="outline">
+          Outline
+        </Button>
+        {/* @ts-expect-error: the default variant is solid, which can't inherit */}
+        <Button intent="inherit">Default</Button>
+        {/* @ts-expect-error: a solid button can't inherit */}
+        <Button intent="inherit" variant="solid">
+          Solid
+        </Button>
+      </>,
+    );
+  });
+
   it('should have the correct type attribute', () => {
     render(<Button type="submit">Button</Button>);
 

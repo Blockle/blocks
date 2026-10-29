@@ -13,5 +13,5 @@ The exception is a component the consumer never renders, such as each Toast in `
 
 - Blocks ships no icon set, so each consumer brings its own × icon for a dismissable Alert.
 - Tag, a fixed-height pill, does size what's in its Slots to its line height (T326), since even a small `IconButton` is taller than a Tag. It still doesn't recolor them.
-- Alert doesn't style what's in its Slots. A composed button keeps its own `intent`, and Button has no `info` or `warning` Intent to match the Alert with; a way for buttons to inherit the surrounding text color is T375.
+- Alert doesn't style what's in its Slots. A composed button keeps its own `intent`, and Button has no `info` or `warning` Intent to match the Alert with. Instead, a ghost or outline Button or IconButton takes the surrounding text color with `intent="inherit"` (T375).
 - `onRequestClose` remains on overlays (Dialog, Drawer, Popover), where it reports a request to close, such as Escape or an outside click, rather than drawing a button.
