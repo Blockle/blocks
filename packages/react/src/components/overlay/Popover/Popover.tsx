@@ -47,6 +47,7 @@ export const Popover: React.FC<PopoverProps> = ({
   open,
   placement: placementProp,
   position,
+  ref,
   sticky,
   style,
   ...restProps
@@ -167,7 +168,7 @@ export const Popover: React.FC<PopoverProps> = ({
 
   return (
     <Box
-      ref={composeRefs(restProps.ref, popoverRef)}
+      ref={composeRefs(ref, popoverRef)}
       data-open={open ? '' : undefined}
       popover="manual"
       className={classnames(popoverClassName, className)}
