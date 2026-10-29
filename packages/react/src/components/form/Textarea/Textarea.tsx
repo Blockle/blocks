@@ -26,6 +26,11 @@ export type TextareaProps = {
    * If true, the wrapper stretches to its parent's block size and the
    * `<textarea>` is at least as tall as the wrapper. Combine with `grow` to
    * give textareas side by side, such as in a `Grid`, equal heights.
+   *
+   * The heights match up to the container's maximum block size. Past it, the
+   * containers stay equal while the typed-in `<textarea>` scrolls inside its
+   * own; raise `maxBlockSize` to lift the limit. The parent needs a definite
+   * block size, such as a stretched grid cell.
    */
   fill?: boolean;
   /**
