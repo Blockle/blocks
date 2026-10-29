@@ -3,12 +3,15 @@ import {
   type Atoms,
   alignItemsMap,
   type HTMLElementProps,
+  type JustifyContentMap,
+  justifyContentMap,
 } from '@blockle/blocks-core';
 
 import { Box } from '../Box/Box.js';
 
 export type StackProps = {
   alignX?: keyof AlignItemsMap;
+  alignY?: keyof JustifyContentMap;
   /**
    * Render the single child element instead of a `div`, with the layout
    * classes and attributes merged onto it. A `ul` or `ol` child keeps its
@@ -31,6 +34,7 @@ export const Stack: React.FC<StackProps> = ({
   children,
   gap,
   alignX,
+  alignY,
   ref,
   ...restProps
 }) => {
@@ -41,6 +45,7 @@ export const Stack: React.FC<StackProps> = ({
       gap={gap}
       flexDirection="column"
       alignItems={alignX ? alignItemsMap[alignX] : undefined}
+      justifyContent={alignY ? justifyContentMap[alignY] : undefined}
       ref={ref as React.Ref<HTMLDivElement>}
       {...restProps}
     >

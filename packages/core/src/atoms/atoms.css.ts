@@ -53,7 +53,7 @@ const unresponsiveAtomicProperties = defineProperties({
     whiteSpace: ['nowrap', 'pre', 'pre-line', 'pre-wrap'],
     wordBreak: ['break-word'],
     wordWrap: ['break-word'],
-    textAlign: ['center', 'left', 'right', 'justify'],
+    textAlign: ['start', 'end', 'center', 'justify'],
   },
 });
 

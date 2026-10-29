@@ -1,3 +1,4 @@
+import { atoms } from '@blockle/blocks-core';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { render } from '../../../testUtils/testUtils.js';
@@ -35,6 +36,27 @@ describe('Heading', () => {
     const heading = container.querySelector('h4');
     expect(heading).toHaveAttribute('id', 'heading-id');
     expect(heading).toHaveAttribute('data-test', 'test-prop');
+  });
+
+  it('applies a logical textAlign', () => {
+    const { container } = render(
+      <Heading level={2} textAlign="start">
+        Test Heading
+      </Heading>,
+    );
+
+    expect(container.querySelector('h2')).toHaveClass(
+      atoms({ textAlign: 'start' }),
+    );
+  });
+
+  it('accepts no physical keys for textAlign', () => {
+    render(
+      // @ts-expect-error use textAlign="start"
+      <Heading level={2} textAlign="left">
+        Test Heading
+      </Heading>,
+    );
   });
 
   describe('overflow', () => {

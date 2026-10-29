@@ -155,3 +155,16 @@ describe('minInlineSize atom (browser)', () => {
     ).toBe('0px');
   });
 });
+
+describe('textAlign atom (browser)', () => {
+  it.each([
+    'start',
+    'end',
+  ] as const)('renders text-align: %s', async (textAlign) => {
+    const screen = await render(<Text textAlign={textAlign}>Aligned</Text>);
+
+    expect(
+      getComputedStyle(screen.getByText('Aligned').element()).textAlign,
+    ).toBe(textAlign);
+  });
+});

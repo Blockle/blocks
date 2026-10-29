@@ -67,6 +67,54 @@ describe('Inline Component', () => {
     expect(container.firstElementChild?.className).not.toBe('');
   });
 
+  it('aligns items with alignY="start"', () => {
+    const { container } = render(
+      <Inline gap={2} alignY="start">
+        Content
+      </Inline>,
+    );
+
+    expect(container.firstElementChild).toHaveClass(
+      atoms({ alignItems: 'flex-start' }),
+    );
+  });
+
+  it('accepts no physical or top keys for alignY', () => {
+    render(
+      <>
+        {/* @ts-expect-error use alignY="start" */}
+        <Inline gap={2} alignY="top">
+          Content
+        </Inline>
+        {/* @ts-expect-error use alignY="start" */}
+        <Inline gap={2} alignY="left">
+          Content
+        </Inline>
+      </>,
+    );
+  });
+
+  it('justifies content with alignX="end"', () => {
+    const { container } = render(
+      <Inline gap={2} alignX="end">
+        Content
+      </Inline>,
+    );
+
+    expect(container.firstElementChild).toHaveClass(
+      atoms({ justifyContent: 'flex-end' }),
+    );
+  });
+
+  it('accepts no physical keys for alignX', () => {
+    render(
+      // @ts-expect-error use alignX="end"
+      <Inline gap={2} alignX="right">
+        Content
+      </Inline>,
+    );
+  });
+
   it('renders HTML attributes on the element', () => {
     render(
       <Inline id="x" aria-labelledby="h" data-test="s" gap={2}>
