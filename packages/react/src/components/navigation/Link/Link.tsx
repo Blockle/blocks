@@ -15,8 +15,8 @@ type LinkTheme = ComponentThemes['link'];
 export type LinkProps = {
   asChild?: boolean;
   children?: React.ReactNode;
+  intent?: LinkTheme['variants']['intent'];
   underline?: LinkTheme['variants']['underline'];
-  variant?: LinkTheme['variants']['variant'];
 } & HTMLElementProps<HTMLAnchorElement> &
   MarginAtoms;
 
@@ -26,13 +26,13 @@ export const Link: React.FC<LinkProps> = ({
   asChild,
   children,
   className,
+  intent,
   underline,
-  variant,
   ...restProps
 }) => {
   const linkClassName = useComponentStyles('link', {
     root: true,
-    variants: { variant, underline },
+    variants: { intent, underline },
   });
 
   return (
