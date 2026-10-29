@@ -22,7 +22,12 @@ export type NumericInputProps = {
   min?: number;
   max?: number;
   step?: number;
-} & TextInputProps;
+} & Omit<TextInputProps, 'startSlot' | 'endSlot'>;
+
+const shiftMultiplier = 10;
+
+const stepsFor = (event: React.MouseEvent | React.KeyboardEvent) =>
+  event.shiftKey ? shiftMultiplier : 1;
 
 const StepIcon: React.FC<{ path: string }> = ({ path }) => (
   <svg
@@ -43,30 +48,38 @@ export const NumericInput: React.FC<NumericInputProps> = ({
   ...props
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const onDecrement = useCallback((event: React.MouseEvent) => {
-    const size = event.shiftKey ? 10 : 1;
-    inputRef.current?.stepDown(size);
-  }, []);
-  const onIncrement = useCallback((event: React.MouseEvent) => {
-    const stepSize = event.shiftKey ? 10 : 1;
-    inputRef.current?.stepUp(stepSize);
-  }, []);
-  const onKeyDown = useCallback((event: React.KeyboardEvent) => {
-    if (!event.shiftKey) {
-      return;
-    }
+  const { onKeyDown: consumerOnKeyDown } = props;
 
-    if (event.key === 'ArrowUp') {
-      event.preventDefault();
-      inputRef.current?.stepUp(10);
-    } else if (event.key === 'ArrowDown') {
-      event.preventDefault();
-      inputRef.current?.stepDown(10);
-    }
+  const onDecrement = useCallback((event: React.MouseEvent) => {
+    inputRef.current?.stepDown(stepsFor(event));
   }, []);
+
+  const onIncrement = useCallback((event: React.MouseEvent) => {
+    inputRef.current?.stepUp(stepsFor(event));
+  }, []);
+
+  const onKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
+      consumerOnKeyDown?.(event);
+
+      if (event.defaultPrevented || !event.shiftKey) {
+        return;
+      }
+
+      if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        inputRef.current?.stepUp(stepsFor(event));
+      } else if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        inputRef.current?.stepDown(stepsFor(event));
+      }
+    },
+    [consumerOnKeyDown],
+  );
 
   return (
     <TextInput
+      {...props}
       ref={composeRefs(props.ref, inputRef)}
       inputClassName={styles.numericInput}
       type="number"
@@ -91,7 +104,6 @@ export const NumericInput: React.FC<NumericInputProps> = ({
         </IconButton>
       }
       onKeyDown={onKeyDown}
-      {...props}
     />
   );
 };
