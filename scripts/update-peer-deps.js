@@ -15,6 +15,48 @@ const externalPeerDeps = new Map([
  */
 const checkOnly = process.argv.includes('--check');
 
+/**
+ * Parses a `>=X.Y.Z` or `>=X.Y.x` range into its floor, or returns null for
+ * any other range.
+ */
+function parseFloor(range) {
+  const match = /^>=(\d+)\.(\d+)\.(\d+|x)$/.exec(range);
+
+  if (!match) {
+    return null;
+  }
+
+  return [match[1], match[2], match[3] === 'x' ? '0' : match[3]].map(Number);
+}
+
+function compareVersions(a, b) {
+  for (let i = 0; i < 3; i++) {
+    if (a[i] !== b[i]) {
+      return a[i] - b[i];
+    }
+  }
+
+  return 0;
+}
+
+/**
+ * A range raised by hand above `>=X.Y.x`, for example to skip a broken patch
+ * release, is kept as long as its floor is within the current minor version.
+ */
+function isRaisedFloor(range, currentVersion) {
+  const floor = parseFloor(range);
+  const current = currentVersion.split('.').map(Number);
+
+  if (!floor) {
+    return false;
+  }
+
+  return (
+    compareVersions(floor, [current[0], current[1], 0]) > 0 &&
+    compareVersions(floor, current) <= 0
+  );
+}
+
 async function updatePeerDependencies() {
   // Find all package.json files in packages
   const packageFiles = await glob('packages/*/package.json');
@@ -54,7 +96,10 @@ async function updatePeerDependencies() {
           const [majorVersion, minorVersion] = currentVersion.split('.');
           const newRange = `>=${majorVersion}.${minorVersion}.x`;
 
-          if (currentRange !== newRange) {
+          if (
+            currentRange !== newRange &&
+            !isRaisedFloor(currentRange, currentVersion)
+          ) {
             console.log(`🔄 ${packageName}:`);
             console.log(`  ${depName}: ${currentRange} → ${newRange}`);
             newPeerDeps[depName] = newRange;
