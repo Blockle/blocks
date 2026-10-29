@@ -15,6 +15,11 @@ type AlertTheme = ComponentThemes['alert'];
 
 export type AlertProps = {
   children?: React.ReactNode;
+  /**
+   * Content placed at the end of the Alert, before the close button, such as
+   * a `Button`. The children take the remaining width.
+   */
+  action?: React.ReactNode;
   intent?: AlertTheme['variants']['intent'];
   onRequestClose?: () => void;
   /**
@@ -23,14 +28,23 @@ export type AlertProps = {
    * @default 'Close'
    */
   closeLabel?: string;
-} & HTMLElementProps<HTMLDivElement>;
+  /**
+   * `alert` announces the message as urgent, for a message shown in response
+   * to something that just happened. Use `status` for a lasting notice, such
+   * as a banner that stays while a record is archived.
+   * @default 'alert'
+   */
+  role?: 'alert' | 'status';
+} & Omit<HTMLElementProps<HTMLDivElement>, 'action' | 'role'>;
 
 export const Alert: React.FC<AlertProps> = ({
   intent = 'info',
   children,
+  action,
   onRequestClose,
   closeLabel = 'Close',
   className,
+  role = 'alert',
   ...restProps
 }) => {
   const containerClassName = useComponentStyles('alert', {
@@ -46,14 +60,17 @@ export const Alert: React.FC<AlertProps> = ({
 
   return (
     <Box
-      role="alert"
+      role={role}
       className={classnames(containerClassName, className)}
       display="flex"
       alignItems="center"
       justifyContent="space-between"
+      gap={action ? 2 : undefined}
       {...restProps}
     >
-      <div>{children}</div>
+      <Box flexGrow={action ? 1 : undefined}>{children}</Box>
+
+      {action}
 
       {onRequestClose ? (
         <Button
