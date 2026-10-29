@@ -9,12 +9,10 @@ import * as styles from './radio.css.js';
 
 export type RadioProps = {
   children?: React.ReactNode;
-  name: string;
   value: string;
 } & HTMLElementProps<HTMLInputElement>;
 
 export const Radio: React.FC<RadioProps> = ({
-  name,
   children,
   className,
   ...restProps
@@ -29,13 +27,7 @@ export const Radio: React.FC<RadioProps> = ({
     <div
       className={classnames(styles.container, containerClassName, className)}
     >
-      <input
-        type="radio"
-        name={name}
-        id={id}
-        className={styles.input}
-        {...restProps}
-      />
+      <input type="radio" id={id} className={styles.input} {...restProps} />
       <div className={classnames(styles.icon, iconClassName)} />
     </div>
   );

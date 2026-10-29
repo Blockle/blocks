@@ -19,4 +19,16 @@ describe('Label', () => {
 
     expect(screen.getByLabelText('My label text')).toBeInTheDocument();
   });
+
+  it('should pass name through to the input', () => {
+    render(<Radio name="option" value="option-1" />);
+
+    expect(screen.getByRole('radio')).toHaveAttribute('name', 'option');
+  });
+
+  it('should render without a name', () => {
+    render(<Radio value="option-1" />);
+
+    expect(screen.getByRole('radio')).not.toHaveAttribute('name');
+  });
 });

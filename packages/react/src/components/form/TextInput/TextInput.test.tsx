@@ -14,4 +14,16 @@ describe('TextInput', () => {
 
     expect(screen.getByLabelText('Label text')).toBeInTheDocument();
   });
+
+  it('should pass name through to the input', () => {
+    render(<TextInput name="text-input" />);
+
+    expect(screen.getByRole('textbox')).toHaveAttribute('name', 'text-input');
+  });
+
+  it('should render without a name', () => {
+    render(<TextInput />);
+
+    expect(screen.getByRole('textbox')).not.toHaveAttribute('name');
+  });
 });

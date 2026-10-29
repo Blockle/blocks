@@ -19,4 +19,16 @@ describe('Checkbox', () => {
       }),
     ).toBeInTheDocument();
   });
+
+  it('should pass name through to the input', () => {
+    render(<Checkbox name="checkbox" />);
+
+    expect(screen.getByRole('checkbox')).toHaveAttribute('name', 'checkbox');
+  });
+
+  it('should render without a name', () => {
+    render(<Checkbox />);
+
+    expect(screen.getByRole('checkbox')).not.toHaveAttribute('name');
+  });
 });
