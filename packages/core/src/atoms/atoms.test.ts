@@ -88,6 +88,18 @@ describe('atoms', () => {
     expect(atoms({ cursor: 'move' })).toBe('');
   });
 
+  it('returns a class for listStyle none', () => {
+    const className = atoms({ listStyle: 'none' });
+
+    expect(className).toBeTruthy();
+    expect(className).toBe(atomicProperties.listStyle.values.none.defaultClass);
+  });
+
+  it('rejects a listStyle other than none', () => {
+    // @ts-expect-error disc is not a listStyle value
+    expect(atoms({ listStyle: 'disc' })).toBe('');
+  });
+
   it('returns empty string for unknown property', () => {
     // @ts-expect-error testing unknown property
     expect(atoms({ unknown: 'value' })).toBe('');

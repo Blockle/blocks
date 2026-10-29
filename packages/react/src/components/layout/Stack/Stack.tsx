@@ -8,6 +8,12 @@ import { Box } from '../Box/Box.js';
 
 export type StackProps = {
   alignX?: keyof AlignItemsMap;
+  /**
+   * With `ul` or `ol`, the list markers are dropped (`listStyle="none"`).
+   * WebKit then no longer exposes the element as a list, so pass
+   * `role="list"` when list semantics matter. To show markers, pass a
+   * `className` that sets `list-style` and `padding-inline-start`.
+   */
   tag?: 'div' | 'section' | 'ul' | 'ol';
   children: React.ReactNode;
   className?: string;
@@ -15,7 +21,8 @@ export type StackProps = {
   style?: React.CSSProperties;
   role?: React.AriaRole;
   /**
-   * Start prop is only valid when tag="ol"
+   * Start prop is only valid when tag="ol". The numbering only shows once
+   * markers are restored, see `tag`.
    */
   start?: number;
 } & Omit<Atoms, 'flexDirection' | 'gap'>;
@@ -39,6 +46,7 @@ export const Stack: React.FC<StackProps> = ({
       gap={gap}
       flexDirection="column"
       alignItems={alignX ? alignItemsMap[alignX] : undefined}
+      listStyle={Tag === 'ul' || Tag === 'ol' ? 'none' : undefined}
       {...restProps}
     >
       <Tag>{children}</Tag>

@@ -31,4 +31,15 @@ describe('Box', () => {
       atoms({ letterSpacing: 'wide' }),
     );
   });
+
+  it('applies the listStyle atom and rejects values other than none', () => {
+    render(<Box listStyle="none">Box content</Box>);
+
+    expect(screen.getByText('Box content')).toHaveClass(
+      atoms({ listStyle: 'none' }),
+    );
+
+    // @ts-expect-error disc is not a listStyle value
+    render(<Box listStyle="disc">Other</Box>);
+  });
 });

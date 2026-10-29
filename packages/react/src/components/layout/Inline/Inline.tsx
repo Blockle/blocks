@@ -11,11 +11,18 @@ import { Box } from '../Box/Box.js';
 export type InlineProps = {
   alignX?: keyof JustifyContentMap;
   alignY?: keyof AlignItemsMap;
+  /**
+   * With `ul` or `ol`, the list markers are dropped (`listStyle="none"`).
+   * WebKit then no longer exposes the element as a list, so pass
+   * `role="list"` when list semantics matter. To show markers, pass a
+   * `className` that sets `list-style` and `padding-inline-start`.
+   */
   tag?: 'div' | 'ul' | 'ol' | 'nav';
   children: React.ReactNode;
   className?: string;
   gap: Atoms['gap'];
   style?: React.CSSProperties;
+  role?: React.AriaRole;
 } & Omit<Atoms, 'flexDirection' | 'gap'>;
 
 export const Inline: React.FC<InlineProps> = ({
@@ -36,6 +43,7 @@ export const Inline: React.FC<InlineProps> = ({
       justifyContent={alignX ? justifyContentMap[alignX] : undefined}
       alignItems={alignY ? alignItemsMap[alignY] : undefined}
       flexWrap="wrap"
+      listStyle={Tag === 'ul' || Tag === 'ol' ? 'none' : undefined}
       {...props}
     >
       <Tag>{children}</Tag>
