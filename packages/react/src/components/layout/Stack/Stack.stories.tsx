@@ -38,9 +38,12 @@ export const Default = meta.story({
 
 export const List = meta.story({
   args: {
+    asChild: true,
     gap: 2,
+    listStyle: 'none',
+    role: 'list',
     children: (
-      <>
+      <ol>
         <li style={{ border: '1px red solid', width: '60px', height: '60px' }}>
           1
         </li>
@@ -50,10 +53,8 @@ export const List = meta.story({
         <li style={{ border: '1px red solid', width: '60px', height: '60px' }}>
           3
         </li>
-      </>
+      </ol>
     ),
-    tag: 'ol',
-    role: 'list',
   },
 });
 

@@ -16,62 +16,24 @@ describe('Stack Component', () => {
     expect(container.querySelector('div')).toHaveTextContent('Content');
   });
 
-  it('renders a custom tag', () => {
+  it('has no tag prop, and renders a div', () => {
     const { container } = render(
+      // @ts-expect-error tag was removed, use asChild
       <Stack tag="ul" gap={2}>
-        <li>Item</li>
-      </Stack>,
-    );
-
-    expect(container.querySelector('ul')).toBeInTheDocument();
-  });
-
-  it.each([
-    'ul',
-    'ol',
-  ] as const)('drops the list markers for tag="%s"', (tag) => {
-    const { container } = render(
-      <Stack tag={tag} gap={2}>
-        <li>Item</li>
-      </Stack>,
-    );
-
-    expect(container.querySelector(tag)).toHaveClass(
-      atoms({ listStyle: 'none' }),
-    );
-  });
-
-  it.each([
-    'div',
-    'section',
-  ] as const)('adds no listStyle class for tag="%s"', (tag) => {
-    const { container } = render(
-      <Stack tag={tag} gap={2}>
         Content
       </Stack>,
     );
 
-    expect(container.querySelector(tag)).not.toHaveClass(
-      atoms({ listStyle: 'none' }),
-    );
+    expect(container.querySelector('ul')).not.toBeInTheDocument();
+    expect(container.firstElementChild?.tagName).toBe('DIV');
   });
 
-  it('adds no role itself, and renders a role passed to it', () => {
-    const { container, rerender } = render(
-      <Stack tag="ul" gap={2}>
-        <li>Item</li>
-      </Stack>,
+  it('adds no listStyle class', () => {
+    const { container } = render(<Stack gap={2}>Content</Stack>);
+
+    expect(container.querySelector('div')).not.toHaveClass(
+      atoms({ listStyle: 'none' }),
     );
-
-    expect(container.querySelector('ul')).not.toHaveAttribute('role');
-
-    rerender(
-      <Stack tag="ul" gap={2} role="list">
-        <li>Item</li>
-      </Stack>,
-    );
-
-    expect(container.querySelector('ul')).toHaveAttribute('role', 'list');
   });
 
   it('accepts additional atoms such as background and alignItems', () => {
@@ -86,16 +48,15 @@ describe('Stack Component', () => {
 
   it('renders HTML attributes on the element', () => {
     render(
-      <Stack tag="ul" id="x" aria-labelledby="h" data-test="s" gap={2}>
-        <li>Item</li>
+      <Stack id="x" aria-labelledby="h" data-test="s" gap={2}>
+        Content
       </Stack>,
     );
 
-    const list = screen.getByRole('list');
+    const element = document.getElementById('x');
 
-    expect(list).toHaveAttribute('id', 'x');
-    expect(list).toHaveAttribute('aria-labelledby', 'h');
-    expect(list).toHaveAttribute('data-test', 's');
+    expect(element).toHaveAttribute('aria-labelledby', 'h');
+    expect(element).toHaveAttribute('data-test', 's');
   });
 
   it('fires onClick and onKeyDown on the element', () => {
@@ -124,26 +85,27 @@ describe('Stack Component', () => {
     const ref = createRef<HTMLElement>();
 
     render(
-      <Stack ref={ref} tag="ul" gap={2}>
-        <li>Item</li>
+      <Stack ref={ref} data-testid="stack" gap={2}>
+        Content
       </Stack>,
     );
 
-    expect(ref.current).toBe(screen.getByRole('list'));
+    expect(ref.current).toBe(screen.getByTestId('stack'));
   });
 
-  it('warns when start is passed without tag="ol"', () => {
+  it('forwards start as an HTML attribute without warning', () => {
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
 
     render(
-      <Stack tag="ul" start={2} gap={2}>
-        <li>Item</li>
+      <Stack asChild start={3} gap={2}>
+        <ol>
+          <li>Item</li>
+        </ol>
       </Stack>,
     );
 
-    expect(warn).toHaveBeenCalledWith(
-      'Stack: "start" prop is only valid with tag="ol"',
-    );
+    expect(screen.getByRole('list')).toHaveAttribute('start', '3');
+    expect(warn).not.toHaveBeenCalled();
   });
 
   describe('asChild', () => {
@@ -179,21 +141,54 @@ describe('Stack Component', () => {
       expect(ref.current).toBe(screen.getByRole('listitem'));
     });
 
-    it('ignores tag without logging, and applies no tag-based defaults', () => {
-      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
-      const error = vi.spyOn(console, 'error').mockImplementation(() => {});
+    it.each([
+      'ul',
+      'ol',
+    ] as const)('renders a single %s with the layout and listStyle classes', (Tag) => {
       const { container } = render(
-        <Stack asChild tag="ul" start={2} gap={2}>
-          <section>Content</section>
+        <Stack asChild gap={2} listStyle="none">
+          <Tag>
+            <li>Item</li>
+          </Tag>
         </Stack>,
       );
 
-      expect(container.querySelector('ul')).not.toBeInTheDocument();
-      expect(container.querySelector('section')).not.toHaveClass(
+      expect(container.childElementCount).toBe(1);
+      expect(container.firstElementChild?.tagName).toBe(Tag.toUpperCase());
+      expect(container.firstElementChild).toHaveClass(
+        atoms({
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+          listStyle: 'none',
+        }),
+      );
+    });
+
+    it('adds no listStyle class to a list child on its own', () => {
+      render(
+        <Stack asChild gap={2}>
+          <ul>
+            <li>Item</li>
+          </ul>
+        </Stack>,
+      );
+
+      expect(screen.getByRole('list')).not.toHaveClass(
         atoms({ listStyle: 'none' }),
       );
-      expect(warn).not.toHaveBeenCalled();
-      expect(error).not.toHaveBeenCalled();
+    });
+
+    it('renders a role passed to it on the child', () => {
+      render(
+        <Stack asChild gap={2} listStyle="none" role="list">
+          <ul>
+            <li>Item</li>
+          </ul>
+        </Stack>,
+      );
+
+      expect(screen.getByRole('list')).toHaveAttribute('role', 'list');
     });
   });
 });

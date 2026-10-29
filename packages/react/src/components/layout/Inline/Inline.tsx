@@ -13,19 +13,13 @@ export type InlineProps = {
   alignX?: keyof JustifyContentMap;
   alignY?: keyof AlignItemsMap;
   /**
-   * Render the single child element instead of `tag`, with the layout
-   * classes and attributes merged onto it. `tag` is then ignored, and so is
-   * its list-marker reset.
+   * Render the single child element instead of a `div`, with the layout
+   * classes and attributes merged onto it. A `ul` or `ol` child keeps its
+   * list markers unless `listStyle="none"` is passed. WebKit then no longer
+   * exposes the element as a list, so pass `role="list"` when list
+   * semantics matter.
    */
   asChild?: boolean;
-  /**
-   * With `ul` or `ol`, the list markers are dropped (`listStyle="none"`).
-   * WebKit then no longer exposes the element as a list, so pass
-   * `role="list"` when list semantics matter. To show markers, pass a
-   * `className` that sets `list-style` and `padding-inline-start`.
-   * With `asChild`, markers depend on the child's own element and styles.
-   */
-  tag?: 'div' | 'ul' | 'ol' | 'nav';
   children: React.ReactNode;
   className?: string;
   ref?: React.Ref<HTMLElement>;
@@ -38,15 +32,12 @@ export const Inline: React.FC<InlineProps> = ({
   alignX,
   alignY,
   asChild,
-  tag: Tag = 'div',
   children,
   display = 'flex',
   gap,
   ref,
   ...props
 }) => {
-  const isList = !asChild && (Tag === 'ul' || Tag === 'ol');
-
   return (
     <Box
       asChild
@@ -56,11 +47,10 @@ export const Inline: React.FC<InlineProps> = ({
       justifyContent={alignX ? justifyContentMap[alignX] : undefined}
       alignItems={alignY ? alignItemsMap[alignY] : undefined}
       flexWrap="wrap"
-      listStyle={isList ? 'none' : undefined}
       ref={ref as React.Ref<HTMLDivElement>}
       {...props}
     >
-      {asChild ? children : <Tag>{children}</Tag>}
+      {asChild ? children : <div>{children}</div>}
     </Box>
   );
 };
