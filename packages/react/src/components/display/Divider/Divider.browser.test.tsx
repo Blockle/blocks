@@ -9,6 +9,11 @@ describe('Divider (browser)', () => {
     const divider = screen.getByRole('separator').element();
 
     expect(getComputedStyle(divider, '::after').display).toBe('none');
+
+    // The single line spans the whole Divider: no flex gap is left over
+    expect(getComputedStyle(divider, '::before').width).toBe(
+      getComputedStyle(divider).width,
+    );
   });
 
   it('keeps both lines when it has children', async () => {
@@ -16,5 +21,8 @@ describe('Divider (browser)', () => {
     const divider = screen.getByRole('separator').element();
 
     expect(getComputedStyle(divider, '::after').display).toBe('block');
+    expect(
+      Number.parseFloat(getComputedStyle(divider, '::before').width),
+    ).toBeLessThan(Number.parseFloat(getComputedStyle(divider).width) / 2);
   });
 });

@@ -31,7 +31,7 @@ export const spinner: ThemeComponentsStyles['spinner'] = makeComponentTheme(
       },
     }),
     variants: {
-      // note: colors are handled by atoms
+      // note: colors come from the color scheme (currentColor)
       size: {
         small: style({
           '@layer': {

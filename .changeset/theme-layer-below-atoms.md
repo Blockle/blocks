@@ -11,7 +11,7 @@ The layers are ordered, lowest priority first: `blockle-reset` < `blockle-molecu
 What changes for you:
 
 - An app's `className` on a Blocks component always beats the theme and base styles, whatever order the stylesheets load in. A single class is enough: drop any `&&` specificity tricks. For example, `<Dialog className={wide}>` with `inline-size: 50rem` now sets the width.
-- Atom props now beat the theme and the component base styles. `padding={0}` removes padding, and `Textarea containerProps={{ padding: 0, backgroundColor: … }}` renders with exactly that.
+- Atom props, on components that accept them, and Atom classes now beat the theme and the component base styles. `Textarea containerProps={{ padding: 0, backgroundColor: … }}` and `className={atoms({ padding: 0 })}` render with exactly that.
 - `truncate` and `lineClamp` on `Text` no longer beat an explicit `display`, `overflow` or `whiteSpace` Atom. The Atom wins.
 - `Select` with `variant="outline"` now has the 1px border the theme always declared. It rendered 3px before.
 

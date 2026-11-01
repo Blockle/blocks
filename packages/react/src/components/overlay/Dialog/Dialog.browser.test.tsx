@@ -12,7 +12,8 @@ describe('Dialog theme precedence (browser)', () => {
     // First in <head>, so every theme stylesheet comes after it
     const appStyles = document.createElement('style');
     appStyles.dataset.appStyles = '';
-    appStyles.textContent = '.app-wide { width: 500px; max-width: none; }';
+    appStyles.textContent =
+      '.app-wide { inline-size: 50rem; max-inline-size: none; }';
     document.head.prepend(appStyles);
 
     const screen = await render(
@@ -28,6 +29,6 @@ describe('Dialog theme precedence (browser)', () => {
 
     const dialog = screen.getByRole('dialog').element();
 
-    expect(getComputedStyle(dialog).width).toBe('500px');
+    expect(getComputedStyle(dialog).width).toBe('800px');
   });
 });

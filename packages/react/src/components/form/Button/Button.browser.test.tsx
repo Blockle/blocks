@@ -1,3 +1,4 @@
+import { atoms } from '@blockle/blocks-core';
 import { afterEach, describe, expect, it } from 'vitest';
 
 import { emulateColorScheme } from '../../../testUtils/browser/emulateColorScheme.js';
@@ -147,7 +148,9 @@ describe('Button colors (browser)', () => {
 
 describe('Button Atom props (browser)', () => {
   it('lets an Atom prop beat the theme padding', async () => {
-    const screen = await render(<Button paddingInline={0}>Save</Button>);
+    const screen = await render(
+      <Button className={atoms({ paddingInline: 0 })}>Save</Button>,
+    );
     const style = styleOf(screen.getByRole('button').element());
 
     expect(style.paddingInlineStart).toBe('0px');
