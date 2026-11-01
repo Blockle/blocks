@@ -168,3 +168,17 @@ describe('textAlign atom (browser)', () => {
     ).toBe(textAlign);
   });
 });
+
+describe('Text overflow precedence (browser)', () => {
+  it('lets an explicit display atom beat lineClamp', async () => {
+    const screen = await render(
+      <Text lineClamp={2} className={atoms({ display: 'flex' })}>
+        Hello
+      </Text>,
+    );
+
+    expect(getComputedStyle(screen.getByText('Hello').element()).display).toBe(
+      'flex',
+    );
+  });
+});

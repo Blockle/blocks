@@ -11,9 +11,6 @@ export const divider = style({
       justifyContent: 'center',
       clear: 'both',
       minBlockSize: '1px',
-      ':empty': {
-        gap: 0,
-      },
       ':before': {
         flex: 1,
         content: '""',
@@ -27,6 +24,9 @@ export const divider = style({
         backgroundColor: dividerColorVar,
       },
       selectors: {
+        '&:empty:after': {
+          display: 'none',
+        },
         '&[data-alignment="start"]:before': {
           maxInlineSize: '3rem',
         },

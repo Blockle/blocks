@@ -1,7 +1,8 @@
 import { layers } from '@blockle/blocks-core';
 import { style, styleVariants } from '@vanilla-extract/css';
 
-// The molecule layer lets these win over display, overflow and whiteSpace atoms.
+// These are base styles in the molecule layer, so an explicit display, overflow
+// or whiteSpace atom wins over them.
 export const lineClamp = styleVariants(
   { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5 },
   (lines) => ({
