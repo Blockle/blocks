@@ -1,0 +1,124 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Guides/Writing a theme" />
+
+# Writing a theme
+
+A **Component theme** gives a component its look: variants, defaults and styles. This page explains how to write one so that it sits at the right place in the cascade. The reference implementation is `@blockle/blocks-theme-momotaro`.
+
+## Precedence
+
+Precedence follows one rule: **defaults < theme < props < your own CSS**.
+
+Blocks orders its cascade layers, lowest priority first:
+
+| Layer              | Holds                  |
+| ------------------ | ---------------------- |
+| `blockle-reset`    | Reset                  |
+| `blockle-molecule` | Component base styles  |
+| `blockle-theme`    | Component themes       |
+| `blockle-atom`     | Atoms, passed as props |
+| `blockle-organism` | Unused                 |
+
+An app's unlayered styles, such as the class it passes as `className`, sit above all of them. So an app's `className` beats the theme whatever order the stylesheets load in, and an Atom prop such as `padding={0}` beats the theme and the base styles.
+
+The layer names are exported from `@blockle/blocks-core` as `layers`.
+
+## Put every declaration in `layers.theme`
+
+Wrap every declaration of your theme in `'@layer': { [layers.theme]: … }`. There is no helper for it; the wrapper is written by hand.
+
+```ts
+import {
+  layers,
+  makeComponentTheme,
+  type ThemeComponentsStyles,
+  vars,
+} from '@blockle/blocks-core';
+import { style } from '@vanilla-extract/css';
+
+export const alert: ThemeComponentsStyles['alert'] = makeComponentTheme(
+  'alert',
+  {
+    root: style({
+      '@layer': {
+        [layers.theme]: {
+          paddingBlock: vars.space[2],
+          borderRadius: vars.borderRadius[2],
+        },
+      },
+    }),
+    variants: {
+      intent: {
+        danger: style({
+          '@layer': {
+            [layers.theme]: {
+              color: 'red',
+            },
+          },
+        }),
+      },
+    },
+  },
+);
+```
+
+This covers everything the theme writes:
+
+- Roots, slots, variants and compound variants.
+- Shared helper classes. When a helper is used in `style([...])`, each piece needs its own wrapper.
+- Pseudo-classes, pseudo-elements, `selectors`, `@media` and `@starting-style`. Nest them inside the layer block.
+- Every `globalStyle`, through its own `'@layer'`.
+
+```ts
+import { globalStyle, style } from '@vanilla-extract/css';
+
+const link = style({
+  '@layer': {
+    [layers.theme]: {
+      color: vars.colorRole.primary.foreground,
+      ':hover': { textDecoration: 'underline' },
+      '@media': {
+        '(prefers-reduced-motion: no-preference)': {
+          transition: 'color 150ms',
+        },
+      },
+    },
+  },
+});
+
+globalStyle(`${link} svg`, {
+  '@layer': {
+    [layers.theme]: { flexShrink: 0 },
+  },
+});
+```
+
+`keyframes` stay unlayered. They can't take a layer and don't compete on precedence.
+
+## Don't use `atoms()`
+
+Don't call `atoms()` in a theme. An Atom class sits in `blockle-atom`, where it ties with the Atoms an app passes as props. Which one wins would then depend on the order the classes happen to be defined in.
+
+Write the same value with `vars` inside the theme layer instead:
+
+```ts
+// Don't
+style([atoms({ paddingBlock: 2 })]);
+
+// Do
+style({
+  '@layer': { [layers.theme]: { paddingBlock: vars.space[2] } },
+});
+```
+
+`vars` holds the same tokens Atoms use: `vars.space[2]`, `vars.fontSize.*`, `vars.borderRadius[n]`, `vars.colorRole.*` and so on.
+
+## What an unlayered theme does
+
+A theme that keeps plain `style()` still works, so upgrading Blocks doesn't break it. Its styles are unlayered, so they:
+
+- beat Atoms, which means Atom props don't override it, and
+- tie with an app's own styles on specificity, so whichever stylesheet loads last wins.
+
+Nothing detects an unlayered theme. To move it into the layer, wrap its declarations as shown above and replace `atoms()` with `vars`.
