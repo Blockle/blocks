@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import {
   computeAvailableHeight,
+  computeAvailableWidth,
   computePopoverPosition,
 } from './popover-utils.js';
 
@@ -229,5 +230,16 @@ describe('computeAvailableHeight', () => {
   it('gives the viewport height, minus padding, beside the anchor', () => {
     // 800 - 8 - 8
     expect(computeAvailableHeight({ ...base, placement: 'right' })).toBe(784);
+  });
+});
+
+describe('computeAvailableWidth', () => {
+  it('gives the viewport width, minus 8px padding on both sides', () => {
+    // 1000 - 8 - 8
+    expect(computeAvailableWidth(base.viewport)).toBe(984);
+  });
+
+  it('gives no room in a viewport narrower than the padding', () => {
+    expect(computeAvailableWidth({ ...base.viewport, width: 10 })).toBe(0);
   });
 });

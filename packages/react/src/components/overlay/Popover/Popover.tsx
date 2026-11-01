@@ -165,6 +165,7 @@ export const Popover: React.FC<PopoverProps> = ({
         if (
           prev.x === next.x &&
           prev.y === next.y &&
+          prev.maxWidth === next.maxWidth &&
           prev.maxHeight === next.maxHeight
         ) {
           return prev;
@@ -257,6 +258,7 @@ export const Popover: React.FC<PopoverProps> = ({
         ...style,
         left: layout.x,
         top: layout.y,
+        maxWidth: layout.maxWidth,
         maxHeight: layout.maxHeight,
       }}
       {...restProps}

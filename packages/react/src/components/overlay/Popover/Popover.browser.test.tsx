@@ -1,5 +1,6 @@
 import { useRef } from 'react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { page } from 'vitest/browser';
 
 import { render } from '../../../testUtils/browser/render.js';
 import { Popover, type PopoverProps } from './Popover.js';
@@ -652,5 +653,117 @@ describe('Popover live layout (browser)', () => {
       expect(disconnect).toHaveBeenCalled();
       expect(cancel).toHaveBeenCalledWith(pendingFrame);
     });
+  });
+});
+
+describe('Popover width cap (browser)', () => {
+  const swatches = Array.from({ length: 20 }, (_, index) => `swatch-${index}`);
+
+  type WideProps = { boxSizing: 'border-box' | 'content-box' };
+
+  // Twenty 32px swatches that wrap: 640px wide on one row
+  const Wide: React.FC<WideProps> = ({ boxSizing }) => {
+    const anchorRef = useRef<HTMLDivElement>(null);
+
+    return (
+      <>
+        <div
+          ref={anchorRef}
+          style={{
+            position: 'fixed',
+            top: 100,
+            left: 184,
+            width: 32,
+            height: 32,
+          }}
+        />
+        <Popover
+          open
+          placement="bottom"
+          anchorElement={anchorRef}
+          onRequestClose={vi.fn()}
+          data-testid="popover"
+          style={{ boxSizing, padding: 16, border: '4px solid' }}
+        >
+          <div
+            data-testid="content"
+            style={{ display: 'flex', flexWrap: 'wrap' }}
+          >
+            {swatches.map((swatch) => (
+              <div
+                key={swatch}
+                style={{ width: 32, height: 32, flex: 'none' }}
+              />
+            ))}
+          </div>
+        </Popover>
+      </>
+    );
+  };
+
+  let initial = { width: 0, height: 0 };
+
+  beforeEach(async () => {
+    initial = { width: window.innerWidth, height: window.innerHeight };
+    await page.viewport(400, 800);
+  });
+
+  afterEach(async () => {
+    await page.viewport(initial.width, initial.height);
+  });
+
+  const popoverRect = () => byTestId('popover').getBoundingClientRect();
+
+  // The opening transition scales the popover
+  const settled = () =>
+    vi.waitFor(() => {
+      expect(byTestId('popover').getAnimations()).toHaveLength(0);
+    });
+
+  it.each([
+    'border-box',
+    'content-box',
+  ] as const)('keeps a %s popover wider than the viewport 8px inside both edges', async (boxSizing) => {
+    await render(<Wide boxSizing={boxSizing} />);
+    await settled();
+
+    const viewportWidth = document.documentElement.clientWidth;
+
+    await vi.waitFor(() => {
+      expect(popoverRect().left).toBeCloseTo(8, 0);
+      expect(popoverRect().right).toBeCloseTo(viewportWidth - 8, 0);
+    });
+
+    // The swatches wrap inside the panel
+    const content = byTestId('content').getBoundingClientRect();
+
+    expect(content.right).toBeLessThanOrEqual(popoverRect().right);
+    expect(content.height).toBeGreaterThan(32);
+  });
+
+  it.each([
+    'border-box',
+    'content-box',
+  ] as const)('follows the viewport as it narrows and widens while open, %s', async (boxSizing) => {
+    await page.viewport(1000, 800);
+    await render(<Wide boxSizing={boxSizing} />);
+    await settled();
+
+    // 640px of swatches, 16px padding and 4px border on each side
+    expect(popoverRect().width).toBeCloseTo(680, 0);
+
+    await page.viewport(400, 800);
+
+    await vi.waitFor(() => {
+      expect(popoverRect().left).toBeCloseTo(8, 0);
+      expect(popoverRect().right).toBeCloseTo(
+        document.documentElement.clientWidth - 8,
+        0,
+      );
+    });
+
+    await page.viewport(1000, 800);
+
+    await vi.waitFor(() => expect(popoverRect().width).toBeCloseTo(680, 0));
   });
 });
