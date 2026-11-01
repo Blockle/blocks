@@ -24,7 +24,7 @@ export type DrawerProps = {
   className?: string;
   placement?: keyof typeof styles.placement;
   size?: DrawerTheme['variants']['size'];
-} & HTMLElementProps<HTMLDialogElement>;
+} & Omit<HTMLElementProps<HTMLDialogElement>, 'size'>;
 
 export const Drawer: React.FC<DrawerProps> = ({
   open,

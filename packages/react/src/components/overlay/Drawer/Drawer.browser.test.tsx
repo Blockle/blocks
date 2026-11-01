@@ -1,5 +1,6 @@
 import { vars } from '@blockle/blocks-core';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { page } from 'vitest/browser';
 
 import { resolve } from '../../../testUtils/browser/contrast.js';
 import { emulateColorScheme } from '../../../testUtils/browser/emulateColorScheme.js';
@@ -53,4 +54,26 @@ describe('Drawer colors (browser)', () => {
     expect(getComputedStyle(drawer).backgroundColor).toBe(light.surface);
     expect(getComputedStyle(drawer).color).toBe(light.text);
   });
+});
+
+describe('Drawer size (browser)', () => {
+  const widths = { small: '300px', medium: '480px', large: '640px' } as const;
+
+  // Wider than the largest size, so `min(…, 100%)` doesn't cap it
+  beforeEach(async () => {
+    await page.viewport(1024, 768);
+  });
+
+  for (const size of ['small', 'medium', 'large'] as const) {
+    it(`is ${widths[size]} wide at size ${size}`, async () => {
+      const screen = await render(
+        <Drawer open onRequestClose={vi.fn()} aria-label="Menu" size={size}>
+          Drawer content
+        </Drawer>,
+      );
+      const drawer = screen.getByLabelText('Menu').element();
+
+      expect(getComputedStyle(drawer).width).toBe(widths[size]);
+    });
+  }
 });
