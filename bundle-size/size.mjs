@@ -1,20 +1,45 @@
-import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
-import { dirname, join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { gzipSync } from 'node:zlib';
-import { parseArgs } from 'node:util';
-
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import react from '@vitejs/plugin-react-swc';
 import { build } from 'vite';
 
 import { formatTable } from './table.mjs';
+import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { parseArgs } from 'node:util';
+import { gzipSync } from 'node:zlib';
 
 const root = dirname(fileURLToPath(import.meta.url));
 const scenarios = ['baseline', 'button', 'everything'];
 
-// Peer deps a consumer already has: not part of what Blocks costs.
-const external = [/^react(\/.*)?$/, /^react-dom(\/.*)?$/];
+const packagesDir = join(root, '..', 'packages');
+
+function escapeRegExp(text) {
+  return text.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&');
+}
+
+// Peer deps a consumer already has (react, @vanilla-extract/css, ...) are not
+// part of what Blocks costs. Peers that are workspace packages are what is
+// being measured, so they stay bundled.
+async function findExternal() {
+  const manifests = await Promise.all(
+    (await readdir(packagesDir)).map(async (directory) =>
+      JSON.parse(
+        await readFile(join(packagesDir, directory, 'package.json'), 'utf8'),
+      ),
+    ),
+  );
+  const own = new Set(manifests.map((manifest) => manifest.name));
+  const peers = new Set(
+    manifests
+      .flatMap((manifest) => Object.keys(manifest.peerDependencies ?? {}))
+      .filter((peer) => !own.has(peer)),
+  );
+
+  return [...peers].map((peer) => new RegExp(`^${escapeRegExp(peer)}(/.*)?$`));
+}
+
+const external = await findExternal();
 
 function measure(files) {
   const bytes = Buffer.concat(files);
@@ -54,14 +79,16 @@ async function buildScenario(name) {
   const assets = (await readdir(outDir, { recursive: true })).map((file) =>
     join(outDir, file),
   );
-  const read = (extension) =>
+  const read = (extensions) =>
     Promise.all(
-      assets.filter((file) => file.endsWith(extension)).map((f) => readFile(f)),
+      assets
+        .filter((file) => extensions.some((ext) => file.endsWith(ext)))
+        .map((file) => readFile(file)),
     );
 
   return {
-    js: measure(await read('.js')),
-    css: measure(await read('.css')),
+    js: measure(await read(['.js', '.mjs', '.cjs'])),
+    css: measure(await read(['.css'])),
   };
 }
 

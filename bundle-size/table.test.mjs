@@ -1,7 +1,6 @@
+import { formatBytes, formatTable } from './table.mjs';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-
-import { formatBytes, formatTable } from './table.mjs';
 
 test('formatBytes groups thousands with a comma', () => {
   assert.equal(formatBytes(0), '0');

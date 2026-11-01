@@ -24,11 +24,11 @@ export function isRegression(base, head) {
   return growth > MAX_GROWTH_BYTES && growth > base * MAX_GROWTH_RATIO;
 }
 
-function formatSigned(value, text) {
+function withSign(value, text) {
   return value > 0 ? `+${text}` : text;
 }
 
-function formatRow(label, base, head, flagged) {
+function formatComparisonRow(label, base, head, flagged) {
   if (base === undefined || head === undefined) {
     const cell = (value) => (value === undefined ? '-' : formatBytes(value));
 
@@ -36,11 +36,9 @@ function formatRow(label, base, head, flagged) {
   }
 
   const delta = head - base;
-  const bytes = formatSigned(delta, formatBytes(delta));
+  const bytes = withSign(delta, formatBytes(delta));
   const percent =
-    base === 0
-      ? '-'
-      : formatSigned(delta, `${((delta / base) * 100).toFixed(1)}%`);
+    base === 0 ? '-' : withSign(delta, `${((delta / base) * 100).toFixed(1)}%`);
 
   return `| ${label} | ${formatBytes(base)} | ${formatBytes(head)} | ${bytes} | ${percent} | ${flagged ? '⚠️' : ''} |`;
 }
@@ -61,7 +59,7 @@ export function compareReport(base, head) {
           after !== undefined &&
           isRegression(before, after);
 
-        return formatRow(label, before, after, flagged);
+        return formatComparisonRow(label, before, after, flagged);
       });
 
       sections.push(
@@ -79,7 +77,13 @@ export function compareReport(base, head) {
   const note =
     'Gzipped rows flagged with a warning sign grew by more than 5% and more than 250 B. This check only reports and never fails.';
 
-  return `${[MARKER, '## Bundle size', ...sections, note].join('\n\n')}\n`;
+  const baseNote =
+    Object.keys(base).length === 0
+      ? 'The base measurement was unavailable, so there is nothing to compare the head against.'
+      : undefined;
+  const parts = [MARKER, '## Bundle size', baseNote, ...sections, note];
+
+  return `${parts.filter(Boolean).join('\n\n')}\n`;
 }
 
 function main(args) {

@@ -24,7 +24,7 @@ export function formatTable(results) {
     Math.max(title.length, ...rows.map((row) => row[column].length)),
   );
 
-  const formatRow = (row) =>
+  const formatTableRow = (row) =>
     row
       .map((cell, column) =>
         column < 2
@@ -34,8 +34,8 @@ export function formatTable(results) {
       .join('  ');
 
   return [
-    formatRow(header),
+    formatTableRow(header),
     widths.map((width) => '-'.repeat(width)).join('  '),
-    ...rows.map(formatRow),
+    ...rows.map(formatTableRow),
   ].join('\n');
 }

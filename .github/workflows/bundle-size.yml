@@ -28,6 +28,9 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Test bundle size tooling
+        run: npm run size:test
+
       - name: Build head
         run: npm run build
 
@@ -38,8 +41,10 @@ jobs:
       # base may predate bundle-size/.
       - name: Measure merge base
         continue-on-error: true
+        env:
+          BASE_REF: ${{ github.base_ref }}
         run: |
-          base=$(git merge-base "origin/${{ github.base_ref }}" HEAD)
+          base=$(git merge-base "origin/$BASE_REF" HEAD)
           git worktree add --detach "$RUNNER_TEMP/base" "$base"
           rm -rf "$RUNNER_TEMP/base/bundle-size"
           cp -R bundle-size "$RUNNER_TEMP/base/bundle-size"

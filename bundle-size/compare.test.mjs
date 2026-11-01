@@ -75,6 +75,21 @@ test('compareReport does not mark shrinking or unchanged rows', () => {
   assert.ok(!report.includes('⚠️'));
 });
 
+test('compareReport says so when the base measurement is unavailable', () => {
+  const report = compareReport({}, measurement(sizes(100, 50)));
+
+  assert.ok(report.includes('The base measurement was unavailable'));
+});
+
+test('compareReport stays quiet about the base when it was measured', () => {
+  const report = compareReport(
+    measurement(sizes(100, 50)),
+    measurement(sizes(100, 50)),
+  );
+
+  assert.ok(!report.includes('unavailable'));
+});
+
 test('compareReport handles a scenario missing from base', () => {
   const report = compareReport({}, measurement(sizes(100, 50)));
 
