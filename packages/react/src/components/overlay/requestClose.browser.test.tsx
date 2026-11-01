@@ -2,7 +2,7 @@ import { Activity, useRef } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 
-import { outside, press } from '../../testUtils/browser/pointer.js';
+import { centerOf, outside, press } from '../../testUtils/browser/pointer.js';
 import { render } from '../../testUtils/browser/render.js';
 import { Dialog } from './Dialog/Dialog.js';
 import { Drawer } from './Drawer/Drawer.js';
@@ -300,7 +300,7 @@ describe.each(
     expect(onOuterClose).not.toHaveBeenCalled();
   });
 
-  it('leaves the body scroll lock to the outer one', async () => {
+  it('keeps the body scroll locked while the outer one is open', async () => {
     const screen = await render(nested(false));
 
     expect(document.body.style.overflow).toBe('hidden');
@@ -309,5 +309,92 @@ describe.each(
     await screen.rerender(nested(false));
 
     expect(document.body.style.overflow).toBe('hidden');
+  });
+});
+
+const siblings = [
+  ['Dialog', 'Drawer', Dialog, Drawer],
+  ['Drawer', 'Dialog', Drawer, Dialog],
+  ['Dialog', 'Dialog', Dialog, Dialog],
+] as const;
+
+describe.each(
+  siblings,
+)('%s beside a %s close requests (browser)', (_, __, Top, Lower) => {
+  const besides = (
+    topOpen: boolean,
+    onTopClose = vi.fn(),
+    onLowerClose = vi.fn(),
+  ) => (
+    <>
+      <Lower open aria-label="Lower" onRequestClose={onLowerClose}>
+        <input aria-label="Name" />
+      </Lower>
+      <Top open={topOpen} aria-label="Top" onRequestClose={onTopClose}>
+        <input aria-label="Title" />
+      </Top>
+    </>
+  );
+
+  const settle = async () => {
+    // The click outside listeners are attached on the next frame
+    await new Promise(requestAnimationFrame);
+    await new Promise(requestAnimationFrame);
+    await Promise.all(document.getAnimations().map(({ finished }) => finished));
+  };
+
+  // Opens the top one after the lower one, from outside the lower one
+  const renderBesides = async () => {
+    const onTopClose = vi.fn();
+    const onLowerClose = vi.fn();
+    const screen = await render(besides(false, onTopClose, onLowerClose));
+
+    await screen.rerender(besides(true, onTopClose, onLowerClose));
+    await settle();
+
+    return { onTopClose, onLowerClose, screen };
+  };
+
+  it('does not request to close the lower one on a click in the top one', async () => {
+    const { onTopClose, onLowerClose, screen } = await renderBesides();
+
+    await press(
+      centerOf(screen.getByRole('textbox', { name: 'Title' }).element()),
+    );
+
+    expect(onTopClose).not.toHaveBeenCalled();
+    expect(onLowerClose).not.toHaveBeenCalled();
+  });
+
+  it('requests to close only the top one on a click outside', async () => {
+    const { onTopClose, onLowerClose } = await renderBesides();
+
+    await press(outside());
+
+    expect(onTopClose).toHaveBeenCalledTimes(1);
+    expect(onTopClose).toHaveBeenCalledWith('outside-click');
+    expect(onLowerClose).not.toHaveBeenCalled();
+  });
+
+  it('requests to close the lower one on a click outside once the top one closes', async () => {
+    const { onTopClose, onLowerClose, screen } = await renderBesides();
+
+    await screen.rerender(besides(false, onTopClose, onLowerClose));
+    await settle();
+    await press(outside());
+
+    expect(onLowerClose).toHaveBeenCalledTimes(1);
+    expect(onLowerClose).toHaveBeenCalledWith('outside-click');
+  });
+
+  it('requests to close only the top one on an Escape', async () => {
+    const { onTopClose, onLowerClose, screen } = await renderBesides();
+
+    await userEvent.click(screen.getByRole('textbox', { name: 'Title' }));
+    await userEvent.keyboard('{Escape}');
+
+    expect(onTopClose).toHaveBeenCalledTimes(1);
+    expect(onTopClose).toHaveBeenCalledWith('escape');
+    expect(onLowerClose).not.toHaveBeenCalled();
   });
 });

@@ -11,7 +11,7 @@ import { useRef } from 'react';
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { useModalDialog } from '../../../hooks/useModalDialog/useModalDialog.js';
 import type { RequestCloseReason } from '../requestCloseReason.js';
-import { DialogContext, useModalOverlay } from '../useModalOverlay.js';
+import { useModalOverlay } from '../useModalOverlay.js';
 import * as styles from './drawer.css.js';
 
 type DrawerTheme = ComponentThemes['drawer'];
@@ -49,7 +49,7 @@ export const Drawer: React.FC<DrawerProps> = ({
   // SSR: If the dialog is open on the server, we need to render it with the open attribute
   const dataOpen = typeof window === 'undefined' && open ? true : undefined;
 
-  const { contextValue, closeRequestProps } = useModalOverlay(dialogRef, {
+  const closeRequestProps = useModalOverlay(dialogRef, {
     open,
     onRequestClose,
     onKeyDown,
@@ -64,24 +64,22 @@ export const Drawer: React.FC<DrawerProps> = ({
   }
 
   return (
-    <DialogContext.Provider value={contextValue}>
-      <dialog
-        ref={composeRefs(ref, dialogRef)}
-        open={dataOpen}
-        className={classnames(
-          styles.drawer,
-          styles.placement[placement],
-          rootClassName,
-          className,
-        )}
-        onAnimationEnd={onAnimationEnd}
-        onTransitionEnd={onAnimationEnd}
-        {...restProps}
-        {...closeRequestProps}
-      >
-        {children}
-      </dialog>
-    </DialogContext.Provider>
+    <dialog
+      ref={composeRefs(ref, dialogRef)}
+      open={dataOpen}
+      className={classnames(
+        styles.drawer,
+        styles.placement[placement],
+        rootClassName,
+        className,
+      )}
+      onAnimationEnd={onAnimationEnd}
+      onTransitionEnd={onAnimationEnd}
+      {...restProps}
+      {...closeRequestProps}
+    >
+      {children}
+    </dialog>
   );
 };
 

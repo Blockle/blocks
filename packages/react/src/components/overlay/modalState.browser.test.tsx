@@ -89,3 +89,73 @@ describe.each(overlays)('%s modal state (browser)', (_name, Overlay) => {
     container.remove();
   });
 });
+
+const pairs = [
+  ['Drawer', 'Dialog', Drawer, Dialog],
+  ['Dialog', 'Drawer', Dialog, Drawer],
+] as const;
+
+describe.each(
+  pairs,
+)('%s beside a %s body scroll lock (browser)', (_, __, Top, Lower) => {
+  const besides = (lowerOpen: boolean, topOpen: boolean) => (
+    <>
+      <div style={{ height: '300vh' }}>Page</div>
+      <Lower open={lowerOpen} onRequestClose={vi.fn()}>
+        Lower
+      </Lower>
+      <Top open={topOpen} onRequestClose={vi.fn()}>
+        Top
+      </Top>
+    </>
+  );
+
+  const expectLocked = () => {
+    expect(document.body.style.position).toBe('fixed');
+    expect(document.body.style.top).toBe('-200px');
+  };
+
+  const expectRestored = () => {
+    expect(document.body.style.position).toBe('');
+    expect(document.body.style.overflow).toBe('');
+    expect(document.body.style.top).toBe('');
+    expect(document.documentElement.scrollTop).toBe(200);
+  };
+
+  const renderBoth = async () => {
+    const screen = await render(besides(false, false));
+
+    document.documentElement.scrollTop = 200;
+
+    await screen.rerender(besides(true, false));
+    await screen.rerender(besides(true, true));
+
+    expectLocked();
+
+    return screen;
+  };
+
+  it('stays locked when the top one closes, until the lower one closes', async () => {
+    const screen = await renderBoth();
+
+    await screen.rerender(besides(true, false));
+
+    expectLocked();
+
+    await screen.rerender(besides(false, false));
+
+    expectRestored();
+  });
+
+  it('stays locked when the lower one closes, until the top one closes', async () => {
+    const screen = await renderBoth();
+
+    await screen.rerender(besides(false, true));
+
+    expectLocked();
+
+    await screen.rerender(besides(false, false));
+
+    expectRestored();
+  });
+});

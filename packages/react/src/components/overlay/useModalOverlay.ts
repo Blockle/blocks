@@ -1,37 +1,12 @@
 'use client';
 
-import { createContext, useContext, useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 
 import { useClickOutside } from '../../hooks/useClickOutside/useClickOutside.js';
 import { usePreventBodyScroll } from '../../hooks/usePreventBodyScroll/usePreventBodyScroll.js';
 import { useRestoreFocus } from '../../hooks/useRestoreFocus/useRestoreFocus.js';
+import { useIsTopModalOverlay } from './modalOverlayStack.js';
 import type { RequestCloseReason } from './requestCloseReason.js';
-
-type DialogContextValue = {
-  setEnabled: (active: boolean) => void;
-};
-
-export const DialogContext = createContext<DialogContextValue | undefined>(
-  undefined,
-);
-
-export const useNestedDialog = (open: boolean): boolean => {
-  const parentDialog = useContext(DialogContext);
-
-  useEffect(() => {
-    if (!parentDialog || !open) {
-      return;
-    }
-
-    parentDialog.setEnabled(false);
-
-    return () => {
-      parentDialog.setEnabled(true);
-    };
-  }, [parentDialog, open]);
-
-  return !!parentDialog;
-};
 
 type UseDialogCloseRequestsOptions = {
   enabled: boolean;
@@ -125,35 +100,25 @@ type UseModalOverlayOptions = Omit<UseDialogCloseRequestsOptions, 'enabled'> & {
  * closed, the body does not scroll, and an Escape, close request or click
  * outside requests to close.
  *
- * While a nested Dialog or Drawer is open, the outer one ignores Escape and
- * clicks outside, and leaves the body scroll lock to the outermost one.
- * Provide `contextValue` through DialogContext to the dialog's content.
+ * Only the modal overlay opened last handles Escape and clicks outside, so a
+ * click in a Dialog or Drawer does not close the ones below it, whether it is
+ * nested in them or mounted elsewhere.
  */
 export const useModalOverlay = (
   dialogRef: React.RefObject<HTMLDialogElement | null>,
   { open, onRequestClose, ...handlers }: UseModalOverlayOptions,
 ) => {
-  const [enabled, setEnabled] = useState(true);
-  const [contextValue] = useState<DialogContextValue>(() => ({ setEnabled }));
-
   // Store the previous active element and restore it when closed
   useRestoreFocus(open);
 
-  // Disable functionality of parent dialogs and return boolean if this dialog is nested
-  const isNested = useNestedDialog(open);
+  usePreventBodyScroll(open);
 
-  // The outermost dialog already prevents the body from scrolling
-  usePreventBodyScroll(open && !isNested);
+  const isTop = useIsTopModalOverlay(open);
+  const enabled = open && isTop;
 
   useClickOutside(dialogRef, () => onRequestClose('outside-click'), {
-    enabled: open && enabled,
+    enabled,
   });
 
-  const closeRequestProps = useDialogCloseRequests({
-    enabled: open && enabled,
-    onRequestClose,
-    ...handlers,
-  });
-
-  return { contextValue, closeRequestProps };
+  return useDialogCloseRequests({ enabled, onRequestClose, ...handlers });
 };
