@@ -325,6 +325,141 @@ describe('Tabs (browser)', () => {
     );
   });
 
+  describe('keyboard', () => {
+    it('moves to and selects the next and previous tab with the arrow keys, wrapping', async () => {
+      const screen = await render(<Example />);
+
+      screen.getByRole('tab', { name: 'One' }).element().focus();
+
+      await userEvent.keyboard('{ArrowRight}');
+      await expect
+        .element(screen.getByRole('tab', { name: 'Two' }))
+        .toHaveFocus();
+      await expect
+        .element(screen.getByRole('tab', { name: 'Two' }))
+        .toHaveAttribute('aria-selected', 'true');
+
+      await userEvent.keyboard('{ArrowRight}{ArrowRight}');
+      await expect
+        .element(screen.getByRole('tab', { name: 'One' }))
+        .toHaveFocus();
+      await expect
+        .element(screen.getByRole('tab', { name: 'One' }))
+        .toHaveAttribute('aria-selected', 'true');
+
+      await userEvent.keyboard('{ArrowLeft}');
+      await expect
+        .element(screen.getByRole('tab', { name: 'Three' }))
+        .toHaveFocus();
+      await expect
+        .element(screen.getByRole('tab', { name: 'Three' }))
+        .toHaveAttribute('aria-selected', 'true');
+      await expect
+        .element(screen.getByRole('tabpanel', { name: 'Three' }))
+        .toHaveTextContent('Third panel');
+    });
+
+    it('selects and focuses the first and last tab with Home and End', async () => {
+      const screen = await render(<Example defaultValue="two" />);
+
+      screen.getByRole('tab', { name: 'Two' }).element().focus();
+
+      await userEvent.keyboard('{End}');
+      await expect
+        .element(screen.getByRole('tab', { name: 'Three' }))
+        .toHaveFocus();
+      await expect
+        .element(screen.getByRole('tab', { name: 'Three' }))
+        .toHaveAttribute('aria-selected', 'true');
+
+      await userEvent.keyboard('{Home}');
+      await expect
+        .element(screen.getByRole('tab', { name: 'One' }))
+        .toHaveFocus();
+      await expect
+        .element(screen.getByRole('tab', { name: 'One' }))
+        .toHaveAttribute('aria-selected', 'true');
+    });
+
+    it('makes the tab list a single stop in the tab order', async () => {
+      const screen = await render(
+        <>
+          <Example defaultValue="two" />
+          <button type="button">After</button>
+        </>,
+      );
+
+      await userEvent.tab();
+      await expect
+        .element(screen.getByRole('tab', { name: 'Two' }))
+        .toHaveFocus();
+
+      await userEvent.tab();
+      await expect
+        .element(screen.getByRole('tabpanel', { name: 'Two' }))
+        .toHaveFocus();
+
+      await userEvent.tab();
+      await expect
+        .element(screen.getByRole('button', { name: 'After' }))
+        .toHaveFocus();
+    });
+
+    it('keeps arrow keys working after tabs are added and removed', async () => {
+      const Dynamic: React.FC = () => {
+        const [items, setItems] = useState(['a', 'b', 'c']);
+
+        return (
+          <>
+            <button type="button" onClick={() => setItems(['a', 'c', 'd'])}>
+              Change
+            </button>
+            <Tabs defaultValue="a">
+              <TabList aria-label="Dynamic">
+                {items.map((item) => (
+                  <Tab key={item} value={item}>
+                    Tab {item}
+                  </Tab>
+                ))}
+              </TabList>
+            </Tabs>
+          </>
+        );
+      };
+      const screen = await render(<Dynamic />);
+
+      await screen.getByRole('button', { name: 'Change' }).click();
+      screen.getByRole('tab', { name: 'Tab a' }).element().focus();
+
+      await userEvent.keyboard('{ArrowRight}');
+      await expect
+        .element(screen.getByRole('tab', { name: 'Tab c' }))
+        .toHaveFocus();
+
+      await userEvent.keyboard('{ArrowRight}');
+      await expect
+        .element(screen.getByRole('tab', { name: 'Tab d' }))
+        .toHaveFocus();
+
+      await userEvent.keyboard('{ArrowRight}');
+      await expect
+        .element(screen.getByRole('tab', { name: 'Tab a' }))
+        .toHaveFocus();
+    });
+
+    it('reports keyboard selection through onValueChange when controlled', async () => {
+      const onValueChange = vi.fn();
+      const screen = await render(
+        <Example value="one" onValueChange={onValueChange} />,
+      );
+
+      screen.getByRole('tab', { name: 'One' }).element().focus();
+      await userEvent.keyboard('{ArrowRight}');
+
+      expect(onValueChange).toHaveBeenCalledWith('two');
+    });
+  });
+
   it('matches the screenshot', async () => {
     await render(
       <div style={{ padding: 16, inlineSize: 400 }} data-testid="frame">
