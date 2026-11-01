@@ -230,6 +230,7 @@ describe('Popover live layout (browser)', () => {
     /** Content far taller than any room there is */
     tall?: boolean;
     anchorTop?: number;
+    boxSizing?: 'border-box' | 'content-box';
   };
 
   const Live: React.FC<LiveProps> = ({
@@ -238,6 +239,7 @@ describe('Popover live layout (browser)', () => {
     grow = false,
     tall = false,
     anchorTop = 150,
+    boxSizing = 'border-box',
     ...props
   }) => {
     const anchorRef = useRef<HTMLDivElement>(null);
@@ -288,7 +290,7 @@ describe('Popover live layout (browser)', () => {
           anchorElement={anchorRef}
           onRequestClose={vi.fn()}
           data-testid="popover"
-          style={{ width: 100, overflow: 'auto', boxSizing: 'border-box' }}
+          style={{ width: 100, overflow: 'auto', boxSizing }}
         >
           <div data-testid="content" style={{ height: contentHeight }} />
         </Popover>
@@ -334,6 +336,31 @@ describe('Popover live layout (browser)', () => {
 
   afterEach(() => {
     vi.restoreAllMocks();
+  });
+
+  it.each([
+    ['below', 'bottom-start', 150],
+    ['above', 'top-start', 700],
+  ] as const)('caps a content-box popover %s its anchor, padding and border included', async (_, placement, anchorTop) => {
+    await renderLive({
+      placement,
+      anchorTop,
+      limitHeight: true,
+      tall: true,
+      boxSizing: 'content-box',
+    });
+
+    const popover = popoverRect();
+    const anchor = anchorRect();
+    const viewportHeight = document.documentElement.clientHeight;
+
+    if (placement === 'bottom-start') {
+      expect(popover.top).toBeGreaterThanOrEqual(anchor.bottom);
+      expect(popover.bottom).toBeLessThanOrEqual(viewportHeight - 8 + 0.5);
+    } else {
+      expect(popover.top).toBeGreaterThanOrEqual(8 - 0.5);
+      expect(popover.bottom).toBeLessThanOrEqual(anchor.top);
+    }
   });
 
   it('follows its anchor when the window is resized', async () => {
@@ -527,11 +554,13 @@ describe('Popover live layout (browser)', () => {
       );
 
       for (const target of targets) {
-        const add = target.addEventListener.bind(target);
-        const remove = target.removeEventListener.bind(target);
+        const add: EventTarget['addEventListener'] =
+          target.addEventListener.bind(target);
+        const remove: EventTarget['removeEventListener'] =
+          target.removeEventListener.bind(target);
 
         vi.spyOn(target, 'addEventListener').mockImplementation(
-          (...args: Parameters<typeof add>) => {
+          (...args: Parameters<EventTarget['addEventListener']>) => {
             const [type, listener, options] = args;
 
             if (watched.has(type) && listener) {
@@ -547,7 +576,7 @@ describe('Popover live layout (browser)', () => {
           },
         );
         vi.spyOn(target, 'removeEventListener').mockImplementation(
-          (...args: Parameters<typeof remove>) => {
+          (...args: Parameters<EventTarget['removeEventListener']>) => {
             const [type, listener, options] = args;
 
             if (watched.has(type) && listener) {
