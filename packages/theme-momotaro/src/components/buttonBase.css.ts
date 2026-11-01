@@ -1,4 +1,4 @@
-import { atoms, vars } from '@blockle/blocks-core';
+import { layers, vars } from '@blockle/blocks-core';
 import { createVar, style } from '@vanilla-extract/css';
 
 import { clickable } from './helpers.css.js';
@@ -21,50 +21,66 @@ export const buttonHeight = {
 } as const;
 
 export const buttonBase = style([
-  atoms({
-    display: 'inline-flex',
-    placeItems: 'center',
-  }),
+  {
+    '@layer': {
+      [layers.theme]: {
+        display: 'inline-flex',
+        placeItems: 'center',
+      },
+    },
+  },
   clickable,
 ]);
 
-export const buttonRadius = atoms({
-  borderRadius: 2,
+export const buttonRadius = style({
+  '@layer': {
+    [layers.theme]: {
+      borderRadius: vars.borderRadius[2],
+    },
+  },
 });
 
 export const buttonVariant = {
   solid: style({
-    color: contrastColor,
-    backgroundColor: solidColor,
-    border: 'none',
-    selectors: {
-      '&:hover:not(:disabled)': {
-        backgroundColor: solidHoverColor,
-      },
-    },
-  }),
-  outline: style([
-    atoms({
-      borderWidth: 'thin',
-    }),
-    {
-      color: solidColor,
-      borderStyle: 'solid',
-      borderColor: solidColor,
-      background: 'transparent',
-      selectors: {
-        '&:hover:not(:disabled)': {
-          backgroundColor: subtleColor,
+    '@layer': {
+      [layers.theme]: {
+        color: contrastColor,
+        backgroundColor: solidColor,
+        border: 'none',
+        selectors: {
+          '&:hover:not(:disabled)': {
+            backgroundColor: solidHoverColor,
+          },
         },
       },
     },
-  ]),
+  }),
+  outline: style({
+    '@layer': {
+      [layers.theme]: {
+        borderWidth: vars.borderWidth.thin,
+        color: solidColor,
+        borderStyle: 'solid',
+        borderColor: solidColor,
+        background: 'transparent',
+        selectors: {
+          '&:hover:not(:disabled)': {
+            backgroundColor: subtleColor,
+          },
+        },
+      },
+    },
+  }),
   ghost: style({
-    color: solidColor,
-    background: 'transparent',
-    selectors: {
-      '&:hover:not(:disabled)': {
-        backgroundColor: subtleColor,
+    '@layer': {
+      [layers.theme]: {
+        color: solidColor,
+        background: 'transparent',
+        selectors: {
+          '&:hover:not(:disabled)': {
+            backgroundColor: subtleColor,
+          },
+        },
       },
     },
   }),
@@ -72,50 +88,74 @@ export const buttonVariant = {
 
 export const buttonIntent = {
   neutral: style({
-    vars: {
-      [solidColor]: vars.colorRole.neutral.solid,
-      [solidHoverColor]: vars.colorRole.neutral.solidHover,
-      [subtleColor]: vars.colorRole.neutral.subtle,
-      [contrastColor]: vars.colorRole.neutral.contrast,
+    '@layer': {
+      [layers.theme]: {
+        vars: {
+          [solidColor]: vars.colorRole.neutral.solid,
+          [solidHoverColor]: vars.colorRole.neutral.solidHover,
+          [subtleColor]: vars.colorRole.neutral.subtle,
+          [contrastColor]: vars.colorRole.neutral.contrast,
+        },
+      },
     },
   }),
   primary: style({
-    vars: {
-      [solidColor]: vars.colorRole.primary.solid,
-      [solidHoverColor]: vars.colorRole.primary.solidHover,
-      [subtleColor]: vars.colorRole.primary.subtle,
-      [contrastColor]: vars.colorRole.primary.contrast,
+    '@layer': {
+      [layers.theme]: {
+        vars: {
+          [solidColor]: vars.colorRole.primary.solid,
+          [solidHoverColor]: vars.colorRole.primary.solidHover,
+          [subtleColor]: vars.colorRole.primary.subtle,
+          [contrastColor]: vars.colorRole.primary.contrast,
+        },
+      },
     },
   }),
   secondary: style({
-    vars: {
-      [solidColor]: vars.colorRole.secondary.solid,
-      [solidHoverColor]: vars.colorRole.secondary.solidHover,
-      [subtleColor]: vars.colorRole.secondary.subtle,
-      [contrastColor]: vars.colorRole.secondary.contrast,
+    '@layer': {
+      [layers.theme]: {
+        vars: {
+          [solidColor]: vars.colorRole.secondary.solid,
+          [solidHoverColor]: vars.colorRole.secondary.solidHover,
+          [subtleColor]: vars.colorRole.secondary.subtle,
+          [contrastColor]: vars.colorRole.secondary.contrast,
+        },
+      },
     },
   }),
   success: style({
-    vars: {
-      [solidColor]: vars.colorRole.success.solid,
-      [solidHoverColor]: vars.colorRole.success.solidHover,
-      [subtleColor]: vars.colorRole.success.subtle,
-      [contrastColor]: vars.colorRole.success.contrast,
+    '@layer': {
+      [layers.theme]: {
+        vars: {
+          [solidColor]: vars.colorRole.success.solid,
+          [solidHoverColor]: vars.colorRole.success.solidHover,
+          [subtleColor]: vars.colorRole.success.subtle,
+          [contrastColor]: vars.colorRole.success.contrast,
+        },
+      },
     },
   }),
   danger: style({
-    vars: {
-      [solidColor]: vars.colorRole.danger.solid,
-      [solidHoverColor]: vars.colorRole.danger.solidHover,
-      [subtleColor]: vars.colorRole.danger.subtle,
-      [contrastColor]: vars.colorRole.danger.contrast,
+    '@layer': {
+      [layers.theme]: {
+        vars: {
+          [solidColor]: vars.colorRole.danger.solid,
+          [solidHoverColor]: vars.colorRole.danger.solidHover,
+          [subtleColor]: vars.colorRole.danger.subtle,
+          [contrastColor]: vars.colorRole.danger.contrast,
+        },
+      },
     },
   }),
   // Takes the surrounding text color; only used with the ghost and outline variants
   inherit: style({
-    vars: {
-      [solidColor]: 'currentColor',
-      [subtleColor]: 'color-mix(in srgb, currentColor 12%, transparent)',
+    '@layer': {
+      [layers.theme]: {
+        vars: {
+          [solidColor]: 'currentColor',
+          [subtleColor]: 'color-mix(in srgb, currentColor 12%, transparent)',
+        },
+      },
     },
   }),
 };

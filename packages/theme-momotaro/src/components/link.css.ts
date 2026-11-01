@@ -1,4 +1,5 @@
 import {
+  layers,
   makeComponentTheme,
   type ThemeComponentsStyles,
   vars,
@@ -10,44 +11,64 @@ import { focusable } from './helpers.css.js';
 export const link: ThemeComponentsStyles['link'] = makeComponentTheme('link', {
   root: style([
     {
-      outline: 'none',
-      border: 'none',
-      textDecoration: 'none',
-      background: 'transparent',
-      borderRadius: 1,
-      ':hover': {
-        textDecoration: 'underline',
+      '@layer': {
+        [layers.theme]: {
+          outline: 'none',
+          border: 'none',
+          textDecoration: 'none',
+          background: 'transparent',
+          borderRadius: 1,
+          ':hover': {
+            textDecoration: 'underline',
+          },
+          ':focus-visible': {
+            textDecoration: 'underline',
+          },
+          cursor: 'pointer',
+          // selectors: {
+          //   '&[target="_blank"]::after': {
+          //     content: '"\\2197"',
+          //     marginLeft: 4,
+          //   },
+          // },
+        },
       },
-      ':focus-visible': {
-        textDecoration: 'underline',
-      },
-      cursor: 'pointer',
-      // selectors: {
-      //   '&[target="_blank"]::after': {
-      //     content: '"\\2197"',
-      //     marginLeft: 4,
-      //   },
-      // },
     },
     focusable,
   ]),
   variants: {
     intent: {
       inherit: style({
-        color: 'inherit',
-        fontWeight: 'inherit',
+        '@layer': {
+          [layers.theme]: {
+            color: 'inherit',
+            fontWeight: 'inherit',
+          },
+        },
       }),
       primary: style({
-        color: vars.colorRole.primary.foreground,
-        fontWeight: 500,
+        '@layer': {
+          [layers.theme]: {
+            color: vars.colorRole.primary.foreground,
+            fontWeight: 500,
+          },
+        },
       }),
       neutral: style({
-        color: vars.colorRole.neutral.foreground,
-        fontWeight: 500,
+        '@layer': {
+          [layers.theme]: {
+            color: vars.colorRole.neutral.foreground,
+            fontWeight: 500,
+          },
+        },
       }),
     },
     underline: style({
-      textDecoration: 'underline',
+      '@layer': {
+        [layers.theme]: {
+          textDecoration: 'underline',
+        },
+      },
     }),
   },
   defaultVariants: {

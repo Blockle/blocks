@@ -1,5 +1,5 @@
 import {
-  atoms,
+  layers,
   makeComponentTheme,
   type ThemeComponentsStyles,
   vars,
@@ -12,64 +12,93 @@ const paddingBlock = createVar();
 const paddingInline = createVar();
 
 // Each filled Slot is one line tall, so its content can't make the Tag taller
-const slot = style([
-  atoms({
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }),
-  {
-    blockSize: '1lh',
-    flexShrink: 0,
+const slot = style({
+  '@layer': {
+    [layers.theme]: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      blockSize: '1lh',
+      flexShrink: 0,
+    },
   },
-]);
+});
 
 const startSlot = style([slot]);
 const endSlot = style([slot]);
 
-const root = style([
-  atoms({
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: 1,
-    borderRadius: 'full',
-    fontWeight: 'medium',
-    lineHeight: 'normal',
-  }),
-  {
-    verticalAlign: 'middle',
-    whiteSpace: 'nowrap',
-    paddingBlock,
-    paddingInline,
-    selectors: {
-      // A Slot sits as close to the rounded edge as to the top and bottom
-      [`&:has(> ${startSlot})`]: {
-        paddingInlineStart: paddingBlock,
-      },
-      [`&:has(> ${endSlot})`]: {
-        paddingInlineEnd: paddingBlock,
+const root = style({
+  '@layer': {
+    [layers.theme]: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: vars.space[1],
+      borderRadius: vars.borderRadius.full,
+      fontWeight: vars.fontWeight.medium,
+      lineHeight: vars.lineHeight.normal,
+      verticalAlign: 'middle',
+      whiteSpace: 'nowrap',
+      paddingBlock,
+      paddingInline,
+      selectors: {
+        // A Slot sits as close to the rounded edge as to the top and bottom
+        [`&:has(> ${startSlot})`]: {
+          paddingInlineStart: paddingBlock,
+        },
+        [`&:has(> ${endSlot})`]: {
+          paddingInlineEnd: paddingBlock,
+        },
       },
     },
   },
-]);
+});
 
 // Overrides the size a Slot's content sets itself, such as an IconButton's
 // height or an Icon's width
 globalStyle(`${root} > ${slot} > *`, {
-  blockSize: '100%',
-  inlineSize: 'auto',
-  maxBlockSize: '100%',
+  '@layer': {
+    [layers.theme]: {
+      blockSize: '100%',
+      inlineSize: 'auto',
+      maxBlockSize: '100%',
+    },
+  },
 });
 
 globalStyle(`${root} > ${slot} > * > svg`, {
-  blockSize: '75%',
-  inlineSize: '75%',
+  '@layer': {
+    [layers.theme]: {
+      blockSize: '75%',
+      inlineSize: '75%',
+    },
+  },
 });
 
 const intentStyle = (roles: IntentRoles) =>
   style({
-    backgroundColor: roles.subtle,
-    color: roles.foreground,
+    '@layer': {
+      [layers.theme]: {
+        backgroundColor: roles.subtle,
+        color: roles.foreground,
+      },
+    },
+  });
+
+const sizeStyle = (
+  fontSize: string,
+  paddingBlockValue: string,
+  paddingInlineValue: string,
+) =>
+  style({
+    '@layer': {
+      [layers.theme]: {
+        fontSize,
+        vars: {
+          [paddingBlock]: paddingBlockValue,
+          [paddingInline]: paddingInlineValue,
+        },
+      },
+    },
   });
 
 export const tag: ThemeComponentsStyles['tag'] = makeComponentTheme('tag', {
@@ -87,23 +116,9 @@ export const tag: ThemeComponentsStyles['tag'] = makeComponentTheme('tag', {
       warning: intentStyle(vars.colorRole.warning),
     },
     size: {
-      small: style([
-        atoms({ fontSize: 'xsmall' }),
-        { vars: { [paddingBlock]: '2px', [paddingInline]: vars.space[2] } },
-      ]),
-      medium: style([
-        atoms({ fontSize: 'small' }),
-        { vars: { [paddingBlock]: '2px', [paddingInline]: vars.space[2] } },
-      ]),
-      large: style([
-        atoms({ fontSize: 'medium' }),
-        {
-          vars: {
-            [paddingBlock]: vars.space[1],
-            [paddingInline]: vars.space[3],
-          },
-        },
-      ]),
+      small: sizeStyle(vars.fontSize.xsmall, '2px', vars.space[2]),
+      medium: sizeStyle(vars.fontSize.small, '2px', vars.space[2]),
+      large: sizeStyle(vars.fontSize.medium, vars.space[1], vars.space[3]),
     },
   },
   defaultVariants: {
