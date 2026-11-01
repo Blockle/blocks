@@ -124,6 +124,16 @@ const trigger = style([
   focusable,
 ]);
 
+// Slot content sits in line with the label; the trigger's own padding provides
+// the gap on the label side
+const slot = style({
+  display: 'flex',
+  alignItems: 'center',
+});
+
+const startSlot = style([slot, atoms({ paddingInlineStart: 3 })]);
+const endSlot = style([slot, atoms({ paddingInlineEnd: 2 })]);
+
 const panel = style({
   ':focus-visible': {
     outline: `2px solid ${vars.colorRole.focusRing.color}`,
@@ -136,5 +146,7 @@ export const tabs: ThemeComponentsStyles['tabs'] = makeComponentTheme('tabs', {
   indicator,
   tab,
   trigger,
+  startSlot,
+  endSlot,
   panel,
 });

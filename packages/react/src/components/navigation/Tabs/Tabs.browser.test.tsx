@@ -5,6 +5,7 @@ import { cdp, page, userEvent } from 'vitest/browser';
 
 import { resolve } from '../../../testUtils/browser/contrast.js';
 import { render } from '../../../testUtils/browser/render.js';
+import { IconButton } from '../../form/IconButton/IconButton.js';
 import { Tab } from './Tab.js';
 import { TabList } from './TabList.js';
 import { TabPanel } from './TabPanel.js';
@@ -20,6 +21,56 @@ const Example: React.FC<Partial<TabsProps>> = (props) => (
     <TabPanel value="one">First panel</TabPanel>
     <TabPanel value="two">Second panel</TabPanel>
     <TabPanel value="three">Third panel</TabPanel>
+  </Tabs>
+);
+
+const CloseIcon: React.FC = () => (
+  <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true">
+    <path d="M18 6 6 18M6 6l12 12" stroke="currentColor" fill="none" />
+  </svg>
+);
+
+const SlotExample: React.FC<{ onClose?: () => void }> = ({ onClose }) => (
+  <Tabs defaultValue="one">
+    <TabList aria-label="Chats">
+      <Tab
+        value="one"
+        startSlot={<span data-testid="dot-one">dot</span>}
+        endSlot={
+          <IconButton
+            label="Close One"
+            size="small"
+            variant="ghost"
+            shape="circle"
+            intent="inherit"
+            onClick={onClose}
+          >
+            <CloseIcon />
+          </IconButton>
+        }
+      >
+        One
+      </Tab>
+      <Tab
+        value="two"
+        endSlot={
+          <IconButton
+            label="Close Two"
+            size="small"
+            variant="ghost"
+            shape="circle"
+            intent="inherit"
+            onClick={onClose}
+          >
+            <CloseIcon />
+          </IconButton>
+        }
+      >
+        Two
+      </Tab>
+    </TabList>
+    <TabPanel value="one">First panel</TabPanel>
+    <TabPanel value="two">Second panel</TabPanel>
   </Tabs>
 );
 
@@ -451,6 +502,141 @@ describe('Tabs (browser)', () => {
     );
   });
 
+  describe('keyboard', () => {
+    it('moves to and selects the next and previous tab with the arrow keys, wrapping', async () => {
+      const screen = await render(<Example />);
+
+      screen.getByRole('tab', { name: 'One' }).element().focus();
+
+      await userEvent.keyboard('{ArrowRight}');
+      await expect
+        .element(screen.getByRole('tab', { name: 'Two' }))
+        .toHaveFocus();
+      await expect
+        .element(screen.getByRole('tab', { name: 'Two' }))
+        .toHaveAttribute('aria-selected', 'true');
+
+      await userEvent.keyboard('{ArrowRight}{ArrowRight}');
+      await expect
+        .element(screen.getByRole('tab', { name: 'One' }))
+        .toHaveFocus();
+      await expect
+        .element(screen.getByRole('tab', { name: 'One' }))
+        .toHaveAttribute('aria-selected', 'true');
+
+      await userEvent.keyboard('{ArrowLeft}');
+      await expect
+        .element(screen.getByRole('tab', { name: 'Three' }))
+        .toHaveFocus();
+      await expect
+        .element(screen.getByRole('tab', { name: 'Three' }))
+        .toHaveAttribute('aria-selected', 'true');
+      await expect
+        .element(screen.getByRole('tabpanel', { name: 'Three' }))
+        .toHaveTextContent('Third panel');
+    });
+
+    it('selects and focuses the first and last tab with Home and End', async () => {
+      const screen = await render(<Example defaultValue="two" />);
+
+      screen.getByRole('tab', { name: 'Two' }).element().focus();
+
+      await userEvent.keyboard('{End}');
+      await expect
+        .element(screen.getByRole('tab', { name: 'Three' }))
+        .toHaveFocus();
+      await expect
+        .element(screen.getByRole('tab', { name: 'Three' }))
+        .toHaveAttribute('aria-selected', 'true');
+
+      await userEvent.keyboard('{Home}');
+      await expect
+        .element(screen.getByRole('tab', { name: 'One' }))
+        .toHaveFocus();
+      await expect
+        .element(screen.getByRole('tab', { name: 'One' }))
+        .toHaveAttribute('aria-selected', 'true');
+    });
+
+    it('makes the tab list a single stop in the tab order', async () => {
+      const screen = await render(
+        <>
+          <Example defaultValue="two" />
+          <button type="button">After</button>
+        </>,
+      );
+
+      await userEvent.tab();
+      await expect
+        .element(screen.getByRole('tab', { name: 'Two' }))
+        .toHaveFocus();
+
+      await userEvent.tab();
+      await expect
+        .element(screen.getByRole('tabpanel', { name: 'Two' }))
+        .toHaveFocus();
+
+      await userEvent.tab();
+      await expect
+        .element(screen.getByRole('button', { name: 'After' }))
+        .toHaveFocus();
+    });
+
+    it('keeps arrow keys working after tabs are added and removed', async () => {
+      const Dynamic: React.FC = () => {
+        const [items, setItems] = useState(['a', 'b', 'c']);
+
+        return (
+          <>
+            <button type="button" onClick={() => setItems(['a', 'c', 'd'])}>
+              Change
+            </button>
+            <Tabs defaultValue="a">
+              <TabList aria-label="Dynamic">
+                {items.map((item) => (
+                  <Tab key={item} value={item}>
+                    Tab {item}
+                  </Tab>
+                ))}
+              </TabList>
+            </Tabs>
+          </>
+        );
+      };
+      const screen = await render(<Dynamic />);
+
+      await screen.getByRole('button', { name: 'Change' }).click();
+      screen.getByRole('tab', { name: 'Tab a' }).element().focus();
+
+      await userEvent.keyboard('{ArrowRight}');
+      await expect
+        .element(screen.getByRole('tab', { name: 'Tab c' }))
+        .toHaveFocus();
+
+      await userEvent.keyboard('{ArrowRight}');
+      await expect
+        .element(screen.getByRole('tab', { name: 'Tab d' }))
+        .toHaveFocus();
+
+      await userEvent.keyboard('{ArrowRight}');
+      await expect
+        .element(screen.getByRole('tab', { name: 'Tab a' }))
+        .toHaveFocus();
+    });
+
+    it('reports keyboard selection through onValueChange when controlled', async () => {
+      const onValueChange = vi.fn();
+      const screen = await render(
+        <Example value="one" onValueChange={onValueChange} />,
+      );
+
+      screen.getByRole('tab', { name: 'One' }).element().focus();
+      await userEvent.keyboard('{ArrowRight}');
+
+      expect(onValueChange).toHaveBeenCalledWith('two');
+    });
+  });
+
   it('matches the screenshot', async () => {
     await render(
       <div style={{ padding: 16, inlineSize: 400 }} data-testid="frame">
@@ -462,5 +648,88 @@ describe('Tabs (browser)', () => {
     await expect
       .element(page.getByTestId('frame'))
       .toMatchScreenshot('tabs-light');
+  });
+
+  describe('Slots', () => {
+    it('renders startSlot before and endSlot after the tab, inside its wrapper', async () => {
+      const screen = await render(<SlotExample />);
+      const tab = screen.getByRole('tab', { name: 'One' }).element();
+      const wrapper = tab.parentElement as HTMLElement;
+      const dot = screen.getByTestId('dot-one').element();
+      const close = screen.getByRole('button', { name: 'Close One' }).element();
+
+      expect(wrapper.contains(dot)).toBe(true);
+      expect(wrapper.contains(close)).toBe(true);
+      expect(tab.contains(dot)).toBe(false);
+      expect(tab.contains(close)).toBe(false);
+      expect(
+        dot.compareDocumentPosition(tab) & Node.DOCUMENT_POSITION_FOLLOWING,
+      ).toBeTruthy();
+      expect(
+        tab.compareDocumentPosition(close) & Node.DOCUMENT_POSITION_FOLLOWING,
+      ).toBeTruthy();
+    });
+
+    it('keeps the tab name free of its Slot content', async () => {
+      const screen = await render(<SlotExample />);
+
+      await expect
+        .element(screen.getByRole('tab', { name: 'One', exact: true }))
+        .toBeVisible();
+    });
+
+    it('makes a close button its own focusable control outside the tab', async () => {
+      const screen = await render(<SlotExample />);
+      const close = screen.getByRole('button', { name: 'Close Two' });
+
+      await expect.element(close).toBeVisible();
+      expect(close.element().closest('[role="tab"]')).toBeNull();
+
+      close.element().focus();
+      expect(document.activeElement).toBe(close.element());
+    });
+
+    it("doesn't select the tab when a Slot control is clicked", async () => {
+      const onClose = vi.fn();
+      const screen = await render(<SlotExample onClose={onClose} />);
+
+      await screen.getByRole('button', { name: 'Close Two' }).click();
+
+      expect(onClose).toHaveBeenCalledOnce();
+      await expect
+        .element(screen.getByRole('tab', { name: 'One' }))
+        .toHaveAttribute('aria-selected', 'true');
+      await expect
+        .element(screen.getByRole('tab', { name: 'Two' }))
+        .toHaveAttribute('aria-selected', 'false');
+    });
+
+    it('lays out Slot content in line with the label', async () => {
+      const screen = await render(<SlotExample />);
+      const tab = screen.getByRole('tab', { name: 'One' }).element();
+      const dot = screen.getByTestId('dot-one').element();
+      const close = screen.getByRole('button', { name: 'Close One' }).element();
+      const middle = (element: Element) => {
+        const rect = element.getBoundingClientRect();
+
+        return rect.top + rect.height / 2;
+      };
+
+      expect(middle(dot)).toBeCloseTo(middle(tab), 0);
+      expect(middle(close)).toBeCloseTo(middle(tab), 0);
+    });
+
+    it('matches the screenshot of a tab with both Slots', async () => {
+      await render(
+        <div style={{ padding: 16, inlineSize: 400 }} data-testid="frame">
+          <SlotExample />
+        </div>,
+        { colorMode: 'light' },
+      );
+
+      await expect
+        .element(page.getByTestId('frame'))
+        .toMatchScreenshot('tabs-slots-light');
+    });
   });
 });
