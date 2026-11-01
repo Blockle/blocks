@@ -106,9 +106,13 @@ export function createSlottable<T extends keyof HTMLElementTagNameMap>(
       return null;
     }
 
-    if (!isValidElement(slot.props.children)) {
+    // Children.toArray unwraps lazy elements, such as a Server Component
+    // child that streams in later, and suspends while one is still pending.
+    const slotChildren = Children.toArray(slot.props.children);
+
+    if (slotChildren.length !== 1) {
       if (!import.meta.env.PROD) {
-        if (Children.toArray(slot.props.children).length === 0) {
+        if (slotChildren.length === 0) {
           console.error('When using asChild, at least one child is required');
         } else {
           console.error('When using asChild, only one child is allowed');
@@ -118,27 +122,31 @@ export function createSlottable<T extends keyof HTMLElementTagNameMap>(
       return null;
     }
 
-    if (!isValidElementWithChildren(slot.props.children)) {
+    const slotChild = slotChildren[0];
+
+    if (!isValidElementWithChildren(slotChild)) {
+      if (!import.meta.env.PROD) {
+        console.error(
+          'When using asChild, the single child must be a valid React element',
+        );
+      }
+
       return null;
     }
 
     // Render children inside Slot
     const nextChildren = [...childrenArray];
 
-    if (nextChildren.length === 1 && !slot.props.children.props.children) {
-      return cloneElement(
-        slot.props.children,
-        mergeProps(rootProps, slot.props.children.props),
-      );
+    if (nextChildren.length === 1 && !slotChild.props.children) {
+      return cloneElement(slotChild, mergeProps(rootProps, slotChild.props));
     }
 
     // Replace Slot with children
-    nextChildren[slotIndex] = slot.props.children.props
-      .children as React.ReactElement;
+    nextChildren[slotIndex] = slotChild.props.children as React.ReactElement;
 
     return cloneElement(
-      slot.props.children,
-      mergeProps(rootProps, slot.props.children.props),
+      slotChild,
+      mergeProps(rootProps, slotChild.props),
       nextChildren,
     );
   };
