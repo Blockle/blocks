@@ -52,19 +52,19 @@ export const Dialog: React.FC<DialogProps> = ({
     onCancel,
   });
 
-  const { visible, onAnimationEnd } = useModalDialog(dialogRef, open);
+  const { visible, onAnimationEnd, openAttribute } = useModalDialog(
+    dialogRef,
+    open,
+  );
 
   if (!visible) {
     return null;
   }
 
-  // SSR: If the dialog is open on the server, we need to render it with the open attribute
-  const dataOpen = typeof window === 'undefined' && open ? true : undefined;
-
   return (
     <dialog
       ref={composeRefs(ref, dialogRef)}
-      open={dataOpen}
+      open={openAttribute}
       className={classnames(styles.dialog, dialogClassName, className)}
       onAnimationEnd={onAnimationEnd}
       onTransitionEnd={onAnimationEnd}
