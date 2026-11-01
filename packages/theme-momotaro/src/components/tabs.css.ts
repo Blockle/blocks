@@ -40,6 +40,16 @@ const list = style([
   },
 ]);
 
+// The list inside a TabNav: the nav is the scrolling row, so the list only
+// lays the tabs out in a line without shrinking them
+const navList = style({
+  display: 'flex',
+  flexShrink: 0,
+  listStyle: 'none',
+  margin: 0,
+  padding: 0,
+});
+
 // The Tab indicator: one bar per list. It takes the left edge and width of the
 // selected tab's wrapper, and both transition. Where anchor positioning is
 // unsupported it isn't shown, and the selected tab draws a static bar instead
@@ -103,6 +113,7 @@ const tab = style({
 });
 
 const trigger = style([
+  focusable,
   atoms({ paddingBlock: 2, paddingInline: 3, fontSize: 'small' }),
   {
     border: 'none',
@@ -118,13 +129,16 @@ const trigger = style([
       '&:hover': {
         color: vars.colorRole.text.default,
       },
+      // The list scrolls, so an outside ring would be clipped; draw it inside
+      '&:focus-visible': {
+        outlineOffset: '-2px',
+      },
       '&[aria-selected="true"], &[aria-current="page"]': {
         color: vars.colorRole.text.default,
         fontWeight: 600,
       },
     },
   },
-  focusable,
 ]);
 
 // Slot content sits in line with the label; the trigger's own padding provides
@@ -146,6 +160,7 @@ const panel = style({
 
 export const tabs: ThemeComponentsStyles['tabs'] = makeComponentTheme('tabs', {
   list,
+  navList,
   indicator,
   tab,
   trigger,

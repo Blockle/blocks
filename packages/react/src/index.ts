@@ -87,6 +87,10 @@ export {
   type TabListProps,
 } from './components/navigation/Tabs/TabList.js';
 export {
+  TabNav,
+  type TabNavProps,
+} from './components/navigation/Tabs/TabNav.js';
+export {
   TabPanel,
   type TabPanelProps,
 } from './components/navigation/Tabs/TabPanel.js';

@@ -35,6 +35,7 @@ export const testingTheme = makeTheme({
     switch: { root: '', thumb: '' },
     tabs: {
       list: '',
+      navList: '',
       indicator: '',
       tab: '',
       trigger: '',

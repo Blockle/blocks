@@ -197,6 +197,8 @@ export type TagTheme = {
 export type TabsTheme = {
   // The row of tabs; draws the baseline
   list: string;
+  // The list inside a TabNav; the nav itself is the scrolling row
+  navList: string;
   // The Tab indicator: one bar per list that slides to the selected tab
   indicator: string;
   // The wrapper around a Tab's activation element and its Slots
