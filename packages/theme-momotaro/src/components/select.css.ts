@@ -45,7 +45,7 @@ export const select: ThemeComponentsStyles['select'] = makeComponentTheme(
             },
           },
         }),
-        solid: style({}),
+        solid: '',
       },
       size: {
         small: style({

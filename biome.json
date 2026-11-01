@@ -40,6 +40,28 @@
       "react": "recommended"
     }
   },
+  "overrides": [
+    {
+      "includes": ["packages/theme-momotaro/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "paths": {
+                  "@blockle/blocks-core": {
+                    "importNames": ["atoms"],
+                    "message": "Component themes don't use Atoms: write the value with `vars` inside the `blockle-theme` layer, see ADR-0007."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
   "assist": {
     "enabled": true,
     "actions": {
