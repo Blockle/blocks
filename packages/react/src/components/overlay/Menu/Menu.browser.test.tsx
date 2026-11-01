@@ -32,6 +32,14 @@ const expectClosed = () =>
 
 const focused = () => document.activeElement?.textContent;
 
+// Popover attaches its click outside listener on the next frame; wait for it,
+// and for the opening animation, before clicking outside or on the trigger
+const settleOpen = async () => {
+  await new Promise(requestAnimationFrame);
+  await new Promise(requestAnimationFrame);
+  await Promise.all(document.getAnimations().map(({ finished }) => finished));
+};
+
 describe('Menu (browser)', () => {
   it('opens below the trigger on the first item with a click', async () => {
     const { trigger, item } = await renderMenu();
@@ -139,8 +147,8 @@ describe('Menu (browser)', () => {
 
     await trigger.click();
     await expect.element(item('Archive')).toHaveFocus();
-    // A fixed point well clear of the trigger and list; the body's centre
-    // depends on layout and can land on the list
+    await settleOpen();
+    // A point clear of the trigger and the list
     await userEvent.click(document.body, { position: { x: 5, y: 5 } });
 
     await expectClosed();
@@ -151,6 +159,7 @@ describe('Menu (browser)', () => {
 
     await trigger.click();
     await expect.element(item('Archive')).toHaveFocus();
+    await settleOpen();
     await trigger.click();
 
     await expectClosed();

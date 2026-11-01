@@ -177,11 +177,17 @@ export const Popover: React.FC<PopoverProps> = ({
     };
   }, [placement, anchorElement, open, sticky, limitHeight]);
 
-  const onAnimationEnd = useCallback(() => {
-    if (!open) {
-      setVisible(false);
-    }
-  }, [open]);
+  // Unmount once the popover's own closing transition is over. A cancelled
+  // transition never ends, but the popover is hidden all the same. A child's
+  // transition or animation bubbles here too, and must not cut it short.
+  const onClosingEnd = useCallback(
+    (event: React.SyntheticEvent) => {
+      if (!open && event.target === event.currentTarget) {
+        setVisible(false);
+      }
+    },
+    [open],
+  );
 
   if (!visible) {
     return null;
@@ -194,8 +200,9 @@ export const Popover: React.FC<PopoverProps> = ({
       popover="manual"
       className={classnames(popoverClassName, className)}
       position="absolute"
-      onAnimationEnd={onAnimationEnd}
-      onTransitionEnd={onAnimationEnd}
+      onAnimationEnd={onClosingEnd}
+      onTransitionEnd={onClosingEnd}
+      onTransitionCancel={onClosingEnd}
       style={{
         ...style,
         left: layout.x,
