@@ -11,7 +11,7 @@ export function getEnabledItems(list: HTMLElement | null): HTMLElement[] {
   return Array.from(list.querySelectorAll<HTMLElement>(ENABLED_ITEM_SELECTOR));
 }
 
-export type MenuNavigationKey = 'ArrowDown' | 'ArrowUp' | 'Home' | 'End';
+type MenuNavigationKey = 'ArrowDown' | 'ArrowUp' | 'Home' | 'End';
 
 export function isMenuNavigationKey(key: string): key is MenuNavigationKey {
   return (
@@ -43,7 +43,20 @@ export function getNextIndex(
 // Items expose their typeahead text in the DOM, so every kind of item (action,
 // radio) takes part by setting this attribute to its `textValue`, or its
 // `label` when that is a string, and omitting it otherwise.
-export const TEXT_VALUE_ATTRIBUTE = 'data-text-value';
+const TEXT_VALUE_ATTRIBUTE = 'data-text-value'; // keep in sync with MenuItemButton
+
+/**
+ * The text an item takes part in typeahead with: its `textValue`, else its
+ * `label` when that is a string.
+ */
+export function getTextValue(item: {
+  label: React.ReactNode;
+  textValue?: string;
+}): string | undefined {
+  return (
+    item.textValue ?? (typeof item.label === 'string' ? item.label : undefined)
+  );
+}
 
 export function getItemText(item: HTMLElement): string | undefined {
   return item.getAttribute(TEXT_VALUE_ATTRIBUTE) ?? undefined;

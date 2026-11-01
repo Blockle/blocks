@@ -10,7 +10,6 @@ import {
   cloneElement,
   Fragment,
   isValidElement,
-  useCallback,
   useEffect,
   useId,
   useRef,
@@ -25,10 +24,10 @@ import {
   getEnabledItems,
   getItemText,
   getNextIndex,
+  getTextValue,
   getTypeaheadMatch,
   isMenuNavigationKey,
   isTypeaheadKey,
-  TEXT_VALUE_ATTRIBUTE,
 } from './menu-utils.js';
 
 // Pause after which typed characters no longer extend the typeahead search
@@ -110,6 +109,10 @@ export const Menu: React.FC<MenuProps> = ({
   className,
   ...restProps
 }) => {
+  if (Children.count(children) !== 1) {
+    throw new Error('Menu component can only have one child');
+  }
+
   const listId = useId();
   const generatedTriggerId = useId();
   const triggerRef = useRef<HTMLElement>(null);
@@ -124,18 +127,15 @@ export const Menu: React.FC<MenuProps> = ({
 
   const listClassName = useComponentStyles('menu', { list: true }, false);
 
-  const setOpen = useCallback(
-    (next: boolean) => {
-      if (!isControlled) {
-        setInternalOpen(next);
-      }
+  const setOpen = (next: boolean) => {
+    if (!isControlled) {
+      setInternalOpen(next);
+    }
 
-      onOpenChange?.(next);
-    },
-    [isControlled, onOpenChange],
-  );
+    onOpenChange?.(next);
+  };
 
-  const openOn = (which: InitialFocus) => {
+  const openAndFocus = (which: InitialFocus) => {
     if (items.length === 0) {
       return;
     }
@@ -144,21 +144,22 @@ export const Menu: React.FC<MenuProps> = ({
     setOpen(true);
   };
 
-  const close = (returnFocus: boolean) => {
+  const closeMenu = () => {
     setOpen(false);
+  };
 
-    if (returnFocus) {
-      triggerRef.current?.focus();
-    }
+  const closeAndFocusTrigger = () => {
+    setOpen(false);
+    triggerRef.current?.focus();
   };
 
   const onRequestClose = (reason: RequestCloseReason) => {
-    close(reason === 'escape');
+    if (reason === 'escape') {
+      closeAndFocusTrigger();
+    } else {
+      closeMenu();
+    }
   };
-
-  if (Children.count(children) !== 1) {
-    throw new Error('Menu component can only have one child');
-  }
 
   useEffect(() => {
     return () => window.clearTimeout(searchTimeoutRef.current);
@@ -181,10 +182,10 @@ export const Menu: React.FC<MenuProps> = ({
       return;
     }
 
-    if (open) {
-      close(false);
-    } else {
-      openOn('first');
+    // While open, a click on the trigger is an outside click of the list,
+    // which already requests the close
+    if (!open) {
+      openAndFocus('first');
     }
   };
 
@@ -198,58 +199,56 @@ export const Menu: React.FC<MenuProps> = ({
     // Enter and Space activate the trigger's click, which opens on the first item
     if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
       event.preventDefault();
-      openOn(event.key === 'ArrowDown' ? 'first' : 'last');
+      openAndFocus(event.key === 'ArrowDown' ? 'first' : 'last');
     }
   };
 
   const onListKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Tab') {
       // Close and let focus move on from the trigger
-      triggerRef.current?.focus();
-      setOpen(false);
+      closeAndFocusTrigger();
       return;
     }
 
-    if (isMenuNavigationKey(event.key)) {
-      const enabled = getEnabledItems(listRef.current);
+    const navigationKey = isMenuNavigationKey(event.key) ? event.key : null;
 
+    if (!navigationKey && !isTypeaheadKey(event)) {
+      return;
+    }
+
+    const enabled = getEnabledItems(listRef.current);
+    const current = enabled.indexOf(document.activeElement as HTMLElement);
+
+    if (navigationKey) {
       if (enabled.length === 0) {
         return;
       }
 
       event.preventDefault();
-
-      const current = enabled.indexOf(document.activeElement as HTMLElement);
-
-      enabled[getNextIndex(event.key, current, enabled.length)]?.focus();
+      enabled[getNextIndex(navigationKey, current, enabled.length)]?.focus();
       return;
     }
 
-    if (isTypeaheadKey(event)) {
-      const enabled = getEnabledItems(listRef.current);
-      const current = enabled.indexOf(document.activeElement as HTMLElement);
-
-      // Space picks the focused item, unless it continues a search
-      if (event.key === ' ' && searchRef.current === '') {
-        return;
-      }
-
-      event.preventDefault();
-      window.clearTimeout(searchTimeoutRef.current);
-      searchRef.current += event.key;
-      searchTimeoutRef.current = window.setTimeout(() => {
-        searchRef.current = '';
-      }, TYPEAHEAD_RESET_MS);
-
-      enabled[
-        getTypeaheadMatch(enabled.map(getItemText), current, searchRef.current)
-      ]?.focus();
+    // Space picks the focused item, unless it continues a search
+    if (event.key === ' ' && searchRef.current === '') {
+      return;
     }
+
+    event.preventDefault();
+    window.clearTimeout(searchTimeoutRef.current);
+    searchRef.current += event.key;
+    searchTimeoutRef.current = window.setTimeout(() => {
+      searchRef.current = '';
+    }, TYPEAHEAD_RESET_MS);
+
+    enabled[
+      getTypeaheadMatch(enabled.map(getItemText), current, searchRef.current)
+    ]?.focus();
   };
 
   const onPick = (select: () => void) => {
     select();
-    close(true);
+    closeAndFocusTrigger();
   };
 
   return (
@@ -291,7 +290,8 @@ type MenuItemsProps = {
   items: MenuItem[];
   listRef: React.RefObject<HTMLElement | null>;
   initialFocus: InitialFocus;
-  onPick: (select: () => void) => void;
+  // Runs `action` for the picked item, then closes the menu
+  onPick: (action: () => void) => void;
 };
 
 // Mounts when the list is shown, which is when focus moves into it
@@ -301,12 +301,6 @@ const MenuItems: React.FC<MenuItemsProps> = ({
   initialFocus,
   onPick,
 }) => {
-  const itemClassName = useComponentStyles('menu', { item: true }, false);
-  const indicatorClassName = useComponentStyles(
-    'menu',
-    { itemIndicator: true },
-    false,
-  );
   const separatorClassName = useComponentStyles(
     'menu',
     { separator: true },
@@ -333,74 +327,102 @@ const MenuItems: React.FC<MenuItemsProps> = ({
       return (
         // biome-ignore lint/suspicious/noArrayIndexKey: items have no id
         <Fragment key={index}>
-          {item.items.map((radio) => {
-            const checked = radio.value === item.value;
-            const textValue =
-              radio.textValue ??
-              (typeof radio.label === 'string' ? radio.label : undefined);
-
-            return (
-              <button
-                key={radio.value}
-                type="button"
-                role="menuitemradio"
-                tabIndex={-1}
-                aria-checked={checked}
-                aria-disabled={radio.disabled || undefined}
-                data-text-value={textValue}
-                className={itemClassName}
-                onClick={() => {
-                  if (!radio.disabled) {
-                    onPick(() => item.onChange(radio.value));
-                  }
-                }}
-                onPointerMove={(event) => {
-                  if (!radio.disabled) {
-                    event.currentTarget.focus();
-                  }
-                }}
-              >
-                <span className={indicatorClassName} data-radio-indicator="">
-                  {checked && <CheckIcon />}
-                </span>
-                {radio.label}
-                {radio.endSlot}
-              </button>
-            );
-          })}
+          {item.items.map((radio) => (
+            <MenuRadio
+              key={radio.value}
+              item={radio}
+              checked={radio.value === item.value}
+              onActivate={() => onPick(() => item.onChange(radio.value))}
+            />
+          ))}
         </Fragment>
       );
     }
 
     return (
-      <button
+      <MenuItemButton
         // biome-ignore lint/suspicious/noArrayIndexKey: items have no id
         key={index}
-        type="button"
         role="menuitem"
-        tabIndex={-1}
-        aria-disabled={item.disabled || undefined}
-        {...{
-          [TEXT_VALUE_ATTRIBUTE]:
-            item.textValue ??
-            (typeof item.label === 'string' ? item.label : undefined),
-        }}
-        className={itemClassName}
-        onClick={() => {
-          if (!item.disabled) {
-            onPick(item.onSelect);
-          }
-        }}
-        onPointerMove={(event) => {
-          if (!item.disabled) {
-            event.currentTarget.focus();
-          }
-        }}
+        item={item}
+        onActivate={() => onPick(item.onSelect)}
       >
         {item.startSlot}
         {item.label}
         {item.endSlot}
-      </button>
+      </MenuItemButton>
     );
   });
+};
+
+type MenuItemButtonProps = {
+  role: 'menuitem' | 'menuitemradio';
+  item: Pick<MenuActionItem, 'label' | 'textValue' | 'disabled'>;
+  onActivate: () => void;
+  children: React.ReactNode;
+} & Pick<React.AriaAttributes, 'aria-checked'>;
+
+// The button shared by action and radio items. A disabled item stays in the
+// DOM and keeps `aria-disabled` so it is announced, but does nothing.
+const MenuItemButton: React.FC<MenuItemButtonProps> = ({
+  role,
+  item,
+  onActivate,
+  children,
+  ...ariaProps
+}) => {
+  const className = useComponentStyles('menu', { item: true }, false);
+
+  return (
+    <button
+      type="button"
+      role={role}
+      tabIndex={-1}
+      aria-disabled={item.disabled || undefined}
+      data-text-value={getTextValue(item)}
+      {...ariaProps}
+      className={className}
+      onClick={() => {
+        if (!item.disabled) {
+          onActivate();
+        }
+      }}
+      onPointerMove={(event) => {
+        if (!item.disabled) {
+          event.currentTarget.focus();
+        }
+      }}
+    >
+      {children}
+    </button>
+  );
+};
+
+type MenuRadioProps = {
+  item: MenuRadioItem;
+  checked: boolean;
+  onActivate: () => void;
+};
+
+const MenuRadio: React.FC<MenuRadioProps> = ({ item, checked, onActivate }) => {
+  const indicatorClassName = useComponentStyles(
+    'menu',
+    { itemIndicator: true },
+    false,
+  );
+
+  return (
+    <MenuItemButton
+      role="menuitemradio"
+      aria-checked={checked}
+      item={item}
+      onActivate={onActivate}
+    >
+      <span className={indicatorClassName} data-radio-indicator="">
+        {checked && <CheckIcon />}
+      </span>
+      {item.label}
+      {item.endSlot}
+    </MenuItemButton>
+  );
 };

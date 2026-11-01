@@ -390,6 +390,28 @@ describe('Menu', () => {
       expect(await screen.findByRole('menu')).toBeInTheDocument();
     });
 
+    it('reports a single close when the open trigger is clicked', async () => {
+      const user = userEvent.setup();
+      const onOpenChange = vi.fn();
+
+      render(
+        <Menu
+          items={[{ label: 'A', onSelect: vi.fn() }]}
+          open
+          onOpenChange={onOpenChange}
+        >
+          <button type="button">More</button>
+        </Menu>,
+      );
+
+      await screen.findByRole('menu');
+      // Outside-click listeners attach on the next frame
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+      await user.click(trigger());
+
+      expect(onOpenChange.mock.calls).toEqual([[false]]);
+    });
+
     it('reports changes while uncontrolled', async () => {
       const user = userEvent.setup();
       const onOpenChange = vi.fn();
