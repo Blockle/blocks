@@ -220,6 +220,36 @@ describe('Menu (browser)', () => {
     }
   });
 
+  it('keeps the page scrolled where it was when a long list opens on its last item', async () => {
+    const many: MenuItem[] = Array.from({ length: 80 }, (_, index) => ({
+      label: `Item ${index + 1}`,
+      onSelect: vi.fn(),
+    }));
+    const screen = await render(
+      <div style={{ height: 6000 }}>
+        <div style={{ position: 'fixed', top: 100, left: 100 }}>
+          <Menu items={many}>
+            <button type="button">More</button>
+          </Menu>
+        </div>
+      </div>,
+    );
+
+    try {
+      window.scrollTo(0, 1500);
+      screen.getByRole('button', { name: 'More' }).element().focus();
+
+      await userEvent.keyboard('{ArrowUp}');
+      await expect
+        .element(screen.getByRole('menuitem', { name: 'Item 80' }))
+        .toHaveFocus();
+
+      expect(window.scrollY).toBe(1500);
+    } finally {
+      window.scrollTo(0, 0);
+    }
+  });
+
   it('flips a long list above a trigger near the bottom and stops at the top', async () => {
     const many: MenuItem[] = Array.from({ length: 80 }, (_, index) => ({
       label: `Item ${index + 1}`,
