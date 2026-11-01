@@ -139,7 +139,9 @@ describe('Menu (browser)', () => {
 
     await trigger.click();
     await expect.element(item('Archive')).toHaveFocus();
-    await userEvent.click(document.body);
+    // A fixed point well clear of the trigger and list; the body's centre
+    // depends on layout and can land on the list
+    await userEvent.click(document.body, { position: { x: 5, y: 5 } });
 
     await expectClosed();
   });
@@ -166,8 +168,9 @@ describe('Menu (browser)', () => {
 
     const list = document.querySelector('[role="menu"]') as HTMLElement;
 
-    expect(list.getBoundingClientRect().height).toBeLessThanOrEqual(
-      window.innerHeight,
+    // Stops at the bottom of the viewport, not just shorter than it
+    expect(list.getBoundingClientRect().bottom).toBeLessThanOrEqual(
+      document.documentElement.clientHeight,
     );
     expect(list.scrollHeight).toBeGreaterThan(list.clientHeight);
 
@@ -179,6 +182,31 @@ describe('Menu (browser)', () => {
     expect(focused()).toBe('Item 80');
     expect(focusedRect?.bottom).toBeLessThanOrEqual(listRect.bottom + 1);
     expect(focusedRect?.top).toBeGreaterThanOrEqual(listRect.top - 1);
+  });
+
+  it('flips a long list above a trigger near the bottom and stops at the top', async () => {
+    const many: MenuItem[] = Array.from({ length: 80 }, (_, index) => ({
+      label: `Item ${index + 1}`,
+      onSelect: vi.fn(),
+    }));
+    const screen = await render(
+      <div style={{ position: 'fixed', bottom: 20, left: 100 }}>
+        <Menu items={many}>
+          <button type="button">More</button>
+        </Menu>
+      </div>,
+    );
+    const trigger = screen.getByRole('button', { name: 'More' });
+
+    await trigger.click();
+    await expect.element(screen.getByRole('menu')).toBeVisible();
+
+    const list = document.querySelector('[role="menu"]') as HTMLElement;
+    const listRect = list.getBoundingClientRect();
+    const triggerRect = trigger.element().getBoundingClientRect();
+
+    expect(listRect.top).toBeGreaterThanOrEqual(0);
+    expect(listRect.bottom).toBeLessThanOrEqual(triggerRect.top);
   });
 
   it('moves across action and radio items alike', async () => {

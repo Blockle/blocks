@@ -27,8 +27,7 @@ export const menu: ThemeComponentsStyles['menu'] = makeComponentTheme('menu', {
     atoms({ padding: 1 }),
     {
       minWidth: '10rem',
-      // A long list scrolls instead of running off the screen
-      maxHeight: 'calc(100dvh - 1rem)',
+      // Popover caps a long list at the viewport's edge; the list scrolls
       overflowY: 'auto',
       overscrollBehavior: 'contain',
     },

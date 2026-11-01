@@ -272,6 +272,7 @@ export const Menu: React.FC<MenuProps> = ({
         open={open}
         onRequestClose={onRequestClose}
         placement={placement}
+        limitHeight
         className={classnames(listClassName, className)}
         onKeyDown={onListKeyDown}
       >

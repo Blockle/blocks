@@ -14,7 +14,11 @@ import { useIsomorphicLayoutEffect } from '../../../hooks/useIsomorphicLayoutEff
 import { useKeyboard } from '../../../hooks/useKeyboard/useKeyboard.js';
 import { Box } from '../../layout/Box/Box.js';
 import type { RequestCloseReason } from '../requestCloseReason.js';
-import { getPopoverPosition, type PopoverPlacement } from './popover-utils.js';
+import {
+  getPopoverLayout,
+  type PopoverLayout,
+  type PopoverPlacement,
+} from './popover-utils.js';
 
 export type { PopoverPlacement };
 
@@ -36,6 +40,11 @@ export type PopoverProps = {
    */
   position?: 'top' | 'bottom' | 'left' | 'right';
   sticky?: boolean;
+  /**
+   * Caps the popover's height to the room on the side it opens on, so a tall
+   * popover stops at the viewport's edge. Give it `overflow: auto` to scroll.
+   */
+  limitHeight?: boolean;
   // trigger?: 'click' | 'hover' | 'focus'; // TODO: implement
 } & HTMLElementProps<HTMLDivElement>;
 
@@ -43,6 +52,7 @@ export const Popover: React.FC<PopoverProps> = ({
   anchorElement,
   children,
   className,
+  limitHeight = false,
   onRequestClose,
   open,
   placement: placementProp,
@@ -54,7 +64,7 @@ export const Popover: React.FC<PopoverProps> = ({
 }) => {
   const placement = placementProp ?? position ?? 'top';
   const popoverRef = useRef<HTMLDivElement>(null);
-  const [popoverPosition, setPopoverPosition] = useState({ x: 0, y: 0 });
+  const [layout, setLayout] = useState<PopoverLayout>({ x: 0, y: 0 });
   const [visible, setVisible] = useState(open);
 
   const popoverClassName = useComponentStyles('popover', { root: true }, false);
@@ -94,8 +104,9 @@ export const Popover: React.FC<PopoverProps> = ({
 
       element.showPopover();
 
-      const [x, y] = getPopoverPosition(placement, anchorElement, popoverRef);
-      setPopoverPosition({ x, y });
+      setLayout(
+        getPopoverLayout(placement, anchorElement, popoverRef, limitHeight),
+      );
     } else if (open) {
       setVisible(true);
     } else {
@@ -122,10 +133,11 @@ export const Popover: React.FC<PopoverProps> = ({
   // Update the popover position when the anchor element or placement changes
   useEffect(() => {
     if (open) {
-      const [x, y] = getPopoverPosition(placement, anchorElement, popoverRef);
-      setPopoverPosition({ x, y });
+      setLayout(
+        getPopoverLayout(placement, anchorElement, popoverRef, limitHeight),
+      );
     }
-  }, [open, anchorElement, placement]);
+  }, [open, anchorElement, placement, limitHeight]);
 
   // Update the popover position when the window is resized or scrolled
   // and the popover is sticky
@@ -135,15 +147,24 @@ export const Popover: React.FC<PopoverProps> = ({
     }
 
     function updatePopoverPosition() {
-      const [x, y] = getPopoverPosition(placement, anchorElement, popoverRef);
+      const next = getPopoverLayout(
+        placement,
+        anchorElement,
+        popoverRef,
+        limitHeight,
+      );
 
-      setPopoverPosition((prev) => {
+      setLayout((prev) => {
         // Prevent unnecessary state updates
-        if (prev.x === x && prev.y === y) {
+        if (
+          prev.x === next.x &&
+          prev.y === next.y &&
+          prev.maxHeight === next.maxHeight
+        ) {
           return prev;
         }
 
-        return { x, y };
+        return next;
       });
     }
 
@@ -154,7 +175,7 @@ export const Popover: React.FC<PopoverProps> = ({
       window.removeEventListener('resize', updatePopoverPosition);
       window.removeEventListener('scroll', updatePopoverPosition);
     };
-  }, [placement, anchorElement, open, sticky]);
+  }, [placement, anchorElement, open, sticky, limitHeight]);
 
   const onAnimationEnd = useCallback(() => {
     if (!open) {
@@ -177,8 +198,9 @@ export const Popover: React.FC<PopoverProps> = ({
       onTransitionEnd={onAnimationEnd}
       style={{
         ...style,
-        left: popoverPosition.x,
-        top: popoverPosition.y,
+        left: layout.x,
+        top: layout.y,
+        maxHeight: layout.maxHeight,
       }}
       {...restProps}
     >

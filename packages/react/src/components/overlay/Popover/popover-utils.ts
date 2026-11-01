@@ -113,6 +113,33 @@ function flipSide(
 }
 
 /**
+ * Returns the most height the popover's border box can take on the side it
+ * opens on, keeping it VIEWPORT_PADDING inside the viewport
+ */
+export function computeAvailableHeight({
+  placement,
+  anchor,
+  popover,
+  viewport,
+}: ComputePopoverPositionOptions): number {
+  const [preferredSide] = placement.split('-') as [PopoverSide];
+  const side = flipSide(preferredSide, anchor, popover, viewport);
+  let available = viewport.height - VIEWPORT_PADDING * 2;
+
+  if (side === 'top') {
+    available = anchor.top - popover.margin.bottom - VIEWPORT_PADDING;
+  } else if (side === 'bottom') {
+    available =
+      viewport.height -
+      VIEWPORT_PADDING -
+      (anchor.top + anchor.height) -
+      popover.margin.top;
+  }
+
+  return Math.max(0, available);
+}
+
+/**
  * Returns the start of the popover's border box on the cross axis: lined up
  * with the anchor's start or end edge, or centred on it, then shifted to keep
  * it VIEWPORT_PADDING inside the viewport. A popover that does not fit
@@ -138,30 +165,57 @@ function alignOnCrossAxis(
   return Math.max(VIEWPORT_PADDING, Math.min(start, max));
 }
 
-export function getPopoverPosition(
+export type PopoverLayout = {
+  x: number;
+  y: number;
+  /** The popover's height cap, when it is limited to the room it has */
+  maxHeight?: number;
+};
+
+/**
+ * Measures the anchor and popover and returns where to put the popover. With
+ * `limitHeight`, a popover taller than the room on its side is capped to
+ * that room, and placed by its capped height.
+ */
+export function getPopoverLayout(
   placement: PopoverPlacement,
   anchorRef: React.RefObject<HTMLElement | null>,
   popoverRef: React.RefObject<HTMLElement | null>,
-): PopoverPositions {
+  limitHeight = false,
+): PopoverLayout {
   if (!anchorRef.current || !popoverRef.current) {
-    return [0, 0];
+    return { x: 0, y: 0 };
   }
+
+  const element = popoverRef.current;
 
   // Get the measurements of the anchor and popover
   const anchorRect = anchorRef.current.getBoundingClientRect();
-  const popoverRect = popoverRef.current.getBoundingClientRect();
-  const popoverStyles = getComputedStyle(popoverRef.current);
+  const popoverRect = element.getBoundingClientRect();
+  const popoverStyles = getComputedStyle(element);
 
   // The theme animates the popover's transform, so undo its scale
-  const [width, height] = getOriginalElementSize(
+  const [width, measuredHeight] = getOriginalElementSize(
     popoverStyles,
     popoverRect.width,
     popoverRect.height,
   );
 
-  const { documentElement } = document;
+  // A capped popover measures its content, so the cap from an earlier
+  // opening doesn't shrink it
+  const height = limitHeight
+    ? Math.max(
+        measuredHeight,
+        element.scrollHeight +
+          cssValueToNumber(popoverStyles.getPropertyValue('border-top-width')) +
+          cssValueToNumber(
+            popoverStyles.getPropertyValue('border-bottom-width'),
+          ),
+      )
+    : measuredHeight;
 
-  return computePopoverPosition({
+  const { documentElement } = document;
+  const options: ComputePopoverPositionOptions = {
     placement,
     anchor: anchorRect,
     popover: {
@@ -182,5 +236,19 @@ export function getPopoverPosition(
       scrollX: documentElement.scrollLeft,
       scrollY: documentElement.scrollTop,
     },
+  };
+
+  if (!limitHeight) {
+    const [x, y] = computePopoverPosition(options);
+
+    return { x, y };
+  }
+
+  const maxHeight = computeAvailableHeight(options);
+  const [x, y] = computePopoverPosition({
+    ...options,
+    popover: { ...options.popover, height: Math.min(height, maxHeight) },
   });
+
+  return { x, y, maxHeight };
 }
