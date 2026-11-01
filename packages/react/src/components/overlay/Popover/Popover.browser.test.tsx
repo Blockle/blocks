@@ -741,9 +741,12 @@ describe('Popover width cap (browser)', () => {
     expect(content.height).toBeGreaterThan(32);
   });
 
-  it('follows the viewport as it narrows and widens while open', async () => {
+  it.each([
+    'border-box',
+    'content-box',
+  ] as const)('follows the viewport as it narrows and widens while open, %s', async (boxSizing) => {
     await page.viewport(1000, 800);
-    await render(<Wide boxSizing="content-box" />);
+    await render(<Wide boxSizing={boxSizing} />);
     await settled();
 
     // 640px of swatches, 16px padding and 4px border on each side
