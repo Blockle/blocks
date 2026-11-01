@@ -167,4 +167,64 @@ describe('Menu (browser)', () => {
     expect(focusedRect?.bottom).toBeLessThanOrEqual(listRect.bottom + 1);
     expect(focusedRect?.top).toBeGreaterThanOrEqual(listRect.top - 1);
   });
+
+  it('moves across action and radio items alike', async () => {
+    const { trigger, screen } = await renderMenu([
+      { label: 'Archive', onSelect: vi.fn() },
+      { type: 'separator' },
+      {
+        type: 'radio-group',
+        value: 'dark',
+        onChange: vi.fn(),
+        items: [
+          { value: 'light', label: 'Light' },
+          { value: 'dark', label: 'Dark', disabled: true },
+          { value: 'system', label: 'System' },
+        ],
+      },
+    ]);
+
+    await trigger.click();
+    expect(focused()).toBe('Archive');
+
+    await userEvent.keyboard('{ArrowDown}');
+    expect(focused()).toBe('Light');
+
+    await userEvent.keyboard('{ArrowDown}');
+    expect(focused()).toBe('System');
+
+    await userEvent.keyboard('{ArrowDown}');
+    expect(focused()).toBe('Archive');
+
+    await userEvent.keyboard('{End}');
+    expect(focused()).toBe('System');
+
+    await screen
+      .getByRole('menuitemradio', { name: 'Light', exact: true })
+      .hover();
+    expect(focused()).toBe('Light');
+  });
+
+  it('picks a radio item with Enter and returns focus to the trigger', async () => {
+    const onChange = vi.fn();
+    const { trigger } = await renderMenu([
+      {
+        type: 'radio-group',
+        value: 'light',
+        onChange,
+        items: [
+          { value: 'light', label: 'Light' },
+          { value: 'dark', label: 'Dark' },
+        ],
+      },
+    ]);
+
+    await trigger.click();
+    await userEvent.keyboard('{ArrowDown}');
+    await userEvent.keyboard('{Enter}');
+
+    expect(onChange).toHaveBeenCalledWith('dark');
+    await expect.element(trigger).toHaveFocus();
+    await expectClosed();
+  });
 });

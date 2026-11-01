@@ -426,4 +426,95 @@ describe('Menu', () => {
       await waitFor(() => expect(screen.queryByRole('menu')).toBeNull());
     });
   });
+
+  describe('radio group', () => {
+    const radioItems = (onChange = vi.fn(), value = 'dark'): MenuItem[] => [
+      { label: 'Archive', onSelect: vi.fn() },
+      { type: 'separator' },
+      {
+        type: 'radio-group',
+        value,
+        onChange,
+        items: [
+          { value: 'light', label: 'Light' },
+          { value: 'dark', label: 'Dark', textValue: 'Dark mode' },
+          { value: 'system', label: 'System', disabled: true },
+        ],
+      },
+    ];
+
+    it('renders menuitemradio items checked by value', async () => {
+      const user = userEvent.setup();
+
+      renderMenu({}, radioItems());
+      await user.click(trigger());
+
+      const radios = await screen.findAllByRole('menuitemradio');
+
+      expect(radios.map((radio) => radio.textContent)).toEqual([
+        'Light',
+        'Dark',
+        'System',
+      ]);
+      expect(radios.map((radio) => radio.getAttribute('aria-checked'))).toEqual(
+        ['false', 'true', 'false'],
+      );
+      expect(radios[2]).toHaveAttribute('aria-disabled', 'true');
+    });
+
+    it('draws the check only on the checked item and keeps room on the others', async () => {
+      const user = userEvent.setup();
+
+      renderMenu({}, radioItems());
+      await user.click(trigger());
+
+      const [light, dark] = await screen.findAllByRole('menuitemradio');
+
+      expect(light?.querySelector('svg')).toBeNull();
+      expect(dark?.querySelector('svg')).not.toBeNull();
+      expect(light?.querySelector('[data-radio-indicator]')).not.toBeNull();
+      expect(dark?.querySelector('[data-radio-indicator]')).not.toBeNull();
+    });
+
+    it('exposes text for typeahead', async () => {
+      const user = userEvent.setup();
+
+      renderMenu({}, radioItems());
+      await user.click(trigger());
+
+      const [light, dark] = await screen.findAllByRole('menuitemradio');
+
+      expect(light).toHaveAttribute('data-text-value', 'Light');
+      expect(dark).toHaveAttribute('data-text-value', 'Dark mode');
+    });
+
+    it('calls onChange with the value and closes', async () => {
+      const user = userEvent.setup();
+      const onChange = vi.fn();
+
+      renderMenu({}, radioItems(onChange));
+      await user.click(trigger());
+      await user.click(
+        await screen.findByRole('menuitemradio', { name: 'Light' }),
+      );
+
+      expect(onChange).toHaveBeenCalledWith('light');
+      await waitFor(() => expect(screen.queryByRole('menu')).toBeNull());
+      expect(trigger()).toHaveFocus();
+    });
+
+    it('does not pick disabled items', async () => {
+      const user = userEvent.setup();
+      const onChange = vi.fn();
+
+      renderMenu({}, radioItems(onChange));
+      await user.click(trigger());
+      await user.click(
+        await screen.findByRole('menuitemradio', { name: 'System' }),
+      );
+
+      expect(onChange).not.toHaveBeenCalled();
+      expect(screen.getByRole('menu')).toBeInTheDocument();
+    });
+  });
 });

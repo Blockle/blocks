@@ -8,6 +8,7 @@ import {
 import {
   Children,
   cloneElement,
+  Fragment,
   isValidElement,
   useCallback,
   useEffect,
@@ -17,6 +18,7 @@ import {
 } from 'react';
 
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
+import { CheckIcon } from '../../../icons/icons.js';
 import { Popover, type PopoverProps } from '../Popover/Popover.js';
 import type { RequestCloseReason } from '../requestCloseReason.js';
 import {
@@ -49,7 +51,25 @@ export type MenuSeparatorItem = {
   type: 'separator';
 };
 
-export type MenuItem = MenuActionItem | MenuSeparatorItem;
+export type MenuRadioItem = {
+  value: string;
+  label: React.ReactNode;
+  /**
+   * Text for typeahead, when `label` is not a plain string
+   */
+  textValue?: string;
+  disabled?: boolean;
+  endSlot?: React.ReactNode;
+};
+
+export type MenuRadioGroupItem = {
+  type: 'radio-group';
+  value: string;
+  onChange: (value: string) => void;
+  items: MenuRadioItem[];
+};
+
+export type MenuItem = MenuActionItem | MenuSeparatorItem | MenuRadioGroupItem;
 
 export type MenuProps = {
   /**
@@ -196,8 +216,8 @@ export const Menu: React.FC<MenuProps> = ({
     // the next item whose text starts with what was typed
   };
 
-  const onPick = (item: MenuActionItem) => {
-    item.onSelect();
+  const onPick = (select: () => void) => {
+    select();
     close(true);
   };
 
@@ -240,7 +260,7 @@ type MenuItemsProps = {
   items: MenuItem[];
   listRef: React.RefObject<HTMLElement | null>;
   initialFocus: InitialFocus;
-  onPick: (item: MenuActionItem) => void;
+  onPick: (select: () => void) => void;
 };
 
 // Mounts when the list is shown, which is when focus moves into it
@@ -251,6 +271,11 @@ const MenuItems: React.FC<MenuItemsProps> = ({
   onPick,
 }) => {
   const itemClassName = useComponentStyles('menu', { item: true }, false);
+  const indicatorClassName = useComponentStyles(
+    'menu',
+    { itemIndicator: true },
+    false,
+  );
   const separatorClassName = useComponentStyles(
     'menu',
     { separator: true },
@@ -273,6 +298,49 @@ const MenuItems: React.FC<MenuItemsProps> = ({
       );
     }
 
+    if (item.type === 'radio-group') {
+      return (
+        // biome-ignore lint/suspicious/noArrayIndexKey: items have no id
+        <Fragment key={index}>
+          {item.items.map((radio) => {
+            const checked = radio.value === item.value;
+            const textValue =
+              radio.textValue ??
+              (typeof radio.label === 'string' ? radio.label : undefined);
+
+            return (
+              <button
+                key={radio.value}
+                type="button"
+                role="menuitemradio"
+                tabIndex={-1}
+                aria-checked={checked}
+                aria-disabled={radio.disabled || undefined}
+                data-text-value={textValue}
+                className={itemClassName}
+                onClick={() => {
+                  if (!radio.disabled) {
+                    onPick(() => item.onChange(radio.value));
+                  }
+                }}
+                onPointerMove={(event) => {
+                  if (!radio.disabled) {
+                    event.currentTarget.focus();
+                  }
+                }}
+              >
+                <span className={indicatorClassName} data-radio-indicator="">
+                  {checked && <CheckIcon />}
+                </span>
+                {radio.label}
+                {radio.endSlot}
+              </button>
+            );
+          })}
+        </Fragment>
+      );
+    }
+
     return (
       <button
         // biome-ignore lint/suspicious/noArrayIndexKey: items have no id
@@ -284,7 +352,7 @@ const MenuItems: React.FC<MenuItemsProps> = ({
         className={itemClassName}
         onClick={() => {
           if (!item.disabled) {
-            onPick(item);
+            onPick(item.onSelect);
           }
         }}
         onPointerMove={(event) => {
