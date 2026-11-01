@@ -1,5 +1,5 @@
 import {
-  atoms,
+  layers,
   makeComponentTheme,
   type ThemeComponentsStyles,
   vars,
@@ -11,22 +11,29 @@ const { surface, text } = vars.colorRole;
 export const tooltip: ThemeComponentsStyles['tooltip'] = makeComponentTheme(
   'tooltip',
   {
-    root: atoms({
-      padding: 1,
-    }),
+    // No styles of its own: it sits on the popover surface, which sets the padding
+    root: '',
     variants: {
       intent: {
         // Inverse of the page: dark on light, light on dark
         primary: style({
-          backgroundColor: `color-mix(in srgb, ${surface.inverse} 80%, transparent)`,
-          boxShadow: `0 0 0 1px color-mix(in srgb, ${text.inverse} 10%, transparent)`,
-          color: text.inverse,
+          '@layer': {
+            [layers.theme]: {
+              backgroundColor: `color-mix(in srgb, ${surface.inverse} 80%, transparent)`,
+              boxShadow: `0 0 0 1px color-mix(in srgb, ${text.inverse} 10%, transparent)`,
+              color: text.inverse,
+            },
+          },
         }),
         // Same as the page
         secondary: style({
-          backgroundColor: `color-mix(in srgb, ${surface.default} 80%, transparent)`,
-          boxShadow: `0 0 0 1px color-mix(in srgb, ${text.default} 10%, transparent)`,
-          color: text.default,
+          '@layer': {
+            [layers.theme]: {
+              backgroundColor: `color-mix(in srgb, ${surface.default} 80%, transparent)`,
+              boxShadow: `0 0 0 1px color-mix(in srgb, ${text.default} 10%, transparent)`,
+              color: text.default,
+            },
+          },
         }),
       },
     },
