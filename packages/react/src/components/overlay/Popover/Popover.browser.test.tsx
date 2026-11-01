@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { page } from 'vitest/browser';
 
@@ -220,6 +220,80 @@ describe('Popover closing (browser)', () => {
 
     expect(getPopover()).not.toBeNull();
     await vi.waitFor(() => expect(getPopover()).toBeNull());
+  });
+});
+
+describe('Popover focus (browser)', () => {
+  // Moves focus into the popover as it mounts, like a menu's first item
+  const FocusOnMount: React.FC = () => {
+    const ref = useRef<HTMLButtonElement>(null);
+
+    useEffect(() => {
+      ref.current?.focus();
+    }, []);
+
+    return (
+      <button ref={ref} type="button">
+        Focus me
+      </button>
+    );
+  };
+
+  // A page taller than the viewport, anchored to the bottom of the view
+  const ScrolledPage: React.FC<{ open: boolean }> = ({ open }) => {
+    const anchorRef = useRef<HTMLDivElement>(null);
+
+    return (
+      <div style={{ height: 4000 }}>
+        <div
+          ref={anchorRef}
+          style={{ position: 'fixed', bottom: 20, left: 100 }}
+        >
+          Anchor
+        </div>
+        <Popover
+          open={open}
+          anchorElement={anchorRef}
+          onRequestClose={vi.fn()}
+          data-testid="popover"
+        >
+          <FocusOnMount />
+        </Popover>
+      </div>
+    );
+  };
+
+  const focusedContent = () =>
+    vi.waitFor(() =>
+      expect(document.activeElement?.textContent).toBe('Focus me'),
+    );
+
+  afterEach(() => {
+    window.scrollTo(0, 0);
+  });
+
+  it('keeps the page scrolled where it was when content moves focus into it', async () => {
+    const screen = await render(<ScrolledPage open={false} />);
+
+    window.scrollTo(0, 1500);
+    await screen.rerender(<ScrolledPage open />);
+    await focusedContent();
+
+    expect(window.scrollY).toBe(1500);
+  });
+
+  it('opens where its anchor is now, not where it was last open', async () => {
+    const screen = await render(<ScrolledPage open />);
+
+    await focusedContent();
+    await screen.rerender(<ScrolledPage open={false} />);
+    await vi.waitFor(() => expect(queryByTestId('popover')).toBeNull());
+
+    window.scrollTo(0, 1500);
+    await screen.rerender(<ScrolledPage open />);
+    await focusedContent();
+
+    expect(window.scrollY).toBe(1500);
   });
 });
 

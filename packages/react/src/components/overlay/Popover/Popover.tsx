@@ -52,6 +52,18 @@ export type PopoverProps = {
   // trigger?: 'click' | 'hover' | 'focus'; // TODO: implement
 } & HTMLElementProps<HTMLDivElement>;
 
+function toPx(value: number | undefined) {
+  return value === undefined ? '' : `${value}px`;
+}
+
+// Matches the layout the render applies through `style`
+function applyLayout(element: HTMLElement, layout: PopoverLayout) {
+  element.style.left = toPx(layout.x);
+  element.style.top = toPx(layout.y);
+  element.style.maxWidth = toPx(layout.maxWidth);
+  element.style.maxHeight = toPx(layout.maxHeight);
+}
+
 export const Popover: React.FC<PopoverProps> = ({
   anchorElement,
   children,
@@ -108,9 +120,19 @@ export const Popover: React.FC<PopoverProps> = ({
 
       element.showPopover();
 
-      setLayout(
-        getPopoverLayout(placement, anchorElement, popoverRef, limitHeight),
+      const nextLayout = getPopoverLayout(
+        placement,
+        anchorElement,
+        popoverRef,
+        limitHeight,
       );
+
+      // Content's effects run before the render that applies this layout, and
+      // one that moves focus would scroll the page to wherever the popover
+      // still is, or to an item past its height cap. Lay it out now, before
+      // they run.
+      applyLayout(element, nextLayout);
+      setLayout(nextLayout);
     } else if (open) {
       setVisible(true);
     } else {
