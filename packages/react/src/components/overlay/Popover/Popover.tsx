@@ -108,9 +108,20 @@ export const Popover: React.FC<PopoverProps> = ({
 
       element.showPopover();
 
-      setLayout(
-        getPopoverLayout(placement, anchorElement, popoverRef, limitHeight),
+      const next = getPopoverLayout(
+        placement,
+        anchorElement,
+        popoverRef,
+        limitHeight,
       );
+
+      // Content's effects run before the render that applies this layout, and
+      // one that moves focus would scroll the page to wherever the popover
+      // still is. Position it now, before they run.
+      element.style.left = `${next.x}px`;
+      element.style.top = `${next.y}px`;
+
+      setLayout(next);
     } else if (open) {
       setVisible(true);
     } else {

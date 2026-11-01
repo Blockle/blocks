@@ -195,6 +195,31 @@ describe('Menu (browser)', () => {
     expect(focusedRect?.top).toBeGreaterThanOrEqual(listRect.top - 1);
   });
 
+  it('keeps the page scrolled where it was when it opens', async () => {
+    const screen = await render(
+      <div style={{ height: 4000 }}>
+        <div style={{ position: 'fixed', bottom: 20, left: 100 }}>
+          <Menu items={items} placement="top">
+            <button type="button">More</button>
+          </Menu>
+        </div>
+      </div>,
+    );
+
+    try {
+      window.scrollTo(0, 1500);
+
+      await screen.getByRole('button', { name: 'More' }).click();
+      await expect
+        .element(screen.getByRole('menuitem', { name: 'Archive' }))
+        .toHaveFocus();
+
+      expect(window.scrollY).toBe(1500);
+    } finally {
+      window.scrollTo(0, 0);
+    }
+  });
+
   it('flips a long list above a trigger near the bottom and stops at the top', async () => {
     const many: MenuItem[] = Array.from({ length: 80 }, (_, index) => ({
       label: `Item ${index + 1}`,
