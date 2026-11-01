@@ -1,4 +1,5 @@
-import { makeTheme } from '@blockle/blocks-core';
+import { makeTheme, tabIndicatorVars, vars } from '@blockle/blocks-core';
+import { style } from '@vanilla-extract/css';
 
 const colorPalette = {
   100: '#f7fafc',
@@ -11,6 +12,17 @@ const colorPalette = {
   800: '#2d3748',
   900: '#1a202c',
 };
+
+// Only the Tab indicator's look, so tests show Blocks' base styles carry the
+// Tab mechanics on their own. The values differ from momotaro's on purpose.
+const tabList = style({
+  vars: {
+    [tabIndicatorVars.color]: vars.colorRole.danger.solid,
+    [tabIndicatorVars.thickness]: '3px',
+    [tabIndicatorVars.duration]: '300ms',
+    [tabIndicatorVars.easing]: 'linear',
+  },
+});
 
 export const testingTheme = makeTheme({
   name: 'testing',
@@ -34,7 +46,7 @@ export const testingTheme = makeTheme({
     spinner: { root: '' },
     switch: { root: '', thumb: '' },
     tabs: {
-      list: '',
+      list: tabList,
       navList: '',
       indicator: '',
       tab: '',

@@ -7,6 +7,7 @@ import { useContext, useEffect, useRef } from 'react';
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { TabListContext } from './TabListContext.js';
 import { getPanelId, getTabId, useTabsContext } from './TabsContext.js';
+import * as styles from './tabs.css.js';
 
 export type TabProps = {
   /** In a `TabNav`: render the child element (a router link) as the tab's link */
@@ -77,13 +78,17 @@ const TabFrame: React.FC<TabFrameProps> = ({
   }, [active, scrollRef]);
 
   return (
-    <Wrapper ref={wrapperRef} className={tabClassName}>
+    <Wrapper ref={wrapperRef} className={classnames(styles.tab, tabClassName)}>
       {hasContent(startSlot) && (
-        <span className={startSlotClassName}>{startSlot}</span>
+        <span className={classnames(styles.slot, startSlotClassName)}>
+          {startSlot}
+        </span>
       )}
       {children}
       {hasContent(endSlot) && (
-        <span className={endSlotClassName}>{endSlot}</span>
+        <span className={classnames(styles.slot, endSlotClassName)}>
+          {endSlot}
+        </span>
       )}
     </Wrapper>
   );
@@ -129,7 +134,7 @@ const TabsTab: React.FC<TabProps> = ({
         aria-selected={selected}
         aria-controls={getPanelId(baseId, value)}
         tabIndex={selected || list?.fallbackValue === value ? 0 : -1}
-        className={classnames(triggerClassName, className)}
+        className={classnames(styles.trigger, triggerClassName, className)}
         onClick={(event) => {
           onClick?.(event);
 
@@ -169,7 +174,7 @@ const TabNavTab: React.FC<TabProps> = ({
         {...restProps}
         asChild={asChild}
         aria-current={current ? 'page' : undefined}
-        className={classnames(triggerClassName, className)}
+        className={classnames(styles.trigger, triggerClassName, className)}
       >
         <LinkSlot>{children}</LinkSlot>
       </LinkTemplate>

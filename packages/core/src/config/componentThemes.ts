@@ -194,13 +194,16 @@ export type TagTheme = {
   };
 };
 
+// Only the look: Blocks' base styles own the layout, scrolling and the Tab
+// indicator's positioning, motion guard and fallback bar
 export type TabsTheme = {
-  // The row of tabs; draws the baseline
+  // The row of tabs; draws the baseline and sets `tabIndicatorVars`
   list: string;
   // The list inside a TabNav; the nav itself is the scrolling row
-  navList: string;
-  // The Tab indicator: one bar per list that slides to the selected tab
-  indicator: string;
+  navList?: string;
+  // The Tab indicator: one bar per list that slides to the selected tab. Its
+  // colour, thickness and motion come from `tabIndicatorVars`.
+  indicator?: string;
   // The wrapper around a Tab's activation element and its Slots
   tab: string;
   // The Tab's activation element (a button, or a link in a TabNav)

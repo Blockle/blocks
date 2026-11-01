@@ -7,6 +7,7 @@ import { useComponentStyles } from '../../../hooks/useComponentStyles/useCompone
 import { TabIndicator } from './TabIndicator.js';
 import { TabListContext } from './TabListContext.js';
 import { getTabValue, useTabsContext } from './TabsContext.js';
+import * as styles from './tabs.css.js';
 
 export type TabListProps = {
   /** Names the tab list; use it or `aria-labelledby` when a page has several */
@@ -65,7 +66,7 @@ export const TabList: React.FC<TabListProps> = ({
             ref.current = node;
           }
         }}
-        className={classnames(listClassName, className)}
+        className={classnames(styles.list, listClassName, className)}
         onKeyDown={(event) => {
           onKeyDown?.(event);
 
