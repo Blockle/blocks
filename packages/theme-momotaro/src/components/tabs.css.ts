@@ -12,13 +12,65 @@ import { focusable } from './helpers.css.js';
 // says so
 const selected = '> [aria-selected="true"], > [aria-current="page"]';
 
+// The anchor the selected tab offers the Tab indicator
+const anchor = '--blockle-tab';
+
+// CSS anchor positioning isn't in csstype yet, so these declarations are
+// typed loosely
+const declarations = (properties: Record<string, string | number>) =>
+  properties as Record<string, never>;
+
 const list = style([
   atoms({ display: 'flex' }),
   {
+    // The Tab indicator is positioned against this box
+    position: 'relative',
     // The thin baseline under the whole row
     boxShadow: `inset 0 -1px 0 ${vars.colorRole.border.default}`,
+    '@supports': {
+      '(anchor-name: --a)': declarations({
+        // Keeps another tab list's selected tab from anchoring this
+        // list's Tab indicator
+        anchorScope: anchor,
+      }),
+    },
   },
 ]);
+
+// The Tab indicator: one bar per list. It takes the left edge and width of the
+// selected tab's wrapper, and both transition. Where anchor positioning is
+// unsupported it isn't shown, and the selected tab draws a static bar instead
+// (see `tab`).
+const indicator = style({
+  display: 'none',
+  '@supports': {
+    '(anchor-name: --a)': declarations({
+      display: 'block',
+      position: 'absolute',
+      positionAnchor: anchor,
+      left: `anchor(${anchor} left)`,
+      width: `anchor-size(${anchor} width)`,
+      bottom: 0,
+      height: '2px',
+      backgroundColor: vars.colorRole.primary.solid,
+      pointerEvents: 'none',
+    }),
+  },
+  // Moves only for users who haven't asked for less motion
+  '@media': {
+    '(prefers-reduced-motion: no-preference)': {
+      transitionProperty: 'left, width',
+      transitionDuration: '200ms',
+      transitionTimingFunction: 'ease-in-out',
+    },
+  },
+  selectors: {
+    // Nothing selected, nothing to point at
+    [`${list}:not(:has([aria-selected="true"], [aria-current="page"])) > &`]: {
+      display: 'none',
+    },
+  },
+});
 
 const tab = style({
   position: 'relative',
@@ -26,8 +78,8 @@ const tab = style({
   alignItems: 'center',
   flexShrink: 0,
   selectors: {
-    // Static bar under the selected tab. The moving Tab indicator replaces it
-    // where CSS anchor positioning is supported.
+    // Static bar under the selected tab. Without anchor positioning it is the
+    // only mark; the moving Tab indicator replaces it everywhere else.
     [`&:has(${selected})::after`]: {
       content: '""',
       position: 'absolute',
@@ -35,6 +87,14 @@ const tab = style({
       insetBlockEnd: 0,
       blockSize: '2px',
       backgroundColor: vars.colorRole.primary.solid,
+    },
+  },
+  '@supports': {
+    '(anchor-name: --a)': {
+      selectors: {
+        [`&:has(${selected})`]: declarations({ anchorName: anchor }),
+        [`&:has(${selected})::after`]: { content: 'none' },
+      },
     },
   },
 });
@@ -73,6 +133,7 @@ const panel = style({
 
 export const tabs: ThemeComponentsStyles['tabs'] = makeComponentTheme('tabs', {
   list,
+  indicator,
   tab,
   trigger,
   panel,

@@ -1,7 +1,7 @@
 import { vars } from '@blockle/blocks-core';
 import { useState } from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { page, userEvent } from 'vitest/browser';
+import { cdp, page, userEvent } from 'vitest/browser';
 
 import { resolve } from '../../../testUtils/browser/contrast.js';
 import { render } from '../../../testUtils/browser/render.js';
@@ -223,15 +223,10 @@ describe('Tabs (browser)', () => {
     expect(button.tagName).toBe('BUTTON');
   });
 
-  it('styles the selected tab and draws a static bar under it', async () => {
+  it('styles the selected tab in the stronger text color', async () => {
     const screen = await render(<Example />, { colorMode: 'light' });
     const selected = screen.getByRole('tab', { name: 'One' }).element();
     const other = screen.getByRole('tab', { name: 'Two' }).element();
-    const bar = getComputedStyle(selected.parentElement as Element, '::after');
-    const otherBar = getComputedStyle(
-      other.parentElement as Element,
-      '::after',
-    );
 
     expect(getComputedStyle(selected).color).toBe(
       await resolve(vars.colorRole.text.default, 'light'),
@@ -239,11 +234,193 @@ describe('Tabs (browser)', () => {
     expect(getComputedStyle(other).color).toBe(
       await resolve(vars.colorRole.text.muted, 'light'),
     );
-    expect(bar.backgroundColor).toBe(
-      await resolve(vars.colorRole.primary.solid, 'light'),
-    );
-    expect(bar.height).toBe('2px');
-    expect(otherBar.content).not.toBe('""');
+  });
+
+  describe('Tab indicator', () => {
+    const getIndicator = (list: Element) =>
+      list.querySelector('[data-tab-indicator]') as HTMLElement;
+
+    const getBox = (element: Element) => {
+      const { left, width } = element.getBoundingClientRect();
+
+      return `${Math.round(left)},${Math.round(width)}`;
+    };
+
+    // The indicator's box and the selected tab's wrapper share left and width
+    const expectAligned = (list: Element, tab: Element) =>
+      expect
+        .poll(() => getBox(getIndicator(list)))
+        .toBe(getBox(tab.parentElement as Element));
+
+    it('is one primary bar under the selected tab', async () => {
+      const screen = await render(<Example />, { colorMode: 'light' });
+      const list = screen.getByRole('tablist').element();
+      const indicator = getIndicator(list);
+      const tab = screen.getByRole('tab', { name: 'One' }).element();
+
+      expect(list.querySelectorAll('[data-tab-indicator]')).toHaveLength(1);
+      expect(indicator.getAttribute('aria-hidden')).toBe('true');
+      expect(getComputedStyle(indicator).backgroundColor).toBe(
+        await resolve(vars.colorRole.primary.solid, 'light'),
+      );
+      expect(getComputedStyle(indicator).height).toBe('2px');
+      expect(
+        getComputedStyle(tab.parentElement as Element, '::after').content,
+      ).not.toBe('""');
+    });
+
+    it('lines up with the selected tab after a selection change', async () => {
+      const screen = await render(<Example />);
+      const list = screen.getByRole('tablist').element();
+
+      await expectAligned(
+        list,
+        screen.getByRole('tab', { name: 'One' }).element(),
+      );
+
+      await userEvent.click(screen.getByRole('tab', { name: 'Three' }));
+      await expectAligned(
+        list,
+        screen.getByRole('tab', { name: 'Three' }).element(),
+      );
+
+      await userEvent.click(screen.getByRole('tab', { name: 'Two' }));
+      await expectAligned(
+        list,
+        screen.getByRole('tab', { name: 'Two' }).element(),
+      );
+    });
+
+    it('lines up after the tab list is resized', async () => {
+      const Resizable: React.FC<{ width: number }> = ({ width }) => (
+        <div
+          style={{
+            inlineSize: width,
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <Example />
+        </div>
+      );
+      const screen = await render(<Resizable width={600} />);
+      const list = screen.getByRole('tablist').element();
+      const tab = screen.getByRole('tab', { name: 'Two' });
+
+      await userEvent.click(tab);
+      await expectAligned(list, tab.element());
+
+      await screen.rerender(<Resizable width={300} />);
+      await expectAligned(list, tab.element());
+    });
+
+    it('lines up after the selected tab label changes', async () => {
+      const Labelled: React.FC<{ label: string }> = ({ label }) => (
+        <Tabs defaultValue="one">
+          <TabList aria-label="Sections">
+            <Tab value="one">{label}</Tab>
+            <Tab value="two">Two</Tab>
+          </TabList>
+        </Tabs>
+      );
+      const screen = await render(<Labelled label="One" />);
+      const list = screen.getByRole('tablist').element();
+      const before = getIndicator(list).getBoundingClientRect().width;
+
+      await screen.rerender(<Labelled label="A much longer label" />);
+      await expectAligned(
+        list,
+        screen.getByRole('tab', { name: 'A much longer label' }).element(),
+      );
+      expect(getIndicator(list).getBoundingClientRect().width).toBeGreaterThan(
+        before,
+      );
+    });
+
+    it('slides rather than jumping when the selection changes', async () => {
+      const screen = await render(<Example />);
+      const list = screen.getByRole('tablist').element();
+      const three = screen.getByRole('tab', { name: 'Three' });
+
+      await userEvent.click(three);
+
+      const wrapperLeft = (
+        three.element().parentElement as Element
+      ).getBoundingClientRect().left;
+
+      // Mid-flight, the indicator hasn't reached the new tab yet
+      expect(getIndicator(list).getBoundingClientRect().left).toBeLessThan(
+        wrapperLeft - 1,
+      );
+      await expectAligned(list, three.element());
+    });
+
+    it('anchors each list to its own selected tab', async () => {
+      const screen = await render(
+        <>
+          <Example />
+          <Example defaultValue="three" />
+        </>,
+      );
+      const lists = screen.getByRole('tablist').elements();
+
+      expect(lists).toHaveLength(2);
+      await expectAligned(
+        lists[0] as Element,
+        lists[0]?.querySelector('[aria-selected="true"]') as HTMLElement,
+      );
+      await expectAligned(
+        lists[1] as Element,
+        lists[1]?.querySelector('[aria-selected="true"]') as HTMLElement,
+      );
+    });
+
+    it('animates its position and width', async () => {
+      const screen = await render(<Example />);
+      const style = getComputedStyle(
+        getIndicator(screen.getByRole('tablist').element()),
+      );
+
+      expect(style.transitionProperty).toContain('left');
+      expect(style.transitionProperty).toContain('width');
+      expect(Number.parseFloat(style.transitionDuration)).toBeGreaterThan(0);
+    });
+
+    it('does not animate under prefers-reduced-motion: reduce', async () => {
+      await cdp().send('Emulation.setEmulatedMedia', {
+        features: [{ name: 'prefers-reduced-motion', value: 'reduce' }],
+      });
+
+      try {
+        const screen = await render(<Example />);
+        const style = getComputedStyle(
+          getIndicator(screen.getByRole('tablist').element()),
+        );
+
+        expect(Number.parseFloat(style.transitionDuration)).toBe(0);
+      } finally {
+        await cdp().send('Emulation.setEmulatedMedia', {
+          features: [
+            { name: 'prefers-reduced-motion', value: 'no-preference' },
+          ],
+        });
+      }
+    });
+
+    it('is not drawn when no tab is selected', async () => {
+      const screen = await render(
+        <Tabs>
+          <TabList aria-label="Sections">
+            <Tab value="one">One</Tab>
+          </TabList>
+        </Tabs>,
+      );
+
+      expect(
+        getComputedStyle(getIndicator(screen.getByRole('tablist').element()))
+          .display,
+      ).toBe('none');
+    });
   });
 
   it('draws a baseline under the list', async () => {

@@ -18,6 +18,7 @@ export const TabList: React.FC<TabListProps> = ({
   ...restProps
 }) => {
   const listClassName = useComponentStyles('tabs', { list: true });
+  const indicatorClassName = useComponentStyles('tabs', { indicator: true });
 
   return (
     <div
@@ -26,6 +27,11 @@ export const TabList: React.FC<TabListProps> = ({
       {...restProps}
     >
       {children}
+      <span
+        aria-hidden="true"
+        data-tab-indicator=""
+        className={indicatorClassName}
+      />
     </div>
   );
 };
