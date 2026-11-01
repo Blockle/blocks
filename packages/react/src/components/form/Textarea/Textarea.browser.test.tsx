@@ -94,3 +94,25 @@ describe('Textarea (browser)', () => {
     expect(second.offsetHeight).toBeLessThan(first.offsetHeight);
   });
 });
+
+describe('Textarea container Atoms (browser)', () => {
+  it('lets Atom props on containerProps beat the theme', async () => {
+    const screen = await render(
+      <Textarea
+        aria-label="Framed"
+        containerProps={{ padding: 0, backgroundColor: 'transparent' }}
+      />,
+    );
+    const container = screen.getByLabelText('Framed').element().parentElement;
+
+    if (!container) {
+      throw new Error('Expected the textarea to have a container');
+    }
+
+    const style = getComputedStyle(container);
+
+    expect(style.paddingTop).toBe('0px');
+    expect(style.paddingBottom).toBe('0px');
+    expect(style.backgroundColor).toBe('rgba(0, 0, 0, 0)');
+  });
+});

@@ -1,5 +1,5 @@
 import {
-  atoms,
+  layers,
   makeComponentTheme,
   type ThemeComponentsStyles,
   vars,
@@ -14,53 +14,63 @@ export const checkbox: ThemeComponentsStyles['checkbox'] = makeComponentTheme(
   {
     root: style([
       {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        inlineSize: 24,
-        blockSize: 24,
-        '@media': {
-          '(prefers-reduced-motion: no-preference)': {
-            transition: `background-color ${vars.transition.normal}, box-shadow ${vars.transition.fast}`,
-          },
-        },
-        selectors: {
-          '&:hover:not(:has(input:disabled))': {
-            backgroundColor: vars.colorRole.primary.solidHover,
-          },
-          '&:has(input:checked)': {
-            backgroundColor: vars.colorRole.primary.solid,
+        '@layer': {
+          [layers.theme]: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            inlineSize: 24,
+            blockSize: 24,
+            borderRadius: vars.borderRadius[1],
+            backgroundColor: vars.colorRole.primary.subtle,
+            '@media': {
+              '(prefers-reduced-motion: no-preference)': {
+                transition: `background-color ${vars.transition.normal}, box-shadow ${vars.transition.fast}`,
+              },
+            },
+            selectors: {
+              '&:hover:not(:has(input:disabled))': {
+                backgroundColor: vars.colorRole.primary.solidHover,
+              },
+              '&:has(input:checked)': {
+                backgroundColor: vars.colorRole.primary.solid,
+              },
+            },
           },
         },
       },
-      atoms({
-        borderRadius: 1,
-      }),
-      { backgroundColor: vars.colorRole.primary.subtle },
       focusable,
     ]),
     icon: style({
-      inlineSize: '1rem',
-      blockSize: '1rem',
-      color: vars.colorRole.primary.contrast,
-      transform: 'scale(0)',
-      selectors: {
-        'input:checked ~ &': {
-          transform: 'scale(1)',
-        },
-      },
-      '@media': {
-        '(prefers-reduced-motion: no-preference)': {
-          transition: `transform ${vars.transition.normal} ${bounceOut}`,
+      '@layer': {
+        [layers.theme]: {
+          inlineSize: '1rem',
+          blockSize: '1rem',
+          color: vars.colorRole.primary.contrast,
+          transform: 'scale(0)',
+          selectors: {
+            'input:checked ~ &': {
+              transform: 'scale(1)',
+            },
+          },
+          '@media': {
+            '(prefers-reduced-motion: no-preference)': {
+              transition: `transform ${vars.transition.normal} ${bounceOut}`,
+            },
+          },
         },
       },
     }),
-    label: atoms({
-      display: 'flex',
-      flexDirection: 'row',
-      padding: 1,
-      gap: 2,
-      cursor: 'pointer',
+    label: style({
+      '@layer': {
+        [layers.theme]: {
+          display: 'flex',
+          flexDirection: 'row',
+          padding: vars.space[1],
+          gap: vars.space[2],
+          cursor: 'pointer',
+        },
+      },
     }),
   },
 );

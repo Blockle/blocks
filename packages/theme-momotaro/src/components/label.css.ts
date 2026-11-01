@@ -1,4 +1,5 @@
 import {
+  layers,
   makeComponentTheme,
   type ThemeComponentsStyles,
   vars,
@@ -9,24 +10,44 @@ export const label: ThemeComponentsStyles['label'] = makeComponentTheme(
   'label',
   {
     root: style({
-      letterSpacing: vars.letterSpacing.wide,
+      '@layer': {
+        [layers.theme]: {
+          letterSpacing: vars.letterSpacing.wide,
+        },
+      },
     }),
     variants: {
       size: {
         small: style({
-          fontSize: vars.fontSize.xsmall,
+          '@layer': {
+            [layers.theme]: {
+              fontSize: vars.fontSize.xsmall,
+            },
+          },
         }),
         medium: style({
-          fontSize: vars.fontSize.small,
+          '@layer': {
+            [layers.theme]: {
+              fontSize: vars.fontSize.small,
+            },
+          },
         }),
         large: style({
-          fontSize: vars.fontSize.medium,
+          '@layer': {
+            [layers.theme]: {
+              fontSize: vars.fontSize.medium,
+            },
+          },
         }),
       },
       required: style({
-        ':after': {
-          content: '"*"',
-          marginLeft: vars.space[1],
+        '@layer': {
+          [layers.theme]: {
+            ':after': {
+              content: '"*"',
+              marginLeft: vars.space[1],
+            },
+          },
         },
       }),
     },
