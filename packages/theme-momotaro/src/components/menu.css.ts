@@ -51,8 +51,13 @@ export const menu: ThemeComponentsStyles['menu'] = makeComponentTheme('menu', {
       textAlign: 'start',
       cursor: 'pointer',
       selectors: {
-        '&:hover, &:focus': {
-          backgroundColor: hoverBackground,
+        '&:hover:not([aria-disabled="true"]), &:focus:not([aria-disabled="true"])':
+          {
+            backgroundColor: hoverBackground,
+          },
+        '&[aria-disabled="true"]': {
+          cursor: 'default',
+          color: vars.colorRole.text.disabled,
         },
       },
     },
