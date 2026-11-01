@@ -10,8 +10,18 @@ Why not measure `dist`? Packages are built unminified with vanilla-extract in `t
 npm run build
 npm run size                              # print the table
 npm run size -- --json results.json       # also write JSON
-npm run size:test                         # unit tests for the table logic
+npm run size:test                         # unit tests
 ```
+
+## Comparing two measurements
+
+```sh
+npm run size -- --json base.json          # on the base commit
+npm run size -- --json head.json          # on the head commit
+node bundle-size/compare.mjs base.json head.json > report.md
+```
+
+The report is markdown on stdout, ready to post as a PR comment. It starts with the hidden marker `<!-- bundle-size -->` (exported as `MARKER` from `compare.mjs`) so a workflow can find and update its previous comment. It has one table per scenario and JS/CSS with base, head, and the change in bytes and % for minified and gzipped. A gzipped row gets a warning sign only when it grows by more than 5% and more than 250 B; shrinking is never flagged. The command only reports: it exits 0 whatever the sizes (exit 2 only for missing arguments, non-zero if a file cannot be read).
 
 ## Scenarios
 
