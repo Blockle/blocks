@@ -62,7 +62,11 @@ test('updates the comment that carries the marker instead of adding another', as
   const github = fakeGithub({
     comments: [
       { id: 1, body: 'LGTM' },
-      { id: 2, body: `${MARKER}\nold report` },
+      {
+        id: 2,
+        body: `${MARKER}\nold report`,
+        user: { login: 'github-actions[bot]' },
+      },
     ],
   });
 
@@ -71,6 +75,21 @@ test('updates the comment that carries the marker instead of adding another', as
   assert.deepEqual(github.calls.at(-1), [
     'update',
     { owner: 'o', repo: 'r', comment_id: 2, body },
+  ]);
+});
+
+test('ignores a marker in a comment by someone else', async () => {
+  const github = fakeGithub({
+    comments: [
+      { id: 3, body: `> ${MARKER}\n> quoted`, user: { login: 'someone' } },
+    ],
+  });
+
+  await postReport({ github, context, core: core(), body });
+
+  assert.deepEqual(github.calls.at(-1), [
+    'create',
+    { owner: 'o', repo: 'r', issue_number: 7, body },
   ]);
 });
 

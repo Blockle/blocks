@@ -10,6 +10,7 @@ Why not measure `dist`? Packages are built unminified with vanilla-extract in `t
 npm run build
 npm run size                              # print the table
 npm run size -- --json results.json       # also write JSON
+npm run size -- --keep-going              # skip scenarios that fail to build (exits 1)
 npm run size:test                         # unit tests
 ```
 
@@ -50,4 +51,4 @@ Keys are scenario names, then `js` / `css`, each with `minified` and `gzipped` i
 
 ## CI
 
-`.github/workflows/bundle-size.yml` runs on pull requests against `main`. In one job it measures the PR head, then the merge base (in a git worktree that uses the head's `bundle-size/` scripts, since the base may predate them), compares them, and posts the report with `actions/github-script` via `post-comment.mjs`, updating the previous comment found by the marker. A base that cannot be measured is reported as missing. Commenting failures (for example fork PRs, whose token is read-only) only log a warning; the report is also written to the job summary.
+`.github/workflows/bundle-size.yml` runs on pull requests against `main`. In one job it measures the PR head, then the merge base (in a git worktree that uses the head's `bundle-size/` scripts, since the base may predate them, with `--keep-going` so a scenario the base cannot build is shown as missing), compares them, and posts the report with `actions/github-script` via `post-comment.mjs`, updating the previous comment by `github-actions[bot]` found by the marker. Runs for the same PR cancel each other. A base that cannot be measured is reported as missing. Commenting failures (for example fork PRs, whose token is read-only) only log a warning; the report is also written to the job summary.

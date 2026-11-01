@@ -93,13 +93,30 @@ async function buildScenario(name) {
 }
 
 const { values } = parseArgs({
-  options: { json: { type: 'string' } },
+  options: {
+    json: { type: 'string' },
+    // Leave out a scenario that fails to build instead of stopping, so a base
+    // that predates a new scenario can still be compared on the others
+    'keep-going': { type: 'boolean', default: false },
+  },
 });
 
 const results = {};
+const failed = [];
 
 for (const name of scenarios) {
-  results[name] = await buildScenario(name);
+  if (!values['keep-going']) {
+    results[name] = await buildScenario(name);
+
+    continue;
+  }
+
+  try {
+    results[name] = await buildScenario(name);
+  } catch (error) {
+    failed.push(name);
+    console.error(`Could not build scenario "${name}": ${error.message}`);
+  }
 }
 
 console.log(formatTable(results));
@@ -110,4 +127,9 @@ if (values.json) {
   await mkdir(dirname(file), { recursive: true });
   await writeFile(file, `${JSON.stringify(results, null, 2)}\n`);
   console.log(`\nWrote ${file}`);
+}
+
+if (failed.length > 0) {
+  console.error(`\nLeft out failed scenarios: ${failed.join(', ')}`);
+  process.exitCode = 1;
 }

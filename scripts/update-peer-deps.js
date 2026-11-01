@@ -145,4 +145,7 @@ async function updatePeerDependencies() {
 }
 
 // Run the script
-updatePeerDependencies().catch(console.error);
+updatePeerDependencies().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});
