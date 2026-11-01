@@ -14,6 +14,10 @@ _Avoid_: Color scheme, dark mode, theme
 A shared, named color with a purpose, such as muted text or a raised surface, whose value is defined per Color mode. Roles come in groups by purpose (text, surface, border) and are defined once per theme, so components with the same need, such as Text and Heading, share them.
 _Avoid_: Semantic token, alias token
 
+**Component theme**:
+The styles a theme gives a component: its look, variants and defaults. A component theme sets the starting point; Atoms passed as props, and an app's own styles, override it.
+_Avoid_: Skin, theme styles
+
 **Intent**:
 The meaning a component's color conveys, such as `primary`, `danger` or `success`. Every Intent has the same family of Color roles, so components that share an Intent look consistent. Blocks core exports the `Intent` type; each component's `intent` accepts a subset of it. A component may take `inherit` in place of an Intent to use the surrounding text color; `inherit` is not an Intent.
 _Avoid_: Color scheme (for color choices)
