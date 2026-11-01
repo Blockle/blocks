@@ -1,4 +1,4 @@
-import { vars } from '@blockle/blocks-core';
+import { atoms, vars } from '@blockle/blocks-core';
 import { afterEach, describe, expect, it } from 'vitest';
 
 import { resolve } from '../../../testUtils/browser/contrast.js';
@@ -23,6 +23,18 @@ function read(element: Element) {
 
   return { backgroundColor, color, borderColor };
 }
+
+describe('Alert precedence (browser)', () => {
+  it('lets an Atom beat the theme padding', async () => {
+    const screen = await render(
+      <Alert className={atoms({ padding: 0 })}>Heads up</Alert>,
+    );
+
+    expect(getComputedStyle(screen.getByRole('alert').element()).padding).toBe(
+      '0px',
+    );
+  });
+});
 
 describe('Alert intent roles (browser)', () => {
   afterEach(async () => {

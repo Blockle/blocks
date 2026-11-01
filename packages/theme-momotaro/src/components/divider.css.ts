@@ -1,4 +1,5 @@
 import {
+  layers,
   makeComponentTheme,
   type ThemeComponentsStyles,
 } from '@blockle/blocks-core';
@@ -10,28 +11,44 @@ export const divider: ThemeComponentsStyles['divider'] = makeComponentTheme(
   'divider',
   {
     root: style({
-      ':before': {
-        blockSize: fallbackVar(sizeVar, '1px'),
-      },
-      ':after': {
-        blockSize: fallbackVar(sizeVar, '1px'),
+      '@layer': {
+        [layers.theme]: {
+          ':before': {
+            blockSize: fallbackVar(sizeVar, '1px'),
+          },
+          ':after': {
+            blockSize: fallbackVar(sizeVar, '1px'),
+          },
+        },
       },
     }),
     variants: {
       size: {
         1: style({
-          vars: {
-            [sizeVar]: '1px',
+          '@layer': {
+            [layers.theme]: {
+              vars: {
+                [sizeVar]: '1px',
+              },
+            },
           },
         }),
         2: style({
-          vars: {
-            [sizeVar]: '2px',
+          '@layer': {
+            [layers.theme]: {
+              vars: {
+                [sizeVar]: '2px',
+              },
+            },
           },
         }),
         3: style({
-          vars: {
-            [sizeVar]: '3px',
+          '@layer': {
+            [layers.theme]: {
+              vars: {
+                [sizeVar]: '3px',
+              },
+            },
           },
         }),
       },
