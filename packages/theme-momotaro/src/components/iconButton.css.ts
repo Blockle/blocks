@@ -1,5 +1,5 @@
 import {
-  atoms,
+  layers,
   makeComponentTheme,
   type ThemeComponentsStyles,
 } from '@blockle/blocks-core';
@@ -13,10 +13,13 @@ import {
   buttonVariant,
 } from './buttonBase.css.js';
 
+const sizeStyle = (blockSize: number) =>
+  style({ '@layer': { [layers.theme]: { blockSize } } });
+
 const sizeStyles = {
-  small: style({ blockSize: buttonHeight.small }),
-  medium: style({ blockSize: buttonHeight.medium }),
-  large: style({ blockSize: buttonHeight.large }),
+  small: sizeStyle(buttonHeight.small),
+  medium: sizeStyle(buttonHeight.medium),
+  large: sizeStyle(buttonHeight.large),
 };
 
 const iconSize = {
@@ -27,8 +30,12 @@ const iconSize = {
 
 for (const key of ['small', 'medium', 'large'] as const) {
   globalStyle(`${sizeStyles[key]} > svg`, {
-    inlineSize: iconSize[key],
-    blockSize: iconSize[key],
+    '@layer': {
+      [layers.theme]: {
+        inlineSize: iconSize[key],
+        blockSize: iconSize[key],
+      },
+    },
   });
 }
 
@@ -36,11 +43,15 @@ export const iconButton: ThemeComponentsStyles['iconButton'] =
   makeComponentTheme('iconButton', {
     root: style([
       buttonBase,
-      atoms({ justifyContent: 'center' }),
       {
-        aspectRatio: '1',
-        flexShrink: 0,
-        padding: 0,
+        '@layer': {
+          [layers.theme]: {
+            justifyContent: 'center',
+            aspectRatio: '1',
+            flexShrink: 0,
+            padding: 0,
+          },
+        },
       },
     ]),
     variants: {
@@ -48,7 +59,9 @@ export const iconButton: ThemeComponentsStyles['iconButton'] =
       size: sizeStyles,
       shape: {
         square: buttonRadius,
-        circle: style({ borderRadius: '50%' }),
+        circle: style({
+          '@layer': { [layers.theme]: { borderRadius: '50%' } },
+        }),
       },
       intent: buttonIntent,
     },
