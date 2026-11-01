@@ -11,7 +11,7 @@ import { useRef } from 'react';
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { useModalDialog } from '../../../hooks/useModalDialog/useModalDialog.js';
 import type { RequestCloseReason } from '../requestCloseReason.js';
-import { DialogContext, useModalOverlay } from '../useModalOverlay.js';
+import { useModalOverlay } from '../useModalOverlay.js';
 import * as styles from './dialog.css.js';
 
 type DialogTheme = ComponentThemes['dialog'];
@@ -44,7 +44,7 @@ export const Dialog: React.FC<DialogProps> = ({
     variants: { size },
   });
 
-  const { contextValue, closeRequestProps } = useModalOverlay(dialogRef, {
+  const closeRequestProps = useModalOverlay(dialogRef, {
     open,
     onRequestClose,
     onKeyDown,
@@ -62,18 +62,16 @@ export const Dialog: React.FC<DialogProps> = ({
   const dataOpen = typeof window === 'undefined' && open ? true : undefined;
 
   return (
-    <DialogContext.Provider value={contextValue}>
-      <dialog
-        ref={composeRefs(ref, dialogRef)}
-        open={dataOpen}
-        className={classnames(styles.dialog, dialogClassName, className)}
-        onAnimationEnd={onAnimationEnd}
-        onTransitionEnd={onAnimationEnd}
-        {...restProps}
-        {...closeRequestProps}
-      >
-        {children}
-      </dialog>
-    </DialogContext.Provider>
+    <dialog
+      ref={composeRefs(ref, dialogRef)}
+      open={dataOpen}
+      className={classnames(styles.dialog, dialogClassName, className)}
+      onAnimationEnd={onAnimationEnd}
+      onTransitionEnd={onAnimationEnd}
+      {...restProps}
+      {...closeRequestProps}
+    >
+      {children}
+    </dialog>
   );
 };
