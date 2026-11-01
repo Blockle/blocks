@@ -1,5 +1,5 @@
 // What the `@supports` gates around CSS anchor positioning test for
-const gate = 'anchor-scope';
+const anchorSupportProbe = 'anchor-scope';
 
 type Swap = {
   parent: CSSStyleSheet | CSSGroupingRule;
@@ -18,16 +18,22 @@ function flip(rule: CSSSupportsRule) {
   return `@supports ${flipped} {\n${body}\n}`;
 }
 
-function collect(parent: CSSStyleSheet | CSSGroupingRule, swaps: Swap[]) {
+function findSupportsRules(
+  parent: CSSStyleSheet | CSSGroupingRule,
+  swaps: Swap[],
+) {
   const rules = parent.cssRules;
 
   for (let index = 0; index < rules.length; index++) {
     const rule = rules[index];
 
-    if (rule instanceof CSSSupportsRule && rule.conditionText.includes(gate)) {
+    if (
+      rule instanceof CSSSupportsRule &&
+      rule.conditionText.includes(anchorSupportProbe)
+    ) {
       swaps.push({ parent, index, original: rule.cssText });
     } else if (rule instanceof CSSGroupingRule) {
-      collect(rule, swaps);
+      findSupportsRules(rule, swaps);
     }
   }
 }
@@ -43,7 +49,7 @@ export function emulateNoAnchorPositioning(): () => void {
 
   for (const sheet of Array.from(document.styleSheets)) {
     try {
-      collect(sheet, swaps);
+      findSupportsRules(sheet, swaps);
     } catch {
       // A cross-origin sheet hides its rules; it holds none of ours
     }

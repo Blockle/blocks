@@ -8,11 +8,14 @@ import { globalStyle, style } from '@vanilla-extract/css';
 // `tabIndicatorVars` on `list`.
 
 // A tab is selected (Tabs) or current (TabNav) when its activation element
-// says so
-const selected = '> [aria-selected="true"], > [aria-current="page"]';
+// carries one of these
+const selectedTrigger = '[aria-selected="true"], [aria-current="page"]';
 
-// The anchor the selected tab offers the Tab indicator
-const anchor = '--blockle-tab';
+// The tab wrapper's child that is selected or current
+const selected = '> :is([aria-selected="true"], [aria-current="page"])';
+
+// The anchor name the selected tab offers the Tab indicator
+const anchorName = '--blockle-tab';
 
 // Needs both properties: a browser with anchor-name but without anchor-scope
 // would let two lists share one anchor, so it gets the static bar instead
@@ -20,7 +23,7 @@ const anchorPositioning = '(anchor-name: --a) and (anchor-scope: --a)';
 
 // CSS anchor positioning isn't in csstype yet, so these declarations are
 // typed loosely
-const declarations = (properties: Record<string, string | number>) =>
+const anchorCss = (properties: Record<string, string | number>) =>
   properties as Record<string, never>;
 
 export const list = style({
@@ -35,7 +38,7 @@ export const list = style({
       '@supports': {
         // Keeps another tab list's selected tab from anchoring this list's
         // Tab indicator
-        [anchorPositioning]: declarations({ anchorScope: anchor }),
+        [anchorPositioning]: anchorCss({ anchorScope: anchorName }),
       },
     },
   },
@@ -64,12 +67,12 @@ export const indicator = style({
     [layers.molecule]: {
       display: 'none',
       '@supports': {
-        [anchorPositioning]: declarations({
+        [anchorPositioning]: anchorCss({
           display: 'block',
           position: 'absolute',
-          positionAnchor: anchor,
-          left: `anchor(${anchor} left)`,
-          width: `anchor-size(${anchor} width)`,
+          positionAnchor: anchorName,
+          left: `anchor(${anchorName} left)`,
+          width: `anchor-size(${anchorName} width)`,
           bottom: 0,
           height: tabIndicatorVars.thickness,
           backgroundColor: tabIndicatorVars.color,
@@ -86,10 +89,9 @@ export const indicator = style({
       },
       selectors: {
         // Nothing selected, nothing to point at
-        [`${list}:not(:has([aria-selected="true"], [aria-current="page"])) > &`]:
-          {
-            display: 'none',
-          },
+        [`${list}:not(:has(${selectedTrigger})) > &`]: {
+          display: 'none',
+        },
       },
     },
   },
@@ -115,7 +117,7 @@ export const tab = style({
       '@supports': {
         [anchorPositioning]: {
           selectors: {
-            [`&:has(${selected})`]: declarations({ anchorName: anchor }),
+            [`&:has(${selected})`]: anchorCss({ anchorName }),
             [`&:has(${selected})::after`]: { content: 'none' },
           },
         },
@@ -138,7 +140,8 @@ export const trigger = style({
   },
 });
 
-// Wraps a tab's startSlot or endSlot content
+// Wraps a tab's startSlot or endSlot content. Empty on purpose: it is the hook
+// for the inset ring below.
 export const slot = style({});
 
 // The same for a focusable Slot control, such as a close IconButton
