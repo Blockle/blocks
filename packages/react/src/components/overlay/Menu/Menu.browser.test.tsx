@@ -174,6 +174,8 @@ describe('Menu (browser)', () => {
 
     await trigger.click();
     await expect.element(item('Item 1')).toHaveFocus();
+    // Measure once the opening transition no longer moves or scales the list
+    await settleOpen();
 
     const list = document.querySelector('[role="menu"]') as HTMLElement;
 
@@ -209,6 +211,8 @@ describe('Menu (browser)', () => {
 
     await trigger.click();
     await expect.element(screen.getByRole('menu')).toBeVisible();
+    // Measure once the opening transition no longer moves or scales the list
+    await settleOpen();
 
     const list = document.querySelector('[role="menu"]') as HTMLElement;
     const listRect = list.getBoundingClientRect();

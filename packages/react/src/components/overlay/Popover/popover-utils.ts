@@ -39,12 +39,16 @@ export function computePopoverPosition({
   let left: number;
   let top: number;
 
-  // Main axis: put the popover's border box against the anchor's side
+  // Main axis: put the popover's border box against the anchor's side, held
+  // inside the viewport when the anchor has scrolled out of view
   if (side === 'top' || side === 'bottom') {
-    top =
+    top = holdInViewport(
       side === 'top'
         ? anchor.top - margin.bottom - popover.height
-        : anchor.top + anchor.height + margin.top;
+        : anchor.top + anchor.height + margin.top,
+      popover.height,
+      viewport.height,
+    );
     left = alignOnCrossAxis(
       edge,
       anchor.left,
@@ -53,10 +57,13 @@ export function computePopoverPosition({
       viewport.width,
     );
   } else {
-    left =
+    left = holdInViewport(
       side === 'left'
         ? anchor.left - margin.right - popover.width
-        : anchor.left + anchor.width + margin.left;
+        : anchor.left + anchor.width + margin.left,
+      popover.width,
+      viewport.width,
+    );
     top = alignOnCrossAxis(
       edge,
       anchor.top,
@@ -160,6 +167,19 @@ function alignOnCrossAxis(
     start = anchorStart + anchorSize - popoverSize;
   }
 
+  return holdInViewport(start, popoverSize, viewportSize);
+}
+
+/**
+ * Shifts the start of the popover's border box to keep it VIEWPORT_PADDING
+ * inside the viewport. A popover that does not fit starts VIEWPORT_PADDING
+ * from the start edge.
+ */
+function holdInViewport(
+  start: number,
+  popoverSize: number,
+  viewportSize: number,
+) {
   const max = viewportSize - VIEWPORT_PADDING - popoverSize;
 
   return Math.max(VIEWPORT_PADDING, Math.min(start, max));
@@ -168,7 +188,10 @@ function alignOnCrossAxis(
 export type PopoverLayout = {
   x: number;
   y: number;
-  /** The popover's height cap, when it is limited to the room it has */
+  /**
+   * The popover's `max-height`, when it is limited to the room it has. It
+   * follows the popover's `box-sizing`, so padding and border fit too.
+   */
   maxHeight?: number;
 };
 
@@ -201,17 +224,14 @@ export function getPopoverLayout(
     popoverRect.height,
   );
 
+  const style = (property: string) =>
+    cssValueToNumber(popoverStyles.getPropertyValue(property));
+  const borderY = style('border-top-width') + style('border-bottom-width');
+
   // A capped popover measures its content, so the cap from an earlier
   // opening doesn't shrink it
   const height = limitHeight
-    ? Math.max(
-        measuredHeight,
-        element.scrollHeight +
-          cssValueToNumber(popoverStyles.getPropertyValue('border-top-width')) +
-          cssValueToNumber(
-            popoverStyles.getPropertyValue('border-bottom-width'),
-          ),
-      )
+    ? Math.max(measuredHeight, element.scrollHeight + borderY)
     : measuredHeight;
 
   const { documentElement } = document;
@@ -222,12 +242,10 @@ export function getPopoverLayout(
       width,
       height,
       margin: {
-        top: cssValueToNumber(popoverStyles.getPropertyValue('margin-top')),
-        right: cssValueToNumber(popoverStyles.getPropertyValue('margin-right')),
-        bottom: cssValueToNumber(
-          popoverStyles.getPropertyValue('margin-bottom'),
-        ),
-        left: cssValueToNumber(popoverStyles.getPropertyValue('margin-left')),
+        top: style('margin-top'),
+        right: style('margin-right'),
+        bottom: style('margin-bottom'),
+        left: style('margin-left'),
       },
     },
     viewport: {
@@ -244,11 +262,21 @@ export function getPopoverLayout(
     return { x, y };
   }
 
-  const maxHeight = computeAvailableHeight(options);
+  // The room is for the border box; a content-box max-height leaves out
+  // the padding and border
+  const availableHeight = computeAvailableHeight(options);
   const [x, y] = computePopoverPosition({
     ...options,
-    popover: { ...options.popover, height: Math.min(height, maxHeight) },
+    popover: { ...options.popover, height: Math.min(height, availableHeight) },
   });
+  const paddingAndBorderY =
+    popoverStyles.boxSizing === 'content-box'
+      ? style('padding-top') + style('padding-bottom') + borderY
+      : 0;
 
-  return { x, y, maxHeight };
+  return {
+    x,
+    y,
+    maxHeight: Math.max(0, availableHeight - paddingAndBorderY),
+  };
 }
