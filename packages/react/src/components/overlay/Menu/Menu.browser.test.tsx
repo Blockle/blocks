@@ -79,6 +79,19 @@ describe('Menu (browser)', () => {
     expect(focused()).toBe('Archive');
   });
 
+  it('moves focus by typing, skipping disabled items', async () => {
+    const { trigger, item } = await renderMenu();
+
+    await trigger.click();
+    await expect.element(item('Archive')).toHaveFocus();
+
+    await userEvent.keyboard('d');
+    expect(focused()).toBe('Delete');
+
+    await userEvent.keyboard('r');
+    expect(focused()).toBe('Delete');
+  });
+
   it('focuses an item on hover', async () => {
     const { trigger, item } = await renderMenu();
 

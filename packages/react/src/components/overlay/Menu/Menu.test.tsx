@@ -1,6 +1,7 @@
+import { fireEvent } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { createRef, useState } from 'react';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { render, screen, waitFor } from '../../../testUtils/testUtils.js';
 import { Menu, type MenuItem, type MenuProps } from './Menu.js';
@@ -424,6 +425,108 @@ describe('Menu', () => {
 
       await user.click(screen.getByRole('menuitem'));
       await waitFor(() => expect(screen.queryByRole('menu')).toBeNull());
+    });
+  });
+
+  describe('typeahead', () => {
+    const items: MenuItem[] = [
+      { label: 'Archive', onSelect: vi.fn() },
+      { label: 'Rename', onSelect: vi.fn() },
+      { label: 'Remove', onSelect: vi.fn(), disabled: true },
+      { label: 'Reset', onSelect: vi.fn() },
+      { label: <b>Icon</b>, textValue: 'Duplicate', onSelect: vi.fn() },
+      { label: <b>No text</b>, onSelect: vi.fn() },
+    ];
+
+    const focused = () => document.activeElement?.textContent;
+
+    async function openMenu(menuItems = items) {
+      const user = userEvent.setup();
+
+      renderMenu({}, menuItems);
+      await user.click(trigger());
+      await screen.findByRole('menu');
+      await waitFor(() => expect(focused()).toBe('Archive'));
+
+      // Only the typeahead pause runs on fake time
+      vi.useFakeTimers();
+
+      return (key: string, init: KeyboardEventInit = {}) => {
+        fireEvent.keyDown(document.activeElement as Element, { key, ...init });
+      };
+    }
+
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
+    it('focuses the next enabled item starting with the typed character, wrapping', async () => {
+      const type = await openMenu();
+
+      type('r');
+      expect(focused()).toBe('Rename');
+
+      type('r');
+      expect(focused()).toBe('Reset');
+
+      type('r');
+      expect(focused()).toBe('Rename');
+    });
+
+    it('matches case-insensitively', async () => {
+      const type = await openMenu();
+
+      type('R');
+      expect(focused()).toBe('Rename');
+    });
+
+    it('builds a longer prefix from quick keystrokes', async () => {
+      const type = await openMenu();
+
+      type('r');
+      type('e');
+      type('s');
+      expect(focused()).toBe('Reset');
+    });
+
+    it('resets the search after a pause', async () => {
+      const type = await openMenu();
+
+      type('r');
+      expect(focused()).toBe('Rename');
+
+      await vi.advanceTimersByTimeAsync(1000);
+
+      // Without the reset this would search for "re" then "res"/"rs"
+      type('a');
+      expect(focused()).toBe('Archive');
+    });
+
+    it('uses textValue and skips items without text', async () => {
+      const type = await openMenu();
+
+      type('d');
+      expect(focused()).toBe('Icon');
+
+      await vi.advanceTimersByTimeAsync(1000);
+      type('n');
+      expect(focused()).toBe('Icon');
+    });
+
+    it('ignores keys with modifiers held', async () => {
+      const type = await openMenu();
+
+      type('r', { ctrlKey: true });
+      expect(focused()).toBe('Archive');
+    });
+
+    it('does nothing while the menu is closed', async () => {
+      renderMenu({}, items);
+      trigger().focus();
+      fireEvent.keyDown(trigger(), { key: 'r' });
+
+      expect(screen.queryByRole('menu')).toBeNull();
+      expect(trigger()).toHaveFocus();
     });
   });
 });

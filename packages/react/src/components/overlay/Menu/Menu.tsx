@@ -21,9 +21,16 @@ import { Popover, type PopoverProps } from '../Popover/Popover.js';
 import type { RequestCloseReason } from '../requestCloseReason.js';
 import {
   getEnabledItems,
+  getItemText,
   getNextIndex,
+  getTypeaheadMatch,
   isMenuNavigationKey,
+  isTypeaheadKey,
+  TEXT_VALUE_ATTRIBUTE,
 } from './menu-utils.js';
+
+// Pause after which typed characters no longer extend the typeahead search
+const TYPEAHEAD_RESET_MS = 500;
 
 type ReactElement = React.ReactElement<
   // biome-ignore lint/suspicious/noExplicitAny: necessary for dynamic element types
@@ -87,6 +94,8 @@ export const Menu: React.FC<MenuProps> = ({
   const generatedTriggerId = useId();
   const triggerRef = useRef<HTMLElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef('');
+  const searchTimeoutRef = useRef<number>(undefined);
   const initialFocus = useRef<InitialFocus>('first');
   const [internalOpen, setInternalOpen] = useState(false);
 
@@ -130,6 +139,10 @@ export const Menu: React.FC<MenuProps> = ({
   if (Children.count(children) !== 1) {
     throw new Error('Menu component can only have one child');
   }
+
+  useEffect(() => {
+    return () => window.clearTimeout(searchTimeoutRef.current);
+  }, []);
 
   const child = Children.toArray(children)[0] as ReactElement;
 
@@ -192,8 +205,26 @@ export const Menu: React.FC<MenuProps> = ({
       return;
     }
 
-    // Typeahead hooks in here: a printable key without ctrl/meta/alt jumps to
-    // the next item whose text starts with what was typed
+    if (isTypeaheadKey(event)) {
+      const enabled = getEnabledItems(listRef.current);
+      const current = enabled.indexOf(document.activeElement as HTMLElement);
+
+      // Space picks the focused item, unless it continues a search
+      if (event.key === ' ' && searchRef.current === '') {
+        return;
+      }
+
+      event.preventDefault();
+      window.clearTimeout(searchTimeoutRef.current);
+      searchRef.current += event.key;
+      searchTimeoutRef.current = window.setTimeout(() => {
+        searchRef.current = '';
+      }, TYPEAHEAD_RESET_MS);
+
+      enabled[
+        getTypeaheadMatch(enabled.map(getItemText), current, searchRef.current)
+      ]?.focus();
+    }
   };
 
   const onPick = (item: MenuActionItem) => {
@@ -281,6 +312,11 @@ const MenuItems: React.FC<MenuItemsProps> = ({
         role="menuitem"
         tabIndex={-1}
         aria-disabled={item.disabled || undefined}
+        {...{
+          [TEXT_VALUE_ATTRIBUTE]:
+            item.textValue ??
+            (typeof item.label === 'string' ? item.label : undefined),
+        }}
         className={itemClassName}
         onClick={() => {
           if (!item.disabled) {

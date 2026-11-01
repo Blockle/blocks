@@ -39,3 +39,52 @@ export function getNextIndex(
       return current <= 0 ? count - 1 : current - 1;
   }
 }
+
+// Items expose their typeahead text in the DOM, so every kind of item (action,
+// radio) takes part by setting this attribute to its `textValue`, or its
+// `label` when that is a string, and omitting it otherwise.
+export const TEXT_VALUE_ATTRIBUTE = 'data-text-value';
+
+export function getItemText(item: HTMLElement): string | undefined {
+  return item.getAttribute(TEXT_VALUE_ATTRIBUTE) ?? undefined;
+}
+
+export function isTypeaheadKey(event: {
+  key: string;
+  ctrlKey: boolean;
+  metaKey: boolean;
+  altKey: boolean;
+}): boolean {
+  return (
+    event.key.length === 1 && !event.ctrlKey && !event.metaKey && !event.altKey
+  );
+}
+
+/**
+ * Returns the index of the item to focus for `search`, or -1 for no match.
+ * `texts` holds each item's text, `undefined` for items without any. Typing
+ * the same character repeatedly cycles through the items starting with it,
+ * beginning after `current`. A longer search matches from `current` itself, so
+ * refining a search doesn't skip past the item already in focus.
+ */
+export function getTypeaheadMatch(
+  texts: (string | undefined)[],
+  current: number,
+  search: string,
+): number {
+  const query = search.toLowerCase();
+  const repeated = query.length > 1 && [...query].every((c) => c === query[0]);
+  const prefix = repeated ? query.slice(0, 1) : query;
+  const start = repeated || query.length === 1 ? current + 1 : current;
+
+  for (let offset = 0; offset < texts.length; offset++) {
+    const index =
+      (((start + offset) % texts.length) + texts.length) % texts.length;
+
+    if (texts[index]?.toLowerCase().startsWith(prefix)) {
+      return index;
+    }
+  }
+
+  return -1;
+}
