@@ -27,6 +27,15 @@ export function getTabId(baseId: string, value: string) {
   return `${baseId}-tab-${encodeURIComponent(value)}`;
 }
 
+// The inverse of getTabId, or undefined when the id isn't one of this Tabs' tabs
+export function getTabValue(baseId: string, id: string) {
+  const prefix = `${baseId}-tab-`;
+
+  return id.startsWith(prefix)
+    ? decodeURIComponent(id.slice(prefix.length))
+    : undefined;
+}
+
 export function getPanelId(baseId: string, value: string) {
   return `${baseId}-panel-${encodeURIComponent(value)}`;
 }
