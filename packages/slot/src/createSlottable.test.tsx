@@ -300,26 +300,27 @@ describe('createSlottable', () => {
   });
 
   describe('Template with asChild and a lazy Slot child', () => {
+    const link = (
+      <a href="/x" className="child">
+        x
+      </a>
+    );
+    const mergedLinkHtml = '<a href="/x" class="parent child">x</a>';
+
     it('should render a resolved lazy child on the server like the element itself', () => {
       const [Template, Slot] = createSlottable('div');
-      const child = (
-        <a href="/x" className="child">
-          x
-        </a>
-      );
-
       const lazyHtml = renderToString(
         <Template asChild className="parent">
-          <Slot>{createResolvedLazyElement(child)}</Slot>
+          <Slot>{createResolvedLazyElement(link)}</Slot>
         </Template>,
       );
       const directHtml = renderToString(
         <Template asChild className="parent">
-          <Slot>{child}</Slot>
+          <Slot>{link}</Slot>
         </Template>,
       );
 
-      expect(lazyHtml).toBe('<a href="/x" class="parent child">x</a>');
+      expect(lazyHtml).toBe(mergedLinkHtml);
       expect(lazyHtml).toBe(directHtml);
       expect(consoleErrorSpy).not.toHaveBeenCalled();
     });
@@ -328,19 +329,11 @@ describe('createSlottable', () => {
       const [Template, Slot] = createSlottable('div');
       const { container } = render(
         <Template asChild className="parent">
-          <Slot>
-            {createResolvedLazyElement(
-              <a href="/x" className="child">
-                x
-              </a>,
-            )}
-          </Slot>
+          <Slot>{createResolvedLazyElement(link)}</Slot>
         </Template>,
       );
 
-      expect(container.innerHTML).toBe(
-        '<a href="/x" class="parent child">x</a>',
-      );
+      expect(container.innerHTML).toBe(mergedLinkHtml);
       expect(consoleErrorSpy).not.toHaveBeenCalled();
     });
 
@@ -348,13 +341,7 @@ describe('createSlottable', () => {
       const [Template, Slot] = createSlottable('div');
       const app = (
         <Template asChild className="parent">
-          <Slot>
-            {createResolvedLazyElement(
-              <a href="/x" className="child">
-                x
-              </a>,
-            )}
-          </Slot>
+          <Slot>{createResolvedLazyElement(link)}</Slot>
         </Template>
       );
       const container = document.createElement('div');
@@ -369,9 +356,7 @@ describe('createSlottable', () => {
 
       expect(onRecoverableError).not.toHaveBeenCalled();
       expect(consoleErrorSpy).not.toHaveBeenCalled();
-      expect(container.innerHTML).toBe(
-        '<a href="/x" class="parent child">x</a>',
-      );
+      expect(container.innerHTML).toBe(mergedLinkHtml);
 
       container.remove();
     });
@@ -390,16 +375,10 @@ describe('createSlottable', () => {
       expect(container.innerHTML).toBe('<span>Loading</span>');
 
       await act(async () => {
-        lazy.resolve(
-          <a href="/x" className="child">
-            x
-          </a>,
-        );
+        lazy.resolve(link);
       });
 
-      expect(container.innerHTML).toBe(
-        '<a href="/x" class="parent child">x</a>',
-      );
+      expect(container.innerHTML).toBe(mergedLinkHtml);
       expect(consoleErrorSpy).not.toHaveBeenCalled();
     });
   });
