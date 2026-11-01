@@ -1,5 +1,5 @@
 import {
-  atoms,
+  layers,
   makeComponentTheme,
   type ThemeComponentsStyles,
   vars,
@@ -14,59 +14,61 @@ export const switchTheme: ThemeComponentsStyles['switch'] = makeComponentTheme(
   'switch',
   {
     root: style([
-      atoms({
-        borderRadius: 4,
-      }),
       {
-        backgroundColor: vars.colorRole.border.strong,
-        width: 52,
-        height: 32,
-        '@media': {
-          '(prefers-reduced-motion: no-preference)': {
-            transition: `background-color 120ms linear, box-shadow ${vars.transition.fast}`,
-          },
-        },
-        selectors: {
-          '&[data-checked="true"]': {
-            backgroundColor: vars.colorRole.secondary.solid,
-          },
-        },
-        // Scale the switch when it's `:active`
-        vars: {
-          [activeScaleFactor]: '1',
-        },
-        ':active': {
-          vars: {
-            [activeScaleFactor]: '0.96',
+        '@layer': {
+          [layers.theme]: {
+            borderRadius: vars.borderRadius[4],
+            backgroundColor: vars.colorRole.border.strong,
+            width: 52,
+            height: 32,
+            '@media': {
+              '(prefers-reduced-motion: no-preference)': {
+                transition: `background-color 120ms linear, box-shadow ${vars.transition.fast}`,
+              },
+            },
+            selectors: {
+              '&[data-checked="true"]': {
+                backgroundColor: vars.colorRole.secondary.solid,
+              },
+            },
+            // Scale the switch when it's `:active`
+            vars: {
+              [activeScaleFactor]: '1',
+            },
+            ':active': {
+              vars: {
+                [activeScaleFactor]: '0.96',
+              },
+            },
           },
         },
       },
       focusable,
     ]),
-    thumb: style([
-      atoms({
-        borderRadius: 'full',
-      }),
-      {
-        width: 24,
-        height: 24,
-        top: 4,
-        left: 4,
-        transform: `translateX(0) scale(calc(0.9 * ${activeScaleFactor}))`,
-        position: 'absolute',
-        // Deliberately fixed: the thumb is white in every mode
-        backgroundColor: vars.color.white,
-        selectors: {
-          '&[data-checked="true"]': {
-            transform: `translateX(20px) scale(${activeScaleFactor})`,
+    thumb: style({
+      '@layer': {
+        [layers.theme]: {
+          borderRadius: vars.borderRadius.full,
+          width: 24,
+          height: 24,
+          top: 4,
+          left: 4,
+          transform: `translateX(0) scale(calc(0.9 * ${activeScaleFactor}))`,
+          position: 'absolute',
+          // Deliberately fixed: the thumb is white in every mode
+          backgroundColor: vars.color.white,
+          selectors: {
+            '&[data-checked="true"]': {
+              transform: `translateX(20px) scale(${activeScaleFactor})`,
+            },
           },
-        },
-        '@media': {
-          '(prefers-reduced-motion: no-preference)': {
-            transition: 'transform 120ms ease-out',
+          '@media': {
+            '(prefers-reduced-motion: no-preference)': {
+              transition: 'transform 120ms ease-out',
+            },
           },
         },
       },
-    ]),
+    }),
   },
 );

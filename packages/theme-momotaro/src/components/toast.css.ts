@@ -1,7 +1,8 @@
 import {
-  atoms,
+  layers,
   makeComponentTheme,
   type ThemeComponentsStyles,
+  vars,
 } from '@blockle/blocks-core';
 import { createVar, keyframes, style } from '@vanilla-extract/css';
 
@@ -14,43 +15,51 @@ const toastEnter = keyframes({
 });
 
 const top = style({
-  vars: {
-    [enterTranslate]: '0 -20%',
+  '@layer': {
+    [layers.theme]: {
+      vars: {
+        [enterTranslate]: '0 -20%',
+      },
+    },
   },
 });
 
 const bottom = style({
-  vars: {
-    [enterTranslate]: '0 20%',
+  '@layer': {
+    [layers.theme]: {
+      vars: {
+        [enterTranslate]: '0 20%',
+      },
+    },
   },
 });
 
 export const toast: ThemeComponentsStyles['toast'] = makeComponentTheme(
   'toast',
   {
-    root: style([
-      atoms({
-        gap: 2,
-        padding: 2,
-      }),
-      {
-        maxWidth: 'min(100%, 400px)',
+    root: style({
+      '@layer': {
+        [layers.theme]: {
+          gap: vars.space[2],
+          padding: vars.space[2],
+          maxWidth: 'min(100%, 400px)',
+        },
       },
-    ]),
-    toast: style([
-      atoms({
-        boxShadow: 3,
-      }),
-      {
-        '@media': {
-          '(prefers-reduced-motion: no-preference)': {
-            animationName: toastEnter,
-            animationDuration: '240ms',
-            animationTimingFunction: 'ease-out',
+    }),
+    toast: style({
+      '@layer': {
+        [layers.theme]: {
+          boxShadow: vars.colorRole.shadow[3],
+          '@media': {
+            '(prefers-reduced-motion: no-preference)': {
+              animationName: toastEnter,
+              animationDuration: '240ms',
+              animationTimingFunction: 'ease-out',
+            },
           },
         },
       },
-    ]),
+    }),
     variants: {
       placement: {
         top,

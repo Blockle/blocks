@@ -1,4 +1,4 @@
-import { vars } from '@blockle/blocks-core';
+import { layers, vars } from '@blockle/blocks-core';
 import { createVar, style } from '@vanilla-extract/css';
 
 export const focusRingColor = createVar();
@@ -9,28 +9,32 @@ export const focusRingColor = createVar();
  * focus transition to work correctly.
  */
 export const focusable = style({
-  // '@media': {
-  //   '(prefers-reduced-motion: no-preference)': {
-  //     transition: `outline ${vars.transition.fast}`,
-  //   },
-  // },
-  ':focus-visible': {
-    outline: `2px solid ${vars.colorRole.focusRing.color}`,
-    outlineOffset: '2px',
-  },
-  selectors: {
-    '&:disabled, &[disabled], &[aria-disabled="true"]': {
-      opacity: 0.5,
-      cursor: 'auto',
-      pointerEvents: 'none',
-    },
-    '&:has(:focus-visible:not(button))': {
-      outline: `2px solid ${vars.colorRole.focusRing.color}`,
-      outlineOffset: '2px',
-    },
-    '&:has(:disabled)': {
-      opacity: 0.5,
-      cursor: 'auto',
+  '@layer': {
+    [layers.theme]: {
+      // '@media': {
+      //   '(prefers-reduced-motion: no-preference)': {
+      //     transition: `outline ${vars.transition.fast}`,
+      //   },
+      // },
+      ':focus-visible': {
+        outline: `2px solid ${vars.colorRole.focusRing.color}`,
+        outlineOffset: '2px',
+      },
+      selectors: {
+        '&:disabled, &[disabled], &[aria-disabled="true"]': {
+          opacity: 0.5,
+          cursor: 'auto',
+          pointerEvents: 'none',
+        },
+        '&:has(:focus-visible:not(button))': {
+          outline: `2px solid ${vars.colorRole.focusRing.color}`,
+          outlineOffset: '2px',
+        },
+        '&:has(:disabled)': {
+          opacity: 0.5,
+          cursor: 'auto',
+        },
+      },
     },
   },
 });
@@ -38,8 +42,12 @@ export const focusable = style({
 export const clickable = style([
   focusable,
   {
-    ':active': {
-      transform: 'scale(0.975)',
+    '@layer': {
+      [layers.theme]: {
+        ':active': {
+          transform: 'scale(0.975)',
+        },
+      },
     },
   },
 ]);

@@ -1,4 +1,5 @@
 import {
+  layers,
   makeComponentTheme,
   type ThemeComponentsStyles,
 } from '@blockle/blocks-core';
@@ -17,25 +18,41 @@ export const spinner: ThemeComponentsStyles['spinner'] = makeComponentTheme(
   'spinner',
   {
     root: style({
-      aspectRatio: '1 / 1',
-      overflow: 'hidden',
-      borderRadius: '50%',
-      borderWidth: '3px',
-      borderStyle: 'solid',
-      borderColor: 'currentColor transparent currentColor transparent',
-      animation: `${spinAnimation} 1.2s linear infinite`,
+      '@layer': {
+        [layers.theme]: {
+          aspectRatio: '1 / 1',
+          overflow: 'hidden',
+          borderRadius: '50%',
+          borderWidth: '3px',
+          borderStyle: 'solid',
+          borderColor: 'currentColor transparent currentColor transparent',
+          animation: `${spinAnimation} 1.2s linear infinite`,
+        },
+      },
     }),
     variants: {
-      // note: colors are handled by atoms
+      // note: colors come from the color scheme (currentColor)
       size: {
         small: style({
-          width: 16,
+          '@layer': {
+            [layers.theme]: {
+              width: 16,
+            },
+          },
         }),
         medium: style({
-          width: 24,
+          '@layer': {
+            [layers.theme]: {
+              width: 24,
+            },
+          },
         }),
         large: style({
-          width: 32,
+          '@layer': {
+            [layers.theme]: {
+              width: 32,
+            },
+          },
         }),
       },
     },

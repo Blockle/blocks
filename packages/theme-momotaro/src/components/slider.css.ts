@@ -1,5 +1,5 @@
 import {
-  atoms,
+  layers,
   makeComponentTheme,
   type ThemeComponentsStyles,
   vars,
@@ -18,39 +18,51 @@ export const slider: ThemeComponentsStyles['slider'] = makeComponentTheme(
   'slider',
   {
     root: style({
-      blockSize: '20px',
-    }),
-    track: style([
-      atoms({
-        borderRadius: 1,
-      }),
-      {
-        blockSize: '4px',
-        backgroundColor: trackBackground,
+      '@layer': {
+        [layers.theme]: {
+          blockSize: '20px',
+        },
       },
-    ]),
+    }),
+    track: style({
+      '@layer': {
+        [layers.theme]: {
+          borderRadius: vars.borderRadius[1],
+          blockSize: '4px',
+          backgroundColor: trackBackground,
+        },
+      },
+    }),
     filledTrack: style({
-      backgroundColor: filledTrackBackground,
+      '@layer': {
+        [layers.theme]: {
+          backgroundColor: filledTrackBackground,
+        },
+      },
     }),
     thumb: style([
       {
-        backgroundColor: thumbBackground,
-        borderRadius: '50%',
-        height: '16px',
-        width: '16px',
-        boxShadow: `0 0 0 0px color-mix(in srgb,  ${haloColor}, transparent 0%)`,
-        vars: {
-          [thumbActive]: `0 0 0 8px color-mix(in srgb,  ${haloColor}, transparent 20%)`,
-        },
-        ':hover': {
-          boxShadow: thumbActive,
-        },
-        ':focus-visible': {
-          boxShadow: thumbActive,
-        },
-        '@media': {
-          '(prefers-reduced-motion: no-preference)': {
-            transition: 'box-shadow 0.2s',
+        '@layer': {
+          [layers.theme]: {
+            backgroundColor: thumbBackground,
+            borderRadius: '50%',
+            height: '16px',
+            width: '16px',
+            boxShadow: `0 0 0 0px color-mix(in srgb,  ${haloColor}, transparent 0%)`,
+            vars: {
+              [thumbActive]: `0 0 0 8px color-mix(in srgb,  ${haloColor}, transparent 20%)`,
+            },
+            ':hover': {
+              boxShadow: thumbActive,
+            },
+            ':focus-visible': {
+              boxShadow: thumbActive,
+            },
+            '@media': {
+              '(prefers-reduced-motion: no-preference)': {
+                transition: 'box-shadow 0.2s',
+              },
+            },
           },
         },
       },
@@ -59,39 +71,63 @@ export const slider: ThemeComponentsStyles['slider'] = makeComponentTheme(
     variants: {
       size: {
         small: style({
-          inlineSize: '100px',
+          '@layer': {
+            [layers.theme]: {
+              inlineSize: '100px',
+            },
+          },
         }),
         medium: style({
-          inlineSize: '200px',
+          '@layer': {
+            [layers.theme]: {
+              inlineSize: '200px',
+            },
+          },
         }),
         large: style({
-          inlineSize: '300px',
+          '@layer': {
+            [layers.theme]: {
+              inlineSize: '300px',
+            },
+          },
         }),
       },
       intent: {
         primary: style({
-          vars: {
-            [trackBackground]: vars.colorRole.primary.subtle,
-            [filledTrackBackground]: vars.colorRole.primary.solid,
-            [thumbBackground]: vars.colorRole.primary.solid,
-            [haloColor]: vars.colorRole.primary.subtle,
+          '@layer': {
+            [layers.theme]: {
+              vars: {
+                [trackBackground]: vars.colorRole.primary.subtle,
+                [filledTrackBackground]: vars.colorRole.primary.solid,
+                [thumbBackground]: vars.colorRole.primary.solid,
+                [haloColor]: vars.colorRole.primary.subtle,
+              },
+            },
           },
         }),
         secondary: style({
-          vars: {
-            [trackBackground]: vars.colorRole.secondary.subtle,
-            [filledTrackBackground]: vars.colorRole.secondary.solid,
-            [thumbBackground]: vars.colorRole.secondary.solid,
-            [haloColor]: vars.colorRole.secondary.subtle,
+          '@layer': {
+            [layers.theme]: {
+              vars: {
+                [trackBackground]: vars.colorRole.secondary.subtle,
+                [filledTrackBackground]: vars.colorRole.secondary.solid,
+                [thumbBackground]: vars.colorRole.secondary.solid,
+                [haloColor]: vars.colorRole.secondary.subtle,
+              },
+            },
           },
         }),
       },
       disabled: style({
-        pointerEvents: 'none',
-        vars: {
-          [trackBackground]: vars.colorRole.border.default,
-          [filledTrackBackground]: vars.colorRole.text.disabled,
-          [thumbBackground]: vars.colorRole.text.disabled,
+        '@layer': {
+          [layers.theme]: {
+            pointerEvents: 'none',
+            vars: {
+              [trackBackground]: vars.colorRole.border.default,
+              [filledTrackBackground]: vars.colorRole.text.disabled,
+              [thumbBackground]: vars.colorRole.text.disabled,
+            },
+          },
         },
       }),
     },
