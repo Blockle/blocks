@@ -1,4 +1,3 @@
-import { formatBytes } from './table.mjs';
 import { readFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 
@@ -24,23 +23,39 @@ export function isRegression(base, head) {
   return growth > MAX_GROWTH_BYTES && growth > base * MAX_GROWTH_RATIO;
 }
 
+const KILOBYTE = 1000;
+
+const kilobytes = new Intl.NumberFormat('en-US', {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
+/** Formats a byte count as `B` below 1 kB and as `kB` (1,000 bytes) above. */
+export function formatSize(bytes) {
+  if (Math.abs(bytes) < KILOBYTE) {
+    return `${bytes} B`;
+  }
+
+  return `${kilobytes.format(bytes / KILOBYTE)} kB`;
+}
+
 function withSign(value, text) {
   return value > 0 ? `+${text}` : text;
 }
 
 function formatComparisonRow(label, base, head, flagged) {
   if (base === undefined || head === undefined) {
-    const cell = (value) => (value === undefined ? '-' : formatBytes(value));
+    const cell = (value) => (value === undefined ? '-' : formatSize(value));
 
     return `| ${label} | ${cell(base)} | ${cell(head)} | - | - | |`;
   }
 
   const delta = head - base;
-  const bytes = withSign(delta, formatBytes(delta));
+  const bytes = withSign(delta, formatSize(delta));
   const percent =
     base === 0 ? '-' : withSign(delta, `${((delta / base) * 100).toFixed(1)}%`);
 
-  return `| ${label} | ${formatBytes(base)} | ${formatBytes(head)} | ${bytes} | ${percent} | ${flagged ? '⚠️' : ''} |`;
+  return `| ${label} | ${formatSize(base)} | ${formatSize(head)} | ${bytes} | ${percent} | ${flagged ? '⚠️' : ''} |`;
 }
 
 /** Builds the markdown report comparing a base and a head measurement. */

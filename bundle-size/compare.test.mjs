@@ -1,4 +1,4 @@
-import { compareReport, isRegression, MARKER } from './compare.mjs';
+import { compareReport, formatSize, isRegression, MARKER } from './compare.mjs';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
@@ -43,6 +43,15 @@ test('compareReport starts with the hidden marker', () => {
   assert.ok(report.startsWith('<!-- bundle-size -->\n'));
 });
 
+test('formatSize shows bytes below 1 kB and kB with two decimals above', () => {
+  assert.equal(formatSize(0), '0 B');
+  assert.equal(formatSize(999), '999 B');
+  assert.equal(formatSize(1000), '1.00 kB');
+  assert.equal(formatSize(145607), '145.61 kB');
+  assert.equal(formatSize(1234567), '1,234.57 kB');
+  assert.equal(formatSize(-2500), '-2.50 kB');
+});
+
 test('compareReport prints a table per scenario and kind with deltas', () => {
   const report = compareReport(
     measurement(sizes(10000, 4000)),
@@ -52,8 +61,12 @@ test('compareReport prints a table per scenario and kind with deltas', () => {
   assert.ok(report.includes('### baseline JS'));
   assert.ok(report.includes('### baseline CSS'));
   assert.ok(report.includes('| Size | Base | Head | Change | Change % |'));
-  assert.ok(report.includes('| Minified | 10,000 | 10,500 | +500 | +5.0% |'));
-  assert.ok(report.includes('| Gzipped | 4,000 | 3,800 | -200 | -5.0% |'));
+  assert.ok(
+    report.includes('| Minified | 10.00 kB | 10.50 kB | +500 B | +5.0% |'),
+  );
+  assert.ok(
+    report.includes('| Gzipped | 4.00 kB | 3.80 kB | -200 B | -5.0% |'),
+  );
 });
 
 test('compareReport marks only the gzipped row of a regression', () => {
@@ -62,7 +75,9 @@ test('compareReport marks only the gzipped row of a regression', () => {
     measurement(sizes(12000, 4400)),
   );
 
-  assert.ok(report.includes('| Gzipped | 4,000 | 4,400 | +400 | +10.0% | ⚠️ |'));
+  assert.ok(
+    report.includes('| Gzipped | 4.00 kB | 4.40 kB | +400 B | +10.0% | ⚠️ |'),
+  );
   assert.equal(report.split('⚠️').length - 1, 1);
 });
 
@@ -94,5 +109,5 @@ test('compareReport handles a scenario missing from base', () => {
   const report = compareReport({}, measurement(sizes(100, 50)));
 
   assert.ok(report.includes('### baseline JS'));
-  assert.ok(report.includes('| Gzipped | - | 50 | - | - |'));
+  assert.ok(report.includes('| Gzipped | - | 50 B | - | - |'));
 });
