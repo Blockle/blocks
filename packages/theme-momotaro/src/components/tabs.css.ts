@@ -25,6 +25,9 @@ const list = style([
   {
     // The Tab indicator is positioned against this box
     position: 'relative',
+    // One row that scrolls sideways, never wraps. The Tab indicator is a
+    // child, so it scrolls with the tabs.
+    overflowX: 'auto',
     // The thin baseline under the whole row
     boxShadow: `inset 0 -1px 0 ${vars.colorRole.border.default}`,
     '@supports': {

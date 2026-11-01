@@ -1,6 +1,7 @@
 'use client';
 
 import { classnames, type HTMLElementProps } from '@blockle/blocks-core';
+import { useEffect, useRef } from 'react';
 
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { getPanelId, getTabId, useTabsContext } from './TabsContext.js';
@@ -23,6 +24,25 @@ function hasContent(node: React.ReactNode) {
   return node !== null && node !== undefined && node !== false;
 }
 
+// Scrolls the tab list sideways just far enough to show the tab. Done by hand
+// rather than with scrollIntoView, which would scroll the page vertically too.
+function revealInline(tab: HTMLElement) {
+  const list = tab.closest<HTMLElement>('[role="tablist"]');
+
+  if (!list) {
+    return;
+  }
+
+  const tabBox = tab.getBoundingClientRect();
+  const listBox = list.getBoundingClientRect();
+
+  if (tabBox.left < listBox.left) {
+    list.scrollLeft -= listBox.left - tabBox.left;
+  } else if (tabBox.right > listBox.right) {
+    list.scrollLeft += tabBox.right - listBox.right;
+  }
+}
+
 export const Tab: React.FC<TabProps> = ({
   children,
   className,
@@ -34,6 +54,13 @@ export const Tab: React.FC<TabProps> = ({
 }) => {
   const { baseId, setValue, value: selectedValue } = useTabsContext('Tab');
   const selected = selectedValue === value;
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (selected && wrapperRef.current) {
+      revealInline(wrapperRef.current);
+    }
+  }, [selected]);
   // The wrapper holds the activation element and, later, its Slots; the Tab
   // indicator anchors to it
   const tabClassName = useComponentStyles('tabs', { tab: true });
@@ -47,7 +74,7 @@ export const Tab: React.FC<TabProps> = ({
   const endSlotClassName = useComponentStyles('tabs', { endSlot: true }, false);
 
   return (
-    <div className={tabClassName}>
+    <div ref={wrapperRef} className={tabClassName}>
       {hasContent(startSlot) && (
         <span className={startSlotClassName}>{startSlot}</span>
       )}

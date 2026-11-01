@@ -1,8 +1,10 @@
 import { useRef, useState } from 'react';
 
 import preview from '../../../../../../.storybook/preview.js';
+import { Button } from '../../form/Button/Button.js';
 import { IconButton } from '../../form/IconButton/IconButton.js';
 import { Stack } from '../../layout/Stack/Stack.js';
+import { Dialog } from '../../overlay/Dialog/Dialog.js';
 import { Text } from '../../typography/Text/Text.js';
 import { Tab } from './Tab.js';
 import { TabList } from './TabList.js';
@@ -167,6 +169,46 @@ export const ClosableTabs = meta.story({
           </TabPanel>
         ))}
       </Tabs>
+    );
+  },
+});
+
+const sections = Array.from({ length: 24 }, (_, i) => `Section ${i + 1}`);
+
+/**
+ * With more tabs than fit, the tab list scrolls sideways on one row and keeps
+ * the selected tab in view.
+ */
+export const OverflowingInDialog = meta.story({
+  render: () => {
+    const [open, setOpen] = useState(true);
+    const [value, setValue] = useState(sections[0] as string);
+
+    return (
+      <>
+        <Button onClick={() => setOpen(true)}>Open Dialog</Button>
+        <Dialog open={open} onRequestClose={() => setOpen(false)}>
+          <Stack gap={4}>
+            <Tabs value={value} onValueChange={setValue}>
+              <TabList aria-label="Sections">
+                {sections.map((section) => (
+                  <Tab key={section} value={section}>
+                    {section}
+                  </Tab>
+                ))}
+              </TabList>
+              {sections.map((section) => (
+                <TabPanel key={section} value={section}>
+                  <Text>{section} content</Text>
+                </TabPanel>
+              ))}
+            </Tabs>
+            <Button onClick={() => setValue(sections.at(-1) as string)}>
+              Select the last section
+            </Button>
+          </Stack>
+        </Dialog>
+      </>
     );
   },
 });

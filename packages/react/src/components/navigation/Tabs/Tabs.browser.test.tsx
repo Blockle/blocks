@@ -732,4 +732,127 @@ describe('Tabs (browser)', () => {
         .toMatchScreenshot('tabs-slots-light');
     });
   });
+
+  describe('overflow', () => {
+    const labels = Array.from({ length: 20 }, (_, i) => `Section ${i + 1}`);
+
+    const Many: React.FC<Partial<TabsProps>> = (props) => (
+      <div style={{ width: 300 }}>
+        <Tabs defaultValue={labels[0]} {...props}>
+          <TabList aria-label="Sections">
+            {labels.map((label) => (
+              <Tab key={label} value={label}>
+                {label}
+              </Tab>
+            ))}
+          </TabList>
+          {labels.map((label) => (
+            <TabPanel key={label} value={label}>
+              {label} panel
+            </TabPanel>
+          ))}
+        </Tabs>
+      </div>
+    );
+
+    const getIndicator = (list: Element) =>
+      list.querySelector('[data-tab-indicator]') as HTMLElement;
+
+    it('scrolls sideways on one row without wrapping', async () => {
+      const screen = await render(<Many />);
+      const list = screen.getByRole('tablist').element();
+      const first = screen
+        .getByRole('tab', { name: 'Section 1', exact: true })
+        .element();
+      const last = screen
+        .getByRole('tab', { name: 'Section 20', exact: true })
+        .element();
+
+      expect(getComputedStyle(list).overflowX).toBe('auto');
+      expect(list.scrollWidth).toBeGreaterThan(list.clientWidth);
+      expect(last.getBoundingClientRect().top).toBe(
+        first.getBoundingClientRect().top,
+      );
+    });
+
+    it('scrolls a tab selected from outside into view', async () => {
+      const Controlled: React.FC = () => {
+        const [value, setValue] = useState('Section 1');
+
+        return (
+          <>
+            <button type="button" onClick={() => setValue('Section 20')}>
+              Jump
+            </button>
+            <Many value={value} onValueChange={setValue} />
+          </>
+        );
+      };
+      const screen = await render(<Controlled />);
+      const list = screen.getByRole('tablist').element();
+
+      expect(list.scrollLeft).toBe(0);
+      await userEvent.click(
+        screen.getByRole('button', { name: 'Jump', exact: true }),
+      );
+
+      await expect
+        .poll(() => {
+          const tab = screen
+            .getByRole('tab', { name: 'Section 20', exact: true })
+            .element()
+            .getBoundingClientRect();
+          const box = list.getBoundingClientRect();
+
+          return tab.left >= box.left - 1 && tab.right <= box.right + 1;
+        })
+        .toBe(true);
+    });
+
+    it('scrolls a tab selected by keyboard into view', async () => {
+      const screen = await render(<Many />);
+      const list = screen.getByRole('tablist').element();
+
+      screen
+        .getByRole('tab', { name: 'Section 1', exact: true })
+        .element()
+        .focus();
+      await userEvent.keyboard('{End}');
+
+      await expect.poll(() => list.scrollLeft).toBeGreaterThan(0);
+    });
+
+    it('does not scroll the page vertically', async () => {
+      const screen = await render(
+        <>
+          <div style={{ height: 2000 }} />
+          <Many defaultValue="Section 20" />
+          <div style={{ height: 2000 }} />
+        </>,
+      );
+      const list = screen.getByRole('tablist').element();
+
+      await expect.poll(() => list.scrollLeft).toBeGreaterThan(0);
+      expect(window.scrollY).toBe(0);
+    });
+
+    it('keeps the Tab indicator under the selected tab while scrolling', async () => {
+      const screen = await render(<Many />);
+      const list = screen.getByRole('tablist').element();
+      const wrapper = screen
+        .getByRole('tab', { name: 'Section 1', exact: true })
+        .element().parentElement as Element;
+
+      const box = (element: Element) => {
+        const { left, width } = element.getBoundingClientRect();
+
+        return `${Math.round(left)},${Math.round(width)}`;
+      };
+
+      list.scrollLeft = 80;
+
+      await expect.poll(() => box(getIndicator(list))).toBe(box(wrapper));
+      expect(list.scrollLeft).toBe(80);
+    });
+  });
 });
