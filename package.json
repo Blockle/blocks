@@ -27,6 +27,8 @@
     "link": "npm link --workspaces",
     "lint": "biome check ./packages/*/src",
     "release": "npm run check-peer-deps && npm run build && npm run ts && npm run test && changeset publish",
+    "size": "node bundle-size/size.mjs",
+    "size:test": "node --test bundle-size/*.test.mjs",
     "storybook": "storybook dev -p 6006 --no-open",
     "test": "vitest",
     "test:unit": "vitest run --project '!browser'",
