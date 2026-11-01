@@ -1,4 +1,5 @@
 import {
+  layers,
   makeComponentTheme,
   pixelsToRem,
   type ThemeComponentsStyles,
@@ -10,19 +11,39 @@ export const icon: ThemeComponentsStyles['icon'] = makeComponentTheme('icon', {
   variants: {
     size: {
       xsmall: style({
-        width: pixelsToRem(12),
+        '@layer': {
+          [layers.theme]: {
+            width: pixelsToRem(12),
+          },
+        },
       }),
       small: style({
-        width: pixelsToRem(16),
+        '@layer': {
+          [layers.theme]: {
+            width: pixelsToRem(16),
+          },
+        },
       }),
       medium: style({
-        width: pixelsToRem(32),
+        '@layer': {
+          [layers.theme]: {
+            width: pixelsToRem(32),
+          },
+        },
       }),
       large: style({
-        width: pixelsToRem(48),
+        '@layer': {
+          [layers.theme]: {
+            width: pixelsToRem(48),
+          },
+        },
       }),
       xlarge: style({
-        width: pixelsToRem(64),
+        '@layer': {
+          [layers.theme]: {
+            width: pixelsToRem(64),
+          },
+        },
       }),
     },
   },
