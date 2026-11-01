@@ -11,6 +11,7 @@ import { icon } from './icon.css.js';
 import { iconButton } from './iconButton.css.js';
 import { label } from './label.css.js';
 import { link } from './link.css.js';
+import { menu } from './menu.css.js';
 import { popover } from './popover.css.js';
 import { progress } from './progress.css.js';
 import { radio } from './radio.css.js';
@@ -37,6 +38,7 @@ export const components: ThemeComponentsStyles = {
   iconButton,
   label,
   link,
+  menu,
   popover,
   progress,
   radio,

@@ -25,6 +25,7 @@ export const testingTheme = makeTheme({
     iconButton: { root: '' },
     label: { root: '' },
     link: { root: '' },
+    menu: { list: '', item: '', separator: '' },
     popover: { root: '' },
     progress: { bar: '', root: '' },
     radio: { root: '', icon: '', label: '' },

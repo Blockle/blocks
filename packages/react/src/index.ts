@@ -91,6 +91,11 @@ export {
   type DrawerProps,
 } from './components/overlay/Drawer/Drawer.js';
 export {
+  Menu,
+  type MenuItem,
+  type MenuProps,
+} from './components/overlay/Menu/Menu.js';
+export {
   Popover,
   type PopoverPlacement,
   type PopoverProps,
