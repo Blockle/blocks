@@ -1,5 +1,27 @@
 # @blockle/blocks-core
 
+## 3.3.0
+
+### Minor Changes
+
+- 2210d49: Add `Menu`: a list of actions that opens from a trigger and closes once one is picked. It takes its items as data (actions, separators and radio groups), follows the WAI-ARIA menu button keyboard behaviour, and is styled by the new `menu` component theme.
+- 9cf284b: Tabs and TabNav now get their mechanics from Blocks instead of the `tabs` Component theme: the row's layout and sideways scrolling, the Tab indicator's anchor positioning, slide and reduced-motion guard, the static fallback bar where anchor positioning is unsupported, and the inset focus rings. A `tabs` theme now sets only the look, and styles the Tab indicator through the new `tabIndicatorVars` (`color`, `thickness`, `duration`, `easing`) from `@blockle/blocks-core`, set on `list`. Its `navList` and `indicator` keys are now optional. Tabs look the same under momotaro.
+- 57fc1b1: Add `Tabs`, `TabList`, `Tab` and `TabPanel` for in-page tabs, and `TabNav` for route tabs. Tabs are matched to panels by a string `value`, the selection is controlled with `value`/`onValueChange` or left uncontrolled with `defaultValue`, and inactive panels stay mounted. In a `TabNav`, a `Tab` is a link (any router link through `asChild`) and `current` marks the current page. Both draw a moving Tab indicator and scroll sideways when they overflow. Styled by the new `tabs` component theme.
+- a4a654a: Component themes now sit in a new `blockle-theme` cascade layer, below Atoms. Precedence follows one rule: **defaults < theme < props < your own CSS**.
+
+  The layers are ordered, lowest priority first: `blockle-reset` < `blockle-molecule` (component base styles) < `blockle-theme` (Component themes) < `blockle-atom` (Atoms) < `blockle-organism`. Your unlayered styles beat all of them.
+
+  What changes for you:
+
+  - An app's `className` on a Blocks component always beats the theme and base styles, whatever order the stylesheets load in. A single class is enough: drop any `&&` specificity tricks. For example, `<Dialog className={wide}>` with `inline-size: 50rem` now sets the width.
+  - Atom props, on components that accept them, and Atom classes now beat the theme and the component base styles. `Textarea containerProps={{ padding: 0, backgroundColor: … }}` and `className={atoms({ padding: 0 })}` render with exactly that.
+  - `truncate` and `lineClamp` on `Text` no longer beat an explicit `display`, `overflow` or `whiteSpace` Atom. The Atom wins.
+  - `Select` with `variant="outline"` now has the 1px border the theme always declared. It rendered 3px before.
+
+  Momotaro puts every declaration in `blockle-theme` and no longer uses `atoms()`. Components look the same otherwise.
+
+  Core exports `layers.theme` so a theme can use the same layer. A theme built with plain `style()` behaves as before: it stays unlayered, and so keeps beating Atoms and base styles. To move it into the layer, see "Writing a theme" in Storybook (Guides).
+
 ## 3.2.0
 
 ### Minor Changes

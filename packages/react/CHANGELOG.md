@@ -1,5 +1,27 @@
 # @blockle/blocks-react
 
+## 3.3.0
+
+### Minor Changes
+
+- 2210d49: Add `Menu`: a list of actions that opens from a trigger and closes once one is picked. It takes its items as data (actions, separators and radio groups), follows the WAI-ARIA menu button keyboard behaviour, and is styled by the new `menu` component theme.
+- 2210d49: Add `limitHeight` to `Popover`: it caps the popover's height to the room on the side it opens on, so a tall popover stops at the viewport's edge instead of running off it. `Menu` uses it, so a long Menu now stops at the bottom (or top) of the screen and scrolls.
+- 8db6153: An open `Popover` now keeps its position, side and height cap up to date. It follows its anchor when the window is resized, when the page or any panel scrolls, when the anchor or the popover changes size, and when the visual viewport resizes, so `Menu` and `Tooltip` no longer drift away from their trigger. When the anchor scrolls out of view the popover keeps following it, held inside the viewport on both axes. Scrolling the popover's own content doesn't re-run the layout. `sticky` is deprecated and has no effect.
+
+  `limitHeight` now also caps a `content-box` popover so its padding and border fit within the viewport.
+
+- 57fc1b1: Add `Tabs`, `TabList`, `Tab` and `TabPanel` for in-page tabs, and `TabNav` for route tabs. Tabs are matched to panels by a string `value`, the selection is controlled with `value`/`onValueChange` or left uncontrolled with `defaultValue`, and inactive panels stay mounted. In a `TabNav`, a `Tab` is a link (any router link through `asChild`) and `current` marks the current page. Both draw a moving Tab indicator and scroll sideways when they overflow. Styled by the new `tabs` component theme.
+
+### Patch Changes
+
+- f81bd09: A server-rendered open `Dialog` or `Drawer` now hydrates without a hydration mismatch error for its `open` attribute, and opens as modal without firing a stray `close` event on the `<dialog>`.
+- 2210d49: Unmount `Popover` once it closes even when its closing transition is cancelled, and no longer cut that transition short when a child's transition or animation ends.
+- db2ec9e: Keep a `Popover` wider than the viewport on screen: its width is now capped to the viewport, 8px inside both edges, the same inset its positioning keeps. The cap fits the panel's border box whatever its `box-sizing`, follows viewport resizes while open, and lets the content wrap or scroll inside the panel. Popovers that already fit keep their size and position.
+- 52d250c: Select reserves room for its chevron, so the value text keeps a gap before it and long values are cut off before it. The chevron sits the same distance from the end edge at every size, so stacked Selects line it up, and it stays at the end edge in right-to-left text.
+- bd68363: Only the `Dialog` or `Drawer` opened last handles clicks outside and Escape, wherever each one is mounted, so a click in a `Dialog` opened beside a `Drawer` no longer closes the `Drawer`. `usePreventBodyScroll` can now be enabled by more than one caller at a time: the body stays locked until the last one is disabled, then gets its styles and scroll position back.
+- e27b67f: `Drawer`, `Dialog` and `Label` accept their theme `size` variants in TypeScript. Their `size` prop clashed with the native HTML `size` attribute, so it only accepted `undefined`.
+- 9cf284b: Tabs and TabNav now get their mechanics from Blocks instead of the `tabs` Component theme: the row's layout and sideways scrolling, the Tab indicator's anchor positioning, slide and reduced-motion guard, the static fallback bar where anchor positioning is unsupported, and the inset focus rings. A `tabs` theme now sets only the look, and styles the Tab indicator through the new `tabIndicatorVars` (`color`, `thickness`, `duration`, `easing`) from `@blockle/blocks-core`, set on `list`. Its `navList` and `indicator` keys are now optional. Tabs look the same under momotaro.
+
 ## 3.2.0
 
 ### Minor Changes
