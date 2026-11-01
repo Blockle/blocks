@@ -194,6 +194,16 @@ export type TagTheme = {
   };
 };
 
+export type TabsTheme = {
+  // The row of tabs; draws the baseline
+  list: string;
+  // The wrapper around a Tab's activation element and its Slots
+  tab: string;
+  // The Tab's activation element (a button, or a link in a TabNav)
+  trigger: string;
+  panel: string;
+};
+
 export type TextTheme = {
   root?: string;
   variants: {
@@ -249,6 +259,7 @@ export type ComponentThemes = {
   slider: SliderTheme;
   spinner: SpinnerTheme;
   switch: SwitchTheme;
+  tabs: TabsTheme;
   tag: TagTheme;
   text: TextTheme;
   textarea: TextareaTheme;

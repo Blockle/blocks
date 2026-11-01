@@ -33,6 +33,7 @@ export const testingTheme = makeTheme({
     slider: { root: '', thumb: '', track: '', filledTrack: '' },
     spinner: { root: '' },
     switch: { root: '', thumb: '' },
+    tabs: { list: '', tab: '', trigger: '', panel: '' },
     tag: { root: '', startSlot: '', endSlot: '' },
     text: { root: '' },
     textarea: { root: '', input: '' },

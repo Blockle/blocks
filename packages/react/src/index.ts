@@ -81,6 +81,16 @@ export { Inline, type InlineProps } from './components/layout/Inline/Inline.js';
 export { Stack, type StackProps } from './components/layout/Stack/Stack.js';
 // navigation
 export { Link, type LinkProps } from './components/navigation/Link/Link.js';
+export { Tab, type TabProps } from './components/navigation/Tabs/Tab.js';
+export {
+  TabList,
+  type TabListProps,
+} from './components/navigation/Tabs/TabList.js';
+export {
+  TabPanel,
+  type TabPanelProps,
+} from './components/navigation/Tabs/TabPanel.js';
+export { Tabs, type TabsProps } from './components/navigation/Tabs/Tabs.js';
 // overlay
 export {
   Dialog,
