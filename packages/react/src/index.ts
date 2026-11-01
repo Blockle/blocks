@@ -91,6 +91,15 @@ export {
   type DrawerProps,
 } from './components/overlay/Drawer/Drawer.js';
 export {
+  Menu,
+  type MenuActionItem,
+  type MenuItem,
+  type MenuProps,
+  type MenuRadioGroupItem,
+  type MenuRadioItem,
+  type MenuSeparatorItem,
+} from './components/overlay/Menu/Menu.js';
+export {
   Popover,
   type PopoverPlacement,
   type PopoverProps,

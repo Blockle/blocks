@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
-import { computePopoverPosition } from './popover-utils.js';
+import {
+  computeAvailableHeight,
+  computePopoverPosition,
+} from './popover-utils.js';
 
 // A 32x32 anchor in the middle of a 1000x800 viewport, a 100x50 popover
 // with a 4px margin on every side
@@ -160,5 +163,34 @@ describe('computePopoverPosition', () => {
         }),
       ).toEqual([204, 732]);
     });
+  });
+});
+
+describe('computeAvailableHeight', () => {
+  it('gives the room below the anchor, minus the margin and 8px padding', () => {
+    // 800 - 8 - (400 + 32) - 4
+    expect(computeAvailableHeight({ ...base, placement: 'bottom-start' })).toBe(
+      356,
+    );
+  });
+
+  it('gives the room above the anchor, minus the margin and 8px padding', () => {
+    // 400 - 4 - 8
+    expect(computeAvailableHeight({ ...base, placement: 'top' })).toBe(388);
+  });
+
+  it('gives the room on the side the popover flips to', () => {
+    const anchor = { ...base.anchor, top: 700 };
+    const popover = { ...base.popover, height: 2000 };
+
+    // 100px below, 700px above: flips to the top, 700 - 4 - 8
+    expect(
+      computeAvailableHeight({ ...base, anchor, popover, placement: 'bottom' }),
+    ).toBe(688);
+  });
+
+  it('gives the viewport height, minus padding, beside the anchor', () => {
+    // 800 - 8 - 8
+    expect(computeAvailableHeight({ ...base, placement: 'right' })).toBe(784);
   });
 });

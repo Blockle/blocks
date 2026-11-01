@@ -124,6 +124,13 @@ export type LinkTheme = {
   };
 };
 
+export type MenuTheme = {
+  list: string;
+  item: string;
+  itemIndicator: string;
+  separator: string;
+};
+
 export type PopoverTheme = {
   root: string;
 };
@@ -234,6 +241,7 @@ export type ComponentThemes = {
   iconButton: IconButtonTheme;
   label: LabelTheme;
   link: LinkTheme;
+  menu: MenuTheme;
   popover: PopoverTheme;
   progress: ProgressTheme;
   radio: RadioTheme;
