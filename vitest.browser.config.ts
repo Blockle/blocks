@@ -22,6 +22,9 @@ const alias = {
 export default defineProject({
   plugins: [vanillaExtractPlugin()],
   resolve: { alias },
+  // Browser tests can't read process.env; expose CI as a flag, see
+  // packages/react/src/testUtils/browser/screenshot.ts
+  define: { __CI__: JSON.stringify(Boolean(process.env.CI)) },
   optimizeDeps: {
     include: [
       'react',

@@ -4,7 +4,7 @@ import {
   type ThemeComponentsStyles,
   vars,
 } from '@blockle/blocks-core';
-import { style } from '@vanilla-extract/css';
+import { globalStyle, style } from '@vanilla-extract/css';
 
 import { focusable } from './helpers.css.js';
 
@@ -31,9 +31,11 @@ const list = style([
     // The thin baseline under the whole row
     boxShadow: `inset 0 -1px 0 ${vars.colorRole.border.default}`,
     '@supports': {
-      '(anchor-name: --a)': declarations({
-        // Keeps another tab list's selected tab from anchoring this
-        // list's Tab indicator
+      // Keeps another tab list's selected tab from anchoring this list's Tab
+      // indicator. Needs both properties: a browser with anchor-name but
+      // without anchor-scope would let two lists share one anchor, so it gets
+      // the static bar instead (see `indicator` and `tab`).
+      '(anchor-name: --a) and (anchor-scope: --a)': declarations({
         anchorScope: anchor,
       }),
     },
@@ -57,7 +59,7 @@ const navList = style({
 const indicator = style({
   display: 'none',
   '@supports': {
-    '(anchor-name: --a)': declarations({
+    '(anchor-name: --a) and (anchor-scope: --a)': declarations({
       display: 'block',
       position: 'absolute',
       positionAnchor: anchor,
@@ -103,7 +105,7 @@ const tab = style({
     },
   },
   '@supports': {
-    '(anchor-name: --a)': {
+    '(anchor-name: --a) and (anchor-scope: --a)': {
       selectors: {
         [`&:has(${selected})`]: declarations({ anchorName: anchor }),
         [`&:has(${selected})::after`]: { content: 'none' },
@@ -146,6 +148,12 @@ const trigger = style([
 const slot = style({
   display: 'flex',
   alignItems: 'center',
+});
+
+// The list scrolls, which clips an outside ring on a focusable Slot (such as a
+// close IconButton); draw it inside, like the trigger's
+globalStyle(`${slot} :is(button, a, [tabindex]):focus-visible`, {
+  outlineOffset: '-2px',
 });
 
 const startSlot = style([slot, atoms({ paddingInlineStart: 3 })]);

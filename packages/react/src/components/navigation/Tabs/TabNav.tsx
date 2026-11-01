@@ -1,9 +1,11 @@
 'use client';
 
 import { classnames, type HTMLElementProps } from '@blockle/blocks-core';
+import { useMemo, useRef } from 'react';
 
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
-import { TabNavContext } from './TabNavContext.js';
+import { TabIndicator } from './TabIndicator.js';
+import { TabListContext } from './TabListContext.js';
 
 export type TabNavProps = {
   /** Names the navigation; use it or `aria-labelledby` when a page has several */
@@ -24,24 +26,33 @@ export const TabNav: React.FC<TabNavProps> = ({
   ref,
   ...restProps
 }) => {
+  const navRef = useRef<HTMLElement | null>(null);
   const listClassName = useComponentStyles('tabs', { list: true });
   const navListClassName = useComponentStyles('tabs', { navList: true });
-  const indicatorClassName = useComponentStyles('tabs', { indicator: true });
+
+  const context = useMemo(
+    () => ({ fallbackValue: undefined, nav: true, scrollRef: navRef }),
+    [],
+  );
 
   return (
-    <TabNavContext.Provider value={true}>
+    <TabListContext.Provider value={context}>
       <nav
-        ref={ref}
+        ref={(node) => {
+          navRef.current = node;
+
+          if (typeof ref === 'function') {
+            ref(node);
+          } else if (ref) {
+            ref.current = node;
+          }
+        }}
         className={classnames(listClassName, className)}
         {...restProps}
       >
         <ul className={navListClassName}>{children}</ul>
-        <span
-          aria-hidden="true"
-          data-tab-indicator=""
-          className={indicatorClassName}
-        />
+        <TabIndicator />
       </nav>
-    </TabNavContext.Provider>
+    </TabListContext.Provider>
   );
 };

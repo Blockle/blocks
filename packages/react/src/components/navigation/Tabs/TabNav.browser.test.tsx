@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 
 import { render } from '../../../testUtils/browser/render.js';
+import { itScreenshot } from '../../../testUtils/browser/screenshot.js';
 import { IconButton } from '../../form/IconButton/IconButton.js';
 import { Tab } from './Tab.js';
 import { TabNav } from './TabNav.js';
@@ -170,7 +171,7 @@ describe('TabNav (browser)', () => {
     ).toBeLessThan(0);
   });
 
-  it('matches the screenshot', async () => {
+  itScreenshot('matches the screenshot', async () => {
     await render(
       <div style={{ padding: 16, inlineSize: 400 }} data-testid="frame">
         <Example current="cycle" />
@@ -181,5 +182,22 @@ describe('TabNav (browser)', () => {
     await expect
       .element(page.getByTestId('frame'))
       .toMatchScreenshot('tabnav-light');
+  });
+
+  it('does not let rest props override aria-current', async () => {
+    const screen = await render(
+      <TabNav aria-label="Project">
+        <Tab asChild current {...({ 'aria-current': 'false' } as object)}>
+          <RouterLink to="#a">A</RouterLink>
+        </Tab>
+      </TabNav>,
+    );
+
+    expect(
+      screen
+        .getByRole('link', { name: 'A' })
+        .element()
+        .getAttribute('aria-current'),
+    ).toBe('page');
   });
 });

@@ -1,9 +1,11 @@
 'use client';
 
 import { classnames, type HTMLElementProps } from '@blockle/blocks-core';
-import { useRef } from 'react';
+import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
+import { TabIndicator } from './TabIndicator.js';
+import { TabListContext } from './TabListContext.js';
 import { getTabValue, useTabsContext } from './TabsContext.js';
 
 export type TabListProps = {
@@ -24,70 +26,98 @@ export const TabList: React.FC<TabListProps> = ({
   const { baseId, setValue } = useTabsContext('TabList');
   const listRef = useRef<HTMLDivElement | null>(null);
   const listClassName = useComponentStyles('tabs', { list: true });
-  const indicatorClassName = useComponentStyles('tabs', { indicator: true });
+  const [fallbackValue, setFallbackValue] = useState<string>();
+
+  // With no selected tab (no value, or the selected tab is gone) the first tab
+  // takes the tab stop, so the list stays reachable by keyboard. Selection
+  // itself is left alone. Runs after every render because tabs come and go
+  // without registering.
+  useLayoutEffect(() => {
+    const tabs = Array.from(
+      listRef.current?.querySelectorAll<HTMLElement>('[role="tab"]') ?? [],
+    );
+    const hasSelected = tabs.some(
+      (tab) => tab.getAttribute('aria-selected') === 'true',
+    );
+    const first = tabs[0];
+
+    setFallbackValue(
+      hasSelected || !first ? undefined : getTabValue(baseId, first.id),
+    );
+  });
+
+  const context = useMemo(
+    () => ({ fallbackValue, nav: false, scrollRef: listRef }),
+    [fallbackValue],
+  );
 
   return (
-    <div
-      role="tablist"
-      ref={(node) => {
-        listRef.current = node;
+    <TabListContext.Provider value={context}>
+      <div
+        {...restProps}
+        role="tablist"
+        ref={(node) => {
+          listRef.current = node;
 
-        if (typeof ref === 'function') {
-          ref(node);
-        } else if (ref) {
-          ref.current = node;
-        }
-      }}
-      className={classnames(listClassName, className)}
-      onKeyDown={(event) => {
-        onKeyDown?.(event);
+          if (typeof ref === 'function') {
+            ref(node);
+          } else if (ref) {
+            ref.current = node;
+          }
+        }}
+        className={classnames(listClassName, className)}
+        onKeyDown={(event) => {
+          onKeyDown?.(event);
 
-        if (event.defaultPrevented || !listRef.current) {
-          return;
-        }
+          // Leave browser and OS shortcuts such as Alt+ArrowLeft alone
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            !listRef.current
+          ) {
+            return;
+          }
 
-        // Read the tabs from the DOM so tabs added or removed at runtime
-        // need no registration
-        const tabs = Array.from(
-          listRef.current.querySelectorAll<HTMLElement>('[role="tab"]'),
-        );
-        const index = tabs.indexOf(event.target as HTMLElement);
+          // Read the tabs from the DOM so tabs added or removed at runtime
+          // need no registration
+          const tabs = Array.from(
+            listRef.current.querySelectorAll<HTMLElement>('[role="tab"]'),
+          );
+          const index = tabs.indexOf(event.target as HTMLElement);
 
-        if (index === -1) {
-          return;
-        }
+          if (index === -1) {
+            return;
+          }
 
-        const nextIndex = getNextIndex(event.key, index, tabs.length);
+          const nextIndex = getNextIndex(event.key, index, tabs.length);
 
-        if (nextIndex === undefined) {
-          return;
-        }
+          if (nextIndex === undefined) {
+            return;
+          }
 
-        event.preventDefault();
+          event.preventDefault();
 
-        const next = tabs[nextIndex];
+          const next = tabs[nextIndex];
 
-        if (!next) {
-          return;
-        }
+          if (!next) {
+            return;
+          }
 
-        const nextValue = getTabValue(baseId, next.id);
+          const nextValue = getTabValue(baseId, next.id);
 
-        next.focus();
+          next.focus();
 
-        if (nextValue !== undefined) {
-          setValue(nextValue);
-        }
-      }}
-      {...restProps}
-    >
-      {children}
-      <span
-        aria-hidden="true"
-        data-tab-indicator=""
-        className={indicatorClassName}
-      />
-    </div>
+          if (nextValue !== undefined) {
+            setValue(nextValue);
+          }
+        }}
+      >
+        {children}
+        <TabIndicator />
+      </div>
+    </TabListContext.Provider>
   );
 };
 

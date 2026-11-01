@@ -5,7 +5,7 @@ import { createSlottable } from '@blockle/blocks-react-slot';
 import { useContext, useEffect, useRef } from 'react';
 
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
-import { TabNavContext } from './TabNavContext.js';
+import { TabListContext } from './TabListContext.js';
 import { getPanelId, getTabId, useTabsContext } from './TabsContext.js';
 
 export type TabProps = {
@@ -21,10 +21,7 @@ export type TabProps = {
   startSlot?: React.ReactNode;
   /** In `Tabs`: matches the `value` of the TabPanel this tab shows. Required there. */
   value?: string;
-} & Omit<
-  HTMLElementProps<HTMLAnchorElement>,
-  'children' | 'ref' | 'type' | 'value'
->;
+} & Omit<HTMLElementProps<HTMLElement>, 'children' | 'ref' | 'type' | 'value'>;
 
 function hasContent(node: React.ReactNode) {
   return node !== null && node !== undefined && node !== false;
@@ -32,13 +29,7 @@ function hasContent(node: React.ReactNode) {
 
 // Scrolls the tab list sideways just far enough to show the tab. Done by hand
 // rather than with scrollIntoView, which would scroll the page vertically too.
-function revealInline(tab: HTMLElement) {
-  const list = tab.closest<HTMLElement>('[role="tablist"], nav');
-
-  if (!list) {
-    return;
-  }
-
+function revealInline(tab: HTMLElement, list: HTMLElement) {
   const tabBox = tab.getBoundingClientRect();
   const listBox = list.getBoundingClientRect();
 
@@ -55,6 +46,7 @@ type TabFrameProps = {
   as: 'div' | 'li';
   children: React.ReactNode;
   endSlot: React.ReactNode;
+  scrollRef: React.RefObject<HTMLElement | null> | undefined;
   startSlot: React.ReactNode;
 };
 
@@ -65,6 +57,7 @@ const TabFrame: React.FC<TabFrameProps> = ({
   as: Wrapper,
   children,
   endSlot,
+  scrollRef,
   startSlot,
 }) => {
   const wrapperRef = useRef<HTMLDivElement & HTMLLIElement>(null);
@@ -78,10 +71,10 @@ const TabFrame: React.FC<TabFrameProps> = ({
   const endSlotClassName = useComponentStyles('tabs', { endSlot: true }, false);
 
   useEffect(() => {
-    if (active && wrapperRef.current) {
-      revealInline(wrapperRef.current);
+    if (active && wrapperRef.current && scrollRef?.current) {
+      revealInline(wrapperRef.current, scrollRef.current);
     }
-  }, [active]);
+  }, [active, scrollRef]);
 
   return (
     <Wrapper ref={wrapperRef} className={tabClassName}>
@@ -110,6 +103,7 @@ const TabsTab: React.FC<TabProps> = ({
   ...restProps
 }) => {
   const { baseId, setValue, value: selectedValue } = useTabsContext('Tab');
+  const list = useContext(TabListContext);
 
   const triggerClassName = useComponentStyles('tabs', { trigger: true });
 
@@ -123,26 +117,26 @@ const TabsTab: React.FC<TabProps> = ({
     <TabFrame
       as="div"
       active={selected}
+      scrollRef={list?.scrollRef}
       startSlot={startSlot}
       endSlot={endSlot}
     >
       <button
+        {...restProps}
         type="button"
         role="tab"
         id={getTabId(baseId, value)}
         aria-selected={selected}
         aria-controls={getPanelId(baseId, value)}
-        tabIndex={selected ? 0 : -1}
+        tabIndex={selected || list?.fallbackValue === value ? 0 : -1}
         className={classnames(triggerClassName, className)}
         onClick={(event) => {
-          // biome-ignore lint/suspicious/noExplicitAny: the props are typed for the link variant
-          (onClick as any)?.(event);
+          onClick?.(event);
 
           if (!event.defaultPrevented) {
             setValue(value);
           }
         }}
-        {...(restProps as React.ComponentProps<'button'>)}
       >
         {children}
       </button>
@@ -160,20 +154,22 @@ const TabNavTab: React.FC<TabProps> = ({
   value: _value,
   ...restProps
 }) => {
+  const list = useContext(TabListContext);
   const triggerClassName = useComponentStyles('tabs', { trigger: true });
 
   return (
     <TabFrame
       as="li"
       active={Boolean(current)}
+      scrollRef={list?.scrollRef}
       startSlot={startSlot}
       endSlot={endSlot}
     >
       <LinkTemplate
+        {...restProps}
         asChild={asChild}
         aria-current={current ? 'page' : undefined}
         className={classnames(triggerClassName, className)}
-        {...restProps}
       >
         <LinkSlot>{children}</LinkSlot>
       </LinkTemplate>
@@ -186,7 +182,7 @@ const TabNavTab: React.FC<TabProps> = ({
  * any element through `asChild`) that is `aria-current="page"` when `current`.
  */
 export const Tab: React.FC<TabProps> = (props) => {
-  const inNav = useContext(TabNavContext);
+  const inNav = useContext(TabListContext)?.nav ?? false;
 
   return inNav ? <TabNavTab {...props} /> : <TabsTab {...props} />;
 };

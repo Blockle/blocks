@@ -5,6 +5,7 @@ import { cdp, page, userEvent } from 'vitest/browser';
 
 import { resolve } from '../../../testUtils/browser/contrast.js';
 import { render } from '../../../testUtils/browser/render.js';
+import { itScreenshot } from '../../../testUtils/browser/screenshot.js';
 import { IconButton } from '../../form/IconButton/IconButton.js';
 import { Tab } from './Tab.js';
 import { TabList } from './TabList.js';
@@ -637,7 +638,7 @@ describe('Tabs (browser)', () => {
     });
   });
 
-  it('matches the screenshot', async () => {
+  itScreenshot('matches the screenshot', async () => {
     await render(
       <div style={{ padding: 16, inlineSize: 400 }} data-testid="frame">
         <Example />
@@ -719,18 +720,21 @@ describe('Tabs (browser)', () => {
       expect(middle(close)).toBeCloseTo(middle(tab), 0);
     });
 
-    it('matches the screenshot of a tab with both Slots', async () => {
-      await render(
-        <div style={{ padding: 16, inlineSize: 400 }} data-testid="frame">
-          <SlotExample />
-        </div>,
-        { colorMode: 'light' },
-      );
+    itScreenshot(
+      'matches the screenshot of a tab with both Slots',
+      async () => {
+        await render(
+          <div style={{ padding: 16, inlineSize: 400 }} data-testid="frame">
+            <SlotExample />
+          </div>,
+          { colorMode: 'light' },
+        );
 
-      await expect
-        .element(page.getByTestId('frame'))
-        .toMatchScreenshot('tabs-slots-light');
-    });
+        await expect
+          .element(page.getByTestId('frame'))
+          .toMatchScreenshot('tabs-slots-light');
+      },
+    );
   });
 
   describe('overflow', () => {
@@ -853,6 +857,137 @@ describe('Tabs (browser)', () => {
 
       await expect.poll(() => box(getIndicator(list))).toBe(box(wrapper));
       expect(list.scrollLeft).toBe(80);
+    });
+  });
+
+  describe('Review fixes', () => {
+    it('keeps the list one tab stop when no tab matches the value', async () => {
+      const screen = await render(
+        <Tabs>
+          <TabList aria-label="Sections">
+            <Tab value="one">One</Tab>
+            <Tab value="two">Two</Tab>
+          </TabList>
+        </Tabs>,
+      );
+
+      const tabs = screen.getByRole('tab').elements();
+
+      expect(tabs.map((tab) => tab.tabIndex)).toEqual([0, -1]);
+      expect(tabs.map((tab) => tab.getAttribute('aria-selected'))).toEqual([
+        'false',
+        'false',
+      ]);
+    });
+
+    it('keeps the list one tab stop when the selected tab is removed', async () => {
+      const screen = await render(
+        <Tabs value="gone">
+          <TabList aria-label="Sections">
+            <Tab value="one">One</Tab>
+            <Tab value="two">Two</Tab>
+          </TabList>
+        </Tabs>,
+      );
+
+      expect(
+        screen
+          .getByRole('tab')
+          .elements()
+          .map((tab) => tab.tabIndex),
+      ).toEqual([0, -1]);
+    });
+
+    it('ignores arrow keys pressed with a modifier key', async () => {
+      const onValueChange = vi.fn();
+      const screen = await render(
+        <Example value="one" onValueChange={onValueChange} />,
+      );
+
+      screen.getByRole('tab', { name: 'One' }).element().focus();
+      await userEvent.keyboard('{Alt>}{ArrowRight}{/Alt}');
+      await userEvent.keyboard('{Control>}{End}{/Control}');
+      await userEvent.keyboard('{Meta>}{ArrowLeft}{/Meta}');
+
+      expect(onValueChange).not.toHaveBeenCalled();
+    });
+
+    it('does not let rest props override the managed attributes', async () => {
+      const screen = await render(
+        <Tabs defaultValue="one">
+          <TabList aria-label="Sections">
+            <Tab
+              value="one"
+              {...({
+                role: 'link',
+                id: 'mine',
+                tabIndex: 5,
+                'aria-selected': false,
+                'aria-controls': 'other',
+              } as object)}
+            >
+              One
+            </Tab>
+          </TabList>
+        </Tabs>,
+      );
+
+      const tab = screen.getByRole('tab', { name: 'One' }).element();
+
+      expect(tab.id).not.toBe('mine');
+      expect(tab.tabIndex).toBe(0);
+      expect(tab.getAttribute('aria-selected')).toBe('true');
+      expect(tab.getAttribute('aria-controls')).not.toBe('other');
+    });
+
+    it('still runs a consumer onClick and onKeyDown', async () => {
+      const onClick = vi.fn();
+      const onKeyDown = vi.fn();
+      const screen = await render(
+        <Tabs defaultValue="one">
+          <TabList aria-label="Sections">
+            <Tab value="one" onClick={onClick} onKeyDown={onKeyDown}>
+              One
+            </Tab>
+          </TabList>
+        </Tabs>,
+      );
+
+      const tab = screen.getByRole('tab', { name: 'One' });
+
+      await tab.click();
+      await userEvent.keyboard('a');
+
+      expect(onClick).toHaveBeenCalledTimes(1);
+      expect(onKeyDown).toHaveBeenCalledTimes(1);
+    });
+
+    it('does not clip the focus ring of an IconButton in an endSlot', async () => {
+      const screen = await render(
+        <div style={{ padding: 16, inlineSize: 400 }}>
+          <SlotExample />
+        </div>,
+      );
+      const list = screen.getByRole('tablist').element();
+      const close = screen.getByRole('button', { name: 'Close One' });
+
+      await userEvent.tab();
+      await userEvent.tab();
+      close.element().focus();
+
+      const listBox = list.getBoundingClientRect();
+      const button = close.element().getBoundingClientRect();
+      const offset = Number.parseFloat(
+        getComputedStyle(close.element()).outlineOffset,
+      );
+      const width = Number.parseFloat(
+        getComputedStyle(close.element()).outlineWidth,
+      );
+      // How far the ring reaches beyond the button
+      const ring = Math.max(0, offset + width);
+
+      expect(button.top - ring).toBeGreaterThanOrEqual(listBox.top);
+      expect(button.bottom + ring).toBeLessThanOrEqual(listBox.bottom);
     });
   });
 });
