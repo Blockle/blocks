@@ -39,12 +39,16 @@ export function computePopoverPosition({
   let left: number;
   let top: number;
 
-  // Main axis: put the popover's border box against the anchor's side
+  // Main axis: put the popover's border box against the anchor's side, held
+  // inside the viewport when the anchor has scrolled out of view
   if (side === 'top' || side === 'bottom') {
-    top =
+    top = holdInViewport(
       side === 'top'
         ? anchor.top - margin.bottom - popover.height
-        : anchor.top + anchor.height + margin.top;
+        : anchor.top + anchor.height + margin.top,
+      popover.height,
+      viewport.height,
+    );
     left = alignOnCrossAxis(
       edge,
       anchor.left,
@@ -53,10 +57,13 @@ export function computePopoverPosition({
       viewport.width,
     );
   } else {
-    left =
+    left = holdInViewport(
       side === 'left'
         ? anchor.left - margin.right - popover.width
-        : anchor.left + anchor.width + margin.left;
+        : anchor.left + anchor.width + margin.left,
+      popover.width,
+      viewport.width,
+    );
     top = alignOnCrossAxis(
       edge,
       anchor.top,
@@ -160,6 +167,19 @@ function alignOnCrossAxis(
     start = anchorStart + anchorSize - popoverSize;
   }
 
+  return holdInViewport(start, popoverSize, viewportSize);
+}
+
+/**
+ * Shifts the start of the popover's border box to keep it VIEWPORT_PADDING
+ * inside the viewport. A popover that does not fit starts VIEWPORT_PADDING
+ * from the start edge.
+ */
+function holdInViewport(
+  start: number,
+  popoverSize: number,
+  viewportSize: number,
+) {
   const max = viewportSize - VIEWPORT_PADDING - popoverSize;
 
   return Math.max(VIEWPORT_PADDING, Math.min(start, max));

@@ -89,10 +89,11 @@ describe('computePopoverPosition', () => {
       const viewport = { ...base.viewport, height: 100 };
       const anchor = { ...base.anchor, top: 40 };
 
-      // 40px above, 28px below: stays on top, border box top 40 - 4 - 50
+      // 40px above, 28px below: stays on top. Border box top 40 - 4 - 50 = -14
+      // is held 8px inside the viewport
       expect(
         computePopoverPosition({ ...base, anchor, viewport, placement: 'top' }),
-      ).toEqual([462, -18]);
+      ).toEqual([462, 4]);
     });
   });
 
@@ -146,6 +147,42 @@ describe('computePopoverPosition', () => {
       expect(
         computePopoverPosition({ ...base, popover, placement: 'bottom-end' }),
       ).toEqual([4, 432]);
+    });
+
+    it('holds a popover under a scrolled-out anchor inside the viewport', () => {
+      // Anchor 300px above the viewport; border box top would be 436 - 800
+      const anchor = { ...base.anchor, top: -300 };
+
+      expect(
+        computePopoverPosition({ ...base, anchor, placement: 'bottom' }),
+      ).toEqual([462, 4]);
+    });
+
+    it('holds a popover above an anchor scrolled past the bottom edge', () => {
+      const anchor = { ...base.anchor, top: 1200 };
+
+      // Border box top 800 - 8 - 50 = 742
+      expect(
+        computePopoverPosition({ ...base, anchor, placement: 'top' }),
+      ).toEqual([462, 738]);
+    });
+
+    it('holds a popover beside a scrolled-out anchor inside the viewport', () => {
+      const anchor = { ...base.anchor, left: -400 };
+
+      // Flips to the right side, then the border box left -400 + 32 + 4
+      // is held at 8
+      expect(
+        computePopoverPosition({ ...base, anchor, placement: 'left' }),
+      ).toEqual([4, 387]);
+    });
+
+    it('places a popover taller than the viewport 8px from its start edge', () => {
+      const popover = { ...base.popover, height: 900 };
+
+      expect(
+        computePopoverPosition({ ...base, popover, placement: 'bottom' }),
+      ).toEqual([462, 4]);
     });
 
     it('accounts for the scroll position', () => {
