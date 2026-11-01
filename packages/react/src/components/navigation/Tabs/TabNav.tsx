@@ -6,6 +6,7 @@ import { useMemo, useRef } from 'react';
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import { TabIndicator } from './TabIndicator.js';
 import { TabListContext } from './TabListContext.js';
+import * as styles from './tabs.css.js';
 
 export type TabNavProps = {
   /** Names the navigation; use it or `aria-labelledby` when a page has several */
@@ -47,10 +48,12 @@ export const TabNav: React.FC<TabNavProps> = ({
             ref.current = node;
           }
         }}
-        className={classnames(listClassName, className)}
+        className={classnames(styles.list, listClassName, className)}
         {...restProps}
       >
-        <ul className={navListClassName}>{children}</ul>
+        <ul className={classnames(styles.navList, navListClassName)}>
+          {children}
+        </ul>
         <TabIndicator />
       </nav>
     </TabListContext.Provider>

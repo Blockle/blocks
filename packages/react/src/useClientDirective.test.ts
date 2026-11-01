@@ -106,7 +106,10 @@ function listFiles(dir: string, pattern: RegExp) {
 function isSourceModule(file: string) {
   const path = relative(srcDir, file);
 
-  return !/\.(test|stories)\.tsx?$/.test(path) && !path.startsWith('testUtils');
+  // Tests, stories, and shared test suites (`*.suite.tsx`) never ship
+  return (
+    !/\.(test|stories|suite)\.tsx?$/.test(path) && !path.startsWith('testUtils')
+  );
 }
 
 function findSourceFor(distFile: string) {

@@ -1,11 +1,21 @@
+import type { Theme } from '@blockle/blocks-core';
+
 import { render } from './render.js';
 
-/** Resolves a CSS `var(--x)` reference to a computed rgb() string. */
-export async function resolve(cssVar: string, colorMode: 'light' | 'dark') {
+/**
+ * Resolves a CSS `var(--x)` reference to a computed rgb() string, under the
+ * momotaro theme unless `theme` says otherwise.
+ */
+export async function resolve(
+  cssVar: string,
+  colorMode: 'light' | 'dark',
+  theme?: Theme,
+) {
   const screen = await render(
     <div data-testid="probe" style={{ color: cssVar }} />,
     {
       colorMode,
+      theme,
     },
   );
   const color = getComputedStyle(screen.getByTestId('probe').element()).color;

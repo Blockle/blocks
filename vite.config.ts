@@ -37,7 +37,11 @@ export function createConfig(entry?: LibraryOptions['entry']): UserConfig {
       }),
       dts({
         entryRoot: 'src',
-        exclude: ['**/*.stories.{ts,tsx}', '**/*.test.{ts,tsx}'],
+        exclude: [
+          '**/*.stories.{ts,tsx}',
+          '**/*.test.{ts,tsx}',
+          '**/*.suite.{ts,tsx}',
+        ],
       }),
     ],
     publicDir: false,

@@ -43,6 +43,7 @@ export {
 export { getNameFromVanillaCSSVar } from './css/getNameFromVanillaCSSVar.js';
 export { layers } from './css/layers.css.js';
 export { pixelsToRem } from './css/pixelsToRem.js';
+export { tabIndicatorVars } from './css/tabIndicatorVars.css.js';
 export { vars } from './css/vars.css.js';
 export { getComponentStyles } from './theme/getComponentStyles.js';
 export type {

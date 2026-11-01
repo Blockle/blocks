@@ -13,3 +13,12 @@ Blocks is a React design system built around modern CSS and HTML, Vanilla Extrac
 - Treat the existing architecture as the preferred direction, not a constraint against well-justified improvement. Explain a significant departure and why it helps.
 - When working on a feature or bug, offer concise, relevant feedback about design-system improvements, risks, or alternatives. Keep implementation scoped to the request unless broader work is requested.
 - This package currently serves the maintainer's hobby project. Breaking changes are acceptable; call out their impact when they affect public APIs or existing usage.
+
+## Component themes and base styles
+
+A component's base styles, in a `.css.ts` next to it in `packages/react` and inside `layers.molecule`, hold everything without which the component breaks. Its Component theme holds only the look, and wins over the base where they overlap.
+
+### `tabs`
+
+- **A `tabs` theme sets** the look: the baseline, colours, padding, type, hover, the selected tab's text style and focus rings. It sets the Tab indicator's look once, on `list`, through `tabIndicatorVars` from `@blockle/blocks-core`: `color`, `thickness`, `duration` and `easing` of the slide. Leave one out and the Tab indicator goes without it: no colour or thickness hides the bar, no duration makes it jump.
+- **It needn't set** the mechanics, which the base styles in `packages/react/src/components/navigation/Tabs/tabs.css.ts` own: the row's flex layout and sideways scrolling, the Tab indicator's anchor positioning and its `@supports` gate, the slide's `transition-property` and its `prefers-reduced-motion` guard, the static fallback bar where anchor positioning is unsupported, the TabNav list reset, and the inset `outline-offset` that keeps focus rings from being clipped by the scrolling row. `navList` and `indicator` are optional theme keys for that reason.
