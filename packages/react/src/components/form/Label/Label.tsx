@@ -25,7 +25,7 @@ export type LabelProps = {
   required?: boolean;
   size?: LabelTheme['variants']['size'];
   cursor?: Atoms['cursor'];
-} & HTMLElementProps<HTMLLabelElement>;
+} & Omit<HTMLElementProps<HTMLLabelElement>, 'size'>;
 
 export const Label: React.FC<LabelProps> = ({
   asSpan,

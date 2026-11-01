@@ -6,6 +6,32 @@ import { render, screen } from '../../../testUtils/testUtils.js';
 import { Dialog } from './Dialog.js';
 
 describe('Dialog', () => {
+  it('takes a theme size, not the native numeric size', () => {
+    render(
+      <>
+        {(['small', 'medium', 'large'] as const).map((size) => (
+          <Dialog
+            key={size}
+            open
+            onRequestClose={vi.fn()}
+            aria-label={size}
+            size={size}
+          >
+            Dialog content
+          </Dialog>
+        ))}
+        {/* @ts-expect-error size is the theme size, not the native size attribute */}
+        <Dialog open onRequestClose={vi.fn()} aria-label="Numeric" size={4}>
+          Dialog content
+        </Dialog>
+      </>,
+    );
+
+    for (const size of ['small', 'medium', 'large']) {
+      expect(screen.getByLabelText(size)).not.toHaveAttribute('size');
+    }
+  });
+
   it('renders correctly when opened', async () => {
     render(
       <Dialog open={true} onRequestClose={vi.fn()} aria-label="Test Dialog">

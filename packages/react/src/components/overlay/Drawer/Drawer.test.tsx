@@ -6,6 +6,22 @@ import { render, screen } from '../../../testUtils/testUtils.js';
 import { Drawer } from './Drawer.js';
 
 describe('Drawer', () => {
+  it('takes a theme size, not the native numeric size', () => {
+    render(
+      <>
+        <Drawer open onRequestClose={vi.fn()} aria-label="Large" size="large">
+          Drawer content
+        </Drawer>
+        {/* @ts-expect-error size is the theme size, not the native size attribute */}
+        <Drawer open onRequestClose={vi.fn()} aria-label="Numeric" size={4}>
+          Drawer content
+        </Drawer>
+      </>,
+    );
+
+    expect(screen.getByLabelText('Large')).not.toHaveAttribute('size');
+  });
+
   it('exposes its content by role while open', () => {
     const drawer = (open: boolean) => (
       <Drawer open={open} onRequestClose={vi.fn()} aria-label="Menu">

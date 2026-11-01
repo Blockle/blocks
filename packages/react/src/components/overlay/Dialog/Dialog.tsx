@@ -24,7 +24,7 @@ export type DialogProps = {
   className?: string;
   size?: DialogTheme['variants']['size'];
   'aria-label'?: string;
-} & HTMLElementProps<HTMLDialogElement>;
+} & Omit<HTMLElementProps<HTMLDialogElement>, 'size'>;
 
 export const Dialog: React.FC<DialogProps> = ({
   children,
