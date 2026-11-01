@@ -46,9 +46,6 @@ export const Drawer: React.FC<DrawerProps> = ({
     variants: { placement, size },
   });
 
-  // SSR: If the dialog is open on the server, we need to render it with the open attribute
-  const dataOpen = typeof window === 'undefined' && open ? true : undefined;
-
   const closeRequestProps = useModalOverlay(dialogRef, {
     open,
     onRequestClose,
@@ -57,7 +54,10 @@ export const Drawer: React.FC<DrawerProps> = ({
     onCancel,
   });
 
-  const { visible, onAnimationEnd } = useModalDialog(dialogRef, open);
+  const { visible, onAnimationEnd, openAttribute } = useModalDialog(
+    dialogRef,
+    open,
+  );
 
   if (!visible) {
     return null;
@@ -66,7 +66,7 @@ export const Drawer: React.FC<DrawerProps> = ({
   return (
     <dialog
       ref={composeRefs(ref, dialogRef)}
-      open={dataOpen}
+      open={openAttribute}
       className={classnames(
         styles.drawer,
         styles.placement[placement],

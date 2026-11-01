@@ -12,12 +12,17 @@ import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect/useIsomo
  * The dialog also closes whenever the effect is cleaned up while open, such as
  * when React hides it in an <Activity> or unmounts it, so it never lingers in
  * the top layer. Revealing it again shows it as modal.
+ *
+ * Render `openAttribute` as the dialog's `open` attribute. It is `open` on the
+ * first render, so a server-rendered open dialog hydrates without a mismatch,
+ * and never changes after it, so React leaves the attribute to this hook.
  */
 export const useModalDialog = (
   dialogRef: React.RefObject<HTMLDialogElement | null>,
   open: boolean,
 ) => {
   const [visible, setVisible] = useState(open);
+  const [openAttribute] = useState(open);
 
   useIsomorphicLayoutEffect(() => {
     const dialog = dialogRef.current;
@@ -28,10 +33,11 @@ export const useModalDialog = (
         return;
       }
 
-      // A server-rendered dialog is open, but not modal, after hydration.
-      // showModal() throws on such a dialog, so close it first.
+      // With openAttribute, the dialog can be open, but not modal, when it
+      // mounts or hydrates. showModal() throws on such a dialog, so drop the
+      // attribute first; unlike close(), that fires no close event.
       if (dialog.open) {
-        dialog.close();
+        dialog.removeAttribute('open');
       }
 
       dialog.showModal();
@@ -61,5 +67,5 @@ export const useModalDialog = (
     }
   }, [open]);
 
-  return { visible, onAnimationEnd };
+  return { visible, onAnimationEnd, openAttribute };
 };
