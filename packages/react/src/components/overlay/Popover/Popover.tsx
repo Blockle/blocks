@@ -134,19 +134,10 @@ export const Popover: React.FC<PopoverProps> = ({
     }
   }, [open, visible]);
 
-  // Update the popover position when the anchor element or placement changes
-  useEffect(() => {
-    if (open) {
-      setLayout(
-        getPopoverLayout(placement, anchorElement, popoverRef, limitHeight),
-      );
-    }
-  }, [open, anchorElement, placement, limitHeight]);
-
-  // Keep the layout up to date while open. A change to the page, an
-  // ancestor's scroll position or either element's size re-runs the whole
-  // layout, batched to one update per animation frame. The layout it sets
-  // can resize the popover, which stays quiet as long as the layout is
+  // Keep the layout up to date while open. A change to the placement, the
+  // page, an ancestor's scroll position or either element's size re-runs the
+  // whole layout, batched to one update per animation frame. The layout it
+  // sets can resize the popover, which stays quiet as long as the layout is
   // unchanged.
   useEffect(() => {
     if (!open || !visible) {
@@ -155,7 +146,7 @@ export const Popover: React.FC<PopoverProps> = ({
 
     let frame = 0;
 
-    function update() {
+    function updateLayout() {
       frame = 0;
 
       if (!popoverRef.current) {
@@ -183,18 +174,33 @@ export const Popover: React.FC<PopoverProps> = ({
       });
     }
 
-    function scheduleUpdate() {
+    function scheduleLayoutUpdate() {
       if (!frame) {
-        frame = requestAnimationFrame(update);
+        frame = requestAnimationFrame(updateLayout);
       }
     }
+
+    // Scrolling the popover's own content doesn't move anything
+    function onScroll(event: Event) {
+      if (
+        event.target instanceof Node &&
+        popoverRef.current?.contains(event.target)
+      ) {
+        return;
+      }
+
+      scheduleLayoutUpdate();
+    }
+
+    // The placement, anchor or height cap changed
+    updateLayout();
 
     const { visualViewport } = window;
     // Not every environment has it, jsdom for one
     const observer =
       typeof ResizeObserver === 'undefined'
         ? undefined
-        : new ResizeObserver(scheduleUpdate);
+        : new ResizeObserver(scheduleLayoutUpdate);
 
     if (anchorElement.current) {
       observer?.observe(anchorElement.current);
@@ -204,20 +210,20 @@ export const Popover: React.FC<PopoverProps> = ({
       observer?.observe(popoverRef.current);
     }
 
-    window.addEventListener('resize', scheduleUpdate);
+    window.addEventListener('resize', scheduleLayoutUpdate);
     // Scroll events don't bubble, but capturing catches any element's
-    document.addEventListener('scroll', scheduleUpdate, {
+    document.addEventListener('scroll', onScroll, {
       capture: true,
       passive: true,
     });
-    visualViewport?.addEventListener('resize', scheduleUpdate);
+    visualViewport?.addEventListener('resize', scheduleLayoutUpdate);
 
     return () => {
       cancelAnimationFrame(frame);
       observer?.disconnect();
-      window.removeEventListener('resize', scheduleUpdate);
-      document.removeEventListener('scroll', scheduleUpdate, { capture: true });
-      visualViewport?.removeEventListener('resize', scheduleUpdate);
+      window.removeEventListener('resize', scheduleLayoutUpdate);
+      document.removeEventListener('scroll', onScroll, { capture: true });
+      visualViewport?.removeEventListener('resize', scheduleLayoutUpdate);
     };
   }, [open, visible, placement, anchorElement, limitHeight]);
 
