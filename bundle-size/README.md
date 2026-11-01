@@ -2,7 +2,7 @@
 
 Tooling that measures what a consumer app ships after its own Vite build. It is not a package: it is not in the root `workspaces`, Turbo or changesets, and is never published.
 
-Why not measure `dist`? Packages are built unminified with vanilla-extract in `transform` mode, so the CSS only exists after a consumer's build. Each scenario is built with real Vite, `@vanilla-extract/vite-plugin` and minification against the built `packages/*/dist` (run `npm run build` first). `react` and `react-dom` are external.
+Why not measure `dist`? Packages are built unminified with vanilla-extract in `transform` mode, so the CSS only exists after a consumer's build. Each scenario is built with real Vite, `@vanilla-extract/vite-plugin` and minification against the built `packages/*/dist` (run `npm run build` first). Peer dependencies of the published packages (`react`, `react-dom`, `@vanilla-extract/css`, …) are external, derived from each `packages/*/package.json`; workspace `@blockle/*` peers stay bundled.
 
 ## Usage
 
