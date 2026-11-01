@@ -1,5 +1,5 @@
 import {
-  atoms,
+  layers,
   makeComponentTheme,
   type ThemeComponentsStyles,
   vars,
@@ -18,41 +18,49 @@ const indeterminateAnimation = keyframes({
 export const progress: ThemeComponentsStyles['progress'] = makeComponentTheme(
   'progress',
   {
-    root: style([
-      {
-        height: 8,
-        backgroundColor: vars.colorRole.surface.sunken,
-        color: vars.colorRole.primary.solid,
+    root: style({
+      '@layer': {
+        [layers.theme]: {
+          height: 8,
+          backgroundColor: vars.colorRole.surface.sunken,
+          color: vars.colorRole.primary.solid,
+          inlineSize: '100%',
+          borderRadius: vars.borderRadius[1],
+          overflow: 'hidden',
+        },
       },
-      atoms({
-        inlineSize: 'full',
-        borderRadius: 1,
-        overflow: 'hidden',
-      }),
-    ]),
+    }),
     bar: style({
-      borderRadius: 'inherit',
-      '@media': {
-        '(prefers-reduced-motion: no-preference)': {
-          transition: 'transform 180ms ease-out',
+      '@layer': {
+        [layers.theme]: {
+          borderRadius: 'inherit',
+          '@media': {
+            '(prefers-reduced-motion: no-preference)': {
+              transition: 'transform 180ms ease-out',
+            },
+          },
         },
       },
     }),
     variants: {
       indeterminate: style({
-        '@media': {
-          // For reduce motion we show a striped pattern instead of animating
-          '(prefers-reduced-motion: reduce)': {
-            backgroundImage: `repeating-linear-gradient(
+        '@layer': {
+          [layers.theme]: {
+            '@media': {
+              // For reduce motion we show a striped pattern instead of animating
+              '(prefers-reduced-motion: reduce)': {
+                backgroundImage: `repeating-linear-gradient(
             45deg,
             transparent,
             transparent 20px,
             ${vars.colorRole.primary.solidHover} 20px,
             ${vars.colorRole.primary.solidHover} 40px
           )`,
-          },
-          '(prefers-reduced-motion: no-preference)': {
-            animation: `${indeterminateAnimation} 3s ease-in-out infinite`,
+              },
+              '(prefers-reduced-motion: no-preference)': {
+                animation: `${indeterminateAnimation} 3s ease-in-out infinite`,
+              },
+            },
           },
         },
       }),
