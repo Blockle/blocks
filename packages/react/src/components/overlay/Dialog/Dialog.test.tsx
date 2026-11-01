@@ -9,9 +9,17 @@ describe('Dialog', () => {
   it('takes a theme size, not the native numeric size', () => {
     render(
       <>
-        <Dialog open onRequestClose={vi.fn()} aria-label="Large" size="large">
-          Dialog content
-        </Dialog>
+        {(['small', 'medium', 'large'] as const).map((size) => (
+          <Dialog
+            key={size}
+            open
+            onRequestClose={vi.fn()}
+            aria-label={size}
+            size={size}
+          >
+            Dialog content
+          </Dialog>
+        ))}
         {/* @ts-expect-error size is the theme size, not the native size attribute */}
         <Dialog open onRequestClose={vi.fn()} aria-label="Numeric" size={4}>
           Dialog content
@@ -19,7 +27,9 @@ describe('Dialog', () => {
       </>,
     );
 
-    expect(screen.getByLabelText('Large')).not.toHaveAttribute('size');
+    for (const size of ['small', 'medium', 'large']) {
+      expect(screen.getByLabelText(size)).not.toHaveAttribute('size');
+    }
   });
 
   it('renders correctly when opened', async () => {
