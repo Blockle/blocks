@@ -39,6 +39,10 @@ export type PopoverProps = {
    * @deprecated Use `placement`, which wins when both are passed
    */
   position?: 'top' | 'bottom' | 'left' | 'right';
+  /**
+   * @deprecated Has no effect, an open popover always keeps its layout up to
+   * date
+   */
   sticky?: boolean;
   /**
    * Caps the popover's height to the room on the side it opens on, so a tall
@@ -58,7 +62,7 @@ export const Popover: React.FC<PopoverProps> = ({
   placement: placementProp,
   position,
   ref,
-  sticky,
+  sticky: _sticky,
   style,
   ...restProps
 }) => {
@@ -139,14 +143,25 @@ export const Popover: React.FC<PopoverProps> = ({
     }
   }, [open, anchorElement, placement, limitHeight]);
 
-  // Update the popover position when the window is resized or scrolled
-  // and the popover is sticky
+  // Keep the layout up to date while open. A change to the page, an
+  // ancestor's scroll position or either element's size re-runs the whole
+  // layout, batched to one update per animation frame. The layout it sets
+  // can resize the popover, which stays quiet as long as the layout is
+  // unchanged.
   useEffect(() => {
-    if (!open || !sticky) {
+    if (!open || !visible) {
       return;
     }
 
-    function updatePopoverPosition() {
+    let frame = 0;
+
+    function update() {
+      frame = 0;
+
+      if (!popoverRef.current) {
+        return;
+      }
+
       const next = getPopoverLayout(
         placement,
         anchorElement,
@@ -168,14 +183,43 @@ export const Popover: React.FC<PopoverProps> = ({
       });
     }
 
-    window.addEventListener('resize', updatePopoverPosition);
-    window.addEventListener('scroll', updatePopoverPosition);
+    function scheduleUpdate() {
+      if (!frame) {
+        frame = requestAnimationFrame(update);
+      }
+    }
+
+    const { visualViewport } = window;
+    // Not every environment has it, jsdom for one
+    const observer =
+      typeof ResizeObserver === 'undefined'
+        ? undefined
+        : new ResizeObserver(scheduleUpdate);
+
+    if (anchorElement.current) {
+      observer?.observe(anchorElement.current);
+    }
+
+    if (popoverRef.current) {
+      observer?.observe(popoverRef.current);
+    }
+
+    window.addEventListener('resize', scheduleUpdate);
+    // Scroll events don't bubble, but capturing catches any element's
+    document.addEventListener('scroll', scheduleUpdate, {
+      capture: true,
+      passive: true,
+    });
+    visualViewport?.addEventListener('resize', scheduleUpdate);
 
     return () => {
-      window.removeEventListener('resize', updatePopoverPosition);
-      window.removeEventListener('scroll', updatePopoverPosition);
+      cancelAnimationFrame(frame);
+      observer?.disconnect();
+      window.removeEventListener('resize', scheduleUpdate);
+      document.removeEventListener('scroll', scheduleUpdate, { capture: true });
+      visualViewport?.removeEventListener('resize', scheduleUpdate);
     };
-  }, [placement, anchorElement, open, sticky, limitHeight]);
+  }, [open, visible, placement, anchorElement, limitHeight]);
 
   // Unmount once the popover's own closing transition is over. A cancelled
   // transition never ends, but the popover is hidden all the same. A child's

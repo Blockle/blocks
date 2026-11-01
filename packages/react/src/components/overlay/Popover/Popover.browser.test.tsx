@@ -217,3 +217,274 @@ describe('Popover closing (browser)', () => {
     await vi.waitFor(() => expect(getPopover()).toBeNull());
   });
 });
+
+describe('Popover live layout (browser)', () => {
+  type LiveProps = Pick<PopoverProps, 'placement' | 'limitHeight'> & {
+    inPanel?: boolean;
+    open?: boolean;
+    grow?: boolean;
+  };
+
+  const Live: React.FC<LiveProps> = ({
+    inPanel = false,
+    open = true,
+    grow = false,
+    ...props
+  }) => {
+    const anchorRef = useRef<HTMLDivElement>(null);
+    const anchor = (
+      <div
+        ref={anchorRef}
+        data-testid="anchor"
+        style={{
+          position: inPanel ? 'absolute' : 'fixed',
+          top: 150,
+          left: 100,
+          width: 32,
+          height: 32,
+        }}
+      />
+    );
+
+    return (
+      <>
+        {inPanel ? (
+          <div
+            data-testid="panel"
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: 300,
+              height: 300,
+              overflow: 'auto',
+            }}
+          >
+            <div style={{ position: 'relative', height: 900 }}>{anchor}</div>
+          </div>
+        ) : (
+          anchor
+        )}
+        <Popover
+          {...props}
+          open={open}
+          anchorElement={anchorRef}
+          onRequestClose={vi.fn()}
+          data-testid="popover"
+          style={{ width: 100, overflow: 'auto', boxSizing: 'border-box' }}
+        >
+          <div data-testid="content" style={{ height: grow ? 110 : 50 }} />
+        </Popover>
+      </>
+    );
+  };
+
+  const getPopover = () =>
+    document.querySelector<HTMLElement>(
+      '[data-testid="popover"]',
+    ) as HTMLElement;
+  const getAnchor = () =>
+    document.querySelector<HTMLElement>(
+      '[data-testid="anchor"]',
+    ) as HTMLElement;
+  const nextFrame = () => new Promise(requestAnimationFrame);
+
+  // The opening transition runs a few frames after render and Popover's
+  // click outside listener attaches a frame after opening
+  const settleOpen = () =>
+    vi.waitFor(() => {
+      const popover = getPopover();
+
+      expect(popover?.matches(':popover-open')).toBe(true);
+      expect(popover?.getAnimations()).toHaveLength(0);
+      expect(getComputedStyle(popover).opacity).toBe('1');
+    });
+
+  const renderLive = async (props: LiveProps = {}) => {
+    const screen = await render(<Live {...props} />);
+
+    await settleOpen();
+
+    return screen;
+  };
+
+  // The popover sits a few pixels off the anchor, a stale layout is further
+  const expectGap = (a: number, b: number) =>
+    expect(Math.abs(a - b)).toBeLessThanOrEqual(8);
+
+  const popoverRect = () => getPopover().getBoundingClientRect();
+  const anchorRect = () => getAnchor().getBoundingClientRect();
+
+  it('follows its anchor when the window is resized', async () => {
+    await renderLive({ placement: 'bottom-start' });
+
+    getAnchor().style.top = '200px';
+    window.dispatchEvent(new Event('resize'));
+
+    await vi.waitFor(() => expectGap(popoverRect().top, anchorRect().bottom));
+  });
+
+  it('follows its anchor when a panel containing it scrolls', async () => {
+    await renderLive({ placement: 'bottom-start', inPanel: true });
+
+    const before = popoverRect().top;
+
+    (document.querySelector('[data-testid="panel"]') as HTMLElement).scrollTop =
+      60;
+
+    await vi.waitFor(() =>
+      expect(popoverRect().top).toBeCloseTo(before - 60, 0),
+    );
+    expectGap(popoverRect().top, anchorRect().bottom);
+  });
+
+  it('follows its anchor when the visual viewport resizes', async () => {
+    await renderLive({ placement: 'bottom-start' });
+
+    getAnchor().style.top = '200px';
+    window.visualViewport?.dispatchEvent(new Event('resize'));
+
+    await vi.waitFor(() => expectGap(popoverRect().top, anchorRect().bottom));
+  });
+
+  it('keeps its edge on the anchor when its content grows', async () => {
+    const screen = await renderLive({ placement: 'top-start' });
+
+    expectGap(popoverRect().bottom, anchorRect().top);
+
+    await screen.rerender(<Live placement="top-start" grow />);
+
+    await vi.waitFor(() => {
+      expect(popoverRect().height).toBeGreaterThan(90);
+      expectGap(popoverRect().bottom, anchorRect().top);
+    });
+  });
+
+  it('keeps its edge on the anchor when the anchor changes size', async () => {
+    await renderLive({ placement: 'bottom-start' });
+
+    getAnchor().style.height = '80px';
+
+    await vi.waitFor(() => expectGap(popoverRect().top, anchorRect().bottom));
+  });
+
+  it('flips above the anchor when it moves near the bottom edge', async () => {
+    await renderLive({ placement: 'bottom-start' });
+
+    expect(popoverRect().top).toBeGreaterThanOrEqual(anchorRect().bottom);
+
+    getAnchor().style.top = `${document.documentElement.clientHeight - 40}px`;
+    window.dispatchEvent(new Event('resize'));
+
+    await vi.waitFor(() => expectGap(popoverRect().bottom, anchorRect().top));
+  });
+
+  it('updates its height cap when the anchor moves', async () => {
+    await renderLive({ placement: 'bottom-start', limitHeight: true });
+
+    const viewportHeight = document.documentElement.clientHeight;
+
+    (
+      document.querySelector('[data-testid="content"]') as HTMLElement
+    ).style.height = '3000px';
+
+    // Capped to the room below the anchor
+    await vi.waitFor(() => {
+      expectGap(popoverRect().top, anchorRect().bottom);
+      expect(popoverRect().bottom).toBeCloseTo(viewportHeight - 8, 0);
+    });
+
+    getAnchor().style.top = `${viewportHeight - 100}px`;
+    window.dispatchEvent(new Event('resize'));
+
+    // Flips above and is capped to the room there
+    await vi.waitFor(() => {
+      expectGap(popoverRect().bottom, anchorRect().top);
+      expect(popoverRect().top).toBeCloseTo(8, 0);
+    });
+  });
+
+  it('batches updates to one per animation frame', async () => {
+    await renderLive({ placement: 'bottom-start' });
+    await nextFrame();
+    await nextFrame();
+
+    const spy = vi.spyOn(getAnchor(), 'getBoundingClientRect');
+
+    for (let index = 0; index < 5; index++) {
+      window.dispatchEvent(new Event('resize'));
+      document.dispatchEvent(new Event('scroll'));
+    }
+
+    await nextFrame();
+    await nextFrame();
+
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it('settles when a height cap resizes the popover', async () => {
+    await renderLive({ placement: 'bottom-start', limitHeight: true });
+
+    window.dispatchEvent(new Event('resize'));
+    await nextFrame();
+    await nextFrame();
+
+    const cap = getPopover().style.maxHeight;
+    const spy = vi.spyOn(getAnchor(), 'getBoundingClientRect');
+
+    for (let index = 0; index < 10; index++) {
+      await nextFrame();
+    }
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(getPopover().style.maxHeight).toBe(cap);
+  });
+
+  it('removes its listeners when it closes', async () => {
+    const counts = { added: 0, removed: 0 };
+    const watched = new Set(['resize', 'scroll']);
+
+    const targets: (EventTarget | null)[] = [
+      window,
+      document,
+      window.visualViewport,
+    ];
+
+    for (const target of targets) {
+      if (!target) {
+        continue;
+      }
+
+      const add = target.addEventListener.bind(target);
+      const remove = target.removeEventListener.bind(target);
+
+      vi.spyOn(target, 'addEventListener').mockImplementation(
+        (...args: Parameters<typeof add>) => {
+          if (watched.has(args[0])) {
+            counts.added++;
+          }
+
+          return add(...args);
+        },
+      );
+      vi.spyOn(target, 'removeEventListener').mockImplementation(
+        (...args: Parameters<typeof remove>) => {
+          if (watched.has(args[0])) {
+            counts.removed++;
+          }
+
+          return remove(...args);
+        },
+      );
+    }
+
+    const screen = await renderLive({ placement: 'bottom-start' });
+
+    expect(counts.added).toBeGreaterThanOrEqual(3);
+
+    await screen.rerender(<Live placement="bottom-start" open={false} />);
+    await vi.waitFor(() => expect(counts.removed).toBe(counts.added));
+
+    vi.restoreAllMocks();
+  });
+});
