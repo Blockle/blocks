@@ -4,14 +4,15 @@ import { useState, useSyncExternalStore } from 'react';
 
 import { useIsomorphicLayoutEffect } from '../../hooks/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js';
 
-type Entry = object;
+// Stands for one open overlay, by identity
+type OverlayToken = object;
 
 // The open modal overlays, in the order they opened, the top one last
-let stack: Entry[] = [];
+let stack: OverlayToken[] = [];
 
 const listeners = new Set<() => void>();
 
-const setStack = (next: Entry[]) => {
+const setStack = (next: OverlayToken[]) => {
   stack = next;
 
   for (const listener of listeners) {
@@ -34,23 +35,23 @@ const subscribe = (listener: () => void) => {
  * the ones shown before it, the order does not follow the React tree.
  */
 export const useIsTopModalOverlay = (open: boolean): boolean => {
-  const [entry] = useState<Entry>(() => ({}));
+  const [token] = useState<OverlayToken>(() => ({}));
 
   useIsomorphicLayoutEffect(() => {
     if (!open) {
       return;
     }
 
-    setStack([...stack, entry]);
+    setStack([...stack, token]);
 
     return () => {
-      setStack(stack.filter((item) => item !== entry));
+      setStack(stack.filter((item) => item !== token));
     };
-  }, [open, entry]);
+  }, [open, token]);
 
   return useSyncExternalStore(
     subscribe,
-    () => stack.at(-1) === entry,
+    () => stack.at(-1) === token,
     () => false,
   );
 };
