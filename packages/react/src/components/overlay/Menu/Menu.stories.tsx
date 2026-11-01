@@ -131,3 +131,40 @@ export const Controlled = meta.story({
     items: actions,
   },
 });
+
+const ColorModeMenu: React.FC<MenuProps> = (props) => {
+  const [colorMode, setColorMode] = useState('system');
+
+  return (
+    <Box style={{ height: 400, padding: 40 }}>
+      <Menu
+        {...props}
+        items={[
+          {
+            type: 'radio-group',
+            value: colorMode,
+            onChange: setColorMode,
+            items: [
+              { value: 'light', label: 'Light' },
+              { value: 'dark', label: 'Dark' },
+              { value: 'system', label: 'System' },
+            ],
+          },
+        ]}
+      >
+        <Button variant="outline">Color mode</Button>
+      </Menu>
+    </Box>
+  );
+};
+
+export const ColorMode = meta.story({
+  render(props) {
+    return <ColorModeMenu {...props} />;
+  },
+
+  args: {
+    children: <i>ignored prop</i>,
+    items: [],
+  },
+});

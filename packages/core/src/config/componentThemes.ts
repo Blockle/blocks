@@ -127,6 +127,7 @@ export type LinkTheme = {
 export type MenuTheme = {
   list: string;
   item: string;
+  itemIndicator: string;
   separator: string;
 };
 

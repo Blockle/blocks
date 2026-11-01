@@ -4,11 +4,22 @@ import {
   type ThemeComponentsStyles,
   vars,
 } from '@blockle/blocks-core';
-import { style } from '@vanilla-extract/css';
+import { globalStyle, style } from '@vanilla-extract/css';
 
 import { focusable } from './helpers.css.js';
 
 const hoverBackground = `color-mix(in srgb, ${vars.colorRole.text.default} 10%, transparent)`;
+
+const itemIndicator = style({
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexShrink: 0,
+  width: '1em',
+  height: '1em',
+});
+
+globalStyle(`${itemIndicator} > svg`, { width: '100%', height: '100%' });
 
 export const menu: ThemeComponentsStyles['menu'] = makeComponentTheme('menu', {
   // Sits on the popover surface (background, shadow, radius)
@@ -47,6 +58,8 @@ export const menu: ThemeComponentsStyles['menu'] = makeComponentTheme('menu', {
     },
     focusable,
   ]),
+  // Holds the check; unchecked items keep the space so labels line up
+  itemIndicator,
   separator: style({
     border: 'none',
     height: 1,
