@@ -1,0 +1,73 @@
+name: Bundle size
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  bundle-size:
+    name: Bundle size
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v6
+        with:
+          # The merge base needs history
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build head
+        run: npm run build
+
+      - name: Measure head
+        run: npm run size -- --json "$RUNNER_TEMP/head.json"
+
+      # The measurement scripts always come from the PR head, because the merge
+      # base may predate bundle-size/.
+      - name: Measure merge base
+        continue-on-error: true
+        run: |
+          base=$(git merge-base "origin/${{ github.base_ref }}" HEAD)
+          git worktree add --detach "$RUNNER_TEMP/base" "$base"
+          rm -rf "$RUNNER_TEMP/base/bundle-size"
+          cp -R bundle-size "$RUNNER_TEMP/base/bundle-size"
+          cd "$RUNNER_TEMP/base"
+          npm install
+          npm run build
+          node bundle-size/size.mjs --json "$RUNNER_TEMP/base.json"
+
+      - name: Compare
+        run: |
+          # A base that cannot be measured is reported as missing, not as a failure
+          [ -f "$RUNNER_TEMP/base.json" ] || echo '{}' > "$RUNNER_TEMP/base.json"
+          node bundle-size/compare.mjs "$RUNNER_TEMP/base.json" "$RUNNER_TEMP/head.json" > "$RUNNER_TEMP/report.md"
+          cat "$RUNNER_TEMP/report.md" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Post report
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const fs = require('node:fs');
+            const { pathToFileURL } = require('node:url');
+            const { postReport } = await import(
+              pathToFileURL(`${process.env.GITHUB_WORKSPACE}/bundle-size/post-comment.mjs`).href
+            );
+
+            await postReport({
+              github,
+              context,
+              core,
+              body: fs.readFileSync(`${process.env.RUNNER_TEMP}/report.md`, 'utf8'),
+            });

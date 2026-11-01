@@ -47,3 +47,7 @@ Sizes are bytes. `minified` is the size of the built output, `gzipped` its gzip 
 ```
 
 Keys are scenario names, then `js` / `css`, each with `minified` and `gzipped` integers.
+
+## CI
+
+`.github/workflows/bundle-size.yml` runs on pull requests against `main`. In one job it measures the PR head, then the merge base (in a git worktree that uses the head's `bundle-size/` scripts, since the base may predate them), compares them, and posts the report with `actions/github-script` via `post-comment.mjs`, updating the previous comment found by the marker. A base that cannot be measured is reported as missing. Commenting failures (for example fork PRs, whose token is read-only) only log a warning; the report is also written to the job summary.
