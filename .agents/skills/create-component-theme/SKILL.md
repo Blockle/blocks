@@ -8,18 +8,24 @@ argument-hint: "Component name and variants, for example: add primary and danger
 
 Use this skill for component-level theme styles in `packages/theme-momotaro`. The React component owns its prop types; the theme package maps those variant names to vanilla-extract styles.
 
+## Precedence
+
+Defaults < theme < props < your own CSS. The layers, lowest priority first: `blockle-reset` < `blockle-molecule` (base styles) < `blockle-theme` (Component themes) < `blockle-atom` (Atoms) < `blockle-organism` (unused); an app's unlayered styles beat all of them. A theme left unlayered (plain `style()`) beats Atoms and ties with app styles, as before. See ADR-0007 and the "Writing a theme" Storybook page.
+
 ## Procedure
 
 1. Identify the React component and read its exported props type from `packages/react/src/components/`. Treat the component's theme type as the source of valid variant keys and values.
 2. Inspect a neighboring theme file, especially `packages/theme-momotaro/src/components/button.css.ts`, and check shared tokens in `packages/theme-momotaro/src/tokens.css.ts` or the relevant core theme files.
 3. Create or update `packages/theme-momotaro/src/components/<component>.css.ts`:
-   - Import `makeComponentTheme`, `ThemeComponentsStyles`, and only the core helpers/tokens needed.
+   - Import `layers`, `makeComponentTheme`, `ThemeComponentsStyles`, `vars`, and only the other core helpers/tokens needed.
    - Export a lowercase theme value typed as `ThemeComponentsStyles['<component>']`.
    - Put shared styles in `root`.
    - Put prop-backed styles in `variants` using the exact names and values from the React component's theme type.
    - Use `compoundVariants` only for combinations that cannot be expressed by one variant group.
    - Set `defaultVariants` for the component's documented defaults.
-   - Prefer existing `atoms`, `vars`, helpers, and CSS variables over duplicated token values.
+   - Prefer existing `vars`, helpers, and CSS variables over duplicated token values.
+   - Wrap every declaration in `'@layer': { [layers.theme]: { … } }`, written by hand: roots, slots, variants, compound variants, shared helper classes (each piece used in `style([...])` gets its own wrapper), and every `globalStyle`. Nest pseudo-classes, pseudo-elements, `selectors`, `@media` and `@starting-style` inside the layer block. `keyframes` stay unlayered.
+   - Never use `atoms()` in a theme: an Atom class sits in `blockle-atom` and ties with an app's Atom props. Write the value with `vars` instead, for example `vars.space[2]`.
 4. Register the theme in `packages/theme-momotaro/src/components/index.ts` with an import and an entry in `components`.
 5. If the theme introduces a new token, add it through the existing token configuration instead of hard-coding an unrelated color or size.
 6. Validate the theme and its integration:
@@ -33,4 +39,5 @@ Use this skill for component-level theme styles in `packages/theme-momotaro`. Th
 - Variant keys exactly match the component's public theme props.
 - The theme is registered in `components/index.ts`.
 - Existing design tokens and helpers are reused.
+- Every declaration sits inside `layers.theme`, and the theme does not import `atoms`.
 - Compound and default variants are covered by validation.

@@ -18,6 +18,15 @@ Blocks is a React design system built around modern CSS and HTML, Vanilla Extrac
 
 A component's base styles, in a `.css.ts` next to it in `packages/react` and inside `layers.molecule`, hold everything without which the component breaks. Its Component theme holds only the look, and wins over the base where they overlap.
 
+### Writing a theme in `blockle-theme`
+
+Precedence is defaults < theme < props < your own CSS (ADR-0007). The layers, lowest priority first: `blockle-reset` < `blockle-molecule` (base styles) < `blockle-theme` (Component themes) < `blockle-atom` (Atoms) < `blockle-organism` (unused). An app's unlayered styles beat all of them.
+
+- **Wrap every theme declaration by hand** in `'@layer': { [layers.theme]: … }`, with `layers` from `@blockle/blocks-core`. That covers roots, slots, variants, compound variants, shared helper classes (each piece used in `style([...])` gets its own wrapper), and every `globalStyle`. Pseudo-classes, pseudo-elements, `selectors`, `@media` and `@starting-style` go inside the layer block. `keyframes` stay unlayered. There is no helper.
+- **Don't use `atoms()` in a theme.** An Atom class sits in `blockle-atom` and ties with an app's Atom props. Write the same value with `vars` (for example `vars.space[2]`) inside the theme layer.
+- **An unlayered theme** (plain `style()`) beats Atoms and ties with app styles, as before. Nothing detects it.
+- The "Writing a theme" Storybook page (`packages/react/src/docs/WritingATheme.mdx`) and the `create-component-theme` skill describe the same pattern.
+
 ### `tabs`
 
 - **A `tabs` theme sets** the look: the baseline, colours, padding, type, hover, the selected tab's text style and focus rings. It sets the Tab indicator's look once, on `list`, through `tabIndicatorVars` from `@blockle/blocks-core`: `color`, `thickness`, `duration` and `easing` of the slide. Leave one out and the Tab indicator goes without it: no colour or thickness hides the bar, no duration makes it jump.
