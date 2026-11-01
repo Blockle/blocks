@@ -48,6 +48,14 @@ _Avoid_: Position, side, align
 A Toast removing itself once its duration has run. The duration counts down only while nobody is hovering or focusing the toasts and the page is visible.
 _Avoid_: Timeout, expire, auto-close
 
+**Menu**:
+A list of actions or choices that opens from a trigger and closes once one is picked. A Menu doesn't hold a form value; choosing a value to submit with a form is a Select.
+_Avoid_: Dropdown, dropdown menu, context menu
+
+**Menu item**:
+One entry in a Menu: an action, a separator, or a group of choices of which exactly one is checked, such as the Color mode. Picking an action or a choice closes the Menu.
+_Avoid_: Option (that's a value in a Select)
+
 ### Display
 
 **Tag**:
