@@ -42,6 +42,12 @@ _Avoid_: Style prop, sprinkle, utility class
 A named position in a component, at its start or end, that holds content the consumer composes, such as an Icon or a Button. A Slot is named by where it sits, not by what goes in it. A component composes its actions through Slots rather than building them in.
 _Avoid_: Action, addon, adornment
 
+### Navigation
+
+**Tab indicator**:
+The bar under a row of tabs that marks the selected tab, or the current page in a tab navigation, and moves to whichever tab takes that place.
+_Avoid_: Underline, ink bar, slider, highlight
+
 ### Overlays
 
 **Placement**:
