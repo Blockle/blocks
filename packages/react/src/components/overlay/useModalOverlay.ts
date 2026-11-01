@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import { useClickOutside } from '../../hooks/useClickOutside/useClickOutside.js';
 import { usePreventBodyScroll } from '../../hooks/usePreventBodyScroll/usePreventBodyScroll.js';
 import { useRestoreFocus } from '../../hooks/useRestoreFocus/useRestoreFocus.js';
-import { useIsTopModalOverlay } from './modalOverlayStack.js';
+import { useIsTopOverlay } from './overlayStack.js';
 import type { RequestCloseReason } from './requestCloseReason.js';
 
 type UseDialogCloseRequestsOptions = {
@@ -100,9 +100,10 @@ type UseModalOverlayOptions = Omit<UseDialogCloseRequestsOptions, 'enabled'> & {
  * closed, the body does not scroll, and an Escape, close request or click
  * outside requests to close.
  *
- * Only the modal overlay opened last handles Escape and clicks outside, so a
- * click in a Dialog or Drawer does not close the ones below it, whether it is
- * nested in them or mounted elsewhere.
+ * Only the top overlay handles Escape and clicks outside, so a click in a
+ * Dialog or Drawer does not close the ones below it, whether it is nested in
+ * them or mounted elsewhere, and an Escape with a Popover open in it closes
+ * only the Popover.
  */
 export const useModalOverlay = (
   dialogRef: React.RefObject<HTMLDialogElement | null>,
@@ -113,7 +114,7 @@ export const useModalOverlay = (
 
   usePreventBodyScroll(open);
 
-  const isTop = useIsTopModalOverlay(open);
+  const isTop = useIsTopOverlay(open);
   const enabled = open && isTop;
 
   useClickOutside(dialogRef, () => onRequestClose('outside-click'), {

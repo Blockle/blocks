@@ -1,13 +1,16 @@
-import { Activity, useRef } from 'react';
+import { Activity, Suspense, use, useRef } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 
 import { centerOf, outside, press } from '../../testUtils/browser/pointer.js';
 import { render } from '../../testUtils/browser/render.js';
+import { Button } from '../form/Button/Button.js';
 import { Dialog } from './Dialog/Dialog.js';
 import { Drawer } from './Drawer/Drawer.js';
+import { Menu } from './Menu/Menu.js';
 import { Popover } from './Popover/Popover.js';
 import type { RequestCloseReason } from './requestCloseReason.js';
+import { Tooltip } from './Tooltip/Tooltip.js';
 
 type OverlayProps = {
   onRequestClose: (reason: RequestCloseReason) => void;
@@ -220,7 +223,16 @@ describe('Popover close requests (browser)', () => {
     expect(escapes.prevented).toEqual([true]);
   });
 
-  it('ignores an Escape content claims with preventDefault()', async () => {
+  it.each([
+    [
+      'stopPropagation()',
+      (event: React.KeyboardEvent) => event.stopPropagation(),
+    ],
+    [
+      'preventDefault()',
+      (event: React.KeyboardEvent) => event.preventDefault(),
+    ],
+  ])('ignores an Escape content claims with %s', async (_, claim) => {
     const onRequestClose = vi.fn();
     const screen = await render(
       <PopoverOverlay onRequestClose={onRequestClose}>
@@ -228,7 +240,7 @@ describe('Popover close requests (browser)', () => {
           aria-label="Title"
           onKeyDown={(event) => {
             if (event.key === 'Escape') {
-              event.preventDefault();
+              claim(event);
             }
           }}
         />
@@ -396,5 +408,181 @@ describe.each(
     expect(onTopClose).toHaveBeenCalledTimes(1);
     expect(onTopClose).toHaveBeenCalledWith('escape');
     expect(onLowerClose).not.toHaveBeenCalled();
+  });
+});
+
+const settleOverlays = async () => {
+  // The click outside listeners are attached on the next frame
+  await new Promise(requestAnimationFrame);
+  await new Promise(requestAnimationFrame);
+  await Promise.all(document.getAnimations().map(({ finished }) => finished));
+};
+
+const modalComponents = [
+  ['Dialog', Dialog],
+  ['Drawer', Drawer],
+] as const;
+
+describe.each(
+  modalComponents,
+)('Menu in a %s close requests (browser)', (_, Modal) => {
+  const renderMenuInModal = async () => {
+    const onModalClose = vi.fn();
+    const screen = await render(
+      <Modal open aria-label="Modal" onRequestClose={onModalClose}>
+        <Menu items={[{ label: 'Rename', onSelect() {} }]}>
+          <Button>Actions</Button>
+        </Menu>
+      </Modal>,
+    );
+
+    await settleOverlays();
+    await userEvent.click(screen.getByRole('button', { name: 'Actions' }));
+    await expect.element(screen.getByRole('menu')).toBeVisible();
+    await settleOverlays();
+
+    return { onModalClose, screen };
+  };
+
+  it('closes only the Menu on an Escape, and focuses its trigger', async () => {
+    const { onModalClose, screen } = await renderMenuInModal();
+
+    await userEvent.keyboard('{Escape}');
+
+    await expect.element(screen.getByRole('menu')).not.toBeInTheDocument();
+    expect(onModalClose).not.toHaveBeenCalled();
+    await expect
+      .element(screen.getByRole('button', { name: 'Actions' }))
+      .toHaveFocus();
+  });
+
+  it('requests to close the modal with "escape" on a second Escape', async () => {
+    const { onModalClose, screen } = await renderMenuInModal();
+
+    await userEvent.keyboard('{Escape}');
+    await expect.element(screen.getByRole('menu')).not.toBeInTheDocument();
+    await userEvent.keyboard('{Escape}');
+
+    expect(onModalClose).toHaveBeenCalledTimes(1);
+    expect(onModalClose).toHaveBeenCalledWith('escape');
+  });
+
+  it('closes only the Menu on a click outside the modal', async () => {
+    const { onModalClose, screen } = await renderMenuInModal();
+
+    await press(outside());
+
+    await expect.element(screen.getByRole('menu')).not.toBeInTheDocument();
+    expect(onModalClose).not.toHaveBeenCalled();
+  });
+});
+
+describe.each(
+  modalComponents,
+)('Tooltip in a %s close requests (browser)', (_, Modal) => {
+  it('closes only the Tooltip on an Escape, then requests to close the modal', async () => {
+    const onModalClose = vi.fn();
+    const screen = await render(
+      <Modal open aria-label="Modal" onRequestClose={onModalClose}>
+        <input aria-label="Title" />
+        <Tooltip content="Tip">
+          <button type="button">Help</button>
+        </Tooltip>
+      </Modal>,
+    );
+
+    await settleOverlays();
+    screen.getByRole('button', { name: 'Help' }).element().focus();
+    await expect.element(screen.getByRole('tooltip')).toBeVisible();
+    await settleOverlays();
+
+    await userEvent.keyboard('{Escape}');
+
+    await expect.element(screen.getByRole('tooltip')).not.toBeInTheDocument();
+    expect(onModalClose).not.toHaveBeenCalled();
+
+    await userEvent.keyboard('{Escape}');
+
+    expect(onModalClose).toHaveBeenCalledTimes(1);
+    expect(onModalClose).toHaveBeenCalledWith('escape');
+  });
+});
+
+describe.each(
+  modalComponents,
+)('Popover under a %s opened after it (browser)', (_, Modal) => {
+  const under = (
+    modalOpen: boolean,
+    onPopoverClose = vi.fn(),
+    onModalClose = vi.fn(),
+  ) => (
+    <>
+      <PopoverOverlay onRequestClose={onPopoverClose}>Content</PopoverOverlay>
+      <Modal open={modalOpen} aria-label="Modal" onRequestClose={onModalClose}>
+        <input aria-label="Title" />
+      </Modal>
+    </>
+  );
+
+  const renderUnder = async () => {
+    const onPopoverClose = vi.fn();
+    const onModalClose = vi.fn();
+    const screen = await render(under(false, onPopoverClose, onModalClose));
+
+    await settleOverlays();
+    await screen.rerender(under(true, onPopoverClose, onModalClose));
+    await settleOverlays();
+
+    return { onPopoverClose, onModalClose, screen };
+  };
+
+  it('leaves an Escape to the modal', async () => {
+    const { onPopoverClose, onModalClose, screen } = await renderUnder();
+
+    await userEvent.click(screen.getByRole('textbox', { name: 'Title' }));
+    await userEvent.keyboard('{Escape}');
+
+    expect(onModalClose).toHaveBeenCalledTimes(1);
+    expect(onModalClose).toHaveBeenCalledWith('escape');
+    expect(onPopoverClose).not.toHaveBeenCalled();
+  });
+
+  it('leaves a click outside to the modal', async () => {
+    const { onPopoverClose, onModalClose } = await renderUnder();
+
+    await press(outside());
+
+    expect(onModalClose).toHaveBeenCalledTimes(1);
+    expect(onModalClose).toHaveBeenCalledWith('outside-click');
+    expect(onPopoverClose).not.toHaveBeenCalled();
+  });
+});
+
+const Suspended: React.FC<{ promise: Promise<never> }> = ({ promise }) => {
+  use(promise);
+
+  return null;
+};
+
+describe.each(
+  modalComponents,
+)('%s with a suspended child close requests (browser)', (_, Modal) => {
+  it('requests to close with "escape" on an Escape', async () => {
+    const onRequestClose = vi.fn();
+    const screen = await render(
+      <Modal open aria-label="Modal" onRequestClose={onRequestClose}>
+        <input aria-label="Title" />
+        <Suspense fallback="Loading">
+          <Suspended promise={new Promise<never>(() => {})} />
+        </Suspense>
+      </Modal>,
+    );
+
+    await expect.element(screen.getByText('Loading')).toBeVisible();
+    await userEvent.click(screen.getByRole('textbox', { name: 'Title' }));
+    await userEvent.keyboard('{Escape}');
+
+    expect(onRequestClose).toHaveBeenCalledTimes(1);
+    expect(onRequestClose).toHaveBeenCalledWith('escape');
   });
 });
