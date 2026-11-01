@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
   pull-requests: write
@@ -13,6 +17,7 @@ jobs:
   bundle-size:
     name: Bundle size
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v6
@@ -21,12 +26,7 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
 
-      - uses: actions/setup-node@v6
-        with:
-          node-version: "24"
-
-      - name: Install Dependencies
-        run: npm install
+      - uses: ./.github/actions/setup
 
       - name: Test bundle size tooling
         run: npm run size:test
@@ -38,7 +38,8 @@ jobs:
         run: npm run size -- --json "$RUNNER_TEMP/head.json"
 
       # The measurement scripts always come from the PR head, because the merge
-      # base may predate bundle-size/.
+      # base may predate bundle-size/. A scenario the base cannot build (for
+      # example one added by this PR) is left out instead of failing the rest.
       - name: Measure merge base
         continue-on-error: true
         env:
@@ -48,10 +49,11 @@ jobs:
           git worktree add --detach "$RUNNER_TEMP/base" "$base"
           rm -rf "$RUNNER_TEMP/base/bundle-size"
           cp -R bundle-size "$RUNNER_TEMP/base/bundle-size"
+          rm -rf "$RUNNER_TEMP/base/bundle-size/dist"
           cd "$RUNNER_TEMP/base"
-          npm install
+          npm ci
           npm run build
-          node bundle-size/size.mjs --json "$RUNNER_TEMP/base.json"
+          node bundle-size/size.mjs --keep-going --json "$RUNNER_TEMP/base.json"
 
       - name: Compare
         run: |
