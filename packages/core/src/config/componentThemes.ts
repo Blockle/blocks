@@ -194,6 +194,23 @@ export type TagTheme = {
   };
 };
 
+export type TabsTheme = {
+  // The row of tabs; draws the baseline
+  list: string;
+  // The list inside a TabNav; the nav itself is the scrolling row
+  navList: string;
+  // The Tab indicator: one bar per list that slides to the selected tab
+  indicator: string;
+  // The wrapper around a Tab's activation element and its Slots
+  tab: string;
+  // The Tab's activation element (a button, or a link in a TabNav)
+  trigger: string;
+  // Content before and after the activation element, inside the wrapper
+  startSlot: string;
+  endSlot: string;
+  panel: string;
+};
+
 export type TextTheme = {
   root?: string;
   variants: {
@@ -249,6 +266,7 @@ export type ComponentThemes = {
   slider: SliderTheme;
   spinner: SpinnerTheme;
   switch: SwitchTheme;
+  tabs: TabsTheme;
   tag: TagTheme;
   text: TextTheme;
   textarea: TextareaTheme;
