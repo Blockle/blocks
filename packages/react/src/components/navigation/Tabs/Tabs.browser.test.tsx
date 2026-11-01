@@ -5,6 +5,7 @@ import { page, userEvent } from 'vitest/browser';
 
 import { resolve } from '../../../testUtils/browser/contrast.js';
 import { render } from '../../../testUtils/browser/render.js';
+import { IconButton } from '../../form/IconButton/IconButton.js';
 import { Tab } from './Tab.js';
 import { TabList } from './TabList.js';
 import { TabPanel } from './TabPanel.js';
@@ -20,6 +21,56 @@ const Example: React.FC<Partial<TabsProps>> = (props) => (
     <TabPanel value="one">First panel</TabPanel>
     <TabPanel value="two">Second panel</TabPanel>
     <TabPanel value="three">Third panel</TabPanel>
+  </Tabs>
+);
+
+const CloseIcon: React.FC = () => (
+  <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true">
+    <path d="M18 6 6 18M6 6l12 12" stroke="currentColor" fill="none" />
+  </svg>
+);
+
+const SlotExample: React.FC<{ onClose?: () => void }> = ({ onClose }) => (
+  <Tabs defaultValue="one">
+    <TabList aria-label="Chats">
+      <Tab
+        value="one"
+        startSlot={<span data-testid="dot-one">dot</span>}
+        endSlot={
+          <IconButton
+            label="Close One"
+            size="small"
+            variant="ghost"
+            shape="circle"
+            intent="inherit"
+            onClick={onClose}
+          >
+            <CloseIcon />
+          </IconButton>
+        }
+      >
+        One
+      </Tab>
+      <Tab
+        value="two"
+        endSlot={
+          <IconButton
+            label="Close Two"
+            size="small"
+            variant="ghost"
+            shape="circle"
+            intent="inherit"
+            onClick={onClose}
+          >
+            <CloseIcon />
+          </IconButton>
+        }
+      >
+        Two
+      </Tab>
+    </TabList>
+    <TabPanel value="one">First panel</TabPanel>
+    <TabPanel value="two">Second panel</TabPanel>
   </Tabs>
 );
 
@@ -285,5 +336,88 @@ describe('Tabs (browser)', () => {
     await expect
       .element(page.getByTestId('frame'))
       .toMatchScreenshot('tabs-light');
+  });
+
+  describe('Slots', () => {
+    it('renders startSlot before and endSlot after the tab, inside its wrapper', async () => {
+      const screen = await render(<SlotExample />);
+      const tab = screen.getByRole('tab', { name: 'One' }).element();
+      const wrapper = tab.parentElement as HTMLElement;
+      const dot = screen.getByTestId('dot-one').element();
+      const close = screen.getByRole('button', { name: 'Close One' }).element();
+
+      expect(wrapper.contains(dot)).toBe(true);
+      expect(wrapper.contains(close)).toBe(true);
+      expect(tab.contains(dot)).toBe(false);
+      expect(tab.contains(close)).toBe(false);
+      expect(
+        dot.compareDocumentPosition(tab) & Node.DOCUMENT_POSITION_FOLLOWING,
+      ).toBeTruthy();
+      expect(
+        tab.compareDocumentPosition(close) & Node.DOCUMENT_POSITION_FOLLOWING,
+      ).toBeTruthy();
+    });
+
+    it('keeps the tab name free of its Slot content', async () => {
+      const screen = await render(<SlotExample />);
+
+      await expect
+        .element(screen.getByRole('tab', { name: 'One', exact: true }))
+        .toBeVisible();
+    });
+
+    it('makes a close button its own focusable control outside the tab', async () => {
+      const screen = await render(<SlotExample />);
+      const close = screen.getByRole('button', { name: 'Close Two' });
+
+      await expect.element(close).toBeVisible();
+      expect(close.element().closest('[role="tab"]')).toBeNull();
+
+      close.element().focus();
+      expect(document.activeElement).toBe(close.element());
+    });
+
+    it("doesn't select the tab when a Slot control is clicked", async () => {
+      const onClose = vi.fn();
+      const screen = await render(<SlotExample onClose={onClose} />);
+
+      await screen.getByRole('button', { name: 'Close Two' }).click();
+
+      expect(onClose).toHaveBeenCalledOnce();
+      await expect
+        .element(screen.getByRole('tab', { name: 'One' }))
+        .toHaveAttribute('aria-selected', 'true');
+      await expect
+        .element(screen.getByRole('tab', { name: 'Two' }))
+        .toHaveAttribute('aria-selected', 'false');
+    });
+
+    it('lays out Slot content in line with the label', async () => {
+      const screen = await render(<SlotExample />);
+      const tab = screen.getByRole('tab', { name: 'One' }).element();
+      const dot = screen.getByTestId('dot-one').element();
+      const close = screen.getByRole('button', { name: 'Close One' }).element();
+      const middle = (element: Element) => {
+        const rect = element.getBoundingClientRect();
+
+        return rect.top + rect.height / 2;
+      };
+
+      expect(middle(dot)).toBeCloseTo(middle(tab), 0);
+      expect(middle(close)).toBeCloseTo(middle(tab), 0);
+    });
+
+    it('matches the screenshot of a tab with both Slots', async () => {
+      await render(
+        <div style={{ padding: 16, inlineSize: 400 }} data-testid="frame">
+          <SlotExample />
+        </div>,
+        { colorMode: 'light' },
+      );
+
+      await expect
+        .element(page.getByTestId('frame'))
+        .toMatchScreenshot('tabs-slots-light');
+    });
   });
 });

@@ -201,6 +201,9 @@ export type TabsTheme = {
   tab: string;
   // The Tab's activation element (a button, or a link in a TabNav)
   trigger: string;
+  // Content before and after the activation element, inside the wrapper
+  startSlot: string;
+  endSlot: string;
   panel: string;
 };
 
