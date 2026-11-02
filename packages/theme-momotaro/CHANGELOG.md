@@ -1,5 +1,11 @@
 # @blockle/blocks-theme-momotaro
 
+## 7.3.1
+
+### Patch Changes
+
+- 96a7dd0: Momotaro's Link now rounds with the theme's border radius token 1 (4px) instead of a literal `1px`, so its focus ring is rounder.
+
 ## 7.3.0
 
 ### Minor Changes
