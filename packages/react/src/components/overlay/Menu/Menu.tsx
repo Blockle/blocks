@@ -82,16 +82,17 @@ export type MenuRadioGroupItem<V extends string = string> = {
 
 /**
  * Types a radio group over a union of values. `V` is inferred from `value`
- * and `onChange`, and the items' values are checked against it. Returns the
- * group as is, so it can sit in `items` next to any other item.
+ * and `onChange`, and the items' values are checked against it. Adds
+ * `type: 'radio-group'` itself, so callers leave `type` out, and the
+ * result can sit in `items` next to any other item.
  */
 export function menuRadioGroup<V extends string>(
-  group: Omit<MenuRadioGroupItem<V>, 'onChange' | 'items'> & {
+  group: Omit<MenuRadioGroupItem<V>, 'type' | 'onChange' | 'items'> & {
     onChange: (value: V) => void;
     items: MenuRadioItem<NoInfer<V>>[];
   },
 ): MenuRadioGroupItem<V> {
-  return group;
+  return { ...group, type: 'radio-group' };
 }
 
 export type MenuItem = MenuActionItem | MenuSeparatorItem | MenuRadioGroupItem;
