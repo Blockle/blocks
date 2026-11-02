@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { page } from 'vitest/browser';
 
+import { breakpoints } from '../css/breakpoint/breakpoint.js';
 import { getNameFromVanillaCSSVar } from '../css/getNameFromVanillaCSSVar.js';
 import { layers } from '../css/layers.css.js';
 import { vars } from '../css/vars.css.js';
@@ -9,13 +10,16 @@ import { atoms } from './atoms.js';
 // The stylesheets are the behaviour under test: a rule outside `blockle-atom`
 // ties with an app's own unlayered class, and stylesheet order decides.
 
+type RuleEntry = { rule: CSSStyleRule; layerName?: string };
+
+// `padding: [4, 1]` changes value at the tablet breakpoint
+const aboveTablet = breakpoints.tablet + 100;
+const belowTablet = breakpoints.tablet - 100;
+
 function* rulesOf(
   rules: CSSRuleList,
   layerName?: string,
-): Generator<{
-  rule: CSSStyleRule;
-  layerName?: string;
-}> {
+): Generator<RuleEntry> {
   for (const rule of Array.from(rules)) {
     if (rule instanceof CSSStyleRule) {
       yield { rule, layerName };
@@ -28,11 +32,17 @@ function* rulesOf(
 }
 
 function rulesForClass(className: string) {
-  const found: { rule: CSSStyleRule; layerName?: string }[] = [];
+  const found: RuleEntry[] = [];
+  const classPattern = /\.((?:\\.|[\w-])+)/g;
 
   for (const sheet of Array.from(document.styleSheets)) {
     for (const entry of rulesOf(sheet.cssRules)) {
-      if (entry.rule.selectorText.includes(`.${className}`)) {
+      const names = Array.from(
+        entry.rule.selectorText.matchAll(classPattern),
+        ([, name]) => (name ?? '').replace(/\\(.)/g, '$1'),
+      );
+
+      if (names.includes(className)) {
         found.push(entry);
       }
     }
@@ -40,6 +50,11 @@ function rulesForClass(className: string) {
 
   return found;
 }
+
+const defaultViewport = {
+  width: window.innerWidth,
+  height: window.innerHeight,
+};
 
 describe('responsive Atom classes (browser)', () => {
   it('puts every class of an object-valued Atom in the atom layer', () => {
@@ -82,27 +97,28 @@ describe('responsive Atom classes (browser)', () => {
       document.body.append(element);
     });
 
-    afterEach(() => {
+    afterEach(async () => {
+      await page.viewport(defaultViewport.width, defaultViewport.height);
       element.remove();
       appStyle.remove();
     });
 
     it("lets an app's unlayered className beat a responsive Atom prop", async () => {
-      await page.viewport(1024, 768);
+      await page.viewport(aboveTablet, 768);
       element.className = `${atoms({ padding: [4, 1] })} app`;
 
       expect(getComputedStyle(element).paddingTop).toBe('99px');
     });
 
     it('lets a larger breakpoint override the base value', async () => {
-      await page.viewport(1024, 768);
+      await page.viewport(aboveTablet, 768);
       element.className = atoms({ padding: [4, 1] });
 
       expect(getComputedStyle(element).paddingTop).toBe('4px');
     });
 
     it('keeps the base value below the tablet breakpoint', async () => {
-      await page.viewport(500, 768);
+      await page.viewport(belowTablet, 768);
       element.className = atoms({ padding: [4, 1] });
 
       expect(getComputedStyle(element).paddingTop).toBe('16px');
