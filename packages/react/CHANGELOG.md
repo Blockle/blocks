@@ -1,5 +1,19 @@
 # @blockle/blocks-react
 
+## 3.4.0
+
+### Minor Changes
+
+- d9d4044: `getComponentStyles(theme, name, element, variants?)` and `useComponentStyles(name, element, variants?)` ask a Component theme for one Element by name, such as `useComponentStyles('tag', 'startSlot')` or `useComponentStyles('icon', 'root', { size })`. Variant classes, default variants and compound variants are added if and only if `variants` is passed, even as `{}`; the `useDefaultVariants` argument is gone. `variants` is only accepted for themes that declare variants. `ComponentThemesProps` is replaced by `ComponentThemeElement` and `ComponentThemeVariantsArg`.
+
+  Every Component theme in `ThemeComponentsStyles` is now required, so a theme that leaves one out no longer compiles. The per-render warning for a missing Component theme is removed. `IconMask` now applies the theme's `icon.root` class.
+
+- 2893c6e: Menu radio groups are generic over their value type: `MenuRadioGroupItem<V>` and `MenuRadioItem<V>` share one `V extends string` (default `string`). The new `menuRadioGroup()` helper infers `V` from `value` and `onChange`, so a setter typed with a union such as `'light' | 'dark' | 'system'` works without a cast and item values are checked against the union.
+
+### Patch Changes
+
+- 34be27b: An Escape with a `Menu`, `Tooltip` or other `Popover` open in a `Dialog` or `Drawer` closes only the `Popover`, and a `Menu` focuses its trigger again; the next Escape requests to close the `Dialog` or `Drawer`. A click outside closes only the `Popover` as well. A `Popover` under a `Dialog` or `Drawer` that opened after it leaves Escape and clicks outside to that `Dialog` or `Drawer`.
+
 ## 3.3.1
 
 ### Patch Changes

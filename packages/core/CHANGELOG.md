@@ -1,5 +1,17 @@
 # @blockle/blocks-core
 
+## 3.4.0
+
+### Minor Changes
+
+- d9d4044: `getComponentStyles(theme, name, element, variants?)` and `useComponentStyles(name, element, variants?)` ask a Component theme for one Element by name, such as `useComponentStyles('tag', 'startSlot')` or `useComponentStyles('icon', 'root', { size })`. Variant classes, default variants and compound variants are added if and only if `variants` is passed, even as `{}`; the `useDefaultVariants` argument is gone. `variants` is only accepted for themes that declare variants. `ComponentThemesProps` is replaced by `ComponentThemeElement` and `ComponentThemeVariantsArg`.
+
+  Every Component theme in `ThemeComponentsStyles` is now required, so a theme that leaves one out no longer compiles. The per-render warning for a missing Component theme is removed. `IconMask` now applies the theme's `icon.root` class.
+
+### Patch Changes
+
+- a4f0644: Responsive classes for object-valued Atoms, such as `padding={[1, 2]}`, `fontSize` and `letterSpacing`, now sit in the `blockle-atom` cascade layer like every other Atom class. An app's own unlayered `className` beats them regardless of stylesheet order.
+
 ## 3.3.0
 
 ### Minor Changes
