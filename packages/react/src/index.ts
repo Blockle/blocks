@@ -106,6 +106,7 @@ export {
 } from './components/overlay/Drawer/Drawer.js';
 export {
   Menu,
+  menuRadioGroup,
   type MenuActionItem,
   type MenuItem,
   type MenuProps,

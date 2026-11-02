@@ -57,8 +57,8 @@ export type MenuSeparatorItem = {
   type: 'separator';
 };
 
-export type MenuRadioItem = {
-  value: string;
+export type MenuRadioItem<V extends string = string> = {
+  value: V;
   label: React.ReactNode;
   /**
    * Text for typeahead, when `label` is not a plain string
@@ -68,12 +68,28 @@ export type MenuRadioItem = {
   endSlot?: React.ReactNode;
 };
 
-export type MenuRadioGroupItem = {
+export type MenuRadioGroupItem<V extends string = string> = {
   type: 'radio-group';
-  value: string;
-  onChange: (value: string) => void;
-  items: MenuRadioItem[];
+  value: V;
+  onChange: (value: V) => void;
+  items: MenuRadioItem<V>[];
 };
+
+/**
+ * Types a radio group over a union of values. `V` is inferred from `value`
+ * and `onChange`, and the items' values are checked against it. Returns the
+ * group as is, so it can sit in `items` next to any other item.
+ */
+export function menuRadioGroup<V extends string>(group: {
+  type: 'radio-group';
+  value: V;
+  onChange: (value: V) => void;
+  items: MenuRadioItem<NoInfer<V>>[];
+}): MenuRadioGroupItem {
+  // Menu only calls `onChange` with the values of the group's own items, so
+  // widening `V` to string here is safe
+  return group as unknown as MenuRadioGroupItem;
+}
 
 export type MenuItem = MenuActionItem | MenuSeparatorItem | MenuRadioGroupItem;
 
