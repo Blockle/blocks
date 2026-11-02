@@ -3,7 +3,9 @@ import { useState } from 'react';
 import preview from '../../../../../../.storybook/preview.js';
 import { Button } from '../../form/Button/Button.js';
 import { Box } from '../../layout/Box/Box.js';
-import { Menu, type MenuItem, type MenuProps } from './Menu.js';
+import { Menu, type MenuItem, type MenuProps, menuRadioGroup } from './Menu.js';
+
+type ColorModeSetting = 'light' | 'dark' | 'system';
 
 const meta = preview.meta({
   title: 'Overlay/Menu',
@@ -133,14 +135,15 @@ export const Controlled = meta.story({
 });
 
 const ColorModeMenu: React.FC<MenuProps> = (props) => {
-  const [colorMode, setColorMode] = useState('system');
+  const [colorMode, setColorMode] = useState<ColorModeSetting>('system');
 
   return (
     <Box style={{ height: 400, padding: 40 }}>
       <Menu
         {...props}
         items={[
-          {
+          // menuRadioGroup() checks the item values against ColorModeSetting
+          menuRadioGroup({
             type: 'radio-group',
             value: colorMode,
             onChange: setColorMode,
@@ -149,7 +152,7 @@ const ColorModeMenu: React.FC<MenuProps> = (props) => {
               { value: 'dark', label: 'Dark' },
               { value: 'system', label: 'System' },
             ],
-          },
+          }),
         ]}
       >
         <Button variant="outline">Color mode</Button>

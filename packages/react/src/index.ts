@@ -112,6 +112,7 @@ export {
   type MenuRadioGroupItem,
   type MenuRadioItem,
   type MenuSeparatorItem,
+  menuRadioGroup,
 } from './components/overlay/Menu/Menu.js';
 export {
   Popover,
