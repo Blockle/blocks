@@ -195,9 +195,13 @@ export function defineProperties<
 
           if (typeof condition === 'object' && condition['@media']) {
             return style({
-              '@media': {
-                [condition['@media']]: {
-                  [property]: values[value],
+              '@layer': {
+                [layers.atom]: {
+                  '@media': {
+                    [condition['@media']]: {
+                      [property]: values[value],
+                    },
+                  },
                 },
               },
             });
