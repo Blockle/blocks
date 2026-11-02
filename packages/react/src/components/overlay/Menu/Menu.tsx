@@ -71,7 +71,12 @@ export type MenuRadioItem<V extends string = string> = {
 export type MenuRadioGroupItem<V extends string = string> = {
   type: 'radio-group';
   value: V;
-  onChange: (value: V) => void;
+  /**
+   * Declared as a method so its parameter is checked bivariantly: a group
+   * over a union of values is then assignable to the string-typed group in
+   * `MenuItem`. Menu only calls it with the values of the group's own items.
+   */
+  onChange(value: V): void;
   items: MenuRadioItem<V>[];
 };
 
@@ -81,14 +86,12 @@ export type MenuRadioGroupItem<V extends string = string> = {
  * group as is, so it can sit in `items` next to any other item.
  */
 export function menuRadioGroup<V extends string>(
-  group: Omit<MenuRadioGroupItem<V>, 'items'> & {
+  group: Omit<MenuRadioGroupItem<V>, 'onChange' | 'items'> & {
+    onChange: (value: V) => void;
     items: MenuRadioItem<NoInfer<V>>[];
   },
-): MenuRadioGroupItem {
-  // Menu only calls `onChange` with the values of the group's own items, so
-  // widening `V` to string here is safe. The `unknown` hop is needed because
-  // `onChange` is contravariant in `V`, so TypeScript sees no overlap
-  return group as unknown as MenuRadioGroupItem;
+): MenuRadioGroupItem<V> {
+  return group;
 }
 
 export type MenuItem = MenuActionItem | MenuSeparatorItem | MenuRadioGroupItem;

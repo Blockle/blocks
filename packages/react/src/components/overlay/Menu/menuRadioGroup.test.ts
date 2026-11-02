@@ -21,6 +21,28 @@ describe('menuRadioGroup', () => {
     expect(menuRadioGroup(input)).toBe(input);
   });
 
+  it('keeps V in its return type', () => {
+    const group = menuRadioGroup({
+      type: 'radio-group',
+      value: 'light' as Mode,
+      onChange: (_value: Mode) => {},
+      items: [{ value: 'light', label: 'Light' }],
+    });
+
+    expectTypeOf(group).toEqualTypeOf<MenuRadioGroupItem<Mode>>();
+  });
+
+  it('accepts a group typed over a union in MenuItem without the helper', () => {
+    const group: MenuRadioGroupItem<Mode> = {
+      type: 'radio-group',
+      value: 'light',
+      onChange: (_value: Mode) => {},
+      items: [{ value: 'light', label: 'Light' }],
+    };
+
+    expectTypeOf(group).toExtend<MenuItem>();
+  });
+
   it('accepts a setter typed with a union without a cast', () => {
     const setMode = (_value: Mode) => {};
     const mode = 'system' as Mode;
