@@ -80,14 +80,14 @@ export type MenuRadioGroupItem<V extends string = string> = {
  * and `onChange`, and the items' values are checked against it. Returns the
  * group as is, so it can sit in `items` next to any other item.
  */
-export function menuRadioGroup<V extends string>(group: {
-  type: 'radio-group';
-  value: V;
-  onChange: (value: V) => void;
-  items: MenuRadioItem<NoInfer<V>>[];
-}): MenuRadioGroupItem {
+export function menuRadioGroup<V extends string>(
+  group: Omit<MenuRadioGroupItem<V>, 'items'> & {
+    items: MenuRadioItem<NoInfer<V>>[];
+  },
+): MenuRadioGroupItem {
   // Menu only calls `onChange` with the values of the group's own items, so
-  // widening `V` to string here is safe
+  // widening `V` to string here is safe. The `unknown` hop is needed because
+  // `onChange` is contravariant in `V`, so TypeScript sees no overlap
   return group as unknown as MenuRadioGroupItem;
 }
 

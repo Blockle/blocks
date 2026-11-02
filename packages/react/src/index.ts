@@ -106,13 +106,13 @@ export {
 } from './components/overlay/Drawer/Drawer.js';
 export {
   Menu,
-  menuRadioGroup,
   type MenuActionItem,
   type MenuItem,
   type MenuProps,
   type MenuRadioGroupItem,
   type MenuRadioItem,
   type MenuSeparatorItem,
+  menuRadioGroup,
 } from './components/overlay/Menu/Menu.js';
 export {
   Popover,
