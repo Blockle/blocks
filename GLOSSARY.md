@@ -54,6 +54,10 @@ _Avoid_: Underline, ink bar, slider, highlight
 Where an overlay sits relative to its anchor: a side (`top`, `right`, `bottom`, `left`), and optionally which of the anchor's edges it lines up with (`start` or `end`, centred when left out), as in `top-start`. A Drawer's Placement is a side of the screen; a Toast's Placement uses the screen as its anchor, as in `bottom-end`.
 _Avoid_: Position, side, align
 
+**Overlay stack**:
+The open overlays (Dialogs, Drawers and Popovers, with the Menus and Tooltips built on them) in the order they opened, wherever they are mounted. The one opened last is the **top overlay**, and only the top overlay handles Escape and clicks outside. A Popover on the stack is still not modal.
+_Avoid_: Modal stack, z-index order, layer
+
 **Auto-dismiss**:
 A Toast removing itself once its duration has run. The duration counts down only while nobody is hovering or focusing the toasts and the page is visible.
 _Avoid_: Timeout, expire, auto-close

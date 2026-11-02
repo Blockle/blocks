@@ -13,6 +13,7 @@ import { useComponentStyles } from '../../../hooks/useComponentStyles/useCompone
 import { useIsomorphicLayoutEffect } from '../../../hooks/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js';
 import { useKeyboard } from '../../../hooks/useKeyboard/useKeyboard.js';
 import { Box } from '../../layout/Box/Box.js';
+import { useIsTopOverlay } from '../overlayStack.js';
 import type { RequestCloseReason } from '../requestCloseReason.js';
 import {
   getPopoverLayout,
@@ -98,12 +99,18 @@ export const Popover: React.FC<PopoverProps> = ({
     [onRequestClose],
   );
 
+  // Only the top overlay handles Escape and clicks outside, so a Dialog or
+  // Drawer the popover is in leaves them to it. Being on the overlay stack
+  // doesn't make the popover modal.
+  const isTop = useIsTopOverlay(open);
+  const enabled = open && isTop;
+
   // Focus often stays on the anchor, so listen for Escape on the document
-  useKeyboard('Escape', onEscape, { enabled: open });
+  useKeyboard('Escape', onEscape, { enabled });
 
   // Close the popover when clicking outside of it
   useClickOutside(popoverRef, () => onRequestClose('outside-click'), {
-    enabled: open,
+    enabled,
   });
 
   useIsomorphicLayoutEffect(() => {
