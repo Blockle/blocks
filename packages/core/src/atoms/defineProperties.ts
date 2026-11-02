@@ -141,17 +141,7 @@ export function defineProperties<
             }
 
             if (typeof condition === 'object' && condition['@media']) {
-              return style({
-                '@layer': {
-                  [layers.atom]: {
-                    '@media': {
-                      [condition['@media']]: {
-                        [property]: value,
-                      },
-                    },
-                  },
-                },
-              });
+              return mediaAtomStyle(condition['@media'], property, value);
             }
 
             throw new Error(
@@ -194,13 +184,11 @@ export function defineProperties<
           }
 
           if (typeof condition === 'object' && condition['@media']) {
-            return style({
-              '@media': {
-                [condition['@media']]: {
-                  [property]: values[value],
-                },
-              },
-            });
+            return mediaAtomStyle(
+              condition['@media'],
+              property,
+              values[value] as AtomicPrimitiveValue,
+            );
           }
 
           throw new Error(
@@ -279,6 +267,25 @@ function makeModeClasses(
   }
 
   return modeClasses;
+}
+
+/** A class applying `property: value` inside `media`, in the atom layer. */
+function mediaAtomStyle(
+  media: string,
+  property: string,
+  value: AtomicPrimitiveValue,
+) {
+  return style({
+    '@layer': {
+      [layers.atom]: {
+        '@media': {
+          [media]: {
+            [property]: value,
+          },
+        },
+      },
+    },
+  });
 }
 
 function isValidConditionList(
