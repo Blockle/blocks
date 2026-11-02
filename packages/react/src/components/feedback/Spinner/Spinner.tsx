@@ -24,9 +24,9 @@ export const Spinner: React.FC<SpinnerProps> = ({
   color,
   ...restProps
 }) => {
-  const spinnerClassName = useComponentStyles('spinner', {
-    root: true,
-    variants: { size, color },
+  const spinnerClassName = useComponentStyles('spinner', 'root', {
+    size,
+    color,
   });
 
   return (

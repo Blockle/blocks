@@ -7,7 +7,11 @@ import { Portal } from '../../components/overlay/Portal/Portal.js';
 import { BlocksProvider } from '../../components/providers/BlocksProvider/BlocksProvider.js';
 import { useColorMode } from './useColorMode.js';
 
-const theme: Theme = { vars: 'mock-vars', name: 'mock-theme', components: {} };
+const theme: Theme = {
+  vars: 'mock-vars',
+  name: 'mock-theme',
+  components: {} as Theme['components'],
+};
 
 const Probe = () => {
   const { colorMode, resolvedColorMode } = useColorMode();

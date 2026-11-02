@@ -30,9 +30,9 @@ export const Link: React.FC<LinkProps> = ({
   underline,
   ...restProps
 }) => {
-  const linkClassName = useComponentStyles('link', {
-    root: true,
-    variants: { intent, underline },
+  const linkClassName = useComponentStyles('link', 'root', {
+    intent,
+    underline,
   });
 
   return (

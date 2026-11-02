@@ -19,9 +19,9 @@ export const Radio: React.FC<RadioProps> = ({
 }) => {
   const rid = useId();
   const id = restProps.id ?? rid;
-  const containerClassName = useComponentStyles('radio', { root: true }, false);
-  const iconClassName = useComponentStyles('radio', { icon: true }, false);
-  const labelClassName = useComponentStyles('radio', { label: true }, false);
+  const containerClassName = useComponentStyles('radio', 'root');
+  const iconClassName = useComponentStyles('radio', 'icon');
+  const labelClassName = useComponentStyles('radio', 'label');
 
   const input = (
     <div

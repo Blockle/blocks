@@ -23,8 +23,9 @@ export {
   systemFallbackColorMode,
 } from './config/colorMode.js';
 export type {
+  ComponentThemeElement,
   ComponentThemes,
-  ComponentThemesProps,
+  ComponentThemeVariantsArg,
   ToastPlacement,
 } from './config/componentThemes.js';
 export type {

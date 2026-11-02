@@ -10,7 +10,7 @@ describe('BlocksProvider', () => {
   const mockTheme: Theme = {
     vars: 'mock-vars',
     name: 'mock-theme',
-    components: {},
+    components: {} as Theme['components'],
   };
 
   it('renders children correctly', () => {

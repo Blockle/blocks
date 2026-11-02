@@ -25,7 +25,7 @@ export const TabPanel: React.FC<TabPanelProps> = ({
 }) => {
   const { baseId, value: selectedValue } = useTabsContext('TabPanel');
   const selected = selectedValue === value;
-  const panelClassName = useComponentStyles('tabs', { panel: true });
+  const panelClassName = useComponentStyles('tabs', 'panel');
 
   return (
     <div

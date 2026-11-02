@@ -125,7 +125,7 @@ export const Menu: React.FC<MenuProps> = ({
   const isControlled = openProp !== undefined;
   const open = (isControlled ? openProp : internalOpen) && items.length > 0;
 
-  const listClassName = useComponentStyles('menu', { list: true }, false);
+  const listClassName = useComponentStyles('menu', 'list');
 
   const setOpen = (next: boolean) => {
     if (!isControlled) {
@@ -302,11 +302,7 @@ const MenuItems: React.FC<MenuItemsProps> = ({
   initialFocus,
   onPick,
 }) => {
-  const separatorClassName = useComponentStyles(
-    'menu',
-    { separator: true },
-    false,
-  );
+  const separatorClassName = useComponentStyles('menu', 'separator');
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: only on mount
   useEffect(() => {
@@ -372,7 +368,7 @@ const MenuItemButton: React.FC<MenuItemButtonProps> = ({
   children,
   ...ariaProps
 }) => {
-  const className = useComponentStyles('menu', { item: true }, false);
+  const className = useComponentStyles('menu', 'item');
 
   return (
     <button
@@ -406,11 +402,7 @@ type MenuRadioProps = {
 };
 
 const MenuRadio: React.FC<MenuRadioProps> = ({ item, checked, onActivate }) => {
-  const indicatorClassName = useComponentStyles(
-    'menu',
-    { itemIndicator: true },
-    false,
-  );
+  const indicatorClassName = useComponentStyles('menu', 'itemIndicator');
 
   return (
     <MenuItemButton

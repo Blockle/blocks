@@ -38,9 +38,8 @@ export const Heading: React.FC<HeadingProps> = ({
   children,
   ...restProps
 }) => {
-  const themeClassName = useComponentStyles('heading', {
-    root: true,
-    variants: { color: color as TextColorRole },
+  const themeClassName = useComponentStyles('heading', 'root', {
+    color: color as TextColorRole,
   });
   const Tag = `h${level}` as const;
 

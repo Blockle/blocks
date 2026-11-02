@@ -39,10 +39,7 @@ export const Dialog: React.FC<DialogProps> = ({
   ...restProps
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const dialogClassName = useComponentStyles('dialog', {
-    dialog: true,
-    variants: { size },
-  });
+  const dialogClassName = useComponentStyles('dialog', 'dialog', { size });
 
   const closeRequestProps = useModalOverlay(dialogRef, {
     open,

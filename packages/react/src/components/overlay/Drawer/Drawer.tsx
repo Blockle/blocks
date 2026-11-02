@@ -41,9 +41,9 @@ export const Drawer: React.FC<DrawerProps> = ({
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
-  const rootClassName = useComponentStyles('drawer', {
-    root: true,
-    variants: { placement, size },
+  const rootClassName = useComponentStyles('drawer', 'root', {
+    placement,
+    size,
   });
 
   const closeRequestProps = useModalOverlay(dialogRef, {

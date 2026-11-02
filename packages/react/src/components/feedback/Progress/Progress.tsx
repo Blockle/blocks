@@ -31,18 +31,8 @@ export const Progress: React.FC<ProgressProps> = ({
   ...restProps
 }) => {
   const progress = (value / max) * 100;
-  const containerClassName = useComponentStyles(
-    'progress',
-    {
-      root: true,
-    },
-    false,
-  );
-  const barClassName = useComponentStyles(
-    'progress',
-    { bar: true, variants: { indeterminate } },
-    false,
-  );
+  const containerClassName = useComponentStyles('progress', 'root');
+  const barClassName = useComponentStyles('progress', 'bar', { indeterminate });
 
   return (
     <Box

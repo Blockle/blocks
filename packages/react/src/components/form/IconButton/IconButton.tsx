@@ -63,16 +63,13 @@ export const IconButton: React.FC<IconButtonProps> = ({
   variant,
   ...restProps
 }) => {
-  const iconButtonClassName = useComponentStyles('iconButton', {
-    root: true,
-    variants: {
-      variant,
-      intent,
-      size,
-      shape,
-      disabled,
-      loading,
-    },
+  const iconButtonClassName = useComponentStyles('iconButton', 'root', {
+    variant,
+    intent,
+    size,
+    shape,
+    disabled,
+    loading,
   });
 
   const [atomsProps, otherProps] = getAtomsAndProps(restProps);

@@ -1,53 +1,65 @@
-import type { ComponentThemesProps } from '../config/componentThemes.js';
+import type {
+  ComponentThemeElement,
+  ComponentThemes,
+  ComponentThemeVariantsArg,
+} from '../config/componentThemes.js';
 import type { Theme } from '../theme/makeTheme.js';
 
-export function getComponentStyles<T extends keyof ComponentThemesProps>(
+type LooseComponentTheme = {
+  variants?: Record<string, string | Record<string, string>>;
+  defaultVariants?: Record<string, unknown>;
+  compoundVariants?: { variants: Record<string, unknown>; style: string }[];
+  [element: string]: unknown;
+};
+
+/**
+ * Returns the class names of one Element of a Component theme.
+ *
+ * Variant classes, default variants and compound variants are added if and
+ * only if `variants` is passed, even as `{}`.
+ */
+export function getComponentStyles<T extends keyof ComponentThemes>(
   theme: Theme,
   name: T,
-  styleProps: ComponentThemesProps[T],
-  useDefaultVariants = true,
+  element: ComponentThemeElement<T>,
+  ...[variants]: ComponentThemeVariantsArg<T>
 ): string {
-  const component = theme.components[name];
-
-  if (!component) {
-    console.warn(`Component ${name} is not defined in the theme`);
-    return '';
-  }
-
+  // The one loose view of the typed theme; everything below reads through it
+  const component = theme.components[name] as LooseComponentTheme;
   const classNames: string[] = [];
-  const variants = styleProps.variants;
-  const componentVariants = component.variants;
 
-  // Apply root styles (boolean props)
-  for (const key in styleProps) {
-    const value = styleProps[key];
+  const elementClassName = component[element];
 
-    if (value === true) {
-      const className = (component as Record<string, string>)[key];
-
-      if (className) {
-        classNames.push(className);
-      }
-    }
+  if (typeof elementClassName === 'string' && elementClassName) {
+    classNames.push(elementClassName);
   }
 
-  const defaultVariants = useDefaultVariants ? component.defaultVariants : null;
+  if (variants === undefined) {
+    return classNames.join(' ');
+  }
 
-  for (const key in componentVariants) {
-    const variantValue = variants?.[key] ?? defaultVariants?.[key];
+  const effective: Record<string, unknown> = {
+    ...component.defaultVariants,
+    ...Object.fromEntries(
+      Object.entries(variants).filter(([, value]) => value !== undefined),
+    ),
+  };
 
-    if (variantValue === undefined) continue;
+  for (const key in component.variants) {
+    const variantValue = effective[key];
 
-    const variantConfig = componentVariants[key];
+    if (variantValue === undefined) {
+      continue;
+    }
+
+    const variantConfig = component.variants[key];
 
     if (typeof variantValue === 'boolean') {
       if (variantValue && typeof variantConfig === 'string') {
         classNames.push(variantConfig);
       }
-    } else {
-      const className = (variantConfig as Record<string, string>)[
-        variantValue as string
-      ];
+    } else if (typeof variantConfig === 'object') {
+      const className = variantConfig[variantValue as string];
 
       if (className) {
         classNames.push(className);
@@ -55,26 +67,13 @@ export function getComponentStyles<T extends keyof ComponentThemesProps>(
     }
   }
 
-  // Apply compound variants
-  const { compoundVariants } = component;
+  for (const compoundVariant of component.compoundVariants ?? []) {
+    const matches = Object.entries(compoundVariant.variants).every(
+      ([key, value]) => effective[key] === value,
+    );
 
-  if (compoundVariants) {
-    for (const compoundVariant of compoundVariants) {
-      let matches = true;
-
-      for (const key in compoundVariant.variants) {
-        const expectedValue = compoundVariant.variants[key];
-        const actualValue = variants?.[key] ?? defaultVariants?.[key];
-
-        if (actualValue !== expectedValue) {
-          matches = false;
-          break;
-        }
-      }
-
-      if (matches) {
-        classNames.push(compoundVariant.style);
-      }
+    if (matches) {
+      classNames.push(compoundVariant.style);
     }
   }
 

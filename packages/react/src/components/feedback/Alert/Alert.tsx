@@ -41,10 +41,7 @@ export const Alert: React.FC<AlertProps> = ({
   startSlot,
   ...restProps
 }) => {
-  const containerClassName = useComponentStyles('alert', {
-    root: true,
-    variants: { intent },
-  });
+  const containerClassName = useComponentStyles('alert', 'root', { intent });
 
   return (
     <Box

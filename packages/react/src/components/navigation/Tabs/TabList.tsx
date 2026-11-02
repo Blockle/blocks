@@ -26,7 +26,7 @@ export const TabList: React.FC<TabListProps> = ({
 }) => {
   const { baseId, setValue } = useTabsContext('TabList');
   const listRef = useRef<HTMLDivElement | null>(null);
-  const listClassName = useComponentStyles('tabs', { list: true });
+  const listClassName = useComponentStyles('tabs', 'list');
   const [fallbackValue, setFallbackValue] = useState<string>();
 
   // With no selected tab (no value, or the selected tab is gone) the first tab

@@ -62,14 +62,10 @@ const TabFrame: React.FC<TabFrameProps> = ({
   startSlot,
 }) => {
   const wrapperRef = useRef<HTMLDivElement & HTMLLIElement>(null);
-  const tabClassName = useComponentStyles('tabs', { tab: true });
+  const tabClassName = useComponentStyles('tabs', 'tab');
 
-  const startSlotClassName = useComponentStyles(
-    'tabs',
-    { startSlot: true },
-    false,
-  );
-  const endSlotClassName = useComponentStyles('tabs', { endSlot: true }, false);
+  const startSlotClassName = useComponentStyles('tabs', 'startSlot');
+  const endSlotClassName = useComponentStyles('tabs', 'endSlot');
 
   useEffect(() => {
     if (active && wrapperRef.current && scrollRef?.current) {
@@ -110,7 +106,7 @@ const TabsTab: React.FC<TabProps> = ({
   const { baseId, setValue, value: selectedValue } = useTabsContext('Tab');
   const list = useContext(TabListContext);
 
-  const triggerClassName = useComponentStyles('tabs', { trigger: true });
+  const triggerClassName = useComponentStyles('tabs', 'trigger');
 
   if (value === undefined) {
     throw new Error('Tab needs a value inside Tabs');
@@ -160,7 +156,7 @@ const TabNavTab: React.FC<TabProps> = ({
   ...restProps
 }) => {
   const list = useContext(TabListContext);
-  const triggerClassName = useComponentStyles('tabs', { trigger: true });
+  const triggerClassName = useComponentStyles('tabs', 'trigger');
 
   return (
     <TabFrame

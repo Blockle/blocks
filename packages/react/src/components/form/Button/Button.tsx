@@ -64,15 +64,12 @@ export const Button: React.FC<ButtonProps> = ({
   variant,
   ...restProps
 }) => {
-  const buttonClassName = useComponentStyles('button', {
-    root: true,
-    variants: {
-      variant,
-      intent,
-      size,
-      disabled,
-      loading,
-    },
+  const buttonClassName = useComponentStyles('button', 'root', {
+    variant,
+    intent,
+    size,
+    disabled,
+    loading,
   });
 
   const [atomsProps, otherProps] = getAtomsAndProps(restProps);

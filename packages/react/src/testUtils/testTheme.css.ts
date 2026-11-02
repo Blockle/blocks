@@ -31,6 +31,7 @@ export const testingTheme = makeTheme({
     button: { root: '' },
     checkbox: { root: '', icon: '', label: '' },
     dialog: { dialog: '' },
+    drawer: {},
     divider: { root: '' },
     heading: { root: '' },
     icon: { root: '' },

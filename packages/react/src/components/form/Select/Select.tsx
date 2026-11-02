@@ -29,12 +29,12 @@ export const Select: React.FC<SelectProps> = ({
   variant,
   ...restProps
 }) => {
-  const wrapperClassName = useComponentStyles('select', { root: true }, false);
-  const selectClassName = useComponentStyles('select', {
-    select: true,
-    variants: { variant, size },
+  const wrapperClassName = useComponentStyles('select', 'root');
+  const selectClassName = useComponentStyles('select', 'select', {
+    variant,
+    size,
   });
-  const iconClassName = useComponentStyles('select', { icon: true }, false);
+  const iconClassName = useComponentStyles('select', 'icon');
 
   return (
     <Box className={classnames(styles.wrapper, wrapperClassName)}>

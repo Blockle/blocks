@@ -1,5 +1,4 @@
 import type { Atoms } from '../atoms/atoms.js';
-import type { RecordLike } from '../utils/typing/helpers.js';
 import type { ColorRoles, Intent } from './themeTokens.js';
 
 // Shared variant type definitions
@@ -279,17 +278,25 @@ export type ComponentThemes = {
 };
 
 /**
- * ComponentThemeProps is a helper type to define the props passed to useComponentStyles.
+ * The Elements of a Component theme: its string keys, excluding `variants`.
+ * Optional Elements are included.
  */
-export type ComponentThemeProps<T extends RecordLike> = Omit<
-  {
-    [K in keyof T]?: Exclude<T[K], undefined> extends string ? boolean : never;
-  },
+export type ComponentThemeElement<T extends keyof ComponentThemes> = Exclude<
+  keyof ComponentThemes[T] & string,
   'variants'
-> & {
-  variants?: T['variants'] extends RecordLike ? Partial<T['variants']> : never;
-};
+>;
 
-export type ComponentThemesProps = {
-  [K in keyof ComponentThemes]: ComponentThemeProps<ComponentThemes[K]>;
-};
+/**
+ * The optional variants argument for one theme shape. It is only accepted for
+ * themes that declare a `variants` key, even an optional one.
+ */
+export type ThemeVariantsArg<C> = 'variants' extends keyof C
+  ? [variants?: Partial<NonNullable<C['variants']>>]
+  : [];
+
+/**
+ * The optional variants argument of a call. It is only accepted for Component
+ * themes that declare variants.
+ */
+export type ComponentThemeVariantsArg<T extends keyof ComponentThemes> =
+  ThemeVariantsArg<ComponentThemes[T]>;

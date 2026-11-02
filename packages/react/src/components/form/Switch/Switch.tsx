@@ -32,8 +32,8 @@ export const Switch: React.FC<SwitchProps> = ({
   );
   const isControlled = checked !== undefined;
   const isChecked = isControlled ? checked : uncontrolledChecked;
-  const baseClassName = useComponentStyles('switch', { root: true });
-  const thumbClassName = useComponentStyles('switch', { thumb: true }, false);
+  const baseClassName = useComponentStyles('switch', 'root');
+  const thumbClassName = useComponentStyles('switch', 'thumb');
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!isControlled) {

@@ -21,13 +21,9 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   required,
   ...restProps
 }) => {
-  const containerClassName = useComponentStyles(
-    'checkbox',
-    { root: true },
-    false,
-  );
-  const iconClassName = useComponentStyles('checkbox', { icon: true }, false);
-  const labelClassName = useComponentStyles('checkbox', { label: true }, false);
+  const containerClassName = useComponentStyles('checkbox', 'root');
+  const iconClassName = useComponentStyles('checkbox', 'icon');
+  const labelClassName = useComponentStyles('checkbox', 'label');
   const reactId = useId();
   const inputId = id || reactId;
 
