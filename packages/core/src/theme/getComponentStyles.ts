@@ -5,6 +5,13 @@ import type {
 } from '../config/componentThemes.js';
 import type { Theme } from '../theme/makeTheme.js';
 
+type LooseComponentTheme = {
+  variants?: Record<string, string | Record<string, string>>;
+  defaultVariants?: Record<string, unknown>;
+  compoundVariants?: { variants: Record<string, unknown>; style: string }[];
+  [element: string]: unknown;
+};
+
 /**
  * Returns the class names of one Element of a Component theme.
  *
@@ -17,7 +24,8 @@ export function getComponentStyles<T extends keyof ComponentThemes>(
   element: ComponentThemeElement<T>,
   ...[variants]: ComponentThemeVariantsArg<T>
 ): string {
-  const component = theme.components[name] as Record<string, unknown>;
+  // The one loose view of the typed theme; everything below reads through it
+  const component = theme.components[name] as LooseComponentTheme;
   const classNames: string[] = [];
 
   const elementClassName = component[element];
@@ -30,20 +38,21 @@ export function getComponentStyles<T extends keyof ComponentThemes>(
     return classNames.join(' ');
   }
 
-  const selected = variants as Record<string, unknown>;
-  const defaultVariants = component.defaultVariants as
-    | Record<string, unknown>
-    | undefined;
-  const componentVariants = component.variants as
-    | Record<string, string | Record<string, string>>
-    | undefined;
+  const effective: Record<string, unknown> = {
+    ...component.defaultVariants,
+    ...Object.fromEntries(
+      Object.entries(variants).filter(([, value]) => value !== undefined),
+    ),
+  };
 
-  for (const key in componentVariants) {
-    const variantValue = selected[key] ?? defaultVariants?.[key];
+  for (const key in component.variants) {
+    const variantValue = effective[key];
 
-    if (variantValue === undefined) continue;
+    if (variantValue === undefined) {
+      continue;
+    }
 
-    const variantConfig = componentVariants[key];
+    const variantConfig = component.variants[key];
 
     if (typeof variantValue === 'boolean') {
       if (variantValue && typeof variantConfig === 'string') {
@@ -58,26 +67,13 @@ export function getComponentStyles<T extends keyof ComponentThemes>(
     }
   }
 
-  const compoundVariants = component.compoundVariants as
-    | { variants: Record<string, unknown>; style: string }[]
-    | undefined;
+  for (const compoundVariant of component.compoundVariants ?? []) {
+    const matches = Object.entries(compoundVariant.variants).every(
+      ([key, value]) => effective[key] === value,
+    );
 
-  if (compoundVariants) {
-    for (const compoundVariant of compoundVariants) {
-      let matches = true;
-
-      for (const key in compoundVariant.variants) {
-        const actualValue = selected[key] ?? defaultVariants?.[key];
-
-        if (actualValue !== compoundVariant.variants[key]) {
-          matches = false;
-          break;
-        }
-      }
-
-      if (matches) {
-        classNames.push(compoundVariant.style);
-      }
+    if (matches) {
+      classNames.push(compoundVariant.style);
     }
   }
 

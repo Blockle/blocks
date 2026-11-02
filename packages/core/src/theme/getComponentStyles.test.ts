@@ -1,16 +1,16 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, expectTypeOf, it } from 'vitest';
 
+import type { ThemeVariantsArg } from '../config/componentThemes.js';
 import type { Theme } from '../theme/makeTheme.js';
 import { getComponentStyles } from './getComponentStyles.js';
 
 // Tests build partial themes; the cast is the only place that knows it.
-function themeWith(button: unknown): Theme {
-  return { components: { button } } as unknown as Theme;
+function themeWith(button: unknown, tag: unknown = {}): Theme {
+  return { components: { button, tag } } as unknown as Theme;
 }
 
 const testTheme = themeWith({
   root: 'btn-base',
-  startSlot: 'btn-start',
   variants: {
     size: { small: 'btn-sm', large: 'btn-lg' },
     intent: { primary: 'btn-primary', secondary: 'btn-secondary' },
@@ -18,9 +18,18 @@ const testTheme = themeWith({
   },
 });
 
+const tagTheme = themeWith(
+  {},
+  {
+    root: 'tag-base',
+    startSlot: 'tag-start',
+    variants: { size: { small: 'tag-sm', large: 'tag-lg' } },
+    defaultVariants: { size: 'large' },
+  },
+);
+
 const themeWithDefaults = themeWith({
   root: 'btn-base',
-  startSlot: 'btn-start',
   variants: {
     size: { small: 'btn-sm', large: 'btn-lg' },
     intent: { primary: 'btn-primary', secondary: 'btn-secondary' },
@@ -42,25 +51,21 @@ describe('getComponentStyles', () => {
   describe('elements', () => {
     it('returns the class of the requested element', () => {
       expect(getComponentStyles(testTheme, 'button', 'root')).toBe('btn-base');
-      expect(
-        getComponentStyles(testTheme, 'button', 'startSlot' as never),
-      ).toBe('btn-start');
+      expect(getComponentStyles(tagTheme, 'tag', 'startSlot')).toBe(
+        'tag-start',
+      );
     });
 
     it('returns an empty string for an element the theme does not define', () => {
-      const theme = themeWith({ root: 'btn-base' });
-
-      expect(getComponentStyles(theme, 'button', 'startSlot' as never)).toBe(
-        '',
-      );
+      expect(getComponentStyles(themeWith({}), 'button', 'root')).toBe('');
     });
   });
 
   describe('variants follow the call', () => {
     it('adds no variant classes when variants are not passed, despite defaults', () => {
-      expect(
-        getComponentStyles(themeWithDefaults, 'button', 'startSlot' as never),
-      ).toBe('btn-start');
+      expect(getComponentStyles(tagTheme, 'tag', 'startSlot')).toBe(
+        'tag-start',
+      );
     });
 
     it('adds no compound variants when variants are not passed', () => {
@@ -77,10 +82,8 @@ describe('getComponentStyles', () => {
 
     it('applies passed variants to whichever element is asked for', () => {
       expect(
-        getComponentStyles(testTheme, 'button', 'startSlot' as never, {
-          size: 'small',
-        }),
-      ).toBe('btn-start btn-sm');
+        getComponentStyles(tagTheme, 'tag', 'startSlot', { size: 'small' }),
+      ).toBe('tag-start tag-sm');
     });
 
     it('overrides default variants with passed variants', () => {
@@ -216,5 +219,47 @@ describe('getComponentStyles', () => {
         'btn-base btn-sm btn-primary btn-disabled btn-small-primary btn-primary-disabled',
       );
     });
+  });
+});
+
+// The calls in type tests are checked by tsc and never run.
+function typeCheck(_check: () => void) {}
+
+describe('getComponentStyles types', () => {
+  it('rejects variants and unknown names as an element', () => {
+    typeCheck(() => {
+      // @ts-expect-error variants is not an Element
+      getComponentStyles(testTheme, 'button', 'variants');
+      // @ts-expect-error unknown Element
+      getComponentStyles(testTheme, 'button', 'nope');
+      // @ts-expect-error an Element of another component
+      getComponentStyles(testTheme, 'button', 'startSlot');
+    });
+  });
+
+  it('rejects variants for a theme without variants', () => {
+    typeCheck(() => {
+      // @ts-expect-error menu declares no variants
+      getComponentStyles(testTheme, 'menu', 'list', {});
+      getComponentStyles(testTheme, 'menu', 'list');
+    });
+  });
+
+  it('accepts a partial of the theme variants only', () => {
+    typeCheck(() => {
+      getComponentStyles(testTheme, 'button', 'root', {});
+      getComponentStyles(testTheme, 'button', 'root', { size: 'small' });
+      // @ts-expect-error not a size
+      getComponentStyles(testTheme, 'button', 'root', { size: 'huge' });
+      // @ts-expect-error not a variant
+      getComponentStyles(testTheme, 'button', 'root', { nope: true });
+    });
+  });
+
+  it('accepts variants when the variants key is optional', () => {
+    expectTypeOf<
+      ThemeVariantsArg<{ root: string; variants?: { a: boolean } }>
+    >().toEqualTypeOf<[variants?: { a?: boolean }]>();
+    expectTypeOf<ThemeVariantsArg<{ root: string }>>().toEqualTypeOf<[]>();
   });
 });
