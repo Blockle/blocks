@@ -144,7 +144,6 @@ const ColorModeMenu: React.FC<MenuProps> = (props) => {
         items={[
           // menuRadioGroup() checks the item values against ColorModeSetting
           menuRadioGroup({
-            type: 'radio-group',
             value: colorMode,
             onChange: setColorMode,
             items: [

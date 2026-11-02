@@ -10,20 +10,39 @@ import {
 type Mode = 'light' | 'dark' | 'system';
 
 describe('menuRadioGroup', () => {
-  it('returns the group unchanged', () => {
+  it('returns the group with type radio-group', () => {
     const input = {
-      type: 'radio-group' as const,
       value: 'light' as Mode,
       onChange: vi.fn<(value: Mode) => void>(),
       items: [{ value: 'light' as const, label: 'Light' }],
     };
 
-    expect(menuRadioGroup(input)).toBe(input);
+    expect(menuRadioGroup(input)).toEqual({ ...input, type: 'radio-group' });
+  });
+
+  it('sets type radio-group even when the input carries another type', () => {
+    const input = {
+      type: 'separator',
+      value: 'light' as Mode,
+      onChange: (_value: Mode) => {},
+      items: [{ value: 'light' as const, label: 'Light' }],
+    };
+
+    expect(menuRadioGroup(input).type).toBe('radio-group');
+  });
+
+  it('rejects type in an object literal', () => {
+    menuRadioGroup({
+      // @ts-expect-error the helper owns the type discriminant
+      type: 'radio-group',
+      value: 'light' as Mode,
+      onChange: (_value: Mode) => {},
+      items: [{ value: 'light', label: 'Light' }],
+    });
   });
 
   it('keeps V in its return type', () => {
     const group = menuRadioGroup({
-      type: 'radio-group',
       value: 'light' as Mode,
       onChange: (_value: Mode) => {},
       items: [{ value: 'light', label: 'Light' }],
@@ -48,7 +67,6 @@ describe('menuRadioGroup', () => {
     const mode = 'system' as Mode;
 
     menuRadioGroup({
-      type: 'radio-group',
       value: mode,
       onChange: setMode,
       items: [
@@ -63,7 +81,6 @@ describe('menuRadioGroup', () => {
     const mode = 'system' as Mode;
 
     menuRadioGroup({
-      type: 'radio-group',
       value: mode,
       onChange: setMode,
       items: [
@@ -81,13 +98,11 @@ describe('menuRadioGroup', () => {
       { label: 'Action', onSelect: () => {} },
       { type: 'separator' },
       menuRadioGroup({
-        type: 'radio-group',
         value: 'light' as Mode,
         onChange: setMode,
         items: [{ value: 'light', label: 'Light' }],
       }),
       menuRadioGroup({
-        type: 'radio-group',
         value: 'sm' as 'sm' | 'lg',
         onChange: setSize,
         items: [{ value: 'sm', label: 'Small' }],
