@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { resolve } from '../../../testUtils/browser/contrast.js';
 import { render } from '../../../testUtils/browser/render.js';
 import { IconButton } from '../../form/IconButton/IconButton.js';
+import { Link } from '../../navigation/Link/Link.js';
 import { IconMask } from '../Icon/IconMask.js';
 import { Tag } from './Tag.js';
 
@@ -235,5 +236,38 @@ describe('Tag (browser)', () => {
     expect(Number.parseFloat(paddingInlineEnd)).toBeLessThan(
       Number.parseFloat(paddingInlineStart),
     );
+  });
+
+  // Tag and Link theme roots share a layer and specificity, so Tag keeps its
+  // shape only because Momotaro registers the Tag theme after the Link theme
+  // (see theme-momotaro/src/components/index.ts).
+  it('keeps its pill radius and font weight when composed onto a Link', async () => {
+    const screen = await render(
+      <>
+        <span
+          data-testid="reference"
+          style={{
+            borderRadius: vars.borderRadius.full,
+            fontWeight: vars.fontWeight.medium,
+          }}
+        />
+        <Tag asChild>
+          <Link href="/x" intent="inherit">
+            T1 An Epic
+          </Link>
+        </Tag>
+      </>,
+    );
+    const reference = getComputedStyle(
+      screen.getByTestId('reference').element(),
+    );
+    const { borderRadius, fontWeight } = getComputedStyle(
+      screen.getByRole('link').element(),
+    );
+
+    expect({ borderRadius, fontWeight }).toEqual({
+      borderRadius: reference.borderRadius,
+      fontWeight: reference.fontWeight,
+    });
   });
 });

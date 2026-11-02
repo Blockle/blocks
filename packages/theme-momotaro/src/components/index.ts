@@ -1,5 +1,10 @@
 import type { ThemeComponentsStyles } from '@blockle/blocks-core';
 
+// Order matters: Tag must be imported after Link. `<Tag asChild><Link /></Tag>`
+// puts both theme roots on one anchor, in the same layer at the same
+// specificity, so the later rule wins. Tag has to win to keep its pill radius
+// and font weight. Guarded by the Tag browser test "keeps its pill radius and
+// font weight when composed onto a Link".
 import { alert } from './alert.css.js';
 import { button } from './button.css.js';
 import { checkbox } from './checkbox.css.js';
