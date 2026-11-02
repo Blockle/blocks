@@ -49,12 +49,8 @@ export const Textarea: React.FC<TextareaProps> = ({
   containerProps,
   ...restProps
 }) => {
-  const containerClassName = useComponentStyles(
-    'textarea',
-    { root: true },
-    false,
-  );
-  const inputClassName = useComponentStyles('textarea', { input: true });
+  const containerClassName = useComponentStyles('textarea', 'root');
+  const inputClassName = useComponentStyles('textarea', 'input');
   const { className, ...inputProps } = restProps;
   const {
     className: containerClassNameFromProps,

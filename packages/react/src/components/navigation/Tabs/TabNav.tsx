@@ -28,8 +28,8 @@ export const TabNav: React.FC<TabNavProps> = ({
   ...restProps
 }) => {
   const navRef = useRef<HTMLElement | null>(null);
-  const listClassName = useComponentStyles('tabs', { list: true });
-  const navListClassName = useComponentStyles('tabs', { navList: true });
+  const listClassName = useComponentStyles('tabs', 'list');
+  const navListClassName = useComponentStyles('tabs', 'navList');
 
   const context = useMemo(
     () => ({ fallbackValue: undefined, nav: true, scrollRef: navRef }),

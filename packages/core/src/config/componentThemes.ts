@@ -279,17 +279,19 @@ export type ComponentThemes = {
 };
 
 /**
- * ComponentThemeProps is a helper type to define the props passed to useComponentStyles.
+ * The Elements of a Component theme: its string keys, excluding `variants`.
+ * Optional Elements are included.
  */
-export type ComponentThemeProps<T extends RecordLike> = Omit<
-  {
-    [K in keyof T]?: Exclude<T[K], undefined> extends string ? boolean : never;
-  },
+export type ComponentThemeElement<T extends keyof ComponentThemes> = Exclude<
+  keyof ComponentThemes[T] & string,
   'variants'
-> & {
-  variants?: T['variants'] extends RecordLike ? Partial<T['variants']> : never;
-};
+>;
 
-export type ComponentThemesProps = {
-  [K in keyof ComponentThemes]: ComponentThemeProps<ComponentThemes[K]>;
-};
+/**
+ * The optional variants argument of a call. It is only accepted for Component
+ * themes that declare variants.
+ */
+export type ComponentThemeVariantsArg<T extends keyof ComponentThemes> =
+  ComponentThemes[T] extends { variants: infer V extends RecordLike }
+    ? [variants?: Partial<V>]
+    : [];

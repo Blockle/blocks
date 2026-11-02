@@ -37,9 +37,9 @@ export const Label: React.FC<LabelProps> = ({
   ...restProps
 }) => {
   const Component = asSpan ? 'span' : 'label';
-  const containerClassName = useComponentStyles('label', {
-    root: true,
-    variants: { required, size },
+  const containerClassName = useComponentStyles('label', 'root', {
+    required,
+    size,
   });
 
   return (

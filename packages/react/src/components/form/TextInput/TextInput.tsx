@@ -29,12 +29,8 @@ export const TextInput: React.FC<TextInputProps> = ({
   type = 'text',
   ...restProps
 }) => {
-  const containerStyles = useComponentStyles(
-    'textInput',
-    { root: true },
-    false,
-  );
-  const inputStyles = useComponentStyles('textInput', { input: true });
+  const containerStyles = useComponentStyles('textInput', 'root');
+  const inputStyles = useComponentStyles('textInput', 'input');
 
   return (
     <Box>

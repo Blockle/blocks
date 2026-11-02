@@ -53,10 +53,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
   const ref = useRef<HTMLElement>(null);
   const [open, setOpen] = useState(false);
 
-  const tooltipClassName = useComponentStyles('tooltip', {
-    root: true,
-    variants: { intent },
-  });
+  const tooltipClassName = useComponentStyles('tooltip', 'root', { intent });
 
   // Create a hook?
   // usePointerEnterLeave

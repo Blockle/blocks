@@ -30,10 +30,7 @@ export const Divider: React.FC<DividerProps> = ({
   style,
   ...restProps
 }) => {
-  const dividerClass = useComponentStyles('divider', {
-    root: true,
-    variants: { size },
-  });
+  const dividerClass = useComponentStyles('divider', 'root', { size });
 
   return (
     <Box

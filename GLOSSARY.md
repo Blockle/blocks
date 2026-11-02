@@ -36,6 +36,10 @@ _Avoid_: Color scale, ramp
 A style prop, such as `padding` or `opacity`, whose value comes from a fixed set: a theme's token scale or a few literal values.
 _Avoid_: Style prop, sprinkle, utility class
 
+**Element**:
+A named class in a Component theme for one rendered element of a component, such as `root`, `startSlot` or `bar`. Variants attach to whichever Element a component passes them to.
+_Avoid_: Part, which ADR-0008 already uses for compound components such as `Tab`
+
 ### Composition
 
 **Slot**:

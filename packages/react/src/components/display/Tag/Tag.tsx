@@ -51,16 +51,9 @@ export const Tag: React.FC<TagProps> = ({
   startSlot,
   ...restProps
 }) => {
-  const tagClassName = useComponentStyles('tag', {
-    root: true,
-    variants: { intent, size },
-  });
-  const startSlotClassName = useComponentStyles(
-    'tag',
-    { startSlot: true },
-    false,
-  );
-  const endSlotClassName = useComponentStyles('tag', { endSlot: true }, false);
+  const tagClassName = useComponentStyles('tag', 'root', { intent, size });
+  const startSlotClassName = useComponentStyles('tag', 'startSlot');
+  const endSlotClassName = useComponentStyles('tag', 'endSlot');
 
   return (
     <Template

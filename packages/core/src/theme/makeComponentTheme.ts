@@ -67,12 +67,12 @@ export type ComponentTheme<T extends RecordLike> = ComponentThemeToStyles<T> & {
 };
 
 export type ThemeComponentsStyles = {
-  [K in keyof ComponentThemes]?: ComponentTheme<ComponentThemes[K]>;
+  [K in keyof ComponentThemes]: ComponentTheme<ComponentThemes[K]>;
 };
 
 export function makeComponentTheme<T extends keyof ThemeComponentsStyles>(
   _component: T,
-  componentTheme: Exclude<ThemeComponentsStyles[T], undefined>,
+  componentTheme: ThemeComponentsStyles[T],
 ) {
   return componentTheme;
 }

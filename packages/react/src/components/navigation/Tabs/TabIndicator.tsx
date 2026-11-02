@@ -10,7 +10,7 @@ import * as styles from './tabs.css.js';
  * against the selected tab and styled by the theme. Shared by `TabList` and `TabNav`.
  */
 export const TabIndicator: React.FC = () => {
-  const className = useComponentStyles('tabs', { indicator: true });
+  const className = useComponentStyles('tabs', 'indicator');
 
   return (
     <span

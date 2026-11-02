@@ -61,17 +61,14 @@ export const Slider: React.FC<SliderProps> = ({
   disabled,
   ...restProps
 }) => {
-  const baseClass = useComponentStyles('slider', {
-    root: true,
-    variants: { size, intent, disabled },
+  const baseClass = useComponentStyles('slider', 'root', {
+    size,
+    intent,
+    disabled,
   });
-  const trackClass = useComponentStyles('slider', { track: true }, false);
-  const filledTrackClass = useComponentStyles(
-    'slider',
-    { filledTrack: true },
-    false,
-  );
-  const thumbClass = useComponentStyles('slider', { thumb: true }, false);
+  const trackClass = useComponentStyles('slider', 'track');
+  const filledTrackClass = useComponentStyles('slider', 'filledTrack');
+  const thumbClass = useComponentStyles('slider', 'thumb');
 
   const containerRef = useRef<HTMLDivElement>(null);
 

@@ -1,40 +1,45 @@
-import type { ComponentThemesProps } from '../config/componentThemes.js';
+import type {
+  ComponentThemeElement,
+  ComponentThemes,
+  ComponentThemeVariantsArg,
+} from '../config/componentThemes.js';
 import type { Theme } from '../theme/makeTheme.js';
 
-export function getComponentStyles<T extends keyof ComponentThemesProps>(
+/**
+ * Returns the class names of one Element of a Component theme.
+ *
+ * Variant classes, default variants and compound variants are added if and
+ * only if `variants` is passed, even as `{}`.
+ */
+export function getComponentStyles<T extends keyof ComponentThemes>(
   theme: Theme,
   name: T,
-  styleProps: ComponentThemesProps[T],
-  useDefaultVariants = true,
+  element: ComponentThemeElement<T>,
+  ...[variants]: ComponentThemeVariantsArg<T>
 ): string {
-  const component = theme.components[name];
-
-  if (!component) {
-    console.warn(`Component ${name} is not defined in the theme`);
-    return '';
-  }
-
+  const component = theme.components[name] as Record<string, unknown>;
   const classNames: string[] = [];
-  const variants = styleProps.variants;
-  const componentVariants = component.variants;
 
-  // Apply root styles (boolean props)
-  for (const key in styleProps) {
-    const value = styleProps[key];
+  const elementClassName = component[element];
 
-    if (value === true) {
-      const className = (component as Record<string, string>)[key];
-
-      if (className) {
-        classNames.push(className);
-      }
-    }
+  if (typeof elementClassName === 'string' && elementClassName) {
+    classNames.push(elementClassName);
   }
 
-  const defaultVariants = useDefaultVariants ? component.defaultVariants : null;
+  if (variants === undefined) {
+    return classNames.join(' ');
+  }
+
+  const selected = variants as Record<string, unknown>;
+  const defaultVariants = component.defaultVariants as
+    | Record<string, unknown>
+    | undefined;
+  const componentVariants = component.variants as
+    | Record<string, string | Record<string, string>>
+    | undefined;
 
   for (const key in componentVariants) {
-    const variantValue = variants?.[key] ?? defaultVariants?.[key];
+    const variantValue = selected[key] ?? defaultVariants?.[key];
 
     if (variantValue === undefined) continue;
 
@@ -44,10 +49,8 @@ export function getComponentStyles<T extends keyof ComponentThemesProps>(
       if (variantValue && typeof variantConfig === 'string') {
         classNames.push(variantConfig);
       }
-    } else {
-      const className = (variantConfig as Record<string, string>)[
-        variantValue as string
-      ];
+    } else if (typeof variantConfig === 'object') {
+      const className = variantConfig[variantValue as string];
 
       if (className) {
         classNames.push(className);
@@ -55,18 +58,18 @@ export function getComponentStyles<T extends keyof ComponentThemesProps>(
     }
   }
 
-  // Apply compound variants
-  const { compoundVariants } = component;
+  const compoundVariants = component.compoundVariants as
+    | { variants: Record<string, unknown>; style: string }[]
+    | undefined;
 
   if (compoundVariants) {
     for (const compoundVariant of compoundVariants) {
       let matches = true;
 
       for (const key in compoundVariant.variants) {
-        const expectedValue = compoundVariant.variants[key];
-        const actualValue = variants?.[key] ?? defaultVariants?.[key];
+        const actualValue = selected[key] ?? defaultVariants?.[key];
 
-        if (actualValue !== expectedValue) {
+        if (actualValue !== compoundVariant.variants[key]) {
           matches = false;
           break;
         }

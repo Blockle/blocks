@@ -74,14 +74,8 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
 }) => {
   const placement =
     placementProp ?? (position ? placementByPosition[position] : 'bottom');
-  const rootClassName = useComponentStyles('toast', {
-    root: true,
-    variants: { placement },
-  });
-  const toastClassName = useComponentStyles('toast', {
-    toast: true,
-    variants: { placement },
-  });
+  const rootClassName = useComponentStyles('toast', 'root', { placement });
+  const toastClassName = useComponentStyles('toast', 'toast', { placement });
   const [toasts, setToasts] = useState<Toast[]>([]);
   const toastsRef = useRef<Toast[]>(toasts);
   toastsRef.current = toasts;

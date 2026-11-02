@@ -34,9 +34,7 @@ export const IconMask: React.FC<IconMaskProps> = ({
   ...restProps
 }) => {
   const [atomsProps, otherProps] = getAtomsAndProps(restProps);
-  const iconClassName = useComponentStyles('icon', {
-    variants: { size },
-  });
+  const iconClassName = useComponentStyles('icon', 'root', { size });
 
   return (
     <span

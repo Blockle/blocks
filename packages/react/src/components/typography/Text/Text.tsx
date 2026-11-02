@@ -62,9 +62,8 @@ export const Text = <T extends Tags = 'span'>({
   ...restProps
 }: TextProps<T>) => {
   const Component = (tag ?? 'span') as Tags;
-  const themeClassName = useComponentStyles('text', {
-    root: true,
-    variants: { color: color as TextColorRole },
+  const themeClassName = useComponentStyles('text', 'root', {
+    color: color as TextColorRole,
   });
 
   return (

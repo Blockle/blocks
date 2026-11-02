@@ -84,7 +84,7 @@ export const Popover: React.FC<PopoverProps> = ({
   const [layout, setLayout] = useState<PopoverLayout>({ x: 0, y: 0 });
   const [visible, setVisible] = useState(open);
 
-  const popoverClassName = useComponentStyles('popover', { root: true }, false);
+  const popoverClassName = useComponentStyles('popover', 'root');
 
   const onEscape = useCallback(
     (event: KeyboardEvent) => {
