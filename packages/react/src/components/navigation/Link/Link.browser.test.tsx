@@ -1,3 +1,4 @@
+import { vars } from '@blockle/blocks-core';
 import { describe, expect, it } from 'vitest';
 
 import { render } from '../../../testUtils/browser/render.js';
@@ -60,5 +61,24 @@ describe('Link colors (browser)', () => {
 
     expect(style.color).toBe('rgb(0, 128, 0)');
     expect(style.fontWeight).toBe('700');
+  });
+});
+
+describe('Link shape (browser)', () => {
+  it('rounds with the theme border radius token 1', async () => {
+    const screen = await render(
+      <>
+        <Link href="/">Home</Link>
+        <div
+          data-testid="token"
+          style={{ borderRadius: vars.borderRadius[1] }}
+        />
+      </>,
+    );
+    const link = styleOf(screen.getByRole('link').element());
+    const token = styleOf(screen.getByTestId('token').element());
+
+    expect(token.borderRadius).not.toBe('0px');
+    expect(link.borderRadius).toBe(token.borderRadius);
   });
 });

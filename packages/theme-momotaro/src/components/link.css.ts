@@ -17,7 +17,7 @@ export const link: ThemeComponentsStyles['link'] = makeComponentTheme('link', {
           border: 'none',
           textDecoration: 'none',
           background: 'transparent',
-          borderRadius: 1,
+          borderRadius: vars.borderRadius[1],
           ':hover': {
             textDecoration: 'underline',
           },
