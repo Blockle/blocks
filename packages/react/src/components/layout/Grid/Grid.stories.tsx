@@ -138,3 +138,26 @@ export const Responsive = meta.story({
     gap: 2,
   },
 });
+
+export const MinColumnWidth = meta.story({
+  render(props) {
+    return (
+      <Grid {...props}>
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((cell) => (
+          <Box key={cell} padding={2} backgroundColor="primary-200">
+            {cell}
+          </Box>
+        ))}
+        <GridItem asChild colSpan={2}>
+          <Box padding={2} backgroundColor="primary-400">
+            colSpan=2 spans two auto-fill columns
+          </Box>
+        </GridItem>
+      </Grid>
+    );
+  },
+  args: {
+    minColumnWidth: 6,
+    gap: 2,
+  },
+});
