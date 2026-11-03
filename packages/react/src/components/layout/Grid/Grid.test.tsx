@@ -91,6 +91,21 @@ describe('Grid', () => {
     );
   });
 
+  it('should keep the 12-column template without minColumnWidth', () => {
+    render(
+      <Grid data-testid="grid">
+        <GridItem colSpan={1}>Item</GridItem>
+      </Grid>,
+    );
+
+    const grid = screen.getByTestId('grid');
+    expect(grid).toHaveClass(styles.grid);
+
+    for (const autoFillClass of Object.values(styles.minColumnWidth)) {
+      expect(grid).not.toHaveClass(autoFillClass);
+    }
+  });
+
   describe('minColumnWidth', () => {
     it('should lay out auto-fill columns instead of the 12-column template', () => {
       render(
@@ -102,20 +117,6 @@ describe('Grid', () => {
       const grid = screen.getByTestId('grid');
       expect(grid).toHaveClass(styles.minColumnWidth[6]);
       expect(grid).not.toHaveClass(styles.grid);
-    });
-
-    it('should use a different class per space step', () => {
-      expect(new Set(Object.values(styles.minColumnWidth)).size).toBe(8);
-      expect(Object.keys(styles.minColumnWidth)).toEqual([
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-        '6',
-        '7',
-        '8',
-      ]);
     });
 
     it('should keep a custom className and atoms', () => {

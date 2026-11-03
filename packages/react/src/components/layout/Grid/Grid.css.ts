@@ -5,8 +5,8 @@ export const grid = style({
   gridTemplateColumns: 'repeat(12, minmax(0, 1fr))',
 });
 
-// Unlayered like `grid`: apply one or the other, never both, so the template
-// keeps the same precedence for existing users.
+// Apply this or `grid`, never both. `grid` stays unlayered to keep its
+// precedence for existing users; this is new, so it sits in the molecule layer.
 export const minColumnWidth = styleVariants(
   {
     1: vars.space[1],
@@ -19,7 +19,11 @@ export const minColumnWidth = styleVariants(
     8: vars.space[8],
   },
   (width) => ({
-    gridTemplateColumns: `repeat(auto-fill, minmax(${width}, 1fr))`,
+    '@layer': {
+      [layers.molecule]: {
+        gridTemplateColumns: `repeat(auto-fill, minmax(${width}, 1fr))`,
+      },
+    },
   }),
 );
 
