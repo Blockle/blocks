@@ -1,5 +1,12 @@
 # @blockle/blocks-react
 
+## 3.5.0
+
+### Minor Changes
+
+- f809f93: `Grid` takes a `minColumnWidth` prop (`space` steps 1 to 8) that lays out auto-fill columns at least that wide, for icon and swatch grids. Without it `Grid` keeps its 12-column template.
+- 9ad4a6d: `menuRadioGroup()` adds `type: 'radio-group'` itself, so callers no longer pass `type`. Passing `type` in an object literal is now a type error. Breaking for callers that restated `type: 'radio-group'` since 3.4.0. Plain `MenuRadioGroupItem` object literals still need `type`.
+
 ## 3.4.0
 
 ### Minor Changes
