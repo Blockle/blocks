@@ -34,6 +34,7 @@ export type {
   ThemeTokens,
 } from './config/themeTokens.js';
 export { breakpointNames, minMediaQuery } from './css/breakpoint/breakpoint.js';
+export { choiceGroupVars } from './css/choiceGroupVars.css.js';
 // CSS Utils
 export {
   cssValueToNumber,

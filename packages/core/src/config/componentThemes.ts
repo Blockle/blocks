@@ -142,6 +142,19 @@ export type ProgressTheme = {
   };
 };
 
+export type ChoiceGroupTheme = {
+  // The wrapping row of choices
+  root: string;
+  // Each choice's label: the click target, drawn as a button or a swatch
+  item: string;
+  // The swatch inside an item of the `swatch` variant, painted with
+  // `choiceGroupVars.color`
+  swatch: string;
+  variants: {
+    variant: 'button' | 'swatch';
+  };
+};
+
 export type RadioTheme = {
   root: string;
   icon: string;
@@ -263,6 +276,7 @@ export type ComponentThemes = {
   menu: MenuTheme;
   popover: PopoverTheme;
   progress: ProgressTheme;
+  choiceGroup: ChoiceGroupTheme;
   radio: RadioTheme;
   select: SelectTheme;
   slider: SliderTheme;
