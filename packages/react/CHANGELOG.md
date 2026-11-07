@@ -1,5 +1,16 @@
 # @blockle/blocks-react
 
+## 3.5.0
+
+### Minor Changes
+
+- f809f93: `Grid` takes a `minColumnWidth` prop (`space` steps 1 to 8) that lays out auto-fill columns at least that wide, for icon and swatch grids. Without it `Grid` keeps its 12-column template.
+- 9ad4a6d: `menuRadioGroup()` adds `type: 'radio-group'` itself, so callers no longer pass `type`. Passing `type` in an object literal is now a type error. Breaking for callers that restated `type: 'radio-group'` since 3.4.0. Plain `MenuRadioGroupItem` object literals still need `type`.
+
+### Patch Changes
+
+- ffcab87: `Switch` now looks on whenever its input is checked, however it was set. Before, it kept its own copy of the checked state, so setting `input.checked` through the ref (react-hook-form `register` with `defaultValues`, `reset()`, `setValue()`) or a native form reset left an on switch looking off. The momotaro theme now styles the track and thumb from `input:checked`, and `Switch` no longer renders `data-checked`.
+
 ## 3.4.0
 
 ### Minor Changes
