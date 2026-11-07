@@ -46,6 +46,12 @@ _Avoid_: Part, which ADR-0008 already uses for compound components such as `Tab`
 A named position in a component, at its start or end, that holds content the consumer composes, such as an Icon or a Button. A Slot is named by where it sits, not by what goes in it. A component composes its actions through Slots rather than building them in.
 _Avoid_: Action, addon, adornment
 
+### Form
+
+**Choice group**:
+A set of buttons or colour swatches of which exactly one is checked, such as a colour or an icon for a project. Each choice is a native radio drawn as a button or a swatch, so the group is a radio group to the keyboard, to assistive technology and to forms. Choosing several at once is not a Choice group.
+_Avoid_: Toggle group, segmented control, swatch picker
+
 ### Navigation
 
 **Tab indicator**:
