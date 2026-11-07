@@ -101,12 +101,10 @@ describe('Switch', () => {
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange.mock.results[0]?.value).toBe(true);
     expect(input).not.toBeChecked();
-    expect(getTrack(input)).toHaveAttribute('data-checked', 'false');
 
     rerender(<Switch aria-label="Notify" checked onChange={onChange} />);
 
     expect(input).toBeChecked();
-    expect(getTrack(input)).toHaveAttribute('data-checked', 'true');
   });
 
   it('keeps its own state when uncontrolled', async () => {
@@ -119,6 +117,5 @@ describe('Switch', () => {
     await user.click(input);
 
     expect(input).not.toBeChecked();
-    expect(getTrack(input)).toHaveAttribute('data-checked', 'false');
   });
 });

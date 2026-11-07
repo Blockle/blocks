@@ -27,7 +27,7 @@ export const switchTheme: ThemeComponentsStyles['switch'] = makeComponentTheme(
               },
             },
             selectors: {
-              '&[data-checked="true"]': {
+              '&:has(input:checked)': {
                 backgroundColor: vars.colorRole.secondary.solid,
               },
             },
@@ -58,7 +58,8 @@ export const switchTheme: ThemeComponentsStyles['switch'] = makeComponentTheme(
           // Deliberately fixed: the thumb is white in every mode
           backgroundColor: vars.color.white,
           selectors: {
-            '&[data-checked="true"]': {
+            // The thumb follows the input, so it reads the input's own state
+            'input:checked ~ &': {
               transform: `translateX(20px) scale(${activeScaleFactor})`,
             },
           },

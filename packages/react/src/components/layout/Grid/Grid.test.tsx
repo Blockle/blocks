@@ -90,4 +90,66 @@ describe('Grid', () => {
       atoms({ display: 'inline-grid' }),
     );
   });
+
+  it('should keep the 12-column template without minColumnWidth', () => {
+    render(
+      <Grid data-testid="grid">
+        <GridItem colSpan={1}>Item</GridItem>
+      </Grid>,
+    );
+
+    const grid = screen.getByTestId('grid');
+    expect(grid).toHaveClass(styles.grid);
+
+    for (const autoFillClass of Object.values(styles.minColumnWidth)) {
+      expect(grid).not.toHaveClass(autoFillClass);
+    }
+  });
+
+  describe('minColumnWidth', () => {
+    it('should lay out auto-fill columns instead of the 12-column template', () => {
+      render(
+        <Grid minColumnWidth={6} data-testid="grid">
+          <GridItem colSpan={1}>Item</GridItem>
+        </Grid>,
+      );
+
+      const grid = screen.getByTestId('grid');
+      expect(grid).toHaveClass(styles.minColumnWidth[6]);
+      expect(grid).not.toHaveClass(styles.grid);
+    });
+
+    it('should keep a custom className and atoms', () => {
+      render(
+        <Grid minColumnWidth={3} gap={2} className="custom" data-testid="grid">
+          <GridItem colSpan={1}>Item</GridItem>
+        </Grid>,
+      );
+
+      expect(screen.getByTestId('grid')).toHaveClass(
+        styles.minColumnWidth[3],
+        'custom',
+        atoms({ display: 'grid', gap: 2 }),
+      );
+    });
+
+    it('should not forward minColumnWidth to the DOM', () => {
+      render(
+        <Grid minColumnWidth={4} data-testid="grid">
+          <GridItem colSpan={1}>Item</GridItem>
+        </Grid>,
+      );
+
+      const grid = screen.getByTestId('grid');
+      expect(grid).not.toHaveAttribute('mincolumnwidth');
+      expect(grid).not.toHaveAttribute('minColumnWidth');
+    });
+
+    it('should reject 0 and responsive values', () => {
+      // @ts-expect-error 0 is not a column width
+      render(<Grid minColumnWidth={0} />);
+      // @ts-expect-error responsive values are not supported
+      render(<Grid minColumnWidth={[4, 6]} />);
+    });
+  });
 });
