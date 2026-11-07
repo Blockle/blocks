@@ -5,7 +5,7 @@ import {
   composeRefs,
   type HTMLElementProps,
 } from '@blockle/blocks-core';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
 import * as styles from './switch.css.js';
@@ -18,30 +18,17 @@ export type SwitchProps = {
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 } & Omit<HTMLElementProps<HTMLInputElement>, 'onChange'>;
 
+// The input is the only source of truth for the checked state: themes style
+// the track and thumb from `input:checked`, so the look follows the input
+// however it was set (props, the user, a ref, or a form reset).
 export const Switch: React.FC<SwitchProps> = ({
-  checked,
   className,
-  defaultChecked,
-  onChange,
   ref,
   ...restProps
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [uncontrolledChecked, setUncontrolledChecked] = useState(
-    defaultChecked ?? false,
-  );
-  const isControlled = checked !== undefined;
-  const isChecked = isControlled ? checked : uncontrolledChecked;
   const baseClassName = useComponentStyles('switch', 'root');
   const thumbClassName = useComponentStyles('switch', 'thumb');
-
-  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!isControlled) {
-      setUncontrolledChecked(event.target.checked);
-    }
-
-    onChange?.(event);
-  };
 
   return (
     <>
@@ -49,7 +36,6 @@ export const Switch: React.FC<SwitchProps> = ({
       {/** biome-ignore lint/a11y/useKeyWithClickEvents: no tabindex needed on div, Safari needs special setting enabled for keyboard navigation.. */}
       <div
         className={classnames(className, styles.container, baseClassName)}
-        data-checked={isChecked}
         onClick={(event) => {
           // Clicks on the input itself (including those from a label or the
           // spacebar) already toggle it natively.
@@ -65,13 +51,10 @@ export const Switch: React.FC<SwitchProps> = ({
           // biome-ignore lint/a11y/useAriaPropsForRole: a checkbox input exposes its checked state natively, aria-checked would only duplicate it
           role="switch"
           className={styles.input}
-          checked={checked}
-          defaultChecked={defaultChecked}
-          onChange={onChangeHandler}
           ref={composeRefs(ref, inputRef)}
           {...restProps}
         />
-        <div className={thumbClassName} data-checked={isChecked} />
+        <div className={thumbClassName} />
       </div>
     </>
   );
