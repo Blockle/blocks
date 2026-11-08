@@ -65,6 +65,21 @@ export const Swatch = meta.story({
   ),
 });
 
+export const Uncontrolled = meta.story({
+  render: () => (
+    <ChoiceGroup aria-label="Colour" variant="swatch" defaultValue="teal">
+      {(Object.keys(colors) as Color[]).map((name) => (
+        <Choice<Color>
+          key={name}
+          value={name}
+          color={colors[name]}
+          aria-label={name}
+        />
+      ))}
+    </ChoiceGroup>
+  ),
+});
+
 export const Controlled = meta.story({
   render: () => {
     const [color, setColor] = useState<Color>('teal');

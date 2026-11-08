@@ -29,12 +29,19 @@ export type ChoiceProps<V extends string = string> = {
   disabled?: boolean;
   ref?: React.Ref<HTMLInputElement>;
   style?: React.CSSProperties;
+  /**
+   * The value this Choice stands for. It is only checked against the group's
+   * union when you pass the union as the type argument, `<Choice<Color> />`;
+   * otherwise any string is accepted.
+   */
   value: V;
 } & ChoiceLabel;
 
 /**
  * One option of a ChoiceGroup. Pass the group's value union as the type
  * argument, `<Choice<Color> value="teal" />`, to check `value` against it.
+ * Without the type argument `value` is any string: a Choice cannot read the
+ * union from its group.
  */
 export function Choice<V extends string = string>({
   children,

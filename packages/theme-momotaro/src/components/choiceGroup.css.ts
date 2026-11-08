@@ -8,7 +8,6 @@ import {
 import { style } from '@vanilla-extract/css';
 
 import { buttonHeight } from './buttonBase.css.js';
-import { focusable } from './helpers.css.js';
 
 const swatchSize = 40;
 
@@ -40,6 +39,10 @@ const buttonItem = style([
           },
         },
         selectors: {
+          // The focus ring is drawn by the base styles, not `focusable`
+          '&:has(:disabled)': {
+            opacity: 0.5,
+          },
           '&:hover:not(:has(:disabled))': {
             backgroundColor: vars.colorRole.primary.subtle,
           },
@@ -54,7 +57,6 @@ const buttonItem = style([
       },
     },
   },
-  focusable,
 ]);
 
 const swatchItem = style([
@@ -73,6 +75,9 @@ const swatchItem = style([
           },
         },
         selectors: {
+          '&:has(:disabled)': {
+            opacity: 0.5,
+          },
           '&:hover:not(:has(:disabled))': {
             borderColor: vars.colorRole.border.strong,
           },
@@ -83,7 +88,6 @@ const swatchItem = style([
       },
     },
   },
-  focusable,
 ]);
 
 export const choiceGroup: ThemeComponentsStyles['choiceGroup'] =
