@@ -49,6 +49,14 @@ export {
   type CheckboxProps,
 } from './components/form/Checkbox/Checkbox.js';
 export {
+  Choice,
+  type ChoiceProps,
+} from './components/form/ChoiceGroup/Choice.js';
+export {
+  ChoiceGroup,
+  type ChoiceGroupProps,
+} from './components/form/ChoiceGroup/ChoiceGroup.js';
+export {
   IconButton,
   type IconButtonProps,
 } from './components/form/IconButton/IconButton.js';

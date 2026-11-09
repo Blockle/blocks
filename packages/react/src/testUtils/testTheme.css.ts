@@ -30,6 +30,7 @@ export const testingTheme = makeTheme({
     alert: { root: '' },
     button: { root: '' },
     checkbox: { root: '', icon: '', label: '' },
+    choiceGroup: { root: '', item: '', swatch: '' },
     dialog: { dialog: '' },
     drawer: {},
     divider: { root: '' },

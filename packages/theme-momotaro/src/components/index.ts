@@ -8,6 +8,7 @@ import type { ThemeComponentsStyles } from '@blockle/blocks-core';
 import { alert } from './alert.css.js';
 import { button } from './button.css.js';
 import { checkbox } from './checkbox.css.js';
+import { choiceGroup } from './choiceGroup.css.js';
 import { dialog } from './dialog.css.js';
 import { divider } from './divider.css.js';
 import { drawer } from './drawer.css.js';
@@ -36,6 +37,7 @@ export const components: ThemeComponentsStyles = {
   alert,
   button,
   checkbox,
+  choiceGroup,
   dialog,
   divider,
   drawer,
