@@ -66,6 +66,10 @@ export {
   type NumericInputProps,
 } from './components/form/NumericInput/NumericInput.js';
 export { Radio, type RadioProps } from './components/form/Radio/Radio.js';
+export {
+  RadioGroup,
+  type RadioGroupProps,
+} from './components/form/Radio/RadioGroup.js';
 export { Select, type SelectProps } from './components/form/Select/Select.js';
 export { Slider, type SliderProps } from './components/form/Slider/Slider.js';
 export { Switch, type SwitchProps } from './components/form/Switch/Switch.js';
