@@ -51,7 +51,7 @@ describe('Toast', () => {
 
     await userEvent.click(await screen.findByRole('button', { name: 'Close' }));
 
-    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
   });
 });
 
@@ -84,7 +84,9 @@ describe('Toast Auto-dismiss', () => {
   };
 
   const getToast = (text: string) =>
-    screen.getByText(text).closest('[role="alert"]') as HTMLElement;
+    screen
+      .getByText(text)
+      .closest('[role="status"], [role="alert"]') as HTMLElement;
 
   beforeEach(() => {
     vi.useFakeTimers();

@@ -44,7 +44,7 @@ const renderToast = (
 /** Toasts are added from an effect, inside a view transition. */
 const findAlert = () =>
   vi.waitFor(() => {
-    const alert = document.querySelector('[role="alert"]');
+    const alert = document.querySelector('[role="alert"], [role="status"]');
 
     if (!alert) {
       throw new Error('No toast rendered yet');
@@ -128,9 +128,9 @@ const renderPlaced = (
 /** Finds the toast showing `Toast ${id}`, once its view transition has added it. */
 const findToast = (id: string) =>
   vi.waitFor(() => {
-    const alert = [...document.querySelectorAll('[role="alert"]')].find(
-      (element) => element.textContent?.includes(`Toast ${id}`),
-    );
+    const alert = [
+      ...document.querySelectorAll('[role="alert"], [role="status"]'),
+    ].find((element) => element.textContent?.includes(`Toast ${id}`));
 
     if (!alert) {
       throw new Error(`No toast ${id} rendered yet`);
