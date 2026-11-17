@@ -4,6 +4,8 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { resolve } from '../../../testUtils/browser/contrast.js';
 import { emulateColorScheme } from '../../../testUtils/browser/emulateColorScheme.js';
 import { render } from '../../../testUtils/browser/render.js';
+import { Box } from '../../layout/Box/Box.js';
+import { Inline } from '../../layout/Inline/Inline.js';
 import { Select } from './Select.js';
 
 const renderSelect = (
@@ -152,4 +154,47 @@ describe('Select chevron (browser)', () => {
 
     expect(chevronRect.left - selectRect.left).toBeCloseTo(16);
   });
+});
+
+describe('Select in a flex row (browser)', () => {
+  const renderRow = (title: string) =>
+    render(
+      <div style={{ inlineSize: 600 }}>
+        <Box asChild paddingBlock={2} paddingInline={3} borderRadius={2}>
+          <li data-testid="row">
+            <Inline gap={3} alignY="center" alignX="between">
+              <Inline gap={2} alignY="center" minInlineSize={0} flex={1}>
+                <span>{title}</span>
+              </Inline>
+              <Select size="small" aria-label="Triage" defaultValue="">
+                <option value="" disabled>
+                  needs-triage
+                </option>
+                <option value="ready-for-agent">ready-for-agent</option>
+                <option value="ready-for-human">ready-for-human</option>
+              </Select>
+            </Inline>
+          </li>
+        </Box>
+      </div>,
+    );
+
+  for (const [name, title] of [
+    ['a short title', 'Fix login'],
+    ['a title longer than the row', 'Long title '.repeat(20)],
+  ] as const) {
+    it(`stays inside the row at the end of an Inline with ${name}`, async () => {
+      const screen = await renderRow(title);
+      const row = screen.getByTestId('row').element() as HTMLElement;
+      const select = screen.getByLabelText('Triage').element() as HTMLElement;
+      const rowRect = row.getBoundingClientRect();
+      const selectRect = select.getBoundingClientRect();
+      const paddingEnd = Number.parseFloat(
+        getComputedStyle(row).paddingInlineEnd,
+      );
+
+      expect(selectRect.right).toBeLessThanOrEqual(rowRect.right - paddingEnd);
+      expect(selectRect.left).toBeGreaterThanOrEqual(rowRect.left);
+    });
+  }
 });
