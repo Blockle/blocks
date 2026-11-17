@@ -40,7 +40,11 @@ describe('BlocksProvider', () => {
       },
     );
 
-    expect(contextValue).toEqual({ theme: mockTheme, colorMode: 'system' });
+    expect(contextValue).toEqual({
+      theme: mockTheme,
+      colorMode: 'system',
+      icons: {},
+    });
   });
 
   it('applies the correct className and styles', () => {

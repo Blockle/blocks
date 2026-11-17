@@ -46,6 +46,10 @@ _Avoid_: Part, which ADR-0008 already uses for compound components such as `Tab`
 A named position in a component, at its start or end, that holds content the consumer composes, such as an Icon or a Button. A Slot is named by where it sits, not by what goes in it. A component composes its actions through Slots rather than building them in.
 _Avoid_: Action, addon, adornment
 
+**Icon set**:
+The icons Blocks draws inside its own components, such as Checkbox's check mark or the close × on a Toast, keyed by meaning (`check`, `close`). An app can override them through `icons` on `BlocksProvider` (ADR-0010). An icon the consumer puts in a Slot is Slot content, not part of the Icon set.
+_Avoid_: Icon theme, default icons
+
 ### Form
 
 **Choice group**:

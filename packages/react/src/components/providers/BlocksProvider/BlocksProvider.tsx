@@ -12,7 +12,9 @@ import { createSlottable } from '@blockle/blocks-react-slot';
 import { useContext, useEffect, useMemo } from 'react';
 
 import { useIsomorphicLayoutEffect } from '../../../hooks/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js';
-import { BlocksProviderContext } from './context.js';
+import { type BlocksIcons, BlocksProviderContext } from './context.js';
+
+export type { BlocksIcons } from './context.js';
 
 export type BlocksProviderProps = {
   children: React.ReactNode;
@@ -23,6 +25,12 @@ export type BlocksProviderProps = {
    * @default 'system'
    */
   colorMode?: ColorModeSetting;
+  /**
+   * Your own icons for the ones Blocks draws itself, such as Checkbox's check
+   * mark. Pass rendered elements (`{ check: <Check /> }`); keys left out keep
+   * Blocks' icons, or a parent BlocksProvider's.
+   */
+  icons?: Partial<BlocksIcons>;
   className?: string;
   style?: React.CSSProperties;
   asChild?: boolean;
@@ -57,6 +65,7 @@ export const BlocksProvider: React.FC<BlocksProviderProps> = ({
   children,
   theme,
   colorMode,
+  icons,
   className,
   ...restProps
 }) => {
@@ -78,12 +87,19 @@ export const BlocksProvider: React.FC<BlocksProviderProps> = ({
     }
   }, [ignoresColorMode]);
 
+  const parentIcons = parentContext?.icons;
+  const mergedIcons = useMemo(
+    () => ({ ...parentIcons, ...icons }),
+    [parentIcons, icons],
+  );
+
   const contextValue = useMemo(
     () => ({
       theme,
       colorMode: activeColorMode,
+      icons: mergedIcons,
     }),
-    [theme, activeColorMode],
+    [theme, activeColorMode, mergedIcons],
   );
 
   return (

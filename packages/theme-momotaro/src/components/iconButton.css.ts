@@ -28,8 +28,10 @@ const iconSize = {
   large: 28,
 };
 
+// Sizes a direct svg, or the wrapper Blocks draws its own icons in
+// (`data-blocks-icon`), such as NumericInput's step buttons
 for (const key of ['small', 'medium', 'large'] as const) {
-  globalStyle(`${sizeStyles[key]} > svg`, {
+  globalStyle(`${sizeStyles[key]} > :is(svg, [data-blocks-icon])`, {
     '@layer': {
       [layers.theme]: {
         inlineSize: iconSize[key],

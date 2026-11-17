@@ -25,4 +25,10 @@ export const input = style({
 
 export const icon = style({
   pointerEvents: 'none',
+  '@layer': {
+    [layers.molecule]: {
+      inlineSize: '1rem',
+      blockSize: '1rem',
+    },
+  },
 });
