@@ -87,7 +87,7 @@ export const Slider: React.FC<SliderProps> = ({
         progress = 1 - progress;
       }
 
-      setValue(max * progress);
+      setValue(min + (max - min) * progress);
     },
   });
 
@@ -137,6 +137,9 @@ export const Slider: React.FC<SliderProps> = ({
     [max, min, step, setValue, currentValue],
   );
 
+  const range = max - min;
+  const position = `${range === 0 ? 0 : ((currentValue - min) / range) * 100}%`;
+
   return (
     <div
       ref={containerRef}
@@ -150,7 +153,7 @@ export const Slider: React.FC<SliderProps> = ({
         <div
           className={classnames(styles.filledTrack, filledTrackClass)}
           style={{
-            inlineSize: `${(currentValue / max) * 100}%`,
+            inlineSize: position,
           }}
         />
       </div>
@@ -165,7 +168,7 @@ export const Slider: React.FC<SliderProps> = ({
         style={{
           [orientation === 'horizontal'
             ? 'insetInlineStart'
-            : 'insetInlineEnd']: `${(currentValue / max) * 100}%`,
+            : 'insetInlineEnd']: position,
         }}
         onKeyDown={onKeyDown}
         {...restProps}
