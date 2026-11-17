@@ -1,5 +1,15 @@
 # @blockle/blocks-theme-momotaro
 
+## 7.4.0
+
+### Minor Changes
+
+- 74f7541: Add `ChoiceGroup` and `Choice`: a single-choice group of native radios drawn as buttons or colour swatches (`variant="swatch"` with a `color` per `Choice`). It takes `value`, `defaultValue` and `onValueChange` typed over a union of values, and needs `aria-label` or `aria-labelledby`. A `choiceGroup` Component theme (`root`, `item`, `swatch`, `variant`) and `choiceGroupVars.color` come with it, and momotaro implements both variants.
+
+### Patch Changes
+
+- a6ff575: `BlocksProvider` takes an `icons` prop to replace the icons Blocks draws itself with your own: `check` (Checkbox), `chevronDown` (Select), `minus` and `plus` (NumericInput) and `close` (each Toast's close button), typed by the new `BlocksIcons` type. Pass rendered elements, such as `icons={{ check: <Check /> }}`, so a Server Component layout can pass them. Keys you leave out keep Blocks' icons, a nested `BlocksProvider` merges its `icons` over its parent's, and each component sizes and colors the icon you pass. Without `icons` nothing changes. Checkbox and Select now size their icons in their styles rather than inline, and momotaro's IconButton sizes these icons like a direct `svg`.
+
 ## 7.3.2
 
 ### Patch Changes
