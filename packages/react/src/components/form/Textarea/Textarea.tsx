@@ -64,13 +64,11 @@ export const Textarea: React.FC<TextareaProps> = ({
     <Box
       className={classnames(
         containerClassName,
+        grow && styles.containerGrow,
         fill && styles.containerFill,
         containerClassNameFromProps,
       )}
       style={{
-        // The theme's minimum height would keep a growing textarea from
-        // starting at a single row
-        minHeight: grow ? 'auto' : undefined,
         maxHeight: grow ? maxBlockSize : undefined,
         ...containerStyleFromProps,
       }}

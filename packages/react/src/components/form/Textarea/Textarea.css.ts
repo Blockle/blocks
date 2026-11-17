@@ -16,6 +16,16 @@ export const fieldSizingEnabled = style({
   fieldSizing: 'content',
 });
 
+// Sits above the theme, so the theme's minimum height can't keep a growing
+// textarea from starting at a single row, and below an app's own CSS
+export const containerGrow = style({
+  '@layer': {
+    [layers.atom]: {
+      minBlockSize: 'auto',
+    },
+  },
+});
+
 export const containerFill = style({
   '@layer': {
     [layers.molecule]: {

@@ -123,6 +123,33 @@ describe('Textarea grow height (browser)', () => {
     expect(container.scrollHeight).toBeGreaterThan(container.clientHeight);
   });
 
+  it('lets an app className set a minimum height on a grow textarea', async () => {
+    // First in <head>, so every Blocks stylesheet comes after it
+    const appStyles = document.createElement('style');
+    appStyles.textContent = '.app-min { min-height: 64px; }';
+    document.head.prepend(appStyles);
+
+    try {
+      const screen = await render(
+        <Textarea
+          aria-label="Reply"
+          grow
+          rows={1}
+          containerProps={{ className: 'app-min' }}
+        />,
+      );
+      const textarea = screen.getByLabelText('Reply').element();
+
+      if (!(textarea instanceof HTMLTextAreaElement)) {
+        throw new Error('Expected a textarea element');
+      }
+
+      expect(getComputedStyle(containerOf(textarea)).minHeight).toBe('64px');
+    } finally {
+      appStyles.remove();
+    }
+  });
+
   it('keeps the theme minimum height without grow', async () => {
     const screen = await render(<Textarea aria-label="Notes" rows={1} />);
     const textarea = screen.getByLabelText('Notes').element();
