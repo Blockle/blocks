@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import * as blocksReact from '../../../index.js';
 import { render, screen } from '../../../testUtils/testUtils.js';
 import { RadioGroup } from './RadioGroup.js';
 
@@ -13,5 +14,9 @@ describe('RadioGroup', () => {
     );
 
     expect(screen.getByRole('radiogroup')).toBeInTheDocument();
+  });
+
+  it('is exported from the package index', () => {
+    expect(blocksReact.RadioGroup).toBe(RadioGroup);
   });
 });
