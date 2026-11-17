@@ -8,7 +8,7 @@ import {
 import type React from 'react';
 
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
-import { ChevronDownIcon } from '../../../icons/icons.js';
+import { BuiltInIcon } from '../../../icons/BuiltInIcon.js';
 import { Box } from '../../layout/Box/Box.js';
 import * as styles from './select.css.js';
 
@@ -50,7 +50,7 @@ export const Select: React.FC<SelectProps> = ({
         role="presentation"
         aria-hidden
       >
-        <ChevronDownIcon style={{ width: '1rem', height: '1rem' }} />
+        <BuiltInIcon name="chevronDown" className={styles.chevron} />
       </Box>
     </Box>
   );

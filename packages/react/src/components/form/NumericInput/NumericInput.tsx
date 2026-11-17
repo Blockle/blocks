@@ -3,7 +3,7 @@
 import { classnames, composeRefs } from '@blockle/blocks-core';
 import { useCallback, useRef } from 'react';
 
-import { MinusIcon, PlusIcon } from '../../../icons/icons.js';
+import { BuiltInIcon } from '../../../icons/BuiltInIcon.js';
 import { IconButton } from '../IconButton/IconButton.js';
 import { TextInput, type TextInputProps } from '../TextInput/TextInput.js';
 import * as styles from './NumericInput.css.js';
@@ -78,7 +78,7 @@ export const NumericInput: React.FC<NumericInputProps> = ({
           size="small"
           onClick={onDecrement}
         >
-          <MinusIcon />
+          <BuiltInIcon name="minus" />
         </IconButton>
       }
       endSlot={
@@ -88,7 +88,7 @@ export const NumericInput: React.FC<NumericInputProps> = ({
           size="small"
           onClick={onIncrement}
         >
-          <PlusIcon />
+          <BuiltInIcon name="plus" />
         </IconButton>
       }
       onKeyDown={onKeyDown}

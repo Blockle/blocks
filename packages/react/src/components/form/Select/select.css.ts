@@ -31,3 +31,12 @@ export const icon = style({
     },
   },
 });
+
+export const chevron = style({
+  '@layer': {
+    [layers.molecule]: {
+      inlineSize: '1rem',
+      blockSize: '1rem',
+    },
+  },
+});

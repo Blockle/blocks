@@ -138,6 +138,7 @@ export {
 } from './components/overlay/Tooltip/Tooltip.js';
 // providers
 export {
+  type BlocksIcons,
   BlocksProvider,
   type BlocksProviderProps,
 } from './components/providers/BlocksProvider/BlocksProvider.js';

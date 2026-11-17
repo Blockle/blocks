@@ -5,7 +5,7 @@ import type React from 'react';
 import { useId } from 'react';
 
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
-import { CheckIcon } from '../../../icons/icons.js';
+import { BuiltInIcon } from '../../../icons/BuiltInIcon.js';
 import { Label } from '../Label/Label.js';
 import * as styles from './checkbox.css.js';
 
@@ -37,11 +37,10 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         className={styles.input}
         {...restProps}
       />
-      <div className={classnames(styles.icon, iconClassName)} aria-hidden>
-        <CheckIcon
-          style={{ width: '1rem', height: '1rem', display: 'block' }}
-        />
-      </div>
+      <BuiltInIcon
+        name="check"
+        className={classnames(styles.icon, iconClassName)}
+      />
     </div>
   );
 

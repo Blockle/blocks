@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 
 import { useComponentStyles } from '../../../hooks/useComponentStyles/useComponentStyles.js';
-import { CloseIcon } from '../../../icons/icons.js';
+import { BuiltInIcon } from '../../../icons/BuiltInIcon.js';
 import { IconButton } from '../../form/IconButton/IconButton.js';
 import { Alert } from '../Alert/Alert.js';
 import * as styles from './Toast.css.js';
@@ -231,7 +231,7 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
                   removeToast(id);
                 }}
               >
-                <CloseIcon />
+                <BuiltInIcon name="close" />
               </IconButton>
             }
           >
