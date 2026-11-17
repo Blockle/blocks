@@ -95,6 +95,47 @@ describe('Textarea (browser)', () => {
   });
 });
 
+describe('Textarea grow height (browser)', () => {
+  it('starts one line tall with rows={1} and grows up to maxBlockSize', async () => {
+    const screen = await render(
+      <Textarea aria-label="Message" grow rows={1} maxBlockSize="12rem" />,
+    );
+    const textarea = screen.getByLabelText('Message').element();
+
+    if (!(textarea instanceof HTMLTextAreaElement)) {
+      throw new Error('Expected a textarea element');
+    }
+
+    const container = containerOf(textarea);
+    const oneLine = textarea.offsetHeight;
+
+    // One line plus the container's block padding, well below the theme's 96px
+    expect(container.offsetHeight).toBeLessThan(48);
+
+    await screen.getByLabelText('Message').fill(lines(3));
+
+    expect(textarea.offsetHeight).toBeGreaterThan(oneLine * 2);
+
+    await screen.getByLabelText('Message').fill(lines(30));
+
+    // Stops at 12rem and scrolls
+    expect(getComputedStyle(container).height).toBe('192px');
+    expect(container.scrollHeight).toBeGreaterThan(container.clientHeight);
+  });
+
+  it('keeps the theme minimum height without grow', async () => {
+    const screen = await render(<Textarea aria-label="Notes" rows={1} />);
+    const textarea = screen.getByLabelText('Notes').element();
+
+    if (!(textarea instanceof HTMLTextAreaElement)) {
+      throw new Error('Expected a textarea element');
+    }
+
+    expect(getComputedStyle(containerOf(textarea)).minHeight).toBe('96px');
+    expect(textarea.offsetHeight).toBeGreaterThanOrEqual(96);
+  });
+});
+
 describe('Textarea container Atoms (browser)', () => {
   it('lets Atom props on containerProps beat the theme', async () => {
     const screen = await render(

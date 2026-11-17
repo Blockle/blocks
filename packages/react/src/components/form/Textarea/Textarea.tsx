@@ -13,7 +13,9 @@ import * as styles from './Textarea.css.js';
 export type TextareaProps = {
   value?: string;
   /**
-   * If true, the textarea will grow in height to fit its content.
+   * If true, the textarea will grow in height to fit its content. The
+   * theme's minimum height doesn't apply, so an empty textarea starts one
+   * line tall and grows up to `maxBlockSize`.
    */
   grow?: boolean;
   /**
@@ -66,6 +68,9 @@ export const Textarea: React.FC<TextareaProps> = ({
         containerClassNameFromProps,
       )}
       style={{
+        // The theme's minimum height would keep a growing textarea from
+        // starting at a single row
+        minHeight: grow ? 'auto' : undefined,
         maxHeight: grow ? maxBlockSize : undefined,
         ...containerStyleFromProps,
       }}
