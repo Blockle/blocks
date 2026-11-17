@@ -155,6 +155,7 @@ describe('Slider', () => {
 
   it('should keep min={0} pointer and placement behaviour', () => {
     render(<Slider min={0} max={10} step={1} defaultValue={0} />);
+
     pointerDownAt(0.3);
 
     expect(screen.getByRole('slider')).toHaveAttribute('aria-valuenow', '3');
