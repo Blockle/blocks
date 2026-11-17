@@ -5,6 +5,14 @@ export const stack = style({
   '@layer': {
     [layers.molecule]: {
       position: 'fixed',
+      // Undo the browser's popover styles, the placement sets the position
+      inset: 'auto',
+      margin: 0,
+      border: 'none',
+      padding: 0,
+      overflow: 'visible',
+      color: 'inherit',
+      background: 'none',
       display: 'flex',
       flexDirection: 'column',
       width: '100%',

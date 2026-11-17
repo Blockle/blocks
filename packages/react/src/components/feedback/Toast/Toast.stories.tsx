@@ -1,5 +1,8 @@
+import { useState } from 'react';
+
 import preview from '../../../../../../.storybook/preview.js';
 import { Button } from '../../form/Button/Button.js';
+import { Drawer } from '../../overlay/Drawer/Drawer.js';
 import type { Toast } from './ToastContext.js';
 import { type ToastPlacement, ToastProvider } from './ToastProvider.js';
 import { useToast } from './useToast.js';
@@ -97,4 +100,57 @@ export const BottomStart = meta.story({
     children: 'Message sent',
     placement: 'bottom-start',
   },
+});
+
+const ToastFromDrawer: React.FC<Omit<Toast, 'id'>> = ({
+  intent,
+  duration,
+  children,
+}) => {
+  const [open, setOpen] = useState(false);
+  const { showToast } = useToast();
+
+  return (
+    <>
+      <Button size="medium" onClick={() => setOpen(true)}>
+        Open Drawer
+      </Button>
+
+      <Drawer
+        open={open}
+        onRequestClose={() => setOpen(false)}
+        aria-label="Settings"
+      >
+        <Button
+          size="medium"
+          onClick={() => {
+            showToast({ duration, children, intent });
+          }}
+        >
+          Save
+        </Button>
+
+        <Button size="medium" variant="ghost" onClick={() => setOpen(false)}>
+          Close Drawer
+        </Button>
+      </Drawer>
+    </>
+  );
+};
+
+export const InADrawer = meta.story({
+  args: {
+    intent: 'success',
+    children: 'Saved',
+    placement: 'bottom',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A toast shown while a `Dialog` or `Drawer` is open renders in the topmost one, so it sits above it and can be clicked and focused. It moves back out when that one closes, without being announced again.',
+      },
+    },
+  },
+  render: (args) => <ToastFromDrawer {...args} />,
 });

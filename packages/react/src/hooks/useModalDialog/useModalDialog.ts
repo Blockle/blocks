@@ -4,6 +4,7 @@ import { hasAnimationDuration } from '@blockle/blocks-core';
 import { useCallback, useState } from 'react';
 
 import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js';
+import { pushModal } from './modalStack.js';
 
 /**
  * Shows a <dialog> as modal while `open` is true, and keeps it rendered
@@ -12,6 +13,9 @@ import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect/useIsomo
  * The dialog also closes whenever the effect is cleaned up while open, such as
  * when React hides it in an <Activity> or unmounts it, so it never lingers in
  * the top layer. Revealing it again shows it as modal.
+ *
+ * While shown as modal, the dialog is on the modal stack, so content such as
+ * toasts can render inside the topmost one.
  *
  * Render `openAttribute` as the dialog's `open` attribute. It is `open` on the
  * first render, so a server-rendered open dialog hydrates without a mismatch,
@@ -42,7 +46,10 @@ export const useModalDialog = (
 
       dialog.showModal();
 
+      const popModal = pushModal(dialog);
+
       return () => {
+        popModal();
         dialog.close();
       };
     }
