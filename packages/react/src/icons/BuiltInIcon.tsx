@@ -14,7 +14,7 @@ import { defaultIcons } from './defaultIcons.js';
  * Reads an icon of the Icon set from the nearest BlocksProvider, falling back
  * to Blocks' own. Internal: consumers import their own icons.
  */
-export function useBuiltInIcon(name: keyof BlocksIcons): React.ReactNode {
+function useBuiltInIcon(name: keyof BlocksIcons): React.ReactNode {
   const context = useContext(BlocksProviderContext);
 
   return context?.icons[name] ?? defaultIcons[name];

@@ -1,15 +1,18 @@
 import { layers } from '@blockle/blocks-core';
 import { globalStyle, style } from '@vanilla-extract/css';
 
-// The wrapper sets the icon's size; a component's own style (or a theme)
-// sizes it, and 1em is the fallback
+// The wrapper sets the icon's size. A component's own style or a theme sizes
+// it; the 1em fallback sits in the lowest layer so either always wins,
+// whatever order the stylesheets load in
 export const builtInIcon = style({
   '@layer': {
+    [layers.reset]: {
+      inlineSize: '1em',
+      blockSize: '1em',
+    },
     [layers.molecule]: {
       display: 'block',
       flexShrink: 0,
-      inlineSize: '1em',
-      blockSize: '1em',
     },
   },
 });
