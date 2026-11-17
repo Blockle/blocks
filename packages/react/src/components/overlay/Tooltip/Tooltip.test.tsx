@@ -51,4 +51,61 @@ describe('Tooltip', () => {
       'tooltip-primary',
     );
   });
+
+  it('should pass its HTML props to the tooltip popover and merge className with the theme class', async () => {
+    render(
+      <BlocksProvider theme={intentTheme}>
+        <Tooltip
+          content="Tooltip content"
+          className="custom-tooltip"
+          data-testid="tooltip-popover"
+        >
+          <button type="button">Trigger</button>
+        </Tooltip>
+      </BlocksProvider>,
+    );
+
+    expect(screen.getByRole('button')).not.toHaveClass('custom-tooltip');
+
+    await userEvent.hover(screen.getByRole('button'));
+
+    const tooltip = await screen.findByRole('tooltip', { hidden: true });
+
+    expect(tooltip).toHaveClass('custom-tooltip', 'tooltip-root');
+    expect(tooltip).toHaveAttribute('data-testid', 'tooltip-popover');
+  });
+
+  it('should keep its own id and role over passed props', async () => {
+    render(
+      <BlocksProvider theme={intentTheme}>
+        <Tooltip content="Tooltip content" id="override" role="dialog">
+          <button type="button">Trigger</button>
+        </Tooltip>
+      </BlocksProvider>,
+    );
+
+    await userEvent.hover(screen.getByRole('button'));
+
+    const tooltip = await screen.findByRole('tooltip', { hidden: true });
+
+    expect(tooltip.id).not.toBe('override');
+    expect(screen.getByRole('button')).toHaveAttribute(
+      'aria-describedby',
+      tooltip.id,
+    );
+  });
+
+  it('should render a React node as content', async () => {
+    render(
+      <BlocksProvider theme={intentTheme}>
+        <Tooltip content={<strong>Rich content</strong>}>
+          <button type="button">Trigger</button>
+        </Tooltip>
+      </BlocksProvider>,
+    );
+
+    await userEvent.hover(screen.getByRole('button'));
+
+    expect(await screen.findByText('Rich content')).toBeInTheDocument();
+  });
 });
