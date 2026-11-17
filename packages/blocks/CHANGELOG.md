@@ -1,5 +1,19 @@
 # @blockle/blocks
 
+## 3.6.0
+
+### Minor Changes
+
+- a6ff575: `BlocksProvider` takes an `icons` prop to replace the icons Blocks draws itself with your own: `check` (Checkbox), `chevronDown` (Select), `minus` and `plus` (NumericInput) and `close` (each Toast's close button), typed by the new `BlocksIcons` type. Pass rendered elements, such as `icons={{ check: <Check /> }}`, so a Server Component layout can pass them. Keys you leave out keep Blocks' icons, a nested `BlocksProvider` merges its `icons` over its parent's, and each component sizes and colors the icon you pass. Without `icons` nothing changes. Checkbox and Select now size their icons in their styles rather than inline, and momotaro's IconButton sizes these icons like a direct `svg`.
+- 74f7541: Add `ChoiceGroup` and `Choice`: a single-choice group of native radios drawn as buttons or colour swatches (`variant="swatch"` with a `color` per `Choice`). It takes `value`, `defaultValue` and `onValueChange` typed over a union of values, and needs `aria-label` or `aria-labelledby`. A `choiceGroup` Component theme (`root`, `item`, `swatch`, `variant`) and `choiceGroupVars.color` come with it, and momotaro implements both variants.
+
+### Patch Changes
+
+- f261566: `RadioGroup` and `RadioGroupProps` are now exported from the package. Wrap a set of `Radio`s in `RadioGroup` to give them the `radiogroup` role, and pass the id of a visible label as `aria-labelledby`.
+- 3562632: Slider: dragging and the filled track and thumb now respect a non-zero `min`. Pointer input maps onto `min..max`, and the fill and thumb sit at `(value - min) / (max - min)`.
+- 3808ef9: Textarea: `grow` drops the theme's minimum height, so a growing textarea starts one line tall and grows with its content up to `maxBlockSize`. A Textarea without `grow` keeps the theme's minimum height.
+- 3ccb208: `Tooltip` now passes its HTML props (`className`, `style`, `data-*`, `aria-*`) to the tooltip popover, the `role="tooltip"` element, instead of dropping them. `className` is merged with the tooltip theme class, and Tooltip keeps its own `id`, `role` and open state. `content` is typed as `React.ReactNode` again, so a node such as `<Stack>` no longer fails to type-check.
+
 ## 3.5.0
 
 ### Minor Changes
