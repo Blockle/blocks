@@ -159,7 +159,8 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
   const [prevModal, setPrevModal] = useState(modal);
 
   // A toast that moves with the stack is settled: without moveBefore, moving
-  // restarts animations, and its entry animation must not play again
+  // restarts animations, and its entry animation must not play again. A toast
+  // added in the same render as a move is settled too, and enters without it.
   if (modal !== prevModal) {
     setPrevModal(modal);
     setToasts((prev) => prev.map((toast) => ({ ...toast, settled: true })));
