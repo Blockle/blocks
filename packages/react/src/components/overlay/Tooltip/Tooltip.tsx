@@ -2,6 +2,7 @@
 
 import {
   type ComponentThemes,
+  classnames,
   composeRefs,
   type HTMLElementProps,
 } from '@blockle/blocks-core';
@@ -27,6 +28,12 @@ type ReactElement = React.ReactElement<
 
 type TooltipTheme = ComponentThemes['tooltip'];
 
+/**
+ * HTML props such as `className`, `style`, `data-*` and `aria-*` go to the
+ * tooltip popover, the `role="tooltip"` element, not to the trigger child.
+ * `className` is merged with the tooltip theme class. To style the trigger,
+ * put the props on the child itself.
+ */
 export type TooltipProps = {
   /**
    * Side of the child to open on, and which of its edges to line up with
@@ -37,17 +44,33 @@ export type TooltipProps = {
    * @deprecated Use `placement`, which wins when both are passed
    */
   position?: PopoverProps['position'];
+  /**
+   * The trigger: a single element that opens the tooltip on hover and focus
+   */
   children: ReactElement;
+  /**
+   * What the tooltip shows
+   */
   content: React.ReactNode;
   intent?: TooltipTheme['variants']['intent'];
-} & Omit<HTMLElementProps<HTMLDivElement>, 'ref' | 'children'>;
+} & Omit<HTMLElementProps<HTMLDivElement>, 'ref' | 'children' | 'content'>;
 
+/**
+ * Shows `content` in a popover while its single child is hovered or focused.
+ *
+ * HTML props (`className`, `style`, `data-*`, `aria-*`) go to the tooltip
+ * popover, the `role="tooltip"` element, not to the child; `className` is
+ * merged with the tooltip theme class. Its `id`, `role` and open state stay
+ * Tooltip's own. To style the trigger, put the props on the child.
+ */
 export const Tooltip: React.FC<TooltipProps> = ({
   placement,
   position,
   children,
   content,
   intent,
+  className,
+  ...restProps
 }) => {
   const id = useId();
   const ref = useRef<HTMLElement>(null);
@@ -105,6 +128,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
         'aria-describedby': open ? id : undefined,
       })}
       <Popover
+        {...restProps}
         id={id}
         role="tooltip"
         anchorElement={ref}
@@ -113,7 +137,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
           setOpen(false);
         }}
         placement={placement ?? position}
-        className={tooltipClassName}
+        className={classnames(tooltipClassName, className)}
       >
         {content}
       </Popover>
