@@ -40,6 +40,12 @@ _Avoid_: Style prop, sprinkle, utility class
 A named class in a Component theme for one rendered element of a component, such as `root`, `startSlot` or `bar`. Variants attach to whichever Element a component passes them to.
 _Avoid_: Part, which ADR-0008 already uses for compound components such as `Tab`
 
+### Layout
+
+**List**:
+A `ul` or `ol` that shows no markers but that assistive technology still announces as a list, with its number of items. Layout (direction and gap) comes from the `Stack` or `Inline` around it, not from the List itself.
+_Avoid_: Unstyled list, bare list
+
 ### Composition
 
 **Slot**:

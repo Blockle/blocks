@@ -10,5 +10,5 @@ A component renders its default element, and a consumer who needs a different on
 
 ## Consequences
 
-- Lists no longer drop their markers by default (T313). The component can't reliably tell its child's element, so consumers pass the `listStyle` Atom themselves: `<Stack asChild gap={2} listStyle="none"><ul>…</ul></Stack>`.
+- Lists no longer drop their markers by default (T313). The component can't reliably tell its child's element, so consumers pass the `listStyle` Atom themselves: `<Stack asChild gap={2} listStyle="none"><ul>…</ul></Stack>`. Since ADR-0010, a marker-less list uses the `List` component instead, which also keeps the list semantics WebKit drops.
 - This was a breaking change released as a minor version, a deliberate call for a hobby project.
